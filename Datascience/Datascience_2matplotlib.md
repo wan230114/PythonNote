@@ -1,4 +1,4 @@
-数据分析DAY02
+# 01 numpy
 
 # 1. matplotlib概述
 
@@ -31,6 +31,11 @@ matplotlib是python的一个绘图库。使用它可以很方便的绘制出版�
 
 # 2. matplotlib基本功能详解
 
+```python
+# 包的导入
+import matplotlib.pyplot as mp
+```
+
 ## 2.1. 基本绘图
 
 ### 2.1.1. 绘图核心API
@@ -38,31 +43,21 @@ matplotlib是python的一个绘图库。使用它可以很方便的绘制出版�
 案例：绘制一条正弦曲线
 
 ```python
-import matplotlib.pyplot as mp
-# xarray: <序列> 水平坐标序列
-# yarray: <序列> 垂直坐标序列
-xarray = [0, 2, 3]
-yarray = [0, 2, 4]
+xarray = [0, 2, 3]  # xarray: <序列> 水平坐标序列
+yarray = [0, 2, 4]  # yarray: <序列> 垂直坐标序列
 mp.plot(xarray, yarray)
-#显示图表
-mp.show()
+mp.show()  #显示图表
 ```
 
 绘制水平线与垂直线：
 
 ```python
-import matplotlib.pyplot as mp
-# vertical 绘制垂直线
-# mp.vlines(vval, ymin, ymax, ...)
-mp.vlines(3, 2, 10)
-# horizotal 绘制水平线
-# mp.hlines(xval, xmin, xmax, ...)
-mp.hlines(5, 1, 15)
-#显示图表
-mp.show()
+mp.vlines(3, 2, 10)  # vertical 绘制垂直线  mp.vlines(vval, ymin, ymax, ...)
+mp.hlines(5, 1, 15)  # horizotal 绘制水平线  mp.hlines(xval, xmin, xmax, ...)
+mp.show()  #显示图表
 ```
 
-### 2.1.2. 线型、线宽和颜色
+### 2.1.2. 线型、线宽和
 
 案例：绘制一条正弦曲线
 
@@ -76,7 +71,6 @@ alpha: <关键字参数> 透明度
 		浮点数值
 '''
 import numpy as np
-import matplotlib.pyplot as mp
 xarray = [1, 4, 8, 10]
 yarray = [4, 1, 3, 9]
 # ":"   0.7透明度  3倍线宽   颜色red
@@ -84,41 +78,33 @@ mp.plot(xarray, yarray, linestyle='-', linewidth=3, color='red', alpha=0.7)
 mp.show()
 ```
 
-### 2.1.3. 设置坐标轴范围
+### 2.1.3. 设置坐标轴范围  mp.xlim/mp.ylim
 
 案例：把坐标轴范围设置为 -π ~ π
 
 ```python
-import matplotlib.pyplot as mp
-x_limt_min, x_limit_max = 0, 10
+# x_limt_min / x_limit_max: <float> x轴范围最小值/x轴范围最大值
+# y_limt_min / y_limit_max: <float> y轴范围最小值，y轴范围最大值
 y_limt_min, y_limit_max = -2, 14
-#x_limt_min:	<float> x轴范围最小值
-#x_limit_max:	<float> x轴范围最大值
+x_limt_min, x_limit_max = 0, 10
 mp.xlim(x_limt_min, x_limit_max)
-#y_limt_min:	<float> y轴范围最小值
-#y_limit_max:	<float> y轴范围最大值
 mp.ylim(y_limt_min, y_limit_max)
 mp.show()
 ```
 
-### 2.1.4. 设置坐标刻度
+### 2.1.4. 设置坐标刻度 mp.xticks/mp.yticks
 
 案例：把横坐标的刻度显示为：0, π/2, π, 3π/2, 2π
 
 ```python
-import matplotlib.pyplot as mp
-x_val_list , x_text_list = [0,1,2,4,6], [0,4,6,8]
-y_val_list , y_text_list = [0,1,2,4,6], [0,4,6,8]
-#x_val_list: 	x轴刻度值序列
-#x_text_list:	x轴刻度标签文本序列 [可选]
-mp.xticks(x_val_list , x_text_list )
-#y_val_list: 	y轴刻度值序列
-#y_text_list:	y轴刻度标签文本序列 [可选]
-mp.yticks(y_val_list , y_text_list )
+# x_val_list:  x轴刻度值序列, x_text_list: x轴刻度标签文本序列 [可选]
+# y_val_list:  y轴刻度值序列, y_text_list: y轴刻度标签文本序列 [可选]
+mp.xticks([1, 2, 3, 4, 5], [0, 2, 4] )
+mp.yticks([1, 2, 3, 4, 5], [0, 2, 5] )
 mp.show()
 ```
 
-### 2.1.5. 设置坐标轴
+### 2.1.5. 设置坐标轴 mp.gca().spines('left').set...
 
 坐标轴名：left / right / bottom / top
 
@@ -126,45 +112,49 @@ mp.show()
 # 获取当前坐标轴字典，{'left':左轴,'right':右轴,'bottom':下轴,'top':上轴 }
 ax = mp.gca()
 # 获取其中某个坐标轴
-axis = ax.spines['坐标轴名']  # 坐标轴名：left, right, bottom, top
-axis.set_position((type, val))
+axis = ax.spines['left']  # 坐标轴名：left, right, bottom, top
+axis.set_position(('data', 0))
 # 设置坐标轴的位置。 该方法需要传入2个元素的元组作为参数
     # type: <str> 移动坐标轴的参照类型  一般为'data' (以数据的值作为移动参照值)
     # val:  参照值
 # 设置坐标轴的颜色
-axis.set_color(color)
-# color: <str> 颜色值字符串
+axis.set_color('red')  # color: <str> 颜色值字符串
+mp.yticks([-1, -0.5, 0.5, 1])
+mp.xticks([-2, -1, 1, 2])
+mp.show()
 ```
 
 案例：设置坐标轴至中心。
 
 ```python
 # 设置坐标轴, 设置顶部右侧线条为无, 设置右下居右
-import matplotlib.pyplot as mp
 ax = mp.gca()
 ax.spines['top'].set_color('none')
 ax.spines['right'].set_color('none')
 ax.spines['left'].set_position(('data', 0))
 ax.spines['bottom'].set_position(('data', 0))
+ax.spines['bottom'].set_color('red')
 mp.yticks([-1, -0.5, 0.5, 1])
 mp.xticks([-1, -0.5, 0.5, 1])
 mp.show()
 ```
 
-### 2.1.6. 图例
+### 2.1.6. 图例 mp.legend
 
 显示两条曲线的图例，并测试loc属性。
 
 ```python
 # 再绘制曲线时定义曲线的label
-import matplotlib.pyplot as mp
 
 # label: <关键字参数 str> 支持LaTex排版语法字符串
 xarray = [0,   1, 2,   3, 4]
 yarray = [0, 0.5, 1, 1.5, 2]
-mp.plot(xarray, yarray）
+mp.plot(xarray, yarray)
+# label 定义曲线名称，为后续显示图例准备
 mp.plot(xarray, yarray, label=r'$y=\frac{1}{2}x$')
-
+# loc 设置图例
+mp.legend(loc='best')
+mp.show()
 # 设置图例的位置
 # loc: <关键字参数> 制定图例的显示位置 (若不设置loc，则显示默认位置)
 #	 ===============   =============
@@ -182,8 +172,6 @@ mp.plot(xarray, yarray, label=r'$y=\frac{1}{2}x$')
 #    'upper center'    9
 #    'center'          10
 #    ===============   =============
-mp.legend(loc='best')
-mp.show()
 ```
 
 ***刻度文本的特殊语法*** -- *LaTex排版语法字符串*
@@ -206,7 +194,6 @@ $$
 案例：绘制当x=3π/4时两条曲线上的特殊点。
 
 ```python
-import matplotlib.pyplot as mp
 # xarray: <序列> 所有需要标注点的水平坐标组成的序列
 # yarray: <序列> 所有需要标注点的垂直坐标组成的序列
 xarray = [1, 2, 3, 4]
@@ -234,7 +221,6 @@ mp.show()
 ```python
 # 在图表中为某个点添加备注。包含备注文本，备注箭头等图像的设置。
 import numpy as np
-import matplotlib.pyplot as mp
 mp.annotate(
     r'$(\frac{\pi}{4}, 5)$',	#备注中显示的文本内容
     xycoords='data',			#备注目标点所使用的坐标系（data表示数据坐标系）
@@ -294,7 +280,6 @@ Name           Attrs
 demo02_plot.py  基本绘图案例
 """
 import numpy as np
-import matplotlib.pyplot as mp
 
 # 绘制正弦图像
 # 从0到2π区间拆1000个点
@@ -371,7 +356,6 @@ mp.show()
 
 案例：绘制两个窗口，一起显示。
 ```python
-import matplotlib.pyplot as mp
 # 手动构建 matplotlib 窗口
 mp.figure(
     '文本1',			#窗口标题栏文本 
@@ -410,7 +394,6 @@ mp.tight_layout()
 """
 demo03_figure.py  窗口相关测试
 """
-import matplotlib.pyplot as mp
 mp.figure('Figure Title A',
           facecolor='lightgray')
 mp.figure('Figure Title B',
@@ -436,7 +419,6 @@ mp.show()
 绘制矩阵式子图布局相关API：
 
 ```python
-import matplotlib.pyplot as mp
 mp.figure('Subplot Layout', facecolor='lightgray')
 # 拆分矩阵
 	# rows:	行数
@@ -459,7 +441,6 @@ mp.show()
 """
 demo04_subplot.py  矩阵式子图
 """
-import matplotlib.pyplot as mp
 
 mp.figure('Subplot', facecolor='lightgray')
 for i in range(1, 10):
@@ -500,7 +481,6 @@ mp.show()
 """
 demo05_gridsubplot.py  网格式子图布局
 """
-import matplotlib.pyplot as mp
 import matplotlib.gridspec as mg
 
 mp.ion()  # 开启一个画图的窗口
@@ -546,7 +526,6 @@ mp.show()
 自由式布局相关API：
 
 ```python
-import matplotlib.pyplot as mp
 mp.figure('Flow Layout', facecolor='lightgray')
 # 设置图标的位置，给出左下角点坐标与宽高即可
 # left_bottom_x: 左下角点x坐标
@@ -575,7 +554,6 @@ ax.xaxis.set_minor_locator(mp.MultipleLocator(0.1))
 案例：绘制一个数轴。
 
 ```python
-import matplotlib.pyplot as mp
 
 mp.figure('Locators', facecolor='lightgray')
 
@@ -603,7 +581,6 @@ mp.text(5, 0.3, 'NullLocator()', ha='center', size=12)
 demo07_locators.py  刻度定位器
 """
 import numpy as np
-import matplotlib.pyplot as mp
 locators = ['mp.NullLocator()', 
 			'mp.MultipleLocator(2)', 
 			'mp.MaxNLocator(nbins=4)']
@@ -776,7 +753,6 @@ mp.fill_between(
 demo01_fill.py  填充
 """
 import numpy as np
-import matplotlib.pyplot as mp
 
 x = np.linspace(0, 8*np.pi, 1000)
 sinx = np.sin(x)
@@ -860,7 +836,6 @@ mp.pie(
 demo03_pie.py  饼状图
 """
 import numpy as np
-import matplotlib.pyplot as mp
 
 labels=['Python', 'Javascript', 'C++', 
 		'Java', 'PHP']
@@ -991,7 +966,6 @@ ax3d.scatter(
 demo06_3dscatter.py  3维点阵图
 """
 import numpy as np
-import matplotlib.pyplot as mp
 from mpl_toolkits.mplot3d import axes3d
 
 n = 500
@@ -1180,7 +1154,6 @@ anim = ma.FuncAnimation(mp.gcf(), update, generator,interval=10)
 
 ```python
 import numpy as np
-import matplotlib.pyplot as mp
 import matplotlib.animation as ma
 
 
@@ -1280,7 +1253,6 @@ dates, opening_prices,highest_prices, \
 ```python
 import numpy as np
 import datetime as dt
-import matplotlib.pyplot as mp
 import matplotlib.dates as md
 
 # 绘制k线图，x为日期
