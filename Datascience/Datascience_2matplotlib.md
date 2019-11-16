@@ -1,4 +1,43 @@
-#  02 matplotlib概述
+# 02 matplotlib概述
+
+# 目录
+
+- [02 matplotlib概述](#02-matplotlib%e6%a6%82%e8%bf%b0)
+- [目录](#%e7%9b%ae%e5%bd%95)
+- [1. matplotlib概述](#1-matplotlib%e6%a6%82%e8%bf%b0)
+  - [1.1. matplotlib基本功能](#11-matplotlib%e5%9f%ba%e6%9c%ac%e5%8a%9f%e8%83%bd)
+  - [1.2. 包的导入](#12-%e5%8c%85%e7%9a%84%e5%af%bc%e5%85%a5)
+- [2. matplotlib基本功能详解](#2-matplotlib%e5%9f%ba%e6%9c%ac%e5%8a%9f%e8%83%bd%e8%af%a6%e8%a7%a3)
+  - [2.1. 基本绘图](#21-%e5%9f%ba%e6%9c%ac%e7%bb%98%e5%9b%be)
+    - [2.1.1. 绘图核心API: mp.plot](#211-%e7%bb%98%e5%9b%be%e6%a0%b8%e5%bf%83api-mpplot)
+    - [2.1.2. 绘制水平线与垂直线：mp.vlines, mp.hlines](#212-%e7%bb%98%e5%88%b6%e6%b0%b4%e5%b9%b3%e7%ba%bf%e4%b8%8e%e5%9e%82%e7%9b%b4%e7%ba%bfmpvlines-mphlines)
+    - [2.1.3. 设置坐标轴范围 mp.xlim/mp.ylim](#213-%e8%ae%be%e7%bd%ae%e5%9d%90%e6%a0%87%e8%bd%b4%e8%8c%83%e5%9b%b4-mpxlimmpylim)
+    - [2.1.4. 设置坐标刻度 mp.xticks/mp.yticks](#214-%e8%ae%be%e7%bd%ae%e5%9d%90%e6%a0%87%e5%88%bb%e5%ba%a6-mpxticksmpyticks)
+    - [2.1.5. 设置坐标轴 mp.gca().spines().set_...](#215-%e8%ae%be%e7%bd%ae%e5%9d%90%e6%a0%87%e8%bd%b4-mpgcaspinesset)
+    - [2.1.6. 图例 mp.legend](#216-%e5%9b%be%e4%be%8b-mplegend)
+    - [2.1.7. 特殊点标注绘制: mp.scatter](#217-%e7%89%b9%e6%ae%8a%e7%82%b9%e6%a0%87%e6%b3%a8%e7%bb%98%e5%88%b6-mpscatter)
+    - [2.1.8. 备注: mp.annotate](#218-%e5%a4%87%e6%b3%a8-mpannotate)
+    - [2.1.9. 绘图案例](#219-%e7%bb%98%e5%9b%be%e6%a1%88%e4%be%8b)
+  - [2.2. 图形对象（图形窗口）](#22-%e5%9b%be%e5%bd%a2%e5%af%b9%e8%b1%a1%e5%9b%be%e5%bd%a2%e7%aa%97%e5%8f%a3)
+    - [2.2.1. 图形窗口创建及选择: mp.figure](#221-%e5%9b%be%e5%bd%a2%e7%aa%97%e5%8f%a3%e5%88%9b%e5%bb%ba%e5%8f%8a%e9%80%89%e6%8b%a9-mpfigure)
+    - [2.2.2. 设置当前窗口的参数: mp.title/mp.xlabel/mp.tick_params](#222-%e8%ae%be%e7%bd%ae%e5%bd%93%e5%89%8d%e7%aa%97%e5%8f%a3%e7%9a%84%e5%8f%82%e6%95%b0-mptitlempxlabelmptickparams)
+    - [2.2.3. 子图](#223-%e5%ad%90%e5%9b%be)
+      - [2.2.3.1. 矩阵式布局: mp.subplot](#2231-%e7%9f%a9%e9%98%b5%e5%bc%8f%e5%b8%83%e5%b1%80-mpsubplot)
+      - [2.2.3.2. 网格式布局: mp.subplot(mg.GridSpec(3, 3)[0, :2])](#2232-%e7%bd%91%e6%a0%bc%e5%bc%8f%e5%b8%83%e5%b1%80-mpsubplotmggridspec3-30-2)
+      - [2.2.3.3. 自由式布局: mp.axes](#2233-%e8%87%aa%e7%94%b1%e5%bc%8f%e5%b8%83%e5%b1%80-mpaxes)
+    - [2.2.4. 刻度定位器: mp.gca().xaxis.set_major_locator()](#224-%e5%88%bb%e5%ba%a6%e5%ae%9a%e4%bd%8d%e5%99%a8-mpgcaxaxissetmajorlocator)
+    - [2.2.5. 刻度网格线: mp.gca().grid()](#225-%e5%88%bb%e5%ba%a6%e7%bd%91%e6%a0%bc%e7%ba%bf-mpgcagrid)
+    - [2.2.6. 半对数坐标: mp.semilogy](#226-%e5%8d%8a%e5%af%b9%e6%95%b0%e5%9d%90%e6%a0%87-mpsemilogy)
+    - [2.2.7. 散点图: mp.scatter](#227-%e6%95%a3%e7%82%b9%e5%9b%be-mpscatter)
+    - [2.2.8. 填充](#228-%e5%a1%ab%e5%85%85)
+    - [2.2.9. 条形图（柱状图）](#229-%e6%9d%a1%e5%bd%a2%e5%9b%be%e6%9f%b1%e7%8a%b6%e5%9b%be)
+    - [2.2.10. 饼图](#2210-%e9%a5%bc%e5%9b%be)
+    - [2.2.11. 等高线图](#2211-%e7%ad%89%e9%ab%98%e7%ba%bf%e5%9b%be)
+    - [2.2.12. 热成像图](#2212-%e7%83%ad%e6%88%90%e5%83%8f%e5%9b%be)
+    - [2.2.13. 3D图像绘制](#2213-3d%e5%9b%be%e5%83%8f%e7%bb%98%e5%88%b6)
+    - [2.2.14. 极坐标系](#2214-%e6%9e%81%e5%9d%90%e6%a0%87%e7%b3%bb)
+    - [2.2.15. 简单动画](#2215-%e7%ae%80%e5%8d%95%e5%8a%a8%e7%94%bb)
+  - [2.3. 加载文件](#23-%e5%8a%a0%e8%bd%bd%e6%96%87%e4%bb%b6)
 
 # 1. matplotlib概述
 
@@ -29,16 +68,17 @@ matplotlib是python的一个绘图库。使用它可以很方便的绘制出版�
    12. 三维曲面
    13. 简单动画
 
-# 2. matplotlib基本功能详解
-
+## 1.2. 包的导入
 ```python
 # 包的导入
 import matplotlib.pyplot as mp
 ```
 
+# 2. matplotlib基本功能详解
+
 ## 2.1. 基本绘图
 
-### 2.1.1. 绘图核心API
+### 2.1.1. 绘图核心API: mp.plot
 
 绘制一条正弦曲线
 
@@ -67,7 +107,7 @@ mp.show()
 ```
 
 
-### 绘制水平线与垂直线：
+### 2.1.2. 绘制水平线与垂直线：mp.vlines, mp.hlines
 
 ```python
 # x轴起点，y轴起点，y轴终点
@@ -103,7 +143,7 @@ mp.yticks([1, 2, 3, 4, 5], [0, 2, 5] )
 mp.show()
 ```
 
-### 2.1.5. 设置坐标轴 mp.gca().spines('left').set...
+### 2.1.5. 设置坐标轴 mp.gca().spines().set_...
 
 坐标轴名：left / right / bottom / top
 
@@ -205,7 +245,7 @@ $$
  -\frac{\pi}{2}
 $$
 
-### 2.1.7. 特殊点
+### 2.1.7. 特殊点标注绘制: mp.scatter
 
 案例：绘制当x=3π/4时两条曲线上的特殊点。
 
@@ -230,7 +270,7 @@ mp.show()
 
 
 
-### 2.1.8. 备注
+### 2.1.8. 备注: mp.annotate
 
 案例：为在某条曲线上的点添加备注，指明函数方程与值。
 
@@ -290,11 +330,12 @@ Name           Attrs
 ============   =============================================
 
 ```
-
+### 2.1.9. 绘图案例
 ```python
 """
 demo02_plot.py  基本绘图案例
 """
+import matplotlib.pyplot as mp
 import numpy as np
 
 # 绘制正弦图像
@@ -370,19 +411,22 @@ mp.show()
 
 ## 2.2. 图形对象（图形窗口）
 
+### 2.2.1. 图形窗口创建及选择: mp.figure
+
 案例：绘制两个窗口，一起显示。
 ```python
 # 手动构建 matplotlib 窗口
 mp.figure(
-    '文本1',			#窗口标题栏文本 
+    '文本1',			#窗口标题栏文本
     figsize=(4, 3),		#窗口大小 <元组>
     dpi=120,			#像素密度
     facecolor='green'	#图表背景色
 )
+mp.show()
 ```
 mp.figure方法不仅可以构建一个新窗口，如果已经构建过title='A'的窗口，又使用figure方法构建了title='A' 的窗口的话，mp将不会创建新的窗口，而是把title='A'的窗口置为当前操作窗口。
 
-**设置当前窗口的参数**
+### 2.2.2. 设置当前窗口的参数: mp.title/mp.xlabel/mp.tick_params
 
 案例：测试窗口相关参数
 
@@ -428,9 +472,9 @@ mp.show()
 ```
 
 
-### 2.2.1. 子图
+### 2.2.3. 子图
 
-#### 2.2.1.1. **矩阵式布局**
+#### 2.2.3.1. 矩阵式布局: mp.subplot
 
 绘制矩阵式子图布局相关API：
 
@@ -469,7 +513,7 @@ mp.tight_layout()
 mp.show()
 ```
 
-#### 2.2.1.2. **网格式布局**
+#### 2.2.3.2. 网格式布局: mp.subplot(mg.GridSpec(3, 3)[0, :2])
 
 网格式布局支持单元格的合并。
 
@@ -483,7 +527,7 @@ mp.figure('Grid Layout', facecolor='lightgray')
 # rows:	行数
 # cols:	列数
 # gs = mg.GridSpec(rows, cols)	拆分成3行3列
-gs = mg.GridSpec(3, 3)	
+gs = mg.GridSpec(3, 3)
 
 # 合并0行与0、1列为一个子图表
 mp.subplot(gs[0, :2])
@@ -537,24 +581,26 @@ mp.tight_layout()
 mp.show()
 ```
 
-#### 2.2.1.3. **自由式布局**
+#### 2.2.3.3. 自由式布局: mp.axes
 
 自由式布局相关API：
 
 ```python
+'''
+设置图标的位置，给出左下角点坐标与宽高即可
+left_bottom_x: 左下角点x坐标
+left_bottom_y: 左下角点y坐标
+width:		 宽度
+height:		 高度
+mp.axes([left_bottom_x, left_bottom_y, width, height])
+'''
 mp.figure('Flow Layout', facecolor='lightgray')
-# 设置图标的位置，给出左下角点坐标与宽高即可
-# left_bottom_x: 左下角点x坐标
-# left_bottom_y: 左下角点y坐标
-# width:		 宽度
-# height:		 高度
-# mp.axes([left_bottom_x, left_bottom_y, width, height])
 mp.axes([0.2, 0.5, 0.3, 0.4])
 mp.text(0.5, 0.5, '1', ha='center', va='center', size=36)
 mp.show()
 ```
 
-### 2.2.2. 刻度定位器
+### 2.2.4. 刻度定位器: mp.gca().xaxis.set_major_locator()
 
 刻度定位器相关API：
 
@@ -566,28 +612,37 @@ ax.xaxis.set_major_locator(mp.NullLocator())
 # 设置水平坐标轴的次刻度定位器为多点定位器，间隔0.1
 ax.xaxis.set_minor_locator(mp.MultipleLocator(0.1))
 ```
+常用刻度器如下
+
+| 刻度器                                     | 解释                                                       |
+| ------------------------------------------ | ---------------------------------------------------------- |
+| mp.NullLocator()                           | 空定位器: 不绘制刻度                                       |
+| mp.MaxNLocator(nbins=3)                    | 最大值定位器: 最多绘制nbins+1个刻度                        |
+| mp.FixedLocator(locs=[0, 2.5, 5, 7.5, 10]) | 定点定位器: 根据locs参数中的位置绘制刻度                   |
+| mp.AutoLocator()                           | 自动定位器: 由系统自动选择刻度的绘制位置                   |
+| mp.IndexLocator(offset=0.5, base=1.5)      | 索引定位器: 由offset确定起始刻度，由base确定相邻刻度的间隔 |
+| mp.MultipleLocator()                       | 多点定位器: 从0开始，按照参数指定的间隔(缺省1)绘制刻度     |
+| mp.LinearLocator(numticks=21)              | 线性定位器: 等分numticks-1份，绘制numticks个刻度           |
+| mp.LogLocator(base=2)                      | 对数定位器: 以base为底，绘制刻度                           |
 
 案例：绘制一个数轴。
 
 ```python
-
 mp.figure('Locators', facecolor='lightgray')
-
 # 获取当前坐标轴
 ax = mp.gca()
-
 # 隐藏除底轴以外的所有坐标轴, 将底坐标轴调整到子图中心位置
 ax.spines['left'].set_color('none')
 ax.spines['top'].set_color('none')
 ax.spines['right'].set_color('none')
 ax.spines['bottom'].set_position(('data', 0))
-
 # 设置水平坐标轴的主刻度定位器
 ax.xaxis.set_major_locator(mp.NullLocator())
 # 设置水平坐标轴的次刻度定位器为多点定位器，间隔0.1
 ax.xaxis.set_minor_locator(mp.MultipleLocator(0.1))
 # 标记所用刻度定位器类名 
 mp.text(5, 0.3, 'NullLocator()', ha='center', size=12)
+mp.show()
 ```
 
 案例：使用for循环测试刻度器样式：
@@ -596,6 +651,7 @@ mp.text(5, 0.3, 'NullLocator()', ha='center', size=12)
 """
 demo07_locators.py  刻度定位器
 """
+import matplotlib.pyplot as mp
 import numpy as np
 locators = ['mp.NullLocator()', 
 			'mp.MultipleLocator(2)', 
@@ -618,29 +674,8 @@ for i, locator in enumerate(locators):
 mp.show()
 ```
 
-常用刻度器如下
 
-```python
-# 空定位器：不绘制刻度
-mp.NullLocator()
-# 最大值定位器：
-# 最多绘制nbins+1个刻度
-mp.MaxNLocator(nbins=3)
-# 定点定位器：根据locs参数中的位置绘制刻度
-mp.FixedLocator(locs=[0, 2.5, 5, 7.5, 10])
-# 自动定位器：由系统自动选择刻度的绘制位置
-mp.AutoLocator()
-# 索引定位器：由offset确定起始刻度，由base确定相邻刻度的间隔
-mp.IndexLocator(offset=0.5, base=1.5)
-# 多点定位器：从0开始，按照参数指定的间隔(缺省1)绘制刻度
-mp.MultipleLocator()
-# 线性定位器：等分numticks-1份，绘制numticks个刻度
-mp.LinearLocator(numticks=21)
-# 对数定位器：以base为底，绘制刻度
-mp.LogLocator(base=2)
-```
-
-### 2.2.3. 刻度网格线
+### 2.2.5. 刻度网格线: mp.gca().grid()
 
 绘制刻度网格线的相关API：
 
@@ -660,11 +695,11 @@ ax.grid(
 案例：绘制曲线 [1, 10, 100, 1000, 100, 10, 1]，然后设置刻度网格线，测试刻度网格线的参数。
 
 ```python
+import matplotlib.pyplot as mp
+import numpy as np
 y = np.array([1, 10, 100, 1000, 100, 10, 1])
-mp.figure('Normal & Log', facecolor='lightgray')
 mp.subplot(211)
-mp.title('Normal', fontsize=20)
-mp.ylabel('y', fontsize=14)
+
 ax = mp.gca()
 ax.xaxis.set_major_locator(mp.MultipleLocator(1.0))
 ax.xaxis.set_minor_locator(mp.MultipleLocator(0.1))
@@ -677,20 +712,67 @@ ax.grid(which='minor', axis='both', linewidth=0.25,
         linestyle='-', color='orange')
 mp.plot(y, 'o-', c='dodgerblue', label='plot')
 mp.legend()
+mp.show()
 ```
 
-### 2.2.4. 半对数坐标
+### 2.2.6. 半对数坐标: mp.semilogy
 
 y轴将以指数方式递增。 基于半对数坐标绘制第二个子图，表示曲线：[1, 10, 100, 1000, 100, 10, 1]。
 
 ```python
-mp.figure('Grid', facecolor='lightgray')
+"""
+demo09_semilogy.py 半对数坐标系
+"""
+import numpy as np
+import matplotlib.pyplot as mp
+
+mp.figure('Normal & Semilogy', facecolor='lightgray')
+mp.subplot(211)
+mp.title('Normal', fontsize=20)
+mp.ylabel('y', fontsize=14)
 y = [1, 10, 100, 1000, 100, 10, 1]
-mp.semilogy(y)
+# 设置刻度定位器
+ax = mp.gca()
+xmaloc = mp.MultipleLocator(1)
+ax.xaxis.set_major_locator(xmaloc)
+xmiloc = mp.MultipleLocator(0.1)
+ax.xaxis.set_minor_locator(xmiloc)
+ymaloc = mp.MultipleLocator(250)
+ax.yaxis.set_major_locator(ymaloc)
+ymiloc = mp.MultipleLocator(50)
+ax.yaxis.set_minor_locator(ymiloc)
+# 绘制刻度网格线
+ax.grid(which='major', axis='both',
+	color='orangered', linewidth=0.75)
+ax.grid(which='minor', axis='both',
+	color='orangered', linewidth=0.25)
+mp.plot(y, 'o-')
+
+# 半对数坐标系
+mp.subplot(212)
+y = [1, 10, 100, 1000, 100, 10, 1]
+# 设置刻度定位器
+ax = mp.gca()
+xmaloc = mp.MultipleLocator(1)
+ax.xaxis.set_major_locator(xmaloc)
+xmiloc = mp.MultipleLocator(0.1)
+ax.xaxis.set_minor_locator(xmiloc)
+ymaloc = mp.MultipleLocator(250)
+ax.yaxis.set_major_locator(ymaloc)
+ymiloc = mp.MultipleLocator(50)
+ax.yaxis.set_minor_locator(ymiloc)
+# 绘制刻度网格线
+ax.grid(which='major', axis='both',
+    color='orangered', linewidth=0.75)
+ax.grid(which='minor', axis='both',
+    color='orangered', linewidth=0.25)
+mp.semilogy(y, 'o-')  # 用法同 mp.plot()
+
 mp.show()
 ```
 
-### 2.2.5. 散点图
+
+### 2.2.7. 散点图: mp.scatter
 
 可以通过每个点的坐标、颜色、大小和形状表示不同的特征值。
 
@@ -701,18 +783,17 @@ mp.show()
 
 绘制散点图的相关API：
 
-```python
-mp.scatter(
-    x, 					# x轴坐标数组
-    y,					# y轴坐标数组
-    marker='', 			# 点型
-    s=10,				# 大小
-    color='',			# 颜色
-    edgecolor='', 		# 边缘颜色
-    facecolor='',		# 填充色
-    zorder=''			# 图层序号
-)
-```
+    mp.scatter(
+        x, 					# x轴坐标数组
+        y,					# y轴坐标数组
+        marker='', 			# 点型
+        s=10,				# 大小
+        color='',			# 颜色
+        edgecolor='', 		# 边缘颜色
+        facecolor='',		# 填充色
+        zorder=''			# 图层序号
+    )
+
 
 numpy.random提供了normal函数用于产生符合 正态分布 的随机数 
 
@@ -728,26 +809,33 @@ y = np.random.normal(60, 10, n)
 案例：绘制平面散点图。
 
 ```python
-mp.figure('scatter', facecolor='lightgray')
-mp.title('scatter')
-mp.scatter(x, y)
+"""
+demo10_scatter.py 散点图
+"""
+import numpy as np
+import matplotlib.pyplot as mp
+
+n = 300
+x = np.random.normal(175, 5, n)
+y = np.random.normal(65, 10, n)
+
+mp.figure('Persons', facecolor='lightgray')
+mp.title('Persons')
+
+d = (x-175)**2 + (y-65)**2
+# 设置点的颜色
+# mp.scatter(x, y, c='red')  #直接设置颜色
+mp.scatter(x, y, s=60, label='Persons',
+	c=d, cmap='jet')
+mp.legend()
 mp.show()
 ```
-
-设置点的颜色
-
-```python
-mp.scatter(x, y, c='red')			#直接设置颜色
-d = (x-172)**2 + (y-60)**2
-mp.scatter(x, y, c=d, cmap='jet')	#以c作为参数，取cmap颜色映射表中的颜色值
-```
-
 *cmap颜色映射表参照附件：cmap颜色映射表*
 
 
 **一颗AI心**
 
-### 2.2.6. 填充
+### 2.2.8. 填充
 
 以某种颜色自动填充两条曲线的闭合区域。
 
@@ -789,7 +877,7 @@ mp.legend()
 mp.show()
 ```
 
-### 2.2.7. 条形图（柱状图）
+### 2.2.9. 条形图（柱状图）
 
 绘制柱状图的相关API：
 
@@ -827,7 +915,7 @@ mp.legend()
 mp.show()
 ```
 
-### 2.2.8. 饼图
+### 2.2.10. 饼图
 
 绘制饼状图的基本API：
 
@@ -870,7 +958,7 @@ mp.legend()
 mp.show()
 ```
 
-### 2.2.9. 等高线图
+### 2.2.11. 等高线图
 
 组成等高线需要网格点坐标矩阵，也需要每个点的高度。所以等高线属于3D数学模型范畴。
 
@@ -917,7 +1005,7 @@ mp.clabel(cntr, inline_spacing=1, fmt='%.1f',
 mp.show()
 ```
 
-### 2.2.10. 热成像图
+### 2.2.12. 热成像图
 
 用图形的方式显示矩阵及矩阵中值的大小
 1 2 3
@@ -940,7 +1028,7 @@ mp.imshow(z, cmap='jet', origin='low')
 mp.colorbar()
 ```
 
-### 2.2.11. 3D图像绘制
+### 2.2.13. 3D图像绘制
 
  matplotlib支持绘制三维曲面。若希望绘制三维曲面，需要使用axes3d提供的3d坐标系。
 
@@ -1046,7 +1134,7 @@ ax3d.plot_wireframe(x,y,z,rstride=30,cstride=30,
 	linewidth=1, color='dodgerblue')
 ```
 
-### 2.2.12. 极坐标系
+### 2.2.14. 极坐标系
 
 与笛卡尔坐标系不同，某些情况下极坐标系适合显示与角度有关的图像。例如雷达等。极坐标系可以描述极径&rho;与极角&theta;的线性关系。
 
@@ -1079,7 +1167,7 @@ y = 3*np.sin(6*x)
 mp.plot(x, y)
 ```
 
-### 2.2.13. 简单动画
+### 2.2.15. 简单动画
 
 动画即是在一段时间内快速连续的重新绘制图像的过程。
 
