@@ -1,40 +1,4 @@
-#  02 matplotlib
-
-# 目录
-
-- [02 matplotlib](#02-matplotlib)
-- [目录](#%e7%9b%ae%e5%bd%95)
-- [1. matplotlib概述](#1-matplotlib%e6%a6%82%e8%bf%b0)
-  - [1.1. matplotlib基本功能](#11-matplotlib%e5%9f%ba%e6%9c%ac%e5%8a%9f%e8%83%bd)
-- [2. matplotlib基本功能详解](#2-matplotlib%e5%9f%ba%e6%9c%ac%e5%8a%9f%e8%83%bd%e8%af%a6%e8%a7%a3)
-  - [2.1. 基本绘图](#21-%e5%9f%ba%e6%9c%ac%e7%bb%98%e5%9b%be)
-    - [2.1.1. 绘图核心API](#211-%e7%bb%98%e5%9b%be%e6%a0%b8%e5%bf%83api)
-    - [2.1.2. 线型、线宽和](#212-%e7%ba%bf%e5%9e%8b%e7%ba%bf%e5%ae%bd%e5%92%8c)
-    - [2.1.3. 设置坐标轴范围 mp.xlim/mp.ylim](#213-%e8%ae%be%e7%bd%ae%e5%9d%90%e6%a0%87%e8%bd%b4%e8%8c%83%e5%9b%b4-mpxlimmpylim)
-    - [2.1.4. 设置坐标刻度 mp.xticks/mp.yticks](#214-%e8%ae%be%e7%bd%ae%e5%9d%90%e6%a0%87%e5%88%bb%e5%ba%a6-mpxticksmpyticks)
-    - [2.1.5. 设置坐标轴 mp.gca().spines('left').set...](#215-%e8%ae%be%e7%bd%ae%e5%9d%90%e6%a0%87%e8%bd%b4-mpgcaspinesleftset)
-    - [2.1.6. 图例 mp.legend](#216-%e5%9b%be%e4%be%8b-mplegend)
-    - [2.1.7. 特殊点](#217-%e7%89%b9%e6%ae%8a%e7%82%b9)
-    - [2.1.8. 备注](#218-%e5%a4%87%e6%b3%a8)
-  - [2.2. 图形对象（图形窗口）](#22-%e5%9b%be%e5%bd%a2%e5%af%b9%e8%b1%a1%e5%9b%be%e5%bd%a2%e7%aa%97%e5%8f%a3)
-    - [2.2.1. 子图](#221-%e5%ad%90%e5%9b%be)
-      - [2.2.1.1. **矩阵式布局**](#2211-%e7%9f%a9%e9%98%b5%e5%bc%8f%e5%b8%83%e5%b1%80)
-      - [2.2.1.2. **网格式布局**](#2212-%e7%bd%91%e6%a0%bc%e5%bc%8f%e5%b8%83%e5%b1%80)
-      - [2.2.1.3. **自由式布局**](#2213-%e8%87%aa%e7%94%b1%e5%bc%8f%e5%b8%83%e5%b1%80)
-    - [2.2.2. 刻度定位器](#222-%e5%88%bb%e5%ba%a6%e5%ae%9a%e4%bd%8d%e5%99%a8)
-    - [2.2.3. 刻度网格线](#223-%e5%88%bb%e5%ba%a6%e7%bd%91%e6%a0%bc%e7%ba%bf)
-    - [2.2.4. 半对数坐标](#224-%e5%8d%8a%e5%af%b9%e6%95%b0%e5%9d%90%e6%a0%87)
-    - [2.2.5. 散点图](#225-%e6%95%a3%e7%82%b9%e5%9b%be)
-    - [2.2.6. 填充](#226-%e5%a1%ab%e5%85%85)
-    - [2.2.7. 条形图（柱状图）](#227-%e6%9d%a1%e5%bd%a2%e5%9b%be%e6%9f%b1%e7%8a%b6%e5%9b%be)
-    - [2.2.8. 饼图](#228-%e9%a5%bc%e5%9b%be)
-    - [2.2.9. 等高线图](#229-%e7%ad%89%e9%ab%98%e7%ba%bf%e5%9b%be)
-    - [2.2.10. 热成像图](#2210-%e7%83%ad%e6%88%90%e5%83%8f%e5%9b%be)
-    - [2.2.11. 3D图像绘制](#2211-3d%e5%9b%be%e5%83%8f%e7%bb%98%e5%88%b6)
-    - [2.2.12. 极坐标系](#2212-%e6%9e%81%e5%9d%90%e6%a0%87%e7%b3%bb)
-    - [2.2.13. 简单动画](#2213-%e7%ae%80%e5%8d%95%e5%8a%a8%e7%94%bb)
-  - [2.3. 加载文件](#23-%e5%8a%a0%e8%bd%bd%e6%96%87%e4%bb%b6)
-
+#  02 matplotlib概述
 
 # 1. matplotlib概述
 
