@@ -40,7 +40,7 @@ import matplotlib.pyplot as mp
 
 ### 2.1.1. 绘图核心API
 
-案例：绘制一条正弦曲线
+绘制一条正弦曲线
 
 ```python
 xarray = [0, 2, 3]  # xarray: <序列> 水平坐标序列
@@ -49,18 +49,7 @@ mp.plot(xarray, yarray)
 mp.show()  #显示图表
 ```
 
-绘制水平线与垂直线：
-
-```python
-mp.vlines(3, 2, 10)  # vertical 绘制垂直线  mp.vlines(vval, ymin, ymax, ...)
-mp.hlines(5, 1, 15)  # horizotal 绘制水平线  mp.hlines(xval, xmin, xmax, ...)
-mp.show()  #显示图表
-```
-
-### 2.1.2. 线型、线宽和
-
-案例：绘制一条正弦曲线
-
+线型、线宽和
 ```python
 '''
 linestyle: '-' 实线  '--' 虚线  ':' 点线
@@ -70,12 +59,22 @@ color: <关键字参数> 颜色
 alpha: <关键字参数> 透明度
 		浮点数值
 '''
-import numpy as np
 xarray = [1, 4, 8, 10]
 yarray = [4, 1, 3, 9]
 # ":"   0.7透明度  3倍线宽   颜色red
 mp.plot(xarray, yarray, linestyle='-', linewidth=3, color='red', alpha=0.7)
 mp.show()
+```
+
+
+### 绘制水平线与垂直线：
+
+```python
+# x轴起点，y轴起点，y轴终点
+mp.vlines(8, 2, 10)  # vertical 绘制垂直线  mp.vlines(vval, ymin, ymax, ...)
+# y轴起点，x轴起点，x轴终点
+mp.hlines(5, 2, 12)  # horizotal 绘制水平线  mp.hlines(xval, xmin, xmax, ...)
+mp.show()  #显示图表
 ```
 
 ### 2.1.3. 设置坐标轴范围  mp.xlim/mp.ylim
@@ -147,8 +146,8 @@ mp.show()
 # 再绘制曲线时定义曲线的label
 
 # label: <关键字参数 str> 支持LaTex排版语法字符串
-xarray = [0,   1, 2,   3, 4]
-yarray = [0, 0.5, 1, 1.5, 2]
+xarray = [0,  2,  4]
+yarray = [0,  1,  2]
 mp.plot(xarray, yarray)
 # label 定义曲线名称，为后续显示图例准备
 mp.plot(xarray, yarray, label=r'$y=\frac{1}{2}x$')
@@ -175,19 +174,36 @@ mp.show()
 ```
 
 ***刻度文本的特殊语法*** -- *LaTex排版语法字符串*
+注：<font color="#FF0000">红色文字</font>为Python语法：
+<center>
+<font color="#FF0000" face='consolas'>
+r'$x^n+y^n=z^n$'
+</font>
+</center>
 
-```python
-r'$x^n+y^n=z^n$',
+$$
+x^n+y^n=z^n
+$$
 
+<center>
+<font color="#FF0000" face='consolas'>
 r'$\int\frac{1}{x} dx = \ln |x| + C$',
+</font>
+</center>
 
+$$
+\int\frac{1}{x} dx = \ln |x| + C
+$$
+
+<center>
+<font color="#FF0000" face='consolas'>
 r'$-\frac{\pi}{2}$'
-```
+</font>
+</center>
 
 $$
-x^n+y^n=z^n, \int\frac{1}{x} dx = \ln |x| + C, -\frac{\pi}{2}
+ -\frac{\pi}{2}
 $$
-
 
 ### 2.1.7. 特殊点
 
@@ -679,7 +695,7 @@ mp.show()
 可以通过每个点的坐标、颜色、大小和形状表示不同的特征值。
 
 | 身高 | 体重 | 性别 | 年龄段 | 种族 |
-|------|------|------|--------|------|
+| ---- | ---- | ---- | ------ | ---- |
 | 180  | 80   | 男   | 中年   | 亚洲 |
 | 160  | 50   | 女   | 青少   | 美洲 |
 
