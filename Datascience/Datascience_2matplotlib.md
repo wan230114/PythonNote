@@ -31,8 +31,8 @@
     - [2.2.7. 散点图: mp.scatter](#227-散点图-mpscatter)
     - [2.2.8. 填充: mp.fill_between](#228-填充-mpfill_between)
     - [2.2.9. 条形图（柱状图）：mp.bar](#229-条形图柱状图mpbar)
-    - [2.2.10. 饼图](#2210-饼图)
-    - [2.2.11. 等高线图](#2211-等高线图)
+    - [2.2.10. 饼图：mp.axis, mp.pie](#2210-饼图mpaxis-mppie)
+    - [2.2.11. 等高线图: mp.clabel(mp.contour)](#2211-等高线图-mpclabelmpcontour)
     - [2.2.12. 热成像图](#2212-热成像图)
     - [2.2.13. 3D图像绘制](#2213-3d图像绘制)
     - [2.2.14. 极坐标系](#2214-极坐标系)
@@ -894,6 +894,8 @@ mp.bar(
 案例：先以柱状图绘制苹果12个月的销量，然后再绘制橘子的销量。
 
 ```python
+import matplotlib.pyplot as mp
+import numpy as np
 apples = np.array([30, 25, 22, 36, 21, 29, 20, 24, 33, 19, 27, 15])
 oranges = np.array([24, 33, 19, 27, 35, 20, 15, 27, 20, 32, 20, 22])
 mp.figure('Bar' , facecolor='lightgray')
@@ -904,7 +906,7 @@ mp.tick_params(labelsize=10)
 mp.grid(axis='y', linestyle=':')
 mp.ylim((0, 40))
 x = np.arange(len(apples))
-mp.bar(x-0.2, apples, 0.4, color='dodgerblue',label='Apple')
+mp.bar(x - 0.2, apples, 0.4, color='dodgerblue',label='Apple')
 mp.bar(x + 0.2, oranges, 0.4, color='orangered',label='Orange', alpha=0.75)
 mp.xticks(x, [
     'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
@@ -913,7 +915,7 @@ mp.legend()
 mp.show()
 ```
 
-### 2.2.10. 饼图
+### 2.2.10. 饼图：mp.axis, mp.pie
 
 绘制饼状图的基本API：
 
@@ -956,24 +958,23 @@ mp.legend()
 mp.show()
 ```
 
-### 2.2.11. 等高线图
+### 2.2.11. 等高线图: mp.clabel(mp.contour)
 
 组成等高线需要网格点坐标矩阵，也需要每个点的高度。所以等高线属于3D数学模型范畴。
 
 绘制等高线的相关API：
-
 ```python
 cntr = mp.contour(
     x, 					# 网格坐标矩阵的x坐标 （2维数组）
     y, 					# 网格坐标矩阵的y坐标 （2维数组）
     z, 					# 网格坐标矩阵的z坐标 （2维数组）
-    8, 					# 把等高线绘制成8部分
+    8, 					# 把等高线绘制成8部分，在高度上需要多少阶
     colors='black',		# 等高线的颜色
 	linewidths=0.5		# 线宽
 )
 # 为等高线图添加高度标签
-mp.clabel(cntr, inline_spacing=1, fmt='%.1f',
-          fontsize=10)
+mp.clabel(cntr, inline_spacing=1, fmt='%.1f', fontsize=10)
+
 # 填充等高线
 mp.contourf(x, y, z, 8, cmap='jet')
 ```
@@ -981,6 +982,8 @@ mp.contourf(x, y, z, 8, cmap='jet')
 案例：生成网格坐标矩阵，并且绘制等高线：
 
 ```python
+import matplotlib.pyplot as mp
+import numpy as np
 n = 1000
 # 生成网格化坐标矩阵
 x, y = np.meshgrid(np.linspace(-3, 3, n),
@@ -994,12 +997,13 @@ mp.ylabel('y', fontsize=14)
 mp.tick_params(labelsize=10)
 mp.grid(linestyle=':')
 # 绘制等高线图
-mp.contourf(x, y, z, 8, cmap='jet')
 cntr = mp.contour(x, y, z, 8, colors='black',
                   linewidths=0.5)
 # 为等高线图添加高度标签
 mp.clabel(cntr, inline_spacing=1, fmt='%.1f',
           fontsize=10)
+# 颜色填充
+mp.contourf(x, y, z, 8, cmap='jet')
 mp.show()
 ```
 
@@ -1067,6 +1071,7 @@ ax3d.scatter(
 """
 demo06_3dscatter.py  3维点阵图
 """
+import matplotlib.pyplot as mp
 import numpy as np
 from mpl_toolkits.mplot3d import axes3d
 
