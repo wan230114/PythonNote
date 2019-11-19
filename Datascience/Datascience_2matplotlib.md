@@ -1358,13 +1358,20 @@ BB:BB:BB:BB:BB
 
 调用numpy.loadtxt()函数可以直接读取该文件并且获取ndarray数组对象：
 
+- 文件：[./aapl.csv](./aapl.csv)
+
+```
+AAPL,28-01-2011, ,344.17,344.4,333.53,336.1,21144800
+AAPL,31-01-2011, ,335.8,340.04,334.3,339.32,13473000
+```
+- 读取文件
 ```python
 import numpy as np
 # 直接读取该文件并且获取ndarray数组对象 
 # 返回值：
 #     unpack=False：返回一个二维数组
 #     unpack=True： 多个一维数组
-np.loadtxt(
+datas = np.loadtxt(
     './aapl.csv',		# 文件路径
     delimiter=',',		# 分隔符
     usecols=(1, 3),		# 读取1、3两列 （下标从0开始）
@@ -1389,7 +1396,7 @@ def dmy2ymd(dmy):
 
 dates, opening_prices,highest_prices, \
 	lowest_prices, closeing_prices  = np.loadtxt(
-    'Datascience/aapl.csv',		# 文件路径
+    './aapl.csv',		# 文件路径
     delimiter=',',			# 分隔符
     usecols=(1, 3, 4, 5, 6),			# 读取1、3两列 （下标从0开始）
     unpack=True,
@@ -1425,6 +1432,5 @@ mp.plot(dates, opening_prices, color='dodgerblue',
 		linestyle='-')
 mp.gcf().autofmt_xdate()
 mp.show()
-
 ```
 
