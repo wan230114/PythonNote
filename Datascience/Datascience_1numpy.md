@@ -128,7 +128,7 @@ for i in range(a.shape[0]):
 **Numpy的内部基本数据类型**
 
 | 类型名       | 类型表示符                          |
-|--------------|-------------------------------------|
+| ------------ | ----------------------------------- |
 | 布尔型       | bool_                               |
 | 有符号整数型 | int8(-128~127)/int16/int32/int64    |
 | 无符号整数型 | uint8(0~255)/uint16/uint32/uint64   |
@@ -191,7 +191,7 @@ print(ary, ary.dtype, ary[1]-ary[0])
 **类型字符码**
 
 | 类型              | 字符码                              |
-|-------------------|-------------------------------------|
+| ----------------- | ----------------------------------- |
 | np.bool_          | ?                                   |
 | np.int8/16/32/64  | i1/i2/i4/i8                         |
 | np.uint8/16/32/64 | u1/u2/u4/u8                         |
@@ -208,7 +208,7 @@ print(ary, ary.dtype, ary[1]-ary[0])
 <字节序前缀><维度><类型><字节数或字符数>
 
 | 3i4      | 释义                                                                                       |
-|----------|--------------------------------------------------------------------------------------------|
+| -------- | ------------------------------------------------------------------------------------------ |
 | 3i4      | 3个元素的一维数组，每个元素都是整型，每个整型元素占4个字节。                               |
 | <(2,3)u8 | 小端字节序，6个元素2行3列的二维数组，每个元素都是无符号整型，每个无符号整型元素占8个字节。 |
 | U7       | 包含7个字符的Unicode字符串，每个字符占4个字节，采用默认字节序。                            |
@@ -323,22 +323,22 @@ print(a[mask])
 
 ```python
 import numpy as np
-a = np.arange(1, 7).reshape(2, 3)
-b = np.arange(7, 13).reshape(2, 3)
+x = np.arange(1, 7).reshape(2, 3)
+y = np.arange(7, 13).reshape(2, 3)
 # 垂直方向完成组合操作，生成新数组
-c1 = np.vstack((a, b))
+c1 = np.vstack((x, y))
 # 垂直方向完成拆分操作，生成两个数组
-d1, e1 = np.vsplit(c, 2)
+a1, b1 = np.vsplit(c1, 2)
 
 # 水平方向完成组合操作，生成新数组
-c2 = np.hstack((a, b))
+c2 = np.hstack((x, y))
 # 水平方向完成拆分操作，生成两个数组
-d2, e2 = np.hsplit(c, 2)
+a2, b2 = np.hsplit(c2, 2)
 
 # 深度方向（3维）完成组合操作，生成新数组
-c3 = np.dstack((a, b))
+c3 = np.dstack((x, y))
 # 深度方向（3维）完成拆分操作，生成两个数组
-d3, e3 = np.dsplit(i, 2)
+a3, b3 = np.dsplit(c3, 2)
 ```
 
 长度不等的数组组合：
@@ -416,10 +416,46 @@ b = a.tolist()
 print(b)
 ```
 
-# 3. numpy快速生成数组
+# 3. 各种矩阵生成
+
+## 3.1. numpy快速生成数组
 ```python
 # 从-π到π区间拆10个点
 import numpy as np
 x = np.linspace(-np.pi, np.pi, 10)
 print(x)
+```
+
+## 3.2. 生成网格坐标点矩阵
+```python
+import numpy as np
+
+# 产生网格坐标，生成对应两个x,y横纵轴的矩阵
+nm = np.meshgrid(x, y)
+xv, yv = np.meshgrid([1, 2, 3], [4, 5, 6, 7])
+print(xv)
+print(yv)
+print(xv.shape)
+print(yv.shape)
+
+# 合并两个矩阵，生成坐标点
+point = np.dstack((xv, yv))
+print(point.reshape(int(point.size/2), 2))
+```
+
+
+# 4. numpy中的数学计算
+
+## 4.1. 乘法：
+```python
+import numpy as np
+
+print("下面我们将讨论一些关于一维数组的乘法的问题")
+A = np.array([1, 2, 3])
+B = np.array([2, 3, 4])
+print('A:\n', A, '\nB:\n', B)
+print("*:\n", A * B)  # 对数组执行的是对应位置元素相乘
+print("np.dot():\n", np.dot(A, B))  # 当dot遇到佚为1，执行按位乘并相加
+print("np.multiply():\n", np.multiply(A, B))  # 对数组执行的是对应位置的元素相乘
+print("np.outer():\n", np.outer(A, B))  # A的一个元素和B的元素相乘的到结果的一行
 ```
