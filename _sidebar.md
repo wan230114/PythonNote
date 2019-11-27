@@ -13,5 +13,4 @@
       * [Chapter02 监督学习算法之KNN](./AI_train/阶段1/02.第一个监督学习算法KNN.md)
 * **Python之机器学习篇**
     * [Introduction 简介](./AI_ML/README.md)
-    * [总教程](./AI_ML/ML.md)
-    * ***数据预处理***
+    * [Note 教程](./AI_ML/ML.md)
