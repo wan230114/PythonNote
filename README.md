@@ -23,7 +23,6 @@
     * [Introduction 简介](./AI_ML/README.md)
     * [Note 教程](./AI_ML/ML.md)
 
-
 ```python
 # this is test
 print('hello')
