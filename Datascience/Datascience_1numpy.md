@@ -491,13 +491,13 @@ import numpy as np
 #     unpack=False：返回一个二维数组
 #     unpack=True： 多个一维数组
 np.loadtxt(
-    './aapl.csv',			# 文件路径
+    './data/aapl.csv',			# 文件路径
     delimiter=',',			# 分隔符
     usecols=(1, 3),			# 读取1、3两列 （下标从0开始）
     unpack=False,			# 是否按列拆包
     dtype='U10, f8',		# 制定返回每一列数组中元素的类型
     converters={1:func}		# 转换器函数字典
-)    
+)
 ```
 
 案例：读取aapl.csv文件，得到文件中的信息：
@@ -507,13 +507,13 @@ import numpy as np
 import datetime as dt
 # 日期转换函数
 def dmy2ymd(dmy):
-	dmy = str(dmy, encoding='utf-8')
-	time = dt.datetime.strptime(dmy, '%d-%m-%Y').date()
-	t = time.strftime('%Y-%m-%d')
-	return t
+    dmy = str(dmy, encoding='utf-8')
+    time = dt.datetime.strptime(dmy, '%d-%m-%Y').date()
+    t = time.strftime('%Y-%m-%d')
+    return t
 dates, opening_prices,highest_prices, \
-	lowest_prices, closeing_prices  = np.loadtxt(
-    'Datascience/data/aapl.csv',		# 文件路径
+    lowest_prices, closeing_prices  = np.loadtxt(
+    './data/aapl.csv',		# 文件路径
     delimiter=',',			# 分隔符
     usecols=(1, 3, 4, 5, 6),			# 读取1、3两列 （下标从0开始）
     unpack=True,
@@ -596,7 +596,7 @@ np.mean(array)
 ```python
 import numpy as np
 closing_prices = np.loadtxt(
-    '../../data/aapl.csv', delimiter=',',
+    './data/aapl.csv', delimiter=',',
     usecols=(6), unpack=True)
 mean = 0
 for closing_price in closing_prices:
@@ -652,7 +652,7 @@ def dmy2days(dmy):
     return days
 
 days, closing_prices = np.loadtxt(
-    '../../data/aapl.csv', delimiter=',',
+    './data/aapl.csv', delimiter=',',
     usecols=(1, 6), unpack=True,
     converters={1: dmy2days})
 twap = np.average(closing_prices, weights=days)
@@ -677,7 +677,8 @@ print(np.max(a), np.min(a), np.ptp(a))
 print(np.argmax(a), np.argmin(a))
 ```
 
-**np.maximum() np.minimum()：** 将两个同维数组中对应元素中最大/最小元素构成一个新的数组
+**np.maximum() np.minimum()：** 将两个同维数组中对应元素中相比更大/更小元素构成一个新的数组
+
 
 ```python
 print(np.maximum(a, b), np.minimum(a, b), sep='\n')
@@ -688,7 +689,7 @@ print(np.maximum(a, b), np.minimum(a, b), sep='\n')
 ```python
 import numpy as np
 highest_prices, lowest_prices = np.loadtxt(
-    '../../data/aapl.csv', delimiter=',',
+    './data/aapl.csv', delimiter=',',
     usecols=(4, 5), dtype='f8, f8', unpack=True)
 max_price = np.max(highest_prices)
 min_price = np.min(lowest_prices)
@@ -700,7 +701,7 @@ print(min_price, '~', max_price)
 ```python
 import numpy as np
 dates, highest_prices, lowest_prices = np.loadtxt(
-    '../../data/aapl.csv', delimiter=',',
+    './data/aapl.csv', delimiter=',',
     usecols=(1, 4, 5), dtype='U10, f8, f8',
     unpack=True)
 max_index = np.argmax(highest_prices)
@@ -713,7 +714,7 @@ print(dates[min_index], dates[max_index])
 ```python
 import numpy as np
 dates, highest_prices, lowest_prices = np.loadtxt(
-    '../../data/aapl.csv', delimiter=',',
+    './data/aapl.csv', delimiter=',',
     usecols=(1, 4, 5), dtype='U10, f8, f8',
     unpack=True)
 highest_ptp = np.ptp(highest_prices)
@@ -737,7 +738,7 @@ print(lowest_ptp, highest_ptp)
 
 ```python
 import numpy as np
-closing_prices = np.loadtxt( '../../data/aapl.csv', 
+closing_prices = np.loadtxt( './data/aapl.csv', 
 	delimiter=',', usecols=(6), unpack=True)
 size = closing_prices.size
 sorted_prices = np.msort(closing_prices)
@@ -761,7 +762,7 @@ print(median)
 ```python
 import numpy as np
 closing_prices = np.loadtxt(
-    '../../data/aapl.csv', delimiter=',', usecols=(6), unpack=True)
+    './data/aapl.csv', delimiter=',', usecols=(6), unpack=True)
 mean = np.mean(closing_prices)         # 算数平均值
 devs = closing_prices - mean           # 离差
 dsqs = devs ** 2                       # 离差方
@@ -792,7 +793,7 @@ def dmy2wday(dmy):
     wday = date.weekday()  # 用 周日
     return wday
 
-wdays, closing_prices = np.loadtxt('../data/aapl.csv', delimiter=',',
+wdays, closing_prices = np.loadtxt('./data/aapl.csv', delimiter=',',
     	usecols=(1, 6), unpack=True, converters={1: dmy2wday})
 
 ave_closing_prices = np.zeros(5)
@@ -848,7 +849,7 @@ def dmy2ymd(dmy):
     ymd = date.strftime('%Y-%m-%d')
     return ymd
 
-dates, closing_prices = np.loadtxt('../data/aapl.csv', delimiter=',',
+dates, closing_prices = np.loadtxt('./data/aapl.csv', delimiter=',',
     usecols=(1, 6), unpack=True, dtype='M8[D], f8', converters={1: dmy2ymd})
 sma51 = np.zeros(closing_prices.size - 4)
 for i in range(sma51.size):
@@ -1356,10 +1357,10 @@ mp.show()
 2. 利用多项式拟合求出与两只股票差价相近的多项式系数，最高次为4
 3. 把该曲线的拐点都标出来。
 '''
-dates, bhp_closing_prices = np.loadtxt('../../data/bhp.csv', 
+dates, bhp_closing_prices = np.loadtxt('./data/bhp.csv', 
                                        delimiter=',',usecols=(1, 6), unpack=True, 
                                        dtype='M8[D], f8', conv erters={1: dmy2ymd})
-vale_closing_prices = np.loa dtxt('../../data/vale.csv', delimiter=',',
+vale_closing_prices = np.loa dtxt('./data/vale.csv', delimiter=',',
                                  usecols=(6), unpack=True)
 diff_closing_prices = bhp_closing_prices - vale_closing_prices
 days = dates.astype(int)
@@ -1480,7 +1481,7 @@ ary = np.sign(源数组)
 
 ```python
 dates, closing_prices, volumes = np.loadtxt(
-    '../../data/bhp.csv', delimiter=',',
+    './data/bhp.csv', delimiter=',',
     usecols=(1, 6, 7), unpack=True,
     dtype='M8[D], f8, f8', converters={1: dmy2ymd})
 diff_closing_prices = np.diff(closing_prices)
@@ -1559,7 +1560,7 @@ fun(X, Y)
 ```python
 dates, opening_prices, highest_prices, \
     lowest_prices, closing_prices = np.loadtxt(
-        '../../data/bhp.csv', delimiter=',',
+        './data/bhp.csv', delimiter=',',
         usecols=(1, 3, 4, 5, 6), unpack=True,
         dtype='M8[D], f8, f8, f8, f8',
         converters={1: dmy2ymd})
@@ -2249,7 +2250,7 @@ mp.legend()
 1. 重新生成音频文件。
 
 ```python
-wf.write('../../data/filter.wav',sample_rate,(filter_sigs * 2 ** 15).astype(np.int16))
+wf.write('./data/filter.wav',sample_rate,(filter_sigs * 2 ** 15).astype(np.int16))
 ```
 
 ### 4.12.3. 随机数模块(random)
@@ -2467,7 +2468,7 @@ import scipy.misc as sm
 import scipy.ndimage as sn
 import matplotlib.pyplot as mp
 #读取文件
-original = sm.imread('../../data/head.jpg', True)
+original = sm.imread('./data/head.jpg', True)
 #高斯模糊
 median = sn.median_filter(original, 21)
 #角度旋转

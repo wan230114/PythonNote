@@ -4,7 +4,7 @@ import sklearn.naive_bayes as nb
 import matplotlib.pyplot as mp
 
 x, y = [], []  # 输入和输出
-with open('../../ml_data/multiple1.txt', 'r') as f:
+with open('../ml_data/multiple1.txt', 'r') as f:
     for line in f.readlines():
         data = [float(substr) for substr in line.split(',')]
         x.append(data[:-1])
