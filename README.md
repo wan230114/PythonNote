@@ -9,24 +9,25 @@
 # **目录**
 
 * **Python基础部分**
-    * [Introduction 前言](./Python/README.md)
-    * [Chapter01 Python简介](./Python/chapter01.Python简介.md)
+    * [Introduction 前言](00.Python/README.md)
+    * [Chapter01 Python简介](00.Python/chapter01.Python简介.md)
 * **Python高级部分**
-    * [Chapter01 Numpy对多维数组批量操作方法](./Datascience/Datascience_1numpy.md)
-    * [Chapter02 Matplotlib绘图工具](./Datascience/Datascience_2matplotlib.md)
-    * [Chapter03 Pandas常见数据分析](./Datascience/Datascience_pandas.md)
-* **Python之AI算法篇**
-    * [Introduction 简介](./AI_train/README.md)
+    * [Chapter01 Numpy对多维数组批量操作方法](01.Datascience/Datascience_1numpy.md)
+    * [Chapter02 Matplotlib绘图工具](01.Datascience/Datascience_2matplotlib.md)
+    * [Chapter03 Pandas常见数据分析](01.Datascience/Datascience_pandas.md)
+* **AI机器学习——入门**
+    * [Introduction 简介](02.AI_ML/README.md)
+    * [Note 教程](02.AI_ML/ML.md)
+* **AI机器学习——算法进阶篇**
+    * [Introduction 简介](03.AI_ML_机器学习集训营/README.md)
     * ***阶段一***
-      * [Chapter01 初识人工智能](./AI_train/阶段1/01.初识人工智能.md)
-      * [Chapter02 监督学习算法之KNN](./AI_train/阶段1/02.第一个监督学习算法KNN.md)
-* **Python之机器学习篇**
-    * [Introduction 简介](./AI_ML/README.md)
-    * [Note 教程](./AI_ML/ML.md)
+      * [Chapter01 初识人工智能](03.AI_ML_机器学习集训营/阶段1/01.初识人工智能.md)
+      * [Chapter02 监督学习算法之KNN](03.AI_ML_机器学习集训营/阶段1/02.第一个监督学习算法KNN.md)
+* **AI机器学习——公式推导**
+    * ***补充ing***
 * **其他笔记**
     * ***Markdown***
       * [Markdown 语法](./Others/Markdown笔记/HTML及markdown常用命令.md)
-
 
 ```python
 # this is test
