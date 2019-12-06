@@ -8,7 +8,7 @@
 https://gitee.com/wan230114/PythonNote
 
 **网页主页地址：**   
-http://wan230114.gitee.io/pythonnote  
+https://wan230114.gitee.io/pythonnote
 http://118.89.194.65:8888  
 <!-- http://www.lastinvent.online   -->
 
