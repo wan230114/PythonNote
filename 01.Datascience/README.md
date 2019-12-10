@@ -17,6 +17,5 @@
 * [Datascience_3pandas](/01.Datascience/Datascience_3pandas.md) 
 
 另外，对于零散知识也做了Excel表格总结
-* [总结1：Numpy.xlsx](https://gitee.com/wan230114/PythonNote/blob/master/01.Datascience/Summary_1numpy.xlsx) 
-* [总结2：matplotlib.xlsx](https://gitee.com/wan230114/PythonNote/blob/master/01.Datascience/Summary_2matplotlib.xlsx) 
+* [传送门](https://gitee.com/wan230114/PythonNote/raw/master/01.Datascience/Summary.xlsx)  
 </font>
