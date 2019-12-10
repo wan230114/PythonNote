@@ -17,7 +17,17 @@ http://118.89.194.65:8888
 <!-- menu -->
 * **Python基础部分**
     * [Introduction 前言](00.Python/README.md)
-    * [Chapter01 Python简介](00.Python/chapter01.Python简介.md)
+    * [chapter01.Python简介](/00.Python/chapter01.Python简介.md)
+    * [chapter02.数值]()
+    * [chapter03.数据容器]()
+    * [chapter04.逻辑运算]()
+    * [chapter05.数据的迭代与生成]()
+    * [chapter06.函数function]()
+    * [chapter07.错误及异常处理]()
+    * [chapter08.文件file及编码]()
+    * [chapter09.面向对象]()
+    * [chapter10.模块和包]()
+    * [附录](/00.Python/附录.md)
 * **Python高级部分**
     * [Introduction 简介](01.Datascience/README.md)
     * [Chapter01 Numpy对多维数组批量操作方法](01.Datascience/Datascience_1numpy.md)

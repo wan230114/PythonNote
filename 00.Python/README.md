@@ -25,8 +25,8 @@
 > 2018-06-01：第一次撰写该文档<br>
 
 **导航：**
-* [写在前面](#写在前面)
-* [目录大纲](#目录大纲)
+1. [写在前面](#写在前面)
+2. [目录大纲](#目录大纲)
 </font>
 
 
@@ -71,7 +71,7 @@ Python，热度，语言简洁，活跃社区，丰富的共享资料及库等�
 
 # 目录大纲
 
-* [chapter01.Python简介](Python/chapter01.Python简介.md)
+* [chapter01.Python简介](/00.Python/chapter01.Python简介.md)
 * [chapter02.数值]()
 * [chapter03.数据容器]()
 * [chapter04.逻辑运算]()
@@ -81,7 +81,7 @@ Python，热度，语言简洁，活跃社区，丰富的共享资料及库等�
 * [chapter08.文件file及编码]()
 * [chapter09.面向对象]()
 * [chapter10.模块和包]()
-* [chapter11.附]()
+* [附录](/00.Python/附录.md)
 
 （文章笔记暂未转化，下载链接：https://1drv.ms/w/s!AofyZDsRK31B8m8uzCxonAKFeOEl?e=JWqhA2
 ）
