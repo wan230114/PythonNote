@@ -1,4 +1,3 @@
-#! C:\Python37\python.exe
 with open('./README.md', 'rb') as fi, open('./_sidebar.md', 'wb') as fo:
     p = -1
     for line in fi:
