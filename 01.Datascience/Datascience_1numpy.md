@@ -153,7 +153,7 @@ ary = np.array(data, dtype='U2, 3int32, int32')
 print(ary, ary[0][1])
 print(ary[0]['f0'])
 
-#第二种dtype的设置方式
+#第二种dtype的设置方式，列表传入
 ary = np.array(data, 
         dtype=[ ('name', 'str', 2), 
                 ('scores', 'int32', 3), 
@@ -163,7 +163,7 @@ print(ary, ary.dtype)
 print(ary[0]['age']) # 返回zs的年龄
 print(ary[2]['scores']) # 返回ww的成绩
 
-# 第三种dtype的设置方式
+# 第三种dtype的设置方式，字典传入
 ary = np.array(data, dtype={
     'names':['name', 'scores', 'age'],
     'formats':['U2', '3int32', 'int32']})
@@ -1096,7 +1096,7 @@ $$
 
 ```python
 dates, opening_prices, highest_prices, \
-    lowest_prices, closing_prices = np.loadtxt('../data/aapl.csv', delimiter=',',
+    lowest_prices, closing_prices = np.loadtxt('./data/aapl.csv', delimiter=',',
         usecols=(1, 3, 4, 5, 6), unpack=True,dtype='M8[D], f8, f8, f8, f8',
         converters={1: dmy2ymd})
 trend_points = (highest_prices + lowest_prices + closing_prices) / 3
