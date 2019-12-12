@@ -68,7 +68,7 @@ Python，热度，语言简洁，活跃社区，丰富的共享资料及库等�
 接下来，让我们一起步入Python殿堂吧！
 
 <div align=right>
-<img width="35%" src="img/sin.png" alt="封面"/>
+<img width="35%" src=".img/sin.png" alt="封面"/>
 </div>
 
 # 目录大纲
