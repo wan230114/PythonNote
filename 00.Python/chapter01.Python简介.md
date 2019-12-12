@@ -288,7 +288,7 @@ hello
       ...
       """
       ```
-      通过help(numpy)便会在DESCRIPTION中将该文档显示出来
+      通过`help(numpy)`便会在DESCRIPTION中将该文档显示出来
 
 - 关于Python中的换行: 
   - 换行规则
