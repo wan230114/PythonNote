@@ -1,10 +1,10 @@
 * **Python基础部分**
-    * [Introduction 前言](/00.Python/README.md)
-    * [chapter01.Python简介](/00.Python/chapter01.Python简介.md)
+    * [Introduction 前言](/00.Python/Introduction.md)
+    * [chapter01.Python简介](/00.Python/chapter01.PythonReview.md)
     * [附录](/00.Python/附录.md)
 * **Python高级部分**
     * [Introduction 简介](/01.Datascience/README.md)
-    * [Chapter01 Numpy对多维数组批量操作方法](/01.Datascience/Datascience_1numpy.md)
+    * [Chapter01 Numpy的多维矩阵批量操作方法](/01.Datascience/Datascience_1numpy.md)
     * [Chapter02 Matplotlib绘图工具](/01.Datascience/Datascience_2matplotlib.md)
     * [Chapter03 Pandas常见数据分析](/01.Datascience/Datascience_3pandas.md)
 * **AI机器学习——入门**
