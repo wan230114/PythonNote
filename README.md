@@ -17,7 +17,8 @@ http://118.89.194.65:8888
 <!-- menu -->
 * **Python基础部分**
     * [Introduction 前言](/00.Python/Introduction.md)
-    * [chapter01.Python简介](/00.Python/Chapter01.PythonReview.md)
+    * [Chapter01.Python简介](/00.Python/Chapter01.PythonReview.md)
+    * [Chapter02.数值](/00.Python/Chapter02.Value.md)
     * [附录](/00.Python/附录.md)
 * **Python高级部分**
     * [Introduction 简介](/01.Datascience/README.md)
