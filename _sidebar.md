@@ -1,6 +1,6 @@
 * **Python基础部分**
     * [Introduction 前言](/00.Python/Introduction.md)
-    * [chapter01.Python简介](/00.Python/chapter01.PythonReview.md)
+    * [chapter01.Python简介](/00.Python/Chapter01.PythonReview.md)
     * [附录](/00.Python/附录.md)
 * **Python高级部分**
     * [Introduction 简介](/01.Datascience/README.md)
