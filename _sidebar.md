@@ -2,6 +2,7 @@
     * [Introduction 前言](/00.Python/Introduction.md)
     * [Chapter01.Python简介](/00.Python/Chapter01.PythonReview.md)
     * [Chapter02.数值](/00.Python/Chapter02.Value.md)
+    * [Chapter03.数据容器](/00.Python/Chapter03.DataContainers.md)
     * [附录](/00.Python/附录.md)
 * **Python高级部分**
     * [Introduction 简介](/01.Datascience/README.md)

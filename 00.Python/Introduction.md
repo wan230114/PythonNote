@@ -76,7 +76,7 @@ Python，热度，语言简洁，活跃社区，丰富的共享资料及库等�
 * [Introduction 前言](/00.Python/Introduction.md)
 * [Chapter01.Python简介](/00.Python/Chapter01.PythonReview.md)
 * [Chapter02.数值](/00.Python/Chapter02.Value.md)
-* [Chapter03.数据容器]()
+* [Chapter03.数据容器](/00.Python/Chapter03.DataContainers.md)
 * [Chapter04.逻辑运算]()
 * [Chapter05.数据的迭代与生成]()
 * [Chapter06.函数function]()

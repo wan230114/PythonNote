@@ -2,45 +2,44 @@
 
 # 目录
 
-- [matplotlib概述](#matplotlib概述)
-- [目录](#目录)
-- [1. matplotlib概述](#1-matplotlib概述)
-  - [1.1. matplotlib基本功能](#11-matplotlib基本功能)
-  - [1.2. 包的导入](#12-包的导入)
-- [2. matplotlib基本功能详解](#2-matplotlib基本功能详解)
-  - [2.1. 基本绘图](#21-基本绘图)
-    - [2.1.1. 绘图核心API mp.plot](#211-绘图核心api-mpplot)
-    - [2.1.2. 绘制水平线与垂直线 mp.vlines, mp.hlines](#212-绘制水平线与垂直线-mpvlines-mphlines)
-    - [2.1.3. 设置坐标轴范围 mp.xlim/mp.ylim](#213-设置坐标轴范围-mpxlimmpylim)
-    - [2.1.4. 设置坐标刻度 mp.xticks/mp.yticks](#214-设置坐标刻度-mpxticksmpyticks)
-    - [2.1.5. 设置坐标轴 mp.gca().spines().set_...](#215-设置坐标轴-mpgcaspinesset_)
-    - [2.1.6. 图例 mp.legend](#216-图例-mplegend)
-    - [2.1.7. 特殊点标注绘制 mp.scatter](#217-特殊点标注绘制-mpscatter)
-    - [2.1.8. 备注文本 mp.annotate](#218-备注文本-mpannotate)
-    - [2.1.9. 绘图案例](#219-绘图案例)
-  - [2.2. 图形对象（图形窗口）](#22-图形对象图形窗口)
-    - [2.2.1. 图形窗口创建及选择 mp.figure](#221-图形窗口创建及选择-mpfigure)
-    - [2.2.2. 设置当前窗口的参数 mp.title/mp.xlabel/mp.tick_params/mp.grid](#222-设置当前窗口的参数-mptitlempxlabelmptick_paramsmpgrid)
-    - [2.2.3. 子图](#223-子图)
-      - [2.2.3.1. 矩阵式布局 mp.subplot](#2231-矩阵式布局-mpsubplot)
-      - [2.2.3.2. 网格式布局 mp.subplot(mg.GridSpec(3, 3)[0, :2])](#2232-网格式布局-mpsubplotmggridspec3-30-2)
-      - [2.2.3.3. 自由式布局 mp.axes](#2233-自由式布局-mpaxes)
-    - [2.2.4. 刻度定位器 mp.gca().xaxis.set_major_locator()](#224-刻度定位器-mpgcaxaxisset_major_locator)
-    - [2.2.5. 刻度网格线 mp.gca().grid()](#225-刻度网格线-mpgcagrid)
-    - [2.2.6. 半对数坐标 mp.semilogy](#226-半对数坐标-mpsemilogy)
-    - [2.2.7. 散点图 mp.scatter](#227-散点图-mpscatter)
-    - [2.2.8. 填充 mp.fill_between](#228-填充-mpfill_between)
-    - [2.2.9. 条形图（柱状图） mp.bar](#229-条形图柱状图-mpbar)
-    - [2.2.10. 饼图 mp.axis, mp.pie](#2210-饼图-mpaxis-mppie)
-    - [2.2.11. 等高线图 mp.clabel(mp.contour)](#2211-等高线图-mpclabelmpcontour)
-    - [2.2.12. 热成像图 mp.imshow, mp.colorbar](#2212-热成像图-mpimshow-mpcolorbar)
-    - [2.2.13. 3D图像绘制 mp.gca(projection='3d')](#2213-3d图像绘制-mpgcaprojection3d)
-      - [2.2.13.1. 3D点阵绘制 ax.scatter](#22131-3d点阵绘制-axscatter)
-      - [2.2.13.2. 3D曲面绘制 ax.plot_surface](#22132-3d曲面绘制-axplot_surface)
-      - [2.2.13.3. 3D线框图 ax.plot_wireframe](#22133-3d线框图-axplot_wireframe)
-    - [2.2.14. 极坐标系 mp.gca(projection='polar')](#2214-极坐标系-mpgcaprojectionpolar)
-    - [2.2.15. 简单动画 ma.FuncAnimation(mp.gcf(), func, interval=10)](#2215-简单动画-mafuncanimationmpgcf-func-interval10)
-  - [2.3. 加载文件](#23-加载文件)
+1. [matplotlib概述](#matplotlib概述)
+2. [目录](#目录)
+3. [1. matplotlib概述](#1-matplotlib概述)
+   1. [1.1. matplotlib基本功能](#11-matplotlib基本功能)
+   2. [1.2. 包的导入](#12-包的导入)
+4. [2. matplotlib基本功能详解](#2-matplotlib基本功能详解)
+   1. [2.1. 基本绘图](#21-基本绘图)
+      1. [2.1.1. 绘图核心API mp.plot](#211-绘图核心api-mpplot)
+      2. [2.1.2. 绘制水平线与垂直线 mp.vlines, mp.hlines](#212-绘制水平线与垂直线-mpvlines-mphlines)
+      3. [2.1.3. 设置坐标轴范围 mp.xlim/mp.ylim](#213-设置坐标轴范围-mpxlimmpylim)
+      4. [2.1.4. 设置坐标刻度 mp.xticks/mp.yticks](#214-设置坐标刻度-mpxticksmpyticks)
+      5. [2.1.5. 设置坐标轴 mp.gca().spines().set_...](#215-设置坐标轴-mpgcaspinesset_)
+      6. [2.1.6. 图例 mp.legend](#216-图例-mplegend)
+      7. [2.1.7. 特殊点标注绘制 mp.scatter](#217-特殊点标注绘制-mpscatter)
+      8. [2.1.8. 备注文本 mp.annotate](#218-备注文本-mpannotate)
+      9. [2.1.9. 绘图案例](#219-绘图案例)
+   2. [2.2. 图形对象（图形窗口）](#22-图形对象图形窗口)
+      1. [2.2.1. 图形窗口创建及选择 mp.figure](#221-图形窗口创建及选择-mpfigure)
+      2. [2.2.2. 设置当前窗口的参数 mp.title/mp.xlabel/mp.tick_params/mp.grid](#222-设置当前窗口的参数-mptitlempxlabelmptick_paramsmpgrid)
+      3. [2.2.3. 子图](#223-子图)
+         1. [2.2.3.1. 矩阵式布局 mp.subplot](#2231-矩阵式布局-mpsubplot)
+         2. [2.2.3.2. 网格式布局 mp.subplot(mg.GridSpec(3, 3)[0, :2])](#2232-网格式布局-mpsubplotmggridspec3-30-2)
+         3. [2.2.3.3. 自由式布局 mp.axes](#2233-自由式布局-mpaxes)
+      4. [2.2.4. 刻度定位器 mp.gca().xaxis.set_major_locator()](#224-刻度定位器-mpgcaxaxisset_major_locator)
+      5. [2.2.5. 刻度网格线 mp.gca().grid()](#225-刻度网格线-mpgcagrid)
+      6. [2.2.6. 半对数坐标 mp.semilogy](#226-半对数坐标-mpsemilogy)
+      7. [2.2.7. 散点图 mp.scatter](#227-散点图-mpscatter)
+      8. [2.2.8. 填充 mp.fill_between](#228-填充-mpfill_between)
+      9. [2.2.9. 条形图（柱状图） mp.bar](#229-条形图柱状图-mpbar)
+      10. [2.2.10. 饼图 mp.axis, mp.pie](#2210-饼图-mpaxis-mppie)
+      11. [2.2.11. 等高线图 mp.clabel(mp.contour)](#2211-等高线图-mpclabelmpcontour)
+      12. [2.2.12. 热成像图 mp.imshow, mp.colorbar](#2212-热成像图-mpimshow-mpcolorbar)
+      13. [2.2.13. 3D图像绘制 mp.gca(projection='3d')](#2213-3d图像绘制-mpgcaprojection3d)
+         1. [2.2.13.1. 3D点阵绘制 ax.scatter](#22131-3d点阵绘制-axscatter)
+         2. [2.2.13.2. 3D曲面绘制 ax.plot_surface](#22132-3d曲面绘制-axplot_surface)
+         3. [2.2.13.3. 3D线框图 ax.plot_wireframe](#22133-3d线框图-axplot_wireframe)
+      14. [2.2.14. 极坐标系 mp.gca(projection='polar')](#2214-极坐标系-mpgcaprojectionpolar)
+      15. [2.2.15. 简单动画 ma.FuncAnimation(mp.gcf(), func, interval=10)](#2215-简单动画-mafuncanimationmpgcf-func-interval10)
 
 # 1. matplotlib概述
 
@@ -86,6 +85,7 @@ import matplotlib.pyplot as mp
 绘制一条正弦曲线
 
 ```python
+import matplotlib.pyplot as mp
 xarray = [0, 2, 3]  # xarray: <序列> 水平坐标序列
 yarray = [0, 2, 4]  # yarray: <序列> 垂直坐标序列
 mp.plot(xarray, yarray)
@@ -94,6 +94,7 @@ mp.show()  # 显示图表
 
 线型、线宽和
 ```python
+import matplotlib.pyplot as mp
 # linestyle: '-' 实线  '--' 虚线  ':' 点线
 # linewidth: 线宽 (数字)
 # color: <关键字参数> 颜色
@@ -111,6 +112,7 @@ mp.show()
 ### 2.1.2. 绘制水平线与垂直线 mp.vlines, mp.hlines
 
 ```python
+import matplotlib.pyplot as mp
 # x轴起点，y轴起点，y轴终点
 mp.vlines(8, 2, 10)  # vertical 绘制垂直线  mp.vlines(vval, ymin, ymax, ...)
 # y轴起点，x轴起点，x轴终点
@@ -123,6 +125,7 @@ mp.show()  #显示图表
 案例：把坐标轴范围设置为 -π ~ π
 
 ```python
+import matplotlib.pyplot as mp
 # x_limt_min / x_limit_max: <float> x轴范围最小值/x轴范围最大值
 # y_limt_min / y_limit_max: <float> y轴范围最小值，y轴范围最大值
 y_limt_min, y_limit_max = -2, 14
@@ -137,6 +140,7 @@ mp.show()
 案例：把横坐标的刻度显示为：0, π/2, π, 3π/2, 2π
 
 ```python
+import matplotlib.pyplot as mp
 # x_val_list:  x轴刻度值序列, x_text_list: x轴刻度标签文本序列 [可选]
 # y_val_list:  y轴刻度值序列, y_text_list: y轴刻度标签文本序列 [可选]
 mp.xticks([1, 2, 3, 4, 5], [0, 2, 4] )
@@ -149,6 +153,7 @@ mp.show()
 坐标轴名：left / right / bottom / top
 
 ```python
+import matplotlib.pyplot as mp
 # 获取当前坐标轴字典，{'left':左轴,'right':右轴,'bottom':下轴,'top':上轴 }
 ax = mp.gca()
 # 获取其中某个坐标轴
@@ -167,6 +172,7 @@ mp.show()
 案例：设置坐标轴至中心。
 
 ```python
+import matplotlib.pyplot as mp
 # 设置坐标轴, 设置顶部右侧线条为无, 设置右下居右
 ax = mp.gca()
 ax.spines['top'].set_color('none')
@@ -184,6 +190,7 @@ mp.show()
 显示两条曲线的图例，并测试loc属性。
 
 ```python
+import matplotlib.pyplot as mp
 # 再绘制曲线时定义曲线的label
 
 # label: <关键字参数 str> 支持LaTex排版语法字符串
@@ -195,23 +202,25 @@ mp.plot(xarray, yarray, label=r'$y=\frac{1}{2}x$')
 # loc 设置图例
 mp.legend(loc='best')
 mp.show()
-# 设置图例的位置
-# loc: <关键字参数> 制定图例的显示位置 (若不设置loc，则显示默认位置)
-#	 ===============   =============
-#    Location String   Location Code
-#    ===============   =============
-#    'best'            0
-#    'upper right'     1
-#    'upper left'      2
-#    'lower left'      3
-#    'lower right'     4
-#    'right'           5
-#    'center left'     6
-#    'center right'    7
-#    'lower center'    8
-#    'upper center'    9
-#    'center'          10
-#    ===============   =============
+```
+```
+设置图例的位置
+loc: <关键字参数> 制定图例的显示位置 (若不设置loc，则显示默认位置)
+	 ===============   =============
+   Location String   Location Code
+   ===============   =============
+   'best'            0
+   'upper right'     1
+   'upper left'      2
+   'lower left'      3
+   'lower right'     4
+   'right'           5
+   'center left'     6
+   'center right'    7
+   'lower center'    8
+   'upper center'    9
+   'center'          10
+   ===============   =============
 ```
 
 ***刻度文本的特殊语法*** -- *LaTex排版语法字符串*
@@ -253,6 +262,7 @@ $$
 案例：绘制当x=3π/4时两条曲线上的特殊点。
 
 ```python
+import matplotlib.pyplot as mp
 # xarray: <序列> 所有需要标注点的水平坐标组成的序列
 # yarray: <序列> 所有需要标注点的垂直坐标组成的序列
 xarray = [1, 2, 3, 4]
@@ -278,6 +288,7 @@ mp.show()
 案例：为在某条曲线上的点添加备注，指明函数方程与值。
 
 ```python
+import matplotlib.pyplot as mp
 # 在图表中为某个点添加备注。包含备注文本，备注箭头等图像的设置。
 import numpy as np
 mp.annotate(
@@ -295,6 +306,7 @@ mp.annotate(
 )
 mp.show()
 ```
+
 **arrowprops参数** 使用字典定义指向目标点的箭头样式
 
 箭头样式（arrowstyle）字符串如下
@@ -419,6 +431,7 @@ mp.show()
 
 案例：绘制两个窗口，一起显示。
 ```python
+import matplotlib.pyplot as mp
 # 手动构建 matplotlib 窗口
 mp.figure(
     '文本1',			#窗口标题栏文本
@@ -435,6 +448,7 @@ mp.figure方法不仅可以构建一个新窗口，如果已经构建过title='A
 案例：测试窗口相关参数
 
 ```python
+import matplotlib.pyplot as mp
 # 1) 设置图表标题 显示在图表上方
 mp.title('title', fontsize=12)
 # 2) 设置水平轴的文本
@@ -458,6 +472,7 @@ mp.tight_layout()
 """
 demo03_figure.py  窗口相关测试
 """
+import matplotlib.pyplot as mp
 mp.figure('Figure Title A',
           facecolor='lightgray')
 mp.figure('Figure Title B',
@@ -483,6 +498,7 @@ mp.show()
 绘制矩阵式子图布局相关API：
 
 ```python
+import matplotlib.pyplot as mp
 mp.figure('Subplot Layout', facecolor='lightgray')
 # 拆分矩阵
 	# rows:	行数
@@ -495,7 +511,7 @@ mp.subplot(3, 3, 3)
 	#	4 5 6
 	#	7 8 9 
 mp.subplot(3, 3, 5)		#操作3*3的矩阵中编号为5的子图
-mp.subplot(335)			#简写
+mp.subplot(336)			#简写
 mp.show()
 ```
 
@@ -505,7 +521,7 @@ mp.show()
 """
 demo04_subplot.py  矩阵式子图
 """
-
+import matplotlib.pyplot as mp
 mp.figure('Subplot', facecolor='lightgray')
 for i in range(1, 10):
 	mp.subplot(3, 3, i)
@@ -524,6 +540,7 @@ mp.show()
 绘制网格式子图布局相关API：
 
 ```python
+import matplotlib.pyplot as mp
 import matplotlib.gridspec as mg
 mp.figure('Grid Layout', facecolor='lightgray')
 
@@ -545,6 +562,7 @@ mp.show()
 """
 demo05_gridsubplot.py  网格式子图布局
 """
+import matplotlib.pyplot as mp
 import matplotlib.gridspec as mg
 
 mp.ion()  # 开启一个画图的窗口
@@ -590,6 +608,7 @@ mp.show()
 自由式布局相关API：
 
 ```python
+import matplotlib.pyplot as mp
 # 设置图标的位置，给出左下角点坐标与宽高即可
 # left_bottom_x: 左下角点x坐标
 # left_bottom_y: 左下角点y坐标
@@ -607,6 +626,7 @@ mp.show()
 刻度定位器相关API：
 
 ```python
+import matplotlib.pyplot as mp
 # 获取当前坐标轴
 ax = mp.gca()
 # 设置水平坐标轴的主刻度定位器
@@ -630,6 +650,7 @@ ax.xaxis.set_minor_locator(mp.MultipleLocator(0.1))
 案例：绘制一个数轴。
 
 ```python
+import matplotlib.pyplot as mp
 mp.figure('Locators', facecolor='lightgray')
 # 获取当前坐标轴
 ax = mp.gca()
@@ -1054,7 +1075,7 @@ mp.show()
 
  matplotlib支持绘制三维曲面。若希望绘制三维曲面，需要使用axes3d提供的3d坐标系。
 
-```python
+```
 from mpl_toolkits.mplot3d import axes3d
 ax3d = mp.gca(projection='3d')   # class axes3d
 
@@ -1338,99 +1359,3 @@ anim = ma.FuncAnimation(mp.gcf(), update, y_generator, interval=20)
 mp.tight_layout()
 mp.show()
 ```
-
-## 2.3. 加载文件
-
-numpy提供了函数用于加载逻辑上可被解释为二维数组的文本文件，格式如下：
-
-```
-数据项1 <分隔符> 数据项2 <分隔符> ... <分隔符> 数据项n
-例如：
-AA,AA,AA,AA,AA
-BB,BB,BB,BB,BB
-...
-或：
-AA:AA:AA:AA:AA
-BB:BB:BB:BB:BB
-...
-
-```
-
-调用numpy.loadtxt()函数可以直接读取该文件并且获取ndarray数组对象：
-
-- 文件：[./aapl.csv](./aapl.csv)
-
-```
-AAPL,28-01-2011, ,344.17,344.4,333.53,336.1,21144800
-AAPL,31-01-2011, ,335.8,340.04,334.3,339.32,13473000
-```
-- 读取文件
-```python
-import numpy as np
-# 直接读取该文件并且获取ndarray数组对象 
-# 返回值：
-#     unpack=False：返回一个二维数组
-#     unpack=True： 多个一维数组
-datas = np.loadtxt(
-    './aapl.csv',		# 文件路径
-    delimiter=',',		# 分隔符
-    usecols=(1, 3),		# 读取1、3两列 （下标从0开始）
-    unpack=False,		# 是否按列拆包
-    dtype='U10, f8',	# 制定返回每一列数组中元素的类型
-    converters={1:func}	# 转换器函数字典
-)    
-```
-
-案例：读取aapl.csv文件，得到文件中的信息：
-
-```python
-import numpy as np
-import datetime as dt
-
-# 日期转换函数
-def dmy2ymd(dmy):
-	dmy = str(dmy, encoding='utf-8')
-	time = dt.datetime.strptime(dmy, '%d-%m-%Y').date()
-	t = time.strftime('%Y-%m-%d')
-	return t
-
-dates, opening_prices,highest_prices, \
-	lowest_prices, closeing_prices  = np.loadtxt(
-    './aapl.csv',		# 文件路径
-    delimiter=',',			# 分隔符
-    usecols=(1, 3, 4, 5, 6),			# 读取1、3两列 （下标从0开始）
-    unpack=True,
-    dtype='M8[D], f8, f8, f8, f8',		# 制定返回每一列数组中元素的类型
-    converters={1:dmy2ymd})
-```
-
-案例：使用matplotlib绘制K线图
-
-1. 绘制dates与收盘价的折线图：
-
-```python
-import matplotlib.pyplot as mp
-import matplotlib.dates as md
-
-# 绘制k线图，x为日期
-mp.figure('APPL K', facecolor='lightgray')
-mp.title('APPL K')
-mp.xlabel('Day', fontsize=12)
-mp.ylabel('Price', fontsize=12)
-
-#拿到坐标轴
-ax = mp.gca()
-#设置主刻度定位器为周定位器（每周一显示主刻度文本）
-ax.xaxis.set_major_locator( md.WeekdayLocator(byweekday=md.MO) )
-ax.xaxis.set_major_formatter(md.DateFormatter('%d %b %Y'))
-#设置次刻度定位器为日定位器 
-ax.xaxis.set_minor_locator(md.DayLocator())
-mp.tick_params(labelsize=8)
-dates = dates.astype(md.datetime.datetime)
-
-mp.plot(dates, opening_prices, color='dodgerblue',
-		linestyle='-')
-mp.gcf().autofmt_xdate()
-mp.show()
-```
-

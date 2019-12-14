@@ -462,7 +462,8 @@ print("np.outer():\n", np.outer(A, B))
 ```
 
 
-# 4. numpy中的矩阵计算
+# 4. numpy中的高级应用
+（在学习本章之前，先学习matplotlib）
 
 ## 4.1. numpy常用函数
 
@@ -484,48 +485,37 @@ BB:BB:BB:BB:BB
 
 调用numpy.loadtxt()函数可以直接读取该文件并且获取ndarray数组对象：
 
-```python
-import numpy as np
-# 直接读取该文件并且获取ndarray数组对象 
-# 返回值：
-#     unpack=False：返回一个二维数组
-#     unpack=True： 多个一维数组
-np.loadtxt(
-    './data/aapl.csv',			# 文件路径
-    delimiter=',',			# 分隔符
-    usecols=(1, 3),			# 读取1、3两列 （下标从0开始）
-    unpack=False,			# 是否按列拆包
-    dtype='U10, f8',		# 制定返回每一列数组中元素的类型
-    converters={1:func}		# 转换器函数字典
-)
-```
-
+#### 案例：读取文件并使用matplotlib绘制K线图、蜡烛图
 案例：读取aapl.csv文件，得到文件中的信息：
 
+文件内容：[./aapl.csv](./aapl.csv)
+
+```
+AAPL,28-01-2011, ,344.17,344.4,333.53,336.1,21144800
+AAPL,31-01-2011, ,335.8,340.04,334.3,339.32,13473000
+...
+```
+
 ```python
+# 0) 读取：
 import numpy as np
 import datetime as dt
 # 日期转换函数
 def dmy2ymd(dmy):
-    dmy = str(dmy, encoding='utf-8')
-    time = dt.datetime.strptime(dmy, '%d-%m-%Y').date()
-    t = time.strftime('%Y-%m-%d')
-    return t
+	dmy = str(dmy, encoding='utf-8')
+	time = dt.datetime.strptime(dmy, '%d-%m-%Y').date()
+	t = time.strftime('%Y-%m-%d')
+	return t
 dates, opening_prices,highest_prices, \
-    lowest_prices, closeing_prices  = np.loadtxt(
+	lowest_prices, closeing_prices  = np.loadtxt(
     './data/aapl.csv',		# 文件路径
     delimiter=',',			# 分隔符
     usecols=(1, 3, 4, 5, 6),			# 读取1、3两列 （下标从0开始）
     unpack=True,
     dtype='M8[D], f8, f8, f8, f8',		# 制定返回每一列数组中元素的类型
     converters={1:dmy2ymd})
-```
 
-案例：使用matplotlib绘制K线图
-
-1. 绘制dates与收盘价的折线图：
-
-```python
+# 1) 绘制dates与收盘价的折线图：
 import numpy as np
 import datetime as dt
 import matplotlib.pyplot as mp
@@ -552,11 +542,7 @@ mp.plot(dates, opening_prices, color='dodgerblue',
 mp.gcf().autofmt_xdate()
 mp.show()
 
-```
-
-1. 绘制每一天的蜡烛图：
-
-```python
+# 2) 绘制每一天的蜡烛图：
 #绘制每一天的蜡烛图
 #填充色：涨为白色，跌为绿色
 rise = closeing_prices >= opening_prices
@@ -570,7 +556,10 @@ mp.bar(dates, highest_prices - lowest_prices, 0.1,
 #绘制方块
 mp.bar(dates, closeing_prices - opening_prices, 0.8,
 	opening_prices, color=color, edgecolor=edgecolor)
+
+mp.show()
 ```
+
 
 ### 4.1.2. 算数平均值
 
@@ -911,29 +900,23 @@ a = [a, b, c, d, e, f, g, h, i, j]
 b = [1/5, 1/5, 1/5, 1/5, 1/5]
 ```
 
-**使用卷积函数numpy.convolve(a, b, 卷积类型)实现5日均线**
 
 ```python
+# **使用卷积函数numpy.convolve(a, b, 卷积类型)实现5日均线**
 sma52 = np.convolve( closing_prices, np.ones(5) / 5, 'valid')
 mp.plot(dates[4:], sma52, c='limegreen', alpha=0.5,
         linewidth=6, label='SMA-5(2)')
-```
 
-**使用卷积函数numpy.convolve(a, b, 卷积类型)实现10日均线**
-
-```python
+# **使用卷积函数numpy.convolve(a, b, 卷积类型)实现10日均线**
 sma10 = np.convolve(closing_prices, np.ones(10) / 10, 'valid')
 mp.plot(dates[9:], sma10, c='dodgerblue', label='SMA-10')
-```
 
-**使用卷积函数numpy.convolve(a, b, 卷积类型)实现加权5日均线**
-
-```python
+# **使用卷积函数numpy.convolve(a, b, 卷积类型)实现加权5日均线**
 weights = np.exp(np.linspace(-1, 0, 5))
 weights /= weights.sum()
 ema5 = np.convolve(closing_prices, weights[::-1], 'valid')
-mp.plot(dates[4:], sma52, c='limegreen', alpha=0.5,
-        linewidth=6, label='SMA-5')
+mp.plot(dates[4:], sma52, c='red', alpha=0.5,
+        linewidth=2, label='SMA-5')
 ```
 
 #### 4.1.7.5. 布林带
