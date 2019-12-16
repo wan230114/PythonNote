@@ -1,3 +1,4 @@
+<!-- menu -->
 * **Python基础部分**
     * [Introduction 前言](/00.Python/Introduction.md)
     * [Chapter01.Python简介](/00.Python/Chapter01.PythonReview.md)
@@ -13,10 +14,10 @@
     * [Introduction 简介](/02.AI_ML/README.md)
     * [Note 教程](/02.AI_ML/ML.md)
 * **AI机器学习——算法进阶篇**
-    * [Introduction 简介](/03.AI_ML_机器学习算法集训营/README.md)
-    * *阶段一*
-      * [01.初识人工智能](/03.AI_ML_机器学习算法集训营/Phase1/01.初识人工智能.md)
-      * [02.第一个监督学习算法KNN](/03.AI_ML_机器学习算法集训营/Phase1/02.第一个监督学习算法KNN.md)
+    * [Introduction 简介](/03.AI_ML_机器学习算法集训营/Introduction.md)
+    * ***阶段一***
+      * [01.初识人工智能](/03.AI_ML_机器学习算法集训营/Phase1/Chapter01.初识人工智能.md)
+      * [02.第一个监督学习算法KNN](/03.AI_ML_机器学习算法集训营/Phase1/Chapter02.第一个监督学习算法KNN.md)
 * **AI机器学习——公式推导**
     * ***补充ing***
 * **其他笔记**
@@ -24,3 +25,4 @@
       * [HTML 语法](/Others/HTML高级语法/HTML高级语法.md)
     * ***Markdown***
       * [Markdown 语法](/Others/Markdown笔记/HTML及markdown常用命令.md)
+<!-- menu -->
