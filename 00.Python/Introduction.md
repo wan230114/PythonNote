@@ -10,7 +10,7 @@
 **当前版本：** v2.0.12
 
 **更新日志：**
-> 2019-12-17：v2.0.12【1,2,3】前三章语法使用实例整理  
+> 2019-12-17：v2.0.12【1,2,3】前三章部分语法的逻辑调整，使用实例整理  
 > 2019-11-10：v2.0.11【1.6.3】第一章type/id/is的使用，1.5.1|1.6.3结构重排<br>
 > 2019-10-23：v2.0.10【10.5.2.2】重新整理并新增os模块路径操作方法<br>
 > 2019-10-13：v2.0.9【3.4.2 】集合创建错误示例增加，创建元素不能包含可变对象<br>
@@ -80,13 +80,13 @@ Python，热度，语言简洁，活跃社区，丰富的共享资料及库等�
 * [Chapter01.Python简介](/00.Python/Chapter01.PythonReview.md)
 * [Chapter02.数值](/00.Python/Chapter02.Value.md)
 * [Chapter03.数据容器](/00.Python/Chapter03.DataContainers.md)
-* [Chapter04.逻辑运算]()
-* [Chapter05.数据的迭代与生成]()
-* [Chapter06.函数function]()
-* [Chapter07.错误及异常处理]()
-* [Chapter08.文件file及编码]()
-* [Chapter09.面向对象]()
-* [Chapter10.模块和包]()
+* Chapter04.逻辑运算
+* Chapter05.数据的迭代与生成
+* Chapter06.函数function
+* Chapter07.错误及异常处理
+* Chapter08.文件file及编码
+* Chapter09.面向对象
+* Chapter10.模块和包
 * [附录](/00.Python/附录.md)
 
 （文章笔记暂未完全转化，原始文档下载链接：https://1drv.ms/w/s!AofyZDsRK31B8m8uzCxonAKFeOEl?e=JWqhA2
