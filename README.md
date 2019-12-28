@@ -6,12 +6,14 @@
 > A general knowledge map.  
 > —— 陈军 1170101471@qq.com </font>  
 > <font font="等线" size="2">  
-> **Git地址：**   
-> https://gitee.com/wan230114/PythonNote
-> 
-> **网页主页地址：**   
+> **网站主页地址：**   
 > https://wan230114.gitee.io/pythonnote  
+> 
+> **网站主页地址（镜像）：**  
 > http://118.89.194.65:8888  
+> 
+> **Git项目主页：**   
+> https://gitee.com/wan230114/PythonNote
 > 
 </font>
 
@@ -24,7 +26,7 @@
     * [Chapter02.数值](/00.Python/Chapter02.Value.md)
     * [Chapter03.数据容器](/00.Python/Chapter03.DataContainers.md)
     * [附录](/00.Python/Chapter_Appendix.md)
-* **Python高级部分**
+* **Python高级部分——数据分析**
     * [Introduction 简介](/01.Datascience/README.md)
     * [Chapter01 Numpy的多维矩阵批量操作方法](/01.Datascience/Datascience_1numpy.md)
     * [Chapter02 Matplotlib绘图工具](/01.Datascience/Datascience_2matplotlib.md)
@@ -147,6 +149,10 @@ Python，热度，语言简洁，活跃社区，丰富的共享资料及库等�
 ）
 <!-- introduction -->
 
+
 ---
 
-其他内容，见各个子文件夹~
+<font face="仿宋">
+以上为Python基础部分主页。<br>
+其他大块部分的内容，如高级使用，数据分析，机器学习等，见各个子文件夹~
+</font>
