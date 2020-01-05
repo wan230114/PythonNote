@@ -9,6 +9,24 @@
   <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css">
   <script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.js"></script>
+
+  <!-- 评论插件 -->
+  <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
+  <script src="//unpkg.com/docsify/lib/plugins/gitalk.min.js"></script>
+  <script src="//unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script>
+    const gitalk = new Gitalk({
+      enable: true,
+      clientID: '381baf0bd6252c1a156f',
+      clientSecret: '8d1dd2057c4f02315e8aba569ed7cfe34538c043',
+      repo: 'PythonNote_Gitalk',
+      owner: 'wan230114',
+      admin: 'wan230114',
+      // facebook-like distraction free mode
+      distractionFreeMode: true
+    })
+  </script>
+  <!--  -->
   <style>
     .sidebar>h1 a {
       font-size: 20px;

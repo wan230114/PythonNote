@@ -35,5 +35,5 @@ class Solution:
         return [i for i in itertools.combinations(L_c, i)]
 
 
-Solution().get_newL(4, [0, 1, 2, 3, 4])  # 缺0134
-
+a = Solution().get_newL(4, [0, 1, 2, 3, 4])  # 缺0134
+print(a)

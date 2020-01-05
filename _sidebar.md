@@ -5,7 +5,7 @@
     * [Chapter02.数值](/00.Python/Chapter02.Value.md)
     * [Chapter03.数据容器](/00.Python/Chapter03.DataContainers.md)
     * [附录](/00.Python/Chapter_Appendix.md)
-* **Python高级部分**
+* **Python高级部分——数据分析**
     * [Introduction 简介](/01.Datascience/README.md)
     * [Chapter01 Numpy的多维矩阵批量操作方法](/01.Datascience/Datascience_1numpy.md)
     * [Chapter02 Matplotlib绘图工具](/01.Datascience/Datascience_2matplotlib.md)
@@ -21,8 +21,9 @@
 * **AI机器学习——公式推导**
     * ***补充ing***
 * **其他笔记**
-    * ***HTML***
+    * ***Markdown与HTML笔记***
+      * [Markdown 语法](/Others/HTML高级语法/Markdown及HTML常用命令.md)
       * [HTML 语法](/Others/HTML高级语法/HTML高级语法.md)
-    * ***Markdown***
-      * [Markdown 语法](/Others/Markdown笔记/HTML及markdown常用命令.md)
+    * ***LeetCode***
+      * [LeetCode](/Others/Python_leetcode/Introduction.md)
 <!-- menu -->

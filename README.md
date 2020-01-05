@@ -2,7 +2,7 @@
 
 <font face="楷体">
 
-> 专属我的知识图谱。包含了从Python基础到高阶方法使用，以及一些日常探索，只为让零碎知识逐渐整体化。  
+> 个人的专属知识图谱。包含了从Python基础到高阶使用，以及一些日常探索，只为让零碎知识逐渐整体化。  
 > A general knowledge map.  
 > —— 陈军 1170101471@qq.com </font>  
 > <font font="等线" size="2">  
@@ -42,10 +42,11 @@
 * **AI机器学习——公式推导**
     * ***补充ing***
 * **其他笔记**
-    * ***HTML***
+    * ***Markdown与HTML笔记***
+      * [Markdown 语法](/Others/HTML高级语法/Markdown及HTML常用命令.md)
       * [HTML 语法](/Others/HTML高级语法/HTML高级语法.md)
-    * ***Markdown***
-      * [Markdown 语法](/Others/Markdown笔记/HTML及markdown常用命令.md)
+    * ***LeetCode***
+      * [LeetCode](/Others/Python_leetcode/Introduction.md)
 <!-- menu -->
 
 ---
