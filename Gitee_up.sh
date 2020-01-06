@@ -1,7 +1,7 @@
 # https://gitee.com/wan230114/mytools.git
 echo "***********"
 echo ">拉取中..."
-sh Get_gitee.sh
+sh Gitee_down.sh
 
 echo
 echo "***********"
