@@ -14,7 +14,7 @@ while true; do
   else
     echo >>../log
     date "+%F %H:%M:%S" &>>../log
-    echo $logs &>>../log
+    echo -e "$logs" &>>../log
   fi
 done
 
