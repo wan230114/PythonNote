@@ -25,5 +25,5 @@
       * [Markdown 语法](/Others/HTML高级语法/Markdown及HTML常用命令.md)
       * [HTML 语法](/Others/HTML高级语法/HTML高级语法.md)
     * ***LeetCode***
-      * [LeetCode](/Others/Python_leetcode/Introduction.md)
+      * [LeetCode](/Others/Python_leetcode/Summary.md)
 <!-- menu -->
