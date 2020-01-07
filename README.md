@@ -26,6 +26,9 @@
     * [Chapter02.数值](/00.Python/Chapter02.Value.md)
     * [Chapter03.数据容器](/00.Python/Chapter03.DataContainers.md)
     * [附录](/00.Python/Chapter_Appendix.md)
+* **Python进阶部分**
+    * [Chapter01.正则匹配RE模块](/00.Python_Advanced/Chapter01.RE.md)
+    * [Chapter02.多进程多线程](/00.Python_Advanced/Chapter02.Multiprocess.md)
 * **Python高级部分——数据分析**
     * [Introduction 简介](/01.Datascience/README.md)
     * [Chapter01 Numpy的多维矩阵批量操作方法](/01.Datascience/Datascience_1numpy.md)
