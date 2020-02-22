@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <form method='get' action="/user/login">
+            姓名:<input type="text" name="uname">
+            <!-- .../user/login?uname=1 -->
+        </form>
+
+        <form method='post' action="/login">
+            姓名:<input type="text" name="username">
+            <input type='submit' value='登陆'>
+        </form>
+
+        <form action="/page1" method="POST">
+            <input name="title" type="text" value="请输入">
+            <select name="gender">
+                <option value=1>男</option>
+                <option value=0>女</option>
+            </select>
+            <textarea name="comment" rows="5" cols="10">附言...</textarea>
+            <input type="submit" value="提交">
+        </form>
+
+        <h1>test</h1>
+
+    </body>
+</html>

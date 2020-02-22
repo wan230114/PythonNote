@@ -12,6 +12,7 @@
   4. pandas       序列高级函数
 
 # 1. numpy概述
+
 1. Numerical Python，数值的Python，补充了Python语言所欠缺的数值计算能力。
 2. Numpy是其它数据分析及机器学习库的底层库。
 3. Numpy完全标准C语言实现，运行效率充分优化。
@@ -56,10 +57,10 @@ print(type(ary))
     
 ### 2.1.1. ndarray数组对象的创建
 
-np.array(任何可被解释为Numpy数组的逻辑结构)
-np.arange(起始值(0),终止值,步长(1))
-np.zeros(数组元素个数, dtype='类型')
-np.ones(数组元素个数, dtype='类型')
+- np.array(任何可被解释为Numpy数组的逻辑结构)
+- np.arange(起始值(0),终止值,步长(1))
+- np.zeros(数组元素个数, dtype='类型')
+- np.ones(数组元素个数, dtype='类型')
 
 ```python
 import numpy as np
@@ -75,14 +76,14 @@ print(a)  # [1. 1. 1. 1. 1. 1. 1. 1. 1. 1.]
 
 ### 2.1.2. ndarray对象属性的基本操作
 
-**数组的维度：** np.ndarray.shape
+**1. 数组的维度：** np.ndarray.shape
 ```python
 import numpy as np
 ary = np.array([[1,2,3,4], [5,6,7,8]])
 print(type(ary), ary.shape)  # <class 'numpy.ndarray'> (2, 4)
 ```
 
-**元素的类型：** np.ndarray.dtype
+**2. 元素的类型：** np.ndarray.dtype
 ```python
 import numpy as np
 ary = np.array([1, 2, 3, 4])
@@ -94,7 +95,8 @@ print(ary, ary.dtype)  # [1. 2. 3. 4.] float64
 ary = ary.astype('str') # return new instance
 print(ary, ary.dtype)  # ['1.0' '2.0' '3.0' '4.0'] <U32
 ```
-**数组元素的个数：** np.ndarray.size
+
+**3. 数组元素的个数：** np.ndarray.size
 ```python
 import numpy as np
 ary = np.array([[1,2,3,4], [5,6,7,8]])
@@ -102,10 +104,8 @@ ary = np.array([[1,2,3,4], [5,6,7,8]])
 print(ary.shape, ary.size, len(ary))  # (2, 4) 8 2
 ```
 
-**数组元素索引(下标)**
-
-数组对象[..., 页号, 行号, 列号]
-
+**4. 数组元素索引(下标)**  
+数组对象[..., 页号, 行号, 列号]  
 下标从0开始，到数组len-1结束。
 
 ```python
@@ -123,9 +123,8 @@ for i in range(a.shape[0]):
             print(a[i, j, k])  # 1 2 3 4 5 6 7 8
 ```
 
-### 2.1.3. ndarray对象属性操作详解
-
-**Numpy的内部基本数据类型**
+### Numpy的数据类型
+#### **Numpy的内部基本数据类型**
 
 | 类型名       | 类型表示符                          |
 | ------------ | ----------------------------------- |
@@ -136,7 +135,7 @@ for i in range(a.shape[0]):
 | 复数型       | complex64/complex128                |
 | 字串型       | str_，每个字符用32位Unicode编码表示 |
 
-**自定义复合类型**
+#### **自定义复合类型**
 
 ```python
 """
@@ -188,7 +187,7 @@ ary = ary.astype('M8[D]')
 print(ary, ary.dtype, ary[1]-ary[0]) 
 ```
 
-**类型字符码**
+#### **类型字符码**
 
 | 类型              | 字符码                              |
 | ----------------- | ----------------------------------- |
@@ -200,20 +199,23 @@ print(ary, ary.dtype, ary[1]-ary[0])
 | np.str_           | U<字符数>                           |
 | np.datetime64     | M8[Y] M8[M] M8[D] M8[h] M8[m] M8[s] |
 
-**字节序前缀，用于多字节整数和字符串：**
-`</>/[=]分别表示小端/大端/硬件字节序。`
+**字节序前缀，用于多字节整数和字符串：**  
+`<`、`>`、`=` 分别表示小端/大端/硬件字节序。
 
 **类型字符码格式**
 
 <字节序前缀><维度><类型><字节数或字符数>
 
-| 3i4      | 释义                                                                                       |
-| -------- | ------------------------------------------------------------------------------------------ |
-| 3i4      | 3个元素的一维数组，每个元素都是整型，每个整型元素占4个字节。                               |
-| <(2,3)u8 | 小端字节序，6个元素2行3列的二维数组，每个元素都是无符号整型，每个无符号整型元素占8个字节。 |
-| U7       | 包含7个字符的Unicode字符串，每个字符占4个字节，采用默认字节序。                            |
+示例：
 
-#### 2.1.3.1. ndarray数组对象的维度操作
+> `3i4`： 3个元素的一维数组，每个元素都是整型，每个整型元素占4个字节。  
+> `<(2,3)u8`： 小端字节序，6个元素2行3列的二维数组，每个元素都是无符号整型，每个无符号整型元素占8个字节。  
+> `U7`： 包含7个字符的Unicode字符串，每个字符占4个字节，采用默认字节序。                            |
+
+
+### 2.1.3.1. ndarray数组的维度操作
+- reshape() 与 ravel()
+- flatten()
 
 **视图变维（数据共享）：** reshape() 与 ravel() 
 
@@ -221,12 +223,27 @@ print(ary, ary.dtype, ary[1]-ary[0])
 import numpy as np
 a = np.arange(1, 9)
 print(a)		# [1 2 3 4 5 6 7 8]
-b = a.reshape(2, 4)	#视图变维  : 变为2行4列的二维数组
-print(b)
-c = b.reshape(2, 2, 2) #视图变维    变为2页2行2列的三维数组
-print(c)
-d = c.ravel()	#视图变维	变为1维数组
-print(d)
+
+a1 = a.reshape(2, 4)  #视图变维  : 变为2行4列的二维数组
+print(a1)
+# [[1 2 3 4]
+# [5 6 7 8]]
+
+a2 = a.reshape(2, 2, 2)  # 视图变维    变为2页2行2列的三维数组
+a3 = a1.reshape(2, 2, 2)  # 只与总数据量相关
+# [[[1 2]
+#  [3 4]]
+# [[5 6]
+#  [7 8]]]
+
+b = a3.ravel()	#视图变维	变为1维数组
+print(b)  # [1 2 3 4 5 6 7 8]
+
+# 负数代表当前维度由其他参数决定
+print(np.arange(6).reshape(2, 3, 1))
+# 等价于
+print(np.arange(6).reshape(-1, 3, 1))
+
 ```
 
 **复制变维（数据独立）：** flatten()
@@ -247,7 +264,7 @@ a.resize(2, 2, 2)
 print(a)
 ```
 
-#### 2.1.3.2. ndarray数组切片操作
+#### 2.1.3.2. 切片操作
 
 ```python
 #数组对象切片的参数设置与列表切面参数类似

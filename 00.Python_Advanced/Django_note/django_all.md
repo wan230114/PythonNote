@@ -1,619 +1,27 @@
+<h1>Django Web框架笔记</h1>
 
-# 《Django Web框架教学笔记》
-### 目录
+目录
+
 [TOC]
 
-- 课程特点：
-    1. 学习难度大，大部分内容需要理解并记忆
-    2. 文件较多易混淆
-    3. 学习阶段注重框架使用，工作阶段注重实现业务逻辑
-    4. 综合应用强，小练习少
+课程特点：
 
-## Django框架的介绍
-- 2005年发布,采用Python语言编写的开源web框架    
-- 早期的时候Django主做新闻和内容管理的
-- 一个重量级的 Python Web框架，Django 配备了常用的大部分组件
-    1. 基本配置  
-    2. 路由系统   
-    3. 原生HTML模板系统
-    4. 视图 view
-    5. Model模型,数据库连接和ORM数据库管理
-    6. 中间件
-    7. Cookie & Seesion
-    8. 分页
-    9. 数据库后台管理系统admin
+1. 学习难度大，大部分内容需要理解并记忆
+2. 文件较多易混淆
+3. 学习阶段注重框架使用，工作阶段注重实现业务逻辑
+4. 综合应用强，小练习少
 
-- Django的用途
-    - 网站后端开发
-    - 微信公众号、微信小程序等后台开发
-    - 基于HTTP/HTTPS协议的后台服务器开发
-    - tornado/gevent 4层
-        - 在线语音/图像识别服务器
-        - 在线第三方身份验证服务器等
-- Django的版本
-    - 最新版本:2.2.x
-    - 当前教学版本:1.11.8
 
-- Django的官网
-    - 官方网址: <http://www.djangoproject.com>
-    - 中文文档(第三方):
-        - <https://yiyibooks.cn/>
-        - <http://djangobook.py3k.cn/>
-    - Django的离线文档
-        1. 解压缩数据包 `django-docs-1.11-en.zip`
-        2. 用浏览器打开 `django-docs-1.11-en/index.html`
 
+# 4. 视图和模板
+MTV设计模式，MTV 代表 Model-Template-View（模型-模板-视图） 模式。这种模式用于应用程序的分层开发
 
-### Django的安装
-- 查看已安装的版本
-    ```python
-    >>> import django
-    >>> print(django.VERSION)
-    (1, 11, 8, 'final', 0)
-    ```
-- 安装
-    1. 在线安装
-        - `$ sudo pip3 install django`  安装django的最新版本
-        - 或
-        - `$ sudo pip3 install django[==版本]` 安装django的指定版本
-        - 如:
-            - `$ sudo pip3 install django==1.11.8`
-    2. 离线安装
-        - 下载安装包:
-        - 安装离线包
-            - `$ tar -xvf Django-1.11.8.tar.gz`
-            - `$ cd Django-1.11.8`
-            - `$ sudo python3 setup.py install`
-    3. 用wheel离线安装
-        - 下载安装包:
-            - `pip3 download -d /home/tarena/django_packs django==1.11.8`
-        - 安装离线包
-          - $ pip3 install Django-1.11.8.whl
-- Django的卸载
-  
-- $ pip3 uninstall django
-  
-- Django 的开发环境
-    - Django 1.11.x 支持 Python 2.7, 3.4, 3.5 和 3.6（长期支持版本 LTS)
-    - 注: Django 1.11.x 不支持 Python 3.7
-
-
-
-## Django框架开发
-### 创建项目的指令
-  - $ django-admin startproject 项目名称
-  - 如:
-    
-    - $ django-admin startproject mysite1
-  - 运行
-    ```shell
-    $ cd mysite1
-    $ python3 manage.py runserver
-    # 或
-    $ python3 manage.py runserver 5000  # 指定只能本机使用127.0.0.1的5000端口访问本机
-    ```
-### Django项目的目录结构
-- 示例:
-    ```shell
-    $ django-admin startproject mysite1
-    $ tree mysite1/
-    mysite1/
-    ├── manage.py
-    └── mysite1
-        ├── __init__.py
-        ├── settings.py
-        ├── urls.py
-        └── wsgi.py
-    
-    1 directory, 5 files
-    ```
-- 项目目录结构解析:
-    - manage.py
-        - 此文件是项目管理的主程序,在开发阶段用于管理整个项目的开发运行的调式
-        - `manage.py` 包含项目管理的子命令, 如:
-            - `python3 manage.py runserver` 启动服务
-            - `python3 manage.py startapp` 创建应用
-            - `python3 manage.py migrate` 数据库迁移
-            - `...`
-    - mysite1 项目包文件夹
-        - 项目包的主文件夹(默认与项目名称一致)
-        1. `__init__.py`
-
-            - 包初始化文件,当此项目包被导入(import)时此文件会自动运行
-        2. `wsgi.py`
-
-            - WSGI 即 Web Server Gateway Interface   与 nginx 相连
-            - WEB服务网关接口的配置文件，仅部署项目时使用
-        3. `urls.py`
-
-            - 项目的基础路由配置文件，所有的动态路径必须先走该文件进行匹配
-        4. `settings.py`
-
-            - Django项目的配置文件, 此配置文件中的一些全局变量将为Django框架的运行传递一些参数
-            - setting.py 配置文件,启动服务时自动调用，
-            - 此配置文件中也可以定义一些自定义的变量用于作用全局作用域的数据传递
-
-            http://127.0.0.1:8000/admin/
-
-- `settings.py` 文件介绍
-
-    1. `BASE_DIR`
-       
-        - 用于绑定当前项目的绝对路径(动态计算出来的), 所有文件都可以依懒此路径
-    2. `DEBUG`
-       
-        - 用于配置Django项目的启用模式, 取值:
-            1. True 表示开发环境中使用 `调试模式`(用于开发中)
-            2. False 表示当前项目运行在`生产环境中`(不启用调试)
-    3. `ALLOWED_HOSTS`
-       
-        - 设置允许访问到本项目的网络地址列表,取值:
-            1. [] 空列表,表示只有`127.0.0.1`, `localhost`能访问本项目
-            2. ['*']，表示任何网络地址都能访问到当前项目
-            3. ['192.168.1.3', '192.168.3.3'] 表示只有当前两个主机能访问当前项目
-            - 注意:
-                - 如果要在局域网其它主机也能访问此主机,启动方式应使用如下模式:
-        - `python3 manage.py runserver 0.0.0.0:5000` # 指定网络设备所有主机都可以通过5000端口访问(需加`ALLOWED_HOSTS = ['*']`) 
-        
-    4. `INSTALLED_APPS`
-       
-        - 指定当前项目中安装的应用列表
-    5. `MIDDLEWARE`
-       
-        - 用于注册中间件
-    6. `TEMPLATES`
-       
-        - 用于指定模板的配置信息
-    7. `DATABASES`
-       
-        - 用于指定数据库的配置信息
-    8. `LANGUAGE_CODE`
-       
-        - 用于指定语言配置
-        - 取值:
-            - 英文 : `"en-us"`
-            - 中文 : `"zh-Hans"`
-    9. `TIME_ZONE`
-       
-        - 用于指定当前服务器端时区
-        - 取值:
-            - 世界标准时间: `"UTC"`
-            - 中国时区 : `"Asia/Shanghai"`
-    10. `ROOT_URLCONF`
-        
-        - 用于配置根级 url 配置 'mysite1.urls'
-        - 如:
-            - `ROOT_URLCONF = 'mysite1.urls'`
-    > 注: 此模块可以通过 `from django.conf import settings` 导入和使用
-
-
-### URL 介绍
-- url 即统一资源定位符 Uniform Resource Locator
-
-- 作用:
-
-    - 用来表示互联网上某个资源的地址。
-
-- 说明:
-
-    - 互联网上的每个文件都有一个唯一的URL，它包含的信息指出文件的位置以及浏览器应该怎么处理它。
-
-- URL的一般语法格式为：
-
-- <https://www.djangoproject.com/download/>
-
-    ```
-    protocol :// hostname[:port] / path [?query][#fragment]
-    ```
-
-- 如:
-    ```
-    http://tts.tmooc.cn/video/showVideo?meuId=657421&version=AID201908#s
-    ```
-
-- 说明:
-    - protocol（协议）
-        - http 通过 HTTP 访问该资源。 格式 `HTTP://`
-        - https 通过安全的 HTTPS 访问该资源。 格式 `HTTPS://`
-        - file 资源是本地计算机上的文件。格式: `file:///`
-        - ...
-    - hostname（主机名）
-        - 是指存放资源的服务器的域名系统(DNS) 主机名、域名 或 IP 地址。
-    - port（端口号）
-        - 整数，可选，省略时使用方案的默认端口；
-        - 各种传输协议都有默认的端口号，如http的默认端口为80。 HTTPS 443
-    - path（路由地址）
-        - 由零或多个“/”符号隔开的字符串，一般用来表示主机上的一个目录或文件地址。路由地址决定了服务器端如何处理这个请求
-    - query(查询) 
-        - 可选，用于给动态网页传递参数，可有多个参数，用“&”符号隔开，每个参数的名和值用“=”符号隔开。
-    - fragment（信息片断）
-        - 字符串，用于指定网络资源中的片断。例如一个网页中有多个名词解释，可使用fragment直接定位到某一名词解释。
-    - 注: [] 代表其中的内容可省略
-
-
-### 视图函数(view)
-- 视图函数是用于接收一个浏览器请求并通过HttpResponse对象返回数据的函数。此函数可以接收浏览器请求并根据业务逻辑返回相应的内容给浏览器
-- 视图处理的函数的语法格式:
-    ```python
-    def xxx_view(request[, 其它参数...]):
-        return HttpResponse对象
-    ```
-- 参数:
-  
-    - request用于绑定HttpRequest对象，通过此对象可以获取浏览器的参数和数据
-- 示例:
-    - 视图处理函数 `views.py`
-        ```python
-        # file : <项目名>/views.py
-        from django.http import HttpResponse
-        def page1_view(request):
-            html = "<h1>这是第1个页面</h1>"
-            return HttpResponse(html)
-        ```
-
-### Django 中的路由配置
-- settings.py 中的`ROOT_URLCONF` 指定了主路由配置列表urlpatterns的文件位置
-- urls.py 主路由配置文件
-    ```python
-    # file : <项目名>/urls.py
-    urlpatterns = [
-        url(r'^admin/', admin.site.urls),
-        
-        ...  # 此处配置主路由
-    ]
-    ```
-    > urlpatterns 是一个路由-视图函数映射关的列表,此列表的映射关系由url函数来确定
-
-3. url() 函数
-    - 用于描述路由与视图函数的对应关系
-    - 模块
-        - `from django.conf.urls import url`
-    - 语法: 
-        - url(regex, views, name=None)
-        - 参数：
-            1. regex: 字符串类型，匹配的请求路径，允许是正则表达式
-            2. views: 指定路径所对应的视图处理函数的名称
-            3. name: 为地址起别名，在模板中地址反向解析时使用
-    
-    > 每个正则表达式前面的r表示`'\'`不转义的原始字符串
-
-
-
-- 练习
-    - 建立一个小网站:
-        - 输入网址: http://127.0.0.1:8000, 在网页中输出 : 这是我的首页
-        - 输入网址: http://127.0.0.1:8000/page1, 在网页中输出 : 这是编号为1的网页
-        - 输入网址: http://127.0.0.1:8000/page2, 在网页中输出 : 这是编号为2的网页
-        > 提示: 主页路由的正则是  `r'^$'`
-        - 思考
-            - /page3  /page4 .... /page100
-            - 建立如上一百个网页该怎么办？
-
-#### 带有分组的路由和视图函数
-- 在视图函数内，可以用正则表达式分组 `()` 提取参数后用函数位置传参传递给视图函数
-
-- 一个分组表示一个参数,多个参数需要使用多个分组,并且使用/隔开
-
-    - 
-        - http://127.0.0.1:8000/year/2018
-        - http://127.0.0.1:8000/year/2019
-        - http://127.0.0.1:8000/year/????  # 四位数字
-
-- 练习：
-    - 定义一个路由的格式为:
-        - http://127.0.0.1:8000/整数/操作字符串/整数
-
-    - 从路由中提取数据，做相应的操作后返回给浏览器
-    - 如：
-    ```
-    输入: 127.0.0.1:8000/100/add/200
-        页面显示  结果：300
-    输入: 127.0.0.1:8000/100/sub/200
-        页面显示  结果：-100
-    输入: 127.0.0.1:8000/100/mul/200
-        页面显示  结果：20000
-    ```
-
-#### 带有命名分组的路由和视图函数
-- 在url 的正则表达式中可以使用命名分组(捕获分组)
-- 说明:
-
-    - 在视图函数内，可以用正则表达式分组 `(?P<name>pattern)` 提取参数后用函数关键字传参传递给视图函数  
-- 示例:
-    - 路由配置文件
-        ```python
-        # file : <项目名>/urls.py
-        # 以下示例匹配
-        # http://127.0.0.1:8000/person/weimingze/35
-        # http://127.0.0.1:8000/person/shibowen/29
-        # http://127.0.0.1:8000/person/xiaowei/9
-        urlpatterns = [
-            url(r'^admin/', admin.site.urls),
-            url(r'^person/(?P<name>\w+)/(?P<age>\d{1,2})',views.person_view),
-        ]
-        ```
-- 练习:
-    - 访问地址:
-        - http://127.0.0.1:8000/birthday/四位数字/一到两位数字/一到两位数字
-        - http://127.0.0.1:8000/birthday/一到两位数字/一到两位数字/四位数字
-    - 最终输出: 生日为: xxxx年xx月xx日
-    - 如:
-        输入网址: http://127.0.0.1:8000/birthday/2015/12/11
-        显示为: 生日为:2015年12月11日
-        输入网址: http://127.0.0.1:8000/birthday/2/28/2008
-        显示为: 生日为:2008年2月28日
-
-
-- PyCharm 社区版针对Django项目调试方法
-    1. 添加自己调式配置
-        - 选择 Add Configuration...
-    2. 点击 `+` 号添加一个自己的配置
-        - 选择运行的项目的主模块位置 manage.py
-        - 添加 runserver 命令行参数
-
-
-## HTTP协议的请求和响应
-- 请求是指浏览器端通过HTTP协议发送给服务器端的数据
-- 响应是指服务器端接收到请求后做相应的处理后再回复给浏览器端的数据
-
-![请求和向应](images/request_response.png)
-
-
-### HTTP 请求
-- 根据HTTP标准，HTTP请求可以使用多种请求方法。
-- HTTP1.0定义了三种请求方法： GET, POST 和 HEAD方法(最常用)
-- HTTP1.1新增了五种请求方法：OPTIONS, PUT, DELETE, TRACE 和 CONNECT 方法。
-- HTTP1.1 请求详述
-    | 序号 | 方法 | 描述 |
-    |:-:|:-:|:-|
-    | 1 | GET | 请求指定的页面信息，并返回实体主体。 |
-    | 2 | HEAD | 类似于get请求，只不过返回的响应中没有具体的内容，用于获取报头 |
-    | 3 | POST | 向指定资源提交数据进行处理请求（例如提交表单或者上传文件）。数据被包含在请求体中。POST请求可能会导致新的资源的建立和/或已有资源的修改。 |
-    | 4 | PUT | 从客户端向服务器传送的数据取代指定的文档的内容。 |
-    | 5 | DELETE | 请求服务器删除指定的页面。 |
-    | 6 | CONNECT | HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器。 |
-    | 7 | OPTIONS | 允许客户端查看服务器的性能。 |
-    | 8 | TRACE | 回显服务器收到的请求，主要用于测试或诊断。 |
-
-
-- HttpRequest对象
-    - 视图函数的第一个参数是HttpRequest对象
-    - 服务器接收到http协议的请求后，会根据请求数据报文创建HttpRequest对象
-    - HttpRequest属性
-        - path：字符串，表示请求的路由信息
-        - path_info: URL字符串
-        - method：字符串，表示HTTP请求方法，常用值：'GET'、'POST'
-        - encoding：字符串，表示提交的数据的编码方式
-            - 如果为None则表示使用浏览器的默认设置，一般为'utf-8'
-            - 这个属性是可写的，可以通过修改它来修改访问表单数据使用的编码，接下来对属性的任何访问将使用新的encoding值
-            - 
-        - GET：QueryDict查询字典的对象，包含get请求方式的所有数据
-        - POST：QueryDict查询字典的对象，包含post请求方式的所有数据
-        - FILES：类似于字典的对象，包含所有的上传文件信息
-        - COOKIES：Python字典，包含所有的cookie，键和值都为字符串
-        - session：似于字典的对象，表示当前的会话，
-        - body: 字符串，请求体的内容(POST或PUT)
-        - environ: 字符串,客户端运行的环境变量信息
-        - scheme : 请求协议('http'/'https')
-        - request.get_full_path() : 请求的完整路径
-        - request.get_host() : 请求的主机
-        - request.META : 请求中的元数据(消息头)
-            - request.META['REMOTE_ADDR']  : 客户端IP地址
-
-### HTTP 响应
-- 当浏览者访问一个网页时，浏览者的浏览器会向网页所在服务器发出请求。当浏览器接收并显示网页前，此网页所在的服务器会返回一个包含HTTP状态码的信息头用以响应浏览器的请求。
-- HTTP状态码的英文为HTTP Status Code。
-- 下面是常见的HTTP状态码：
-    - 200 - 请求成功
-    - 301 - 资源（网页等）被永久转移到其它URL
-    - 404 - 请求的资源（网页等）不存在
-    - 500 - 内部服务器错误
-
-- HTTP状态码分类
-    - HTTP状态码由三个十进制数字组成，第一个十进制数字定义了状态码的类型，后两个数字没有分类的作用。HTTP状态码共分为5种类型：
-
-        | 分类 | 分类描述 |
-        |:-:|-|
-        | 1** | 信息，服务器收到请求，需要请求者继续执行操作 |
-        | 2** | 成功，操作被成功接收并处理 |
-        | 3** | 重定向，需要进一步的操作以完成请求 |
-        | 4** | 客户端错误，请求包含语法错误或无法完成请求 |
-        | 5** | 服务器错误，服务器在处理请求的过程中发生了错误 |
-
-- Django中的响应对象HttpResponse:
-    - 构造函数格式:
-      
-        - `HttpResponse(content=响应体, content_type=响应体数据类型, status=状态码)`
-    - 作用:
-      
-        - 向客户端浏览器返回响应，同时携带响应体内容
-    - 参数:
-        - content：表示返回的内容。
-        - status_code：返回的HTTP响应状态码(默认为200)。
-        - content_type：指定返回数据的的MIME类型(默认为"text/html")。浏览器会根据这个属性，来显示数据。如果是text/html，那么就会解析这个字符串，如果text/plain，那么就会显示一个纯文本。
-            - 常用的Content-Type如下：
-                - `'text/html'`（默认的，html文件）
-                - `'text/plain'`（纯文本）
-                - `'text/css'`（css文件）
-                - `'text/javascript'`（js文件）
-                - `'multipart/form-data'`（文件提交）
-                - `'application/json'`（json传输）
-            - `'application/xml'`（xml文件）
-            > 注： 关键字MIME(Multipurpose Internet Mail Extensions)是指多用途互联网邮件扩展类型。
-    
-- HttpResponse 子类
-    | 类型 | 作用 | 状态码 |
-    |-|-|-|
-    | HttpResponseRedirect | 重定响 | 301 |
-    | HttpResponseNotModified | 未修改 | 304 |
-    | HttpResponseBadRequest | 错误请求 | 400 |
-    | HttpResponseNotFound | 没有对应的资源 | 404 |
-    | HttpResponseForbidden | 请求被禁止 | 403 |
-    | HttpResponseServerError | 服务器错误 | 500 |
-
-
-
-### GET方式传参
-- GET请求方式中可以通过查询字符串(Query String)将数据传递给服务器    
-- URL 格式: `xxx?参数名1=值1&参数名2=值2...`
-  
-    - 如: `http://127.0.0.1:8000/page1?a=100&b=200`
-- 服务器端接收参数
-    1. 判断 request.method 的值判断请求方式是否是get请求
-        ```python
-        if request.method == 'GET':
-            处理GET请求时的业务逻辑
-        else:
-            处理其它请求的业务逻辑
-        ```
-    2. 获取客户端请求GET请求提交的数据
-        1. 语法
-            ```python
-            request.GET['参数名']  # QueryDict
-            request.GET.get('参数名','默认值')
-            request.GET.getlist('参数名')
-            # mypage?a=100&b=200&c=300&b=400
-            # request.GET=QueryDict({'a':['100'], 'b':['200','400'], 'c':['300']})
-            # a = request.GET['a']
-            # b = request.GET['b']  # Error
-            
-            
-            ```
-        2. 能够产生get请求方式的场合
-            1. 地址栏手动输入, 如: http://127.0.0.1:8000/mypage?a=100&b=200
-            2. `<a href="地址?参数=值&参数=值">`
-            3. form表单中的method为get
-                ```html
-                <form method='get' action="/user/login">
-                    姓名:<input type="text" name="uname">
-                </form>
-                ```
-> 一般查询字符串的大小会受到浏览器的的限制(不建议超过2048字节)
-
-- 练习:
-    - 访问地址:<http://127.0.0.1:8000/sum?start=整数&stop=整数&step整=字>
-    - 输出结果为sum(range(start, step, stop)) 和:
-    - 如:
-        - 输入网址: http://127.0.0.1:8000/sum?start=1&stop=101&step=1
-        - 页面显示: 结果: 5050
-        - 输入网址: http://127.0.0.1:8000/sum?stop=101&step=2
-        - 页面显示: 结果: 2550
-        - 输入网址: http://127.0.0.1:8000/sum?start=1&stop=101&step=2
-        - 页面显示: 结果: 2500
-
-- 练习:
-    - 访问地址:<http://127.0.0.1:8000/birthday?year=四位整数&month=整数&day=整数>
-    - 最终输出: 生日为: xxxx年xx月xx日
-    - 如:
-        - 输入网址: http://127.0.0.1:8000/birthday?year=2015&month=12&day=11
-        - 显示为: 生日为:2015年12月11日
-
-
-
-### POST传递参数
-
-- 客户端通过表单等POST请求将数据传递给服务器端,如:
-
-```html
-<form method='post' action="/login">
-    姓名:<input type="text" name="username">
-    <input type='submit' value='登陆'>
-</form>
-```
-
-- 服务器端接收参数
-
-  - 通过 request.method 来判断是否为POST请求,如:
-
-  ```python
-  if request.method == 'POST':
-      处理POST请求的数据并响应
-  else:
-      处理非POST 请求的响应
-  ```
-
-- 使用post方式接收客户端数据
-
-  1. 方法
-
-  ```python
-  request.POST['参数名']  # request.POST 绑定QueryDict
-  request.POST.get('参数名','')
-  request.POST.getlist('参数名')
-  ```
-
-- 取消csrf验证,否则Django将会拒绝客户端发来的POST请求
-
-  - 取消 csrf 验证
-
-    - 删除 settings.py 中 MIDDLEWARE 中的 CsrfViewsMiddleWare 的中间件
-
-    ```python
-    MIDDLEWARE = [
-        ...
-        # 'django.middleware.csrf.CsrfViewMiddleware',
-        ...
-    ]
-    ```
-
-### form 表单的name属性
-
-- 在form表单控件提交数据时，会自动搜索本表单控件内部的子标签的name属性及相应的值，再将这些名字和值以键-值对的形式提交给action指定的服务器相关位置
-
-- 在form内能自动搜集到的name属性的标签的控件有
-
-  ```html
-  <input name='xxx'>
-  <select name='yyy'></select>
-  <textarea name='zzz'></textarea>
-  ```
-
-  - 如:
-
-  ```html
-  <form action="/page1" method="POST">
-      <input name="title" type="text" value="请输入">
-      <select name="gender">
-          <option value=1>男</option>
-          <option value=0>女</option>
-      </select>
-      <textarea name="comment" rows="5" cols="10">附言...</textarea>
-      <input type="submit" value="提交">
-  </form>
-  ```
-
-
-# 《Django Web框架教学笔记》
-## 目录
-[TOC]
-
-## Django的框架设计模式
-- MVC 设计模式
-    - MVC 代表 Model-View-Controller（模型-视图-控制器） 模式。
-    - 作用: 降低模块间的耦合度(解耦)
-    - MVC
-        - M 模型层(Model), 主要用于对数据库层的封装
-        - V 视图层(View), 用于向用户展示结果
-        - C 控制(Controller ，用于处理请求、获取数据、返回结果(重要)
-    - MVC模式如图:
-        ![](images/mvc.png)
-- MTV 模式
-    MTV 代表 Model-Template-View（模型-模板-视图） 模式。这种模式用于应用程序的分层开发
-    - 作用: 
-        - 降低模块间的耦合度(解耦)
-    - MTV 
-        - M -- 模型层(Model)  负责与数据库交互
-        - T -- 模板层(Template)  负责呈现内容到浏览器
-        - V -- 视图层(View)  是核心，负责接收请求、获取数据、返回结果
-    - MTV模式如图:
-        ![](images/mtv.png)
-
-## 模板 Templates
+## 4.1. 模板 Templates
 - 什么是模板
     1. 模板是可以根据字典数据动态变化的html网页
     2. 模板可以根据视图中传递的字典数据动态生成相应的HTML网页。
 
-- 模板的配置
+### 4.1.1. 模板的配置
     - 创建模板文件夹`<项目名>/templates`
     - 在 settings.py 中有一个 TEMPLATES 变量
         1. BACKEND : 指定模板的引擎
@@ -636,39 +44,33 @@ TEMPLATES = [
 ]
 ```
 
-3. 模板的加载方式
-    1. 通过 loader 获取模板,通过HttpResponse进行响应
+
+### 4.1.2. Django 模板语言
+
+#### 4.1.2.1. 模板的传参
+- 模板传参是指把数据形成字典，传参给模板，为模板渲染提供数据
+
+- 模板的加载方式
+    1. 使用 loader 加载模板
         ```python
         from django.template import loader
         # 1.通过loader加载模板
-        t = loader.get_template("模板文件名")
+        t = loader.get_template('xxx.html') # xxx.html 模板文件名
         # 2.将t转换成 HTML 字符串
-        html = t.render(字典数据 )
+        html = t.render(字典数据)
         # 3.用响应对象将转换的字符串内容返回给浏览器
         return HttpResponse(html)
+
+        # 简写
+        # html = loader.get_template("模板文件名").render(字典数据 )
         ```
     2. 使用 render() 直接加载并响应模板
         ```python
         from django.shortcuts import render
-        return render(request,'模板文件名', 字典数据)
+        return render(request,'xxx.html', 字典数据)
         ```
 
-### Django 模板语言
-
-#### 模板的传参
-- 模板传参是指把数据形成字典，传参给模板，为模板渲染提供数据
-1. 使用 loader 加载模板
-    ```python
-    t = loader.get_template('xxx.html')
-    html = t.render(字典数据)
-    return HttpResponse(html)
-    ```
-2. 使用render加载模板
-    ```python
-    return render(request,'xxx.html',字典数据)
-    ```
-
-#### 模板的变量
+#### 4.1.2.2. 模板的变量
 1. 在模板中使用变量语法
     - `{{ 变量名 }}`
     - `{{ 变量名.index }}`   list.0
@@ -676,57 +78,17 @@ TEMPLATES = [
     - `{{ 对象.方法 }}`
     - `{{ 函数名 }}`
 
-    1. 视图函数中必须将变量封装到字典中才允许传递到模板上
-        ```python
-        def xxx_view(request)
-            dic = {
-                "变量1":"值1",
-                "变量2":"值2",
-            }
-            return render(request, 'xxx.html', dic)
-        ```
-- 练习
-    - 写一个简单的计算器页面，能够在服务端进行简单加减乘除计算
+- 视图函数中必须将变量封装到字典中才允许传递到模板上
+    ```python
+    def xxx_view(request)
+        dic = {
+            "变量1":"值1",
+            "变量2":"值2",
+        }
+        return render(request, 'xxx.html', dic)
+    ```
 
-    - form中的action属性 ->  此次提交的地址
-
-    - ex: action='/mycal' -> 提交地址为当前浏览器地址栏的ip+端口+ action, 即 http://127.0.0.1:8000/mycal
-
-    - 
-
-        <form action='/mycal' method='POST'>
-            <input type='text' name="x" value="1">
-            <select>
-                <option value="add"> +加 </option>
-                <option value="sub"> -减 </option>
-                <option value="mul"> *乘 </option>
-                <option value="div"> /除 </option>
-            </select>
-            <input type='text' name="y" value="2"> = <span>3</span>
-            <div>
-                <input type="submit" value='开始计算'>
-            <div>
-        </form>
-
-    - 参考代码
-        ```html
-        <form action='/mycal' method='POST'>
-            <input type='text' name="x" value="1">
-            <select name='op'>
-                <option value="add" > +加 </option>
-                <option value="sub" > -减 </option>
-                <option value="mul"> *乘 </option>
-                <option value="div"> /除 </option>
-            </select>
-            <input type='text' name="y" value="2"> = <span>3</span>
-            <div>
-                <input type="submit" value='开始计算'>
-            <div>
-        </form>
-        ```
-
-
-#### 模板的标签
+#### 4.1.2.3. 模板的标签
 1. 作用
 
     - 将一些服务器端的功能嵌入到模板中
@@ -770,19 +132,20 @@ TEMPLATES = [
             ... 可迭代对象无数据时填充的语句
         {% endfor %}
         ```
-    2. 内置变量 - forloop
-        | 变量 | 描述 |
-        |:-:|:-:|
-        | forloop.counter | 循环的当前迭代（从1开始索引） |
-        | forloop.counter0 | 循环的当前迭代（从0开始索引） |
-        | forloop.revcounter | 循环结束的迭代次数（从1开始索引） |
-        | forloop.revcounter0 | 循环结束的迭代次数（从0开始索引） |
-        | forloop.first | 如果这是第一次通过循环，则为真 |
-        | forloop.last | 如果这是最后一次循环，则为真 |
-        | forloop.parentloop | 当嵌套循环，parentloop 表示外层循环 |
+    2. 内置变量 - forloop 
+
+|        变量         |                描述                 |
+| :-----------------: | :---------------------------------: |
+|   forloop.counter   |    循环的当前迭代（从1开始索引）    |
+|  forloop.counter0   |    循环的当前迭代（从0开始索引）    |
+| forloop.revcounter  |  循环结束的迭代次数（从1开始索引）  |
+| forloop.revcounter0 |  循环结束的迭代次数（从0开始索引）  |
+|    forloop.first    |   如果这是第一次通过循环，则为真    |
+|    forloop.last     |    如果这是最后一次循环，则为真     |
+| forloop.parentloop  | 当嵌套循环，parentloop 表示外层循环 |
 
 
-#### 过滤器
+#### 4.1.2.4. 过滤器
 1. 作用
     - 在变量输出时对变量的值进行处理
     - 您可以通过使用 过滤器来改变变量的输出显示。
@@ -790,21 +153,22 @@ TEMPLATES = [
    
     - {{ 变量 | 过滤器1:参数值1 | 过滤器2:参数值2 ... }}
 3. 常用的过滤器
-    | 过滤器 | 说明 |
-    |:-:|:-:|
-    | lower | 将字符串转换为全部小写。|
-    | upper | 将字符串转换为大写形式 |
-    | safe | 默认不对变量内的字符串进行html转义 |
-    | add: "n" | 将value的值增加 n |
-    | truncatechars:'n' | 如果字符串字符多于指定的字符数量，那么会被截断。 截断的字符串将以可翻译的省略号序列（“...”）结尾。 |
-    | ... | |
 
-5. 文档参见:
+| 过滤器 | 说明 |
+|:-:|:-:|
+| lower | 将字符串转换为全部小写。|
+| upper | 将字符串转换为大写形式 |
+| safe | 默认不对变量内的字符串进行html转义 |
+| add: "n" | 将value的值增加 n |
+| truncatechars:'n' | 如果字符串字符多于指定的字符数量，那么会被截断。 截断的字符串将以可翻译的省略号序列（“...”）结尾。 |
+| ... | |
+
+4. 文档参见:
    
     - <https://docs.djangoproject.com/en/1.11/ref/templates/builtins/>
 
 
-### 模板的继承
+### 4.1.3. 模板的继承
 - 模板继承可以使父模板的内容重用,子模板直接继承父模板的全部内容并可以覆盖父模板中相应的块
 - 定义父模板中的块 `block`标签
     - 标识出哪些在子模块中是允许被修改的
@@ -839,16 +203,15 @@ TEMPLATES = [
   
     - ![](images/template_inherit.png)
 
-### url 反向解析
+### 4.1.4. url 反向解析
 - url 反向解析是指在视图或模板中，用为url定义的名称来查找或计算出相应的路由
 - url 函数的语法
-    - url(regex, views, kwargs=None, name="别名")
+    - `url(regex, views, kwargs=None, name="别名")`
     - 例如:
-        - url(r'^user_login$', views.login_view, name="login")
+        - `url(r'^user_login$', views.login_view, name="login")`
 
 - url() 的`name`关键字参数
     - 作用:
-      
         - 根据url 列表中的`name=`关键字传参给 url确定了个唯一确定的名字，在模板中，可以通过这个名字反向推断出此url信息
     - 在模板中通过别名实现地址的反向解析
         ```
@@ -865,12 +228,7 @@ TEMPLATES = [
     功能: 主页加 三个页面的连接分别跳转到一个页面，三个页面每个页面加入一个链接用于返回主页
     ```
 
-
-# 《Django Web框架教学笔记》
-## 目录
-[TOC]
-
-## 静态文件
+## 4.2. 静态文件
 1. 什么是静态文件
     - 不能与服务器端做动态交互的文件都是静态文件
     - 如:图片,css,js,音频,视频,html文件(部分)
@@ -917,124 +275,69 @@ TEMPLATES = [
             - 示例:
                 - `<img src="{% static 'images/lena.jpg' %}">`
 
-## Django中的应用 - app
-- 应用在Django项目中是一个独立的业务模块,可以包含自己的路由,视图,模板,模型
 
-###  创建应用app
-- 创建步骤
-    1. 用manage.py 中的子命令 startapp 创建应用文件夹
-    2. 在settings.py 的 INSTALLED_APPS 列表中配置安装此应用
+# 5. 数据库 和 模型
 
-- 创建应用的子命令
-    - python3 manage.py startapp 应用名称(必须是标识符命令规则)
-    - 如:
-        - python3 manage.py startapp music
+## 5.1. 模型（Models）
+- 模型是一个Python类，它是由django.db.models.Model派生出的子类。
+- 一个模型类代表数据库中的一张数据表
+- 模型类中每一个类属性都代表数据库中的一个字段。
+- 模型是数据交互的接口，是表示和操作数据库的方法和方式
 
-- Django应用的结构组成
-    1. `migrations` 文件夹
-        - 保存数据迁移的中间文件
-    2. `__init__.py`
-        - 应用子包的初始化文件
-    3. `admin.py`
-        - 应用的后台管理配置文件
-    4. `apps.py`
-        - 应用的属性配置文件
-    5. `models.py`
-        - 与数据库相关的模型映射类文件
-    6. `tests.py`
-        - 应用的单元测试文件
-    7. `views.py`
-        - 定义视图处理函数的文件
 
-- 配置安装应用
-    - 在 settings.py 中配置应用, 让此应用能和整个项目融为一体
-        ```python
-        # file : settings.py 
-        INSTALLED_APPS = [
-            ... ...,
-            '自定义应用名称'
-        ]
+1. Django 的 ORM框架
+- ORM（Object Relational Mapping）即对象关系映射，它是一种程序技术，它允许你使用类和对象对数据库进行操作,从而避免通过SQL语句操作数据库
+- ORM框架的作用
+    1. 建立模型类和表之间的对应关系，允许我们通过面向对象的方式来操作数据库。
+    2. 根据设计的模型类生成数据库中的表格。
+    3. 通过简单的配置就可以进行数据库的切换。
+- ORM 好处:
+    1. 只需要面向对象编程, 不需要面向数据库编写代码.
+        - 对数据库的操作都转化成对类属性和方法的操作.
+        - 不用编写各种数据库的sql语句.
+    2. 实现了数据模型与数据库的解耦, 屏蔽了不同数据库操作上的差异.
+        - 不在关注用的是mysql、oracle...等数据库的内部细节.
+        - 通过简单的配置就可以轻松更换数据库, 而不需要修改代码.
+- ORM 缺点
+    1. 相比较直接使用SQL语句操作数据库,有性能损失.
+    2. 根据对象的操作转换成SQL语句,根据查询的结果转化成对象, 在映射过程中有性能损失.
+- ORM 示意
+    - ![](images/orm.png)
 
-        ```
-    - 如:
-        ```python
-        INSTALLED_APPS = [
-            # ....
-            'user',  # 用户信息模块
-            'music',  # 收藏模块
-        ]
-        ```
+### 5.1.1. Django下配置使用 mysql 数据库
 
-### 应用的分布式路由
-- Django中，基础路由配置文件(urls.py)可以不处理用户具体路由，基础路由配置文件的可以做请求的分发(分布式请求处理)。具体的请求可以由各自的应用来进行处理
-- 如图:
-    - ![](images/urls.png)
-#### include 函数
-- 作用:
-  
-    - 用于分发将当前路由转到各个应用的路由配置文件的 urlpatterns 进行分布式处理
-- 函数格式
-    - include('app命字.url模块名')
-    > 模块`app命字/url模块名.py` 文件件里必须有urlpatterns 列表
-    > 使用前需要使用 `from django.conf.urls import include` 导入此函数
+创建 和 配置数据库
 
-- 练习:
-    ```
-    1.创建四个应用
-        1.创建 index 应用,并注册
-        2.创建 sport 应用,并注册
-        3.创建 news  应用,并注册
-        4.创建 music 应用,并注册
-    2.创建分布式路由系统
-        主路由配置只做分发
-        每个应用中处理具体访问路径和视图
-        1. 127.0.0.1:8000/music/index
-            交给 music 应用中的 index_view() 函数处理
-        2. 127.0.0.1:8000/sport/index
-            交给 sport 应用中的 index_view() 函数处理
-        3. 127.0.0.1:8000/news/index
-            交给 news  应用中的 index_view() 处理处理
-    ```
-
-## 数据库 和 模型
-### Django下配置使用 mysql 数据库
-1. 安装 pymysql包
-    - 用作 python 和 mysql 的接口
-        - `$ sudo pip3 install pymysql`
-    - 安装 mysql 客户端(非必须)
-        `$ sudo pip3 install mysqlclient`
-
-2. 创建 和 配置数据库
-    1. 创建数据库
-        - 创建 `create database 数据库名 default charset utf8 collate utf8_general_ci;`
-        ```sql
-        create database mywebdb default charset utf8 collate utf8_general_ci;
-        ```
-    2. 数据库的配置
-        - sqlite 数据库配置
-            ```python
-            # file: settings.py
-            DATABASES = {
-                'default': {
-                        'ENGINE': 'django.db.backends.sqlite3',
-                        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-                }
-            }
-            ```
-        - mysql 数据库配置
-            ```python
-            DATABASES = {
-                'default' : {
-                    'ENGINE': 'django.db.backends.mysql',
-                    'NAME': 'mywebdb',  # 数据库名称,需要自己定义
-                    'USER': 'root',
-                    'PASSWORD': '123456',  # 管理员密码
-                    'HOST': '127.0.0.1',
-                    'PORT': 3306,
-                }
-            }
-            ```
-    3. 关于数据为的SETTING设置
+1. 创建数据库
+  - 创建 `create database 数据库名 default charset utf8 collate utf8_general_ci;`
+  ```sql
+  create database mywebdb default charset utf8 collate utf8_general_ci;
+  ```
+2. 数据库的配置
+  - sqlite 数据库配置
+      ```python
+      # file: settings.py
+      DATABASES = {
+          'default': {
+                  'ENGINE': 'django.db.backends.sqlite3',
+                  'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+          }
+      }
+      ```
+  - mysql 数据库配置
+      ```python
+      DATABASES = {
+          'default' : {
+              'ENGINE': 'django.db.backends.mysql',
+              'NAME': 'mywebdb',  # 数据库名称,需要自己定义
+              'USER': 'root',
+              'PASSWORD': '123456',  # 管理员密码
+              'HOST': '127.0.0.1',
+              'PORT': 3306,
+          }
+      }
+      ```
+    - 关于数据为的SETTING设置
         1. ENGINE
             - 指定数据库的后端引擎
             ```
@@ -1061,66 +364,50 @@ TEMPLATES = [
         6. PORT
             - 连接数据库时使用的端口。
             - `'PORT':'3306'`
-    3. 添加 mysql 支持
-        - 安装pymysql 模块
-          
-            - `$ sudo pip install pymysql`
-        - 修改项目中__init__.py 加入如下内容来提供pymysql引擎的支持
-            ```python
-            import pymysql
-            pymysql.install_as_MySQLdb()
-            ```
 
-### 模型（Models）
-- 模型是一个Python类，它是由django.db.models.Model派生出的子类。
-- 一个模型类代表数据库中的一张数据表
-- 模型类中每一个类属性都代表数据库中的一个字段。
-- 模型是数据交互的接口，是表示和操作数据库的方法和方式
+3. 添加 mysql 支持
+    - 安装 pymysql包用作 python 和 mysql 的接口
+        - `$ sudo pip3 install pymysql`
+    - 安装 mysql 客户端(非必须)
+        `$ sudo pip3 install mysqlclient`
+
+    - 修改项目中__init__.py 加入如下内容来提供pymysql引擎的支持
+        ```python
+        import pymysql
+        pymysql.install_as_MySQLdb()
+        ```
+    - <font color='red'>注，在后续更新的django版本中，将不再支持上述方法，只需pip安装mysqlclient包即可</font>
 
 
-### Django 的 ORM框架
-- ORM（Object Relational Mapping）即对象关系映射，它是一种程序技术，它允许你使用类和对象对数据库进行操作,从而避免通过SQL语句操作数据库
-- ORM框架的作用
-    1. 建立模型类和表之间的对应关系，允许我们通过面向对象的方式来操作数据库。
-    2. 根据设计的模型类生成数据库中的表格。
-    3. 通过简单的配置就可以进行数据库的切换。
-- ORM 好处:
-    1. 只需要面向对象编程, 不需要面向数据库编写代码.
-        - 对数据库的操作都转化成对类属性和方法的操作.
-        - 不用编写各种数据库的sql语句.
-    2. 实现了数据模型与数据库的解耦, 屏蔽了不同数据库操作上的差异.
-        - 不在关注用的是mysql、oracle...等数据库的内部细节.
-        - 通过简单的配置就可以轻松更换数据库, 而不需要修改代码.
-- ORM 缺点
-    1. 相比较直接使用SQL语句操作数据库,有性能损失.
-    2. 根据对象的操作转换成SQL语句,根据查询的结果转化成对象, 在映射过程中有性能损失.
-- ORM 示意
-    - ![](images/orm.png)
 
-
-2. 模型示例:
+### 5.1.2. 创建一个模型实例
+- 模型示例
     - 此示例为添加一个 bookstore_book 数据表来存放图书馆中书目信息
-    - 添加一个 bookstore 的 app
-        ```shell
-        $ python3 manage.py startapp bookstore
-        ```
-    - 添加模型类并注册app
-        ```python
-        # file : bookstore/models.py
-        from django.db import models
 
-        class Book(models.Model):
-            title = models.CharField("书名", max_length=50, default='')
-            price = models.DecimalField('定价', max_digits=7, decimal_places=2, default=0.0)
-        ```
-    - 注册app
-        ```python
-        # file : setting.py
-        INSTALLED_APPS = [
-            ...
-            'bookstore',
-        ]
-        ```
+1. 添加一个 bookstore 的 app
+    ```shell
+    $ python3 manage.py startapp bookstore
+    ```
+
+2. 添加模型类并注册app
+    ```python
+    # file : bookstore/models.py
+    from django.db import models
+
+    class Book(models.Model):
+        title = models.CharField("书名", max_length=50, default='')
+        price = models.DecimalField('定价', max_digits=7,
+                    decimal_places=2, default=0.0)
+    ```
+    注册app
+    ```python
+    # file : setting.py
+    INSTALLED_APPS = [
+        ...
+        'bookstore',
+    ]
+    ```
+
 3. 数据库的迁移
     - 迁移是Django同步您对模型所做更改（添加字段，删除模型等） 到您的数据库模式的方式
     1. 生成或更新迁移文件
@@ -1130,61 +417,153 @@ TEMPLATES = [
         - 执行迁移程序实现迁移。将每个应用下的migrations目录中的中间文件同步回数据库
         - `python3 manage.py migrate`
     - 注:
-      
-- 每次修改完模型类再对服务程序运行之前都需要做以上两步迁移操作。
+      - 每次修改完模型类再对服务程序运行之前都需要做以上两步迁移操作。
   ​      
     - 生成迁移脚本文件`bookstore/migrations/0001_initial.py`并进行迁移
         ```shell
-        $ python3 manage.py makemigrations
-        $ python3 manage.py migrate
+        python3 manage.py makemigrations
+        python3 manage.py migrate
         ```
 
-2. 编写模型类Models
+    此时，数据库中已自动生成表：
+    ```sql
+    mysql> use mysite;
+    Database changed
+    mysql> show tables;
+    +----------------------------+
+    | Tables_in_mysite           |
+    +----------------------------+
+    | auth_group                 |
+    | auth_group_permissions     |
+    | auth_permission            |
+    | auth_user                  |
+    | auth_user_groups           |
+    | auth_user_user_permissions |
+    | bookstore_book             |
+    | django_admin_log           |
+    | django_content_type        |
+    | django_migrations          |
+    | django_session             |
+    +----------------------------+
+    11 rows in set (0.04 sec)
+    ```
+
+- 数据库迁移的其他指令：
+   1. 数据的版本切换
+       1. `./manage.py migrate`  
+           执行所有应用中最新版本的数据库中间文件
+       2. `./manage.py migrate 应用名称 版本号`  
+          如：`./manage.py migrate index 0003`
+   2. 通过数据库自动导出models  
+       `./manage.py inspectdb > 文件名.py`
+
+- 数据库迁移的错误处理方法
+  - 当执行 `$ python3 manage.py makemigrations` 出现如下迁移错误时的处理方法
+    - 错误信息
+        ```shell
+        $ python3 manage.py makemigrations
+        You are trying to change the nullable field 'title' on book to non-nullable without a default; we can't do that (the database needs something to populate existing rows).
+        Please select a fix:
+        1) Provide a one-off default now (will be set on all existing rows with a null value for this column)
+        2) Ignore for now, and let me handle existing rows with NULL myself (e.g. because you added a RunPython or RunSQL operation to handle NULL values in a previous data migration)
+        3) Quit, and let me add a default in models.py
+        Select an option: 
+        ```
+
+    - 翻译为中文如下:
+        ```shell
+        $ python3 manage.py makemigrations
+        您试图将图书上的可空字段“title”更改为非空字段(没有默认值);我们不能这样做(数据库需要填充现有行)。
+        请选择修复:
+        1)现在提供一次性默认值(将对所有现有行设置此列的空值)
+        2)暂时忽略，让我自己处理空值的现有行(例如，因为您在以前的数据迁移中添加了RunPython或RunSQL操作来处理空值)
+        3)退出，让我在models.py中添加一个默认值
+        选择一个选项:
+        ```
+
+    - 错误原因
+        - 当将如下代码
+
+        ```python
+        class Book(models.Model):
+            title = models.CharField("书名", max_length=50, null=True)
+        ```
+
+        - 去掉 null=True 改为如下内容时会出现上述错误
+
+        ```python
+        class Book(models.Model):
+            title = models.CharField("书名", max_length=50)
+        ```
+
+        - 原理是 此数据库的title 字段由原来的可以为NULL改为非NULL状态,意味着原来这个字段可以不填值，现在改为必须填定一个值，那填什么值呢？此时必须添加一个缺省值。
+
+    - 处理方法:
+        1. 选择1 手动给出一个缺省值，在生成 bookstore/migrations/000x_auto_xxxxxxxx_xxxx.py 文件时自动将输入的值添加到default参数中
+        2. 暂时忽略，以后用其它的命令处理缺省值问题(不推荐)
+        3. 退出当前生成迁移文件的过程，自己去修改models.py, 新增加一个`default=XXX` 的缺省值(推荐使用)
+
+- 数据库的迁移文件混乱的解决办法
+    1. 删除 所有 migrations 里所有的 000?_XXXX.py (`__init__.py`除外)
+    2. 删除 数据表
+        - `sql> drop database mywebdb;`
+    3. 重新创建 数据表
+        - `sql> create database mywebdb default charset utf8 collate utf8_general_ci;`
+    4. 重新生成migrations里所有的 000?_XXXX.py
+        - `python3 manage.py makemigrations`
+    5. 重新更新数据库
+        - `python3 manage.py migrate`
+
+
+
+### 5.1.3. 编写模型类Models
+Models位于每个应用的 [mysite/app/models.py]()
+1. **编写模型类Models**
     - 模型类需继承自`django.db.models.Model`
         1. Models的语法规范
-            ```
+            ```python
             from django.db import models
             class 模型类名(models.Model):
                 字段名 = models.字段类型(字段选项)
             ```
-        > 模型类名是数据表名的一部分，建议类名首字母大写
-        > 字段名又是当前类的类属性名，此名称将作为数据表的字段名
-        > 字段类型用来映射到数据表中的字段的类型
-        > 字段选项为这些字段提供附加的参数信息
-    
-3. 字段类型
+            > **模型类名** 是数据表名的一部分，建议类名首字母大写  
+            > **字段名** 又是当前类的类属性名，此名称将作为数据表的字段名  
+            > **字段类型** 用来映射到数据表中的字段的类型  
+            > **字段选项** 为这些字段提供附加的参数信息  
+
+2. **字段类型**
     1. BooleanField()
-        - 数据库类型:tinyint(1)
-        - 编程语言中:使用True或False来表示值
-        - 在数据库中:使用1或0来表示具体的值
+        - 数据库类型: tinyint(1)
+        - 编程语言中: 使用True或False来表示值
+        - 在数据库中: 使用1或0来表示具体的值
     2. CharField()
-        - 数据库类型:varchar
-        - 注意:
+        - 数据库类型: varchar
+        - 注意: 
             - 必须要指定max_length参数值
     3. DateField()
-        - 数据库类型:date
-        - 作用:表示日期
-        - 编程语言中:使用字符串来表示具体值
-        - 参数:
-            - DateField.auto_now: 每次保存对象时，自动设置该字段为当前时间(取值:True/False)。
-            - DateField.auto_now_add: 当对象第一次被创建时自动设置当前时间(取值:True/False)。
-            - DateField.default: 设置当前时间(取值:字符串格式时间如: '2019-6-1')。
+        - 数据库类型: date
+        - 作用: 表示日期
+        - 编程语言中: 使用字符串来表示具体值
+        - 参数: 
+            - DateField.auto_now:  每次保存对象时，自动设置该字段为当前时间(取值: True/False)。
+            - DateField.auto_now_add:  当对象第一次被创建时自动设置当前时间(取值: True/False)。
+            - DateField.default:  设置当前时间(取值: 字符串格式时间如:  '2019-6-1')。
             - 以上三个参数只能多选一
     4. DateTimeField()
-        - 数据库类型:datetime(6)
-        - 作用:表示日期和时间
+        - 数据库类型: datetime(6)
+        - 作用: 表示日期和时间
         - auto_now_add=True
 
     5. DecimalField()
-        - 数据库类型:decimal(x,y)
-        - 编程语言中:使用小数表示该列的值
-        - 在数据库中:使用小数
-        - 参数:
-            - DecimalField.max_digits: 位数总数，包括小数点后的位数。 该值必须大于等于decimal_places.
-            - DecimalField.decimal_places: 小数点后的数字数量
+        - 数据库类型: decimal(x,y)
+        - 编程语言中: 使用小数表示该列的值
+        - 在数据库中: 使用小数
+        - 参数: 
+            - DecimalField.max_digits:  位数总数，包括小数点后的位数。 该值必须大于等于decimal_places.
+            - DecimalField.decimal_places:  小数点后的数字数量
 
-        - 示例:
-            ```
+        - 示例: 
+            ```python
             money=models.DecimalField(
                 max_digits=7,
                 decimal_places=2,
@@ -1192,35 +571,35 @@ TEMPLATES = [
             )
             ```
     6. FloatField()
-        - 数据库类型:double
+        - 数据库类型: double
         - 编程语言中和数据库中都使用小数表示值
     7. EmailField()
-        - 数据库类型:varchar
+        - 数据库类型: varchar
         - 编程语言和数据库中使用字符串
     8. IntegerField()
-        - 数据库类型:int
+        - 数据库类型: int
         - 编程语言和数据库中使用整数
     9. URLField()
-        - 数据库类型:varchar(200)
+        - 数据库类型: varchar(200)
         - 编程语言和数据库中使用字符串
     10. ImageField()
-        - 数据库类型:varchar(100)
-        - 作用:在数据库中为了保存图片的路径
+        - 数据库类型: varchar(100)
+        - 作用: 在数据库中为了保存图片的路径
         - 编程语言和数据库中使用字符串
-        - 示例:
+        - 示例: 
             ```
             image=models.ImageField(
                 upload_to="static/images"
             )
             ```
-        - upload_to:指定图片的上传路径
+        - upload_to: 指定图片的上传路径
             在后台上传时会自动的将文件保存在指定的目录下
     11. TextField()
-        - 数据库类型:longtext
-        - 作用:表示不定长的字符数据
+        - 数据库类型: longtext
+        - 作用: 表示不定长的字符数据
     - 参考文档 <https://docs.djangoproject.com/en/1.11/ref/models/fields/#field-types>
 
-4. 字段选项FIELD_OPTIONS
+3. **字段选项FIELD_OPTIONS**
     - 字段选项, 指定创建的列的额外的信息
     - 允许出现多个字段选项,多个选项之间使用,隔开
     1. primary_key
@@ -1228,7 +607,7 @@ TEMPLATES = [
     2. blank
         - 设置为True时，字段可以为空。设置为False时，字段是必须填写的。字符型字段CharField和TextField是用空字符串来存储空值的。 默认值是False。
     3. null
-        - 如果设置为True,表示该列值允许为空。日期型、时间型和数字型字段不接受空字符串。所以设置IntegerField，DateTimeField型字段可以为空时，需要将blank，null均设为True。
+        - 如果设置为True,表示该列值允许为空。日期型、时间型和数字型字段不接受空字符串。所以<font color="red">设置IntegerField，DateTimeField型字段可以为空时，需要将blank，null均设为True。</font>
         - 默认为False,如果此选项为False建议加入default选项来设置默认值
     4. default
         - 设置所在列的默认值,如果字段选项null=False建议添加此项
@@ -1243,68 +622,21 @@ TEMPLATES = [
     - 示例:
         ```python
         # 创建一个属性,表示用户名称,长度30个字符,必须是唯一的,不能为空,添加索引
-        name = models.CharField(max_length=30, unique=True, null=False, db_index=True)
+        name = models.CharField(
+            max_length=30, 
+            unique=True, 
+            null=False, 
+            db_index=True)
         ```
 - 文档参见:
     - <https://docs.djangoproject.com/en/1.11/ref/models/fields/#field-options>
 
 
-### 数据库迁移的错误处理方法
-- 当执行 `$ python3 manage.py makemigrations` 出现如下迁移错误时的处理方法
-    - 错误信息
-        ```
-        $ python3 manage.py makemigrations
-        You are trying to change the nullable field 'title' on book to non-nullable without a default; we can't do that (the database needs something to populate existing rows).
-        Please select a fix:
-        1) Provide a one-off default now (will be set on all existing rows with a null value for this column)
-        2) Ignore for now, and let me handle existing rows with NULL myself (e.g. because you added a RunPython or RunSQL operation to handle NULL values in a previous data migration)
-        3) Quit, and let me add a default in models.py
-        Select an option: 
-        ```
-    - 翻译为中文如下:
-        ```
-        $ python3 manage.py makemigrations
-        您试图将图书上的可空字段“title”更改为非空字段(没有默认值);我们不能这样做(数据库需要填充现有行)。
-        请选择修复:
-        1)现在提供一次性默认值(将对所有现有行设置此列的空值)
-        2)暂时忽略，让我自己处理空值的现有行(例如，因为您在以前的数据迁移中添加了RunPython或RunSQL操作来处理空值)
-        3)退出，让我在models.py中添加一个默认值
-        选择一个选项:
-        ```
-    - 错误原因
-        - 当将如下代码
-        ```
-        class Book(models.Model):
-            title = models.CharField("书名", max_length=50, null=True)
-        ```
-        - 去掉 null=True 改为如下内容时会出现上述错误
-        ```
-        class Book(models.Model):
-            title = models.CharField("书名", max_length=50)
-        ```
-        - 原理是 此数据库的title 字段由原来的可以为NULL改为非NULL状态,意味着原来这个字段可以不填值，现在改为必须填定一个值，那填什么值呢？此时必须添加一个缺省值。
-    - 处理方法:
-        1. 选择1 手动给出一个缺省值，在生成 bookstore/migrations/000x_auto_xxxxxxxx_xxxx.py 文件时自动将输入的值添加到default参数中
-        2. 暂时忽略，以后用其它的命令处理缺省值问题(不推荐)
-        3. 退出当前生成迁移文件的过程，自己去修改models.py, 新增加一个`default=XXX` 的缺省值(推荐使用)
-
-- 数据库的迁移文件混乱的解决办法
-    1. 删除 所有 migrations 里所有的 000?_XXXX.py (`__init__.py`除外)
-    2. 删除 数据表
-        - sql> drop database mywebdb;
-    3. 重新创建 数据表
-        - sql> create datebase mywebdb default charset...;
-    4. 重新生成migrations里所有的 000?_XXXX.py
-        - python3 manage.py makemigrations
-    5. 重新更新数据库
-        - python3 manage.py migrate
-
-
-## 数据库的基本操作
+## 5.2. 数据库的基本操作
 - 数据库的基本操作包括增删改查操作，即(CRUD操作)
 - CRUD是指在做计算处理时的增加(Create)、读取查询(Read)、更新(Update)和删除(Delete)
 
-### 管理器对象
+### 5.2.1. 管理器对象
 - 每个继承自 models.Model 的模型类，都会有一个 objects 对象被同样继承下来。这个对象叫管理器对象
 - 数据库的增删改查可以通过模型的管理器实现
     ```python
@@ -1313,21 +645,68 @@ TEMPLATES = [
     MyModel.objects.create(...) # objects 是管理器对象
     ```
 
-### 创建数据对象
+### 5.2.2. 创建数据对象
 - Django 使用一种直观的方式把数据库表中的数据表示成Python 对象
 - 创建数据中每一条记录就是创建一个数据对象
-    1. MyModel.objects.create(属性1=值1, 属性2=值1,...)
+    1. 方式1：
+        - `MyModel.objects.create(属性1=值1, 属性2=值1,...)`
         - 成功: 返回创建好的实体对象
         - 失败: 抛出异常
-    2. 创建 MyModel 实例对象,并调用 save() 进行保存
+
+    2. 方式2：
+        - 创建 MyModel 实例对象,并调用 save() 进行保存
         ```python
-        obj = MyModel(属性=值,属性=值)
-        obj.属性=值
+        obj = MyModel(属性=值, 属性=值)  # 方法1
+        obj.属性 = 值  # 方法2
         obj.save()
-        无返回值,保存成功后,obj会被重新赋值
+        # 无返回值, 保存成功后, obj会被重新赋值
         ```
 
-### Django shell 的使用
+    3. 方式3：
+        - 使用字典构建对象，并调用 save() 进行保存
+        - 方式2的拓展
+
+
+
+实例：通过 <http://localhost:8000/bookstore/add> 增加数据
+  
+- [bookstore/urls.py]() :
+
+```python
+from django.conf.urls import url
+from .views import *
+
+urlpatterns = [
+   url(r'^add$', add_views),
+]
+```
+
+- [bookstore/views.py]() :
+
+```python
+from django.http import HttpResponse
+from .models import *  # 导入Book
+
+def add_views(request):
+   # 方式1:通过Entry.objects.create() 增加一条数据
+   obj = Book.objects.create(title="跃迁", price="12")
+   print(obj, obj.title, obj.price)  # obj.title 可访问
+
+   # 方式2:通过obj.save()增加1条数据
+   obj = Book.objects.create(title="跃迁2")
+   obj.price = "13"
+   obj.save()
+
+   # 方式3:通过字典创建对象再通过save()完成增加
+   dic = {"title":"老舍", "price":"105"}
+   obj = Book(**dic)
+   obj.save()
+   print("注册的用户ID为:", obj.id)
+   return HttpResponse("add ok")
+```
+
+
+### 5.2.3. Django shell 的使用
 - 在Django提供了一个交互式的操作项目叫 `Django Shell` 它能够在交互模式用项目工程的代码执行相应的操作
 - 利用 Django Shell 可以代替编写View的代码来进行直接操作
 - 在Django Shell 下只能进行简单的操作，不能运行远程调式
@@ -1366,79 +745,28 @@ TEMPLATES = [
             | 王老师 | 28 | wangweichao@tedu.cn |
             | 吕老师 | 31 | lvze@tedu.cn |
             | 祁老师 | 30 | qitx@tedu.cn |
-        
 
 
+## 5.3. 批量创建数据
 
-
-
-拓展：
-
-settings.py里  APPEND_SLASH
-
-APPEND_SLASH  -> 自动补全  /
-
-案例：
-
-  url(r'^page1/$', xx)  ，访问浏览器时 地址栏输入 127.0.0.1:8000/page1  ,此时 django接到请求后
-
-返回301【永久重定向】，并在响应头中指定重定向地址为 /page1/ ，从而出现自动补全 / 效果
-
-若要关闭此功能，可将 APPEND_SLASH = False
-
-
-
-出现8000端口已占用 解决方案
-
-1，查看是否有django进程启动
-
-ps aux|grep 'runserver'
-
-2，若grep中出现 相关进程，直接干！
-
-kill -9  pid pid 
-
-案例如下：
-
-```shell
-执行 查！
-tarena@tedu:~/aid1906/django/day03/mysite3$ ps aux|grep 'runserver'
-tarena    13984  0.0  0.4 125980 39604 pts/0    S+   15:39   0:00 python3 manage.py runserver
-tarena    14914  1.2  0.5 202864 41312 pts/0    Sl+  16:10   0:05 /usr/bin/python3 manage.py runserver
-tarena    15056  0.0  0.0  21532  1156 pts/4    S+   16:17   0:00 grep --color=auto runserv
-
-#执行 干！
-kill -9 13984 14914
-```
-
-
-
-
-
-
-# 《Django Web框架教学笔记》
-## 目录
-[TOC]
-
-批量创建数据
-
-Book.objects.bulk_create([obj1, obj2, obj3])
+`Book.objects.bulk_create([obj1, obj2, obj3])`
 
 一次插入多条数据
 
 
 
-#### 查询数据
+## 5.4. 查询数据
 
-- 数据库的查询需要使用管理器对象进行
-- 通过 MyModel.objects 管理器方法调用查询接口
-    | 方法 | 说明 |
-    |-|-|
-    | all() | 查询全部记录,返回QuerySet查询对象 |
-    | get() | 查询符合条件的单一记录 |
-    | filter() | 查询符合条件的多条记录 |
-    | exclude() | 查询符合条件之外的全部记录 |
-    | ... |
+数据库的查询需要使用管理器对象进行  
+通过 MyModel.objects 管理器方法调用查询接口
+
+|   方法    |               说明                |
+| --------- | --------------------------------- |
+| all()     | 查询全部记录,返回QuerySet查询对象 |
+| get()     | 查询符合条件的单一记录            |
+| filter()  | 查询符合条件的多条记录            |
+| exclude() | 查询符合条件之外的全部记录        |
+| ...       |                                   |
 
 1. all()方法
     - 方法: all()
@@ -1459,14 +787,14 @@ Book.objects.bulk_create([obj1, obj2, obj3])
     class Book(models.Model):
         title = ...
         def __str__(self):
-            return "书名: %s, 出版社: %s, 定价: %s" % (self.title, self.pub, self.price)
+            return "书名: %s, 出版社: %s, 定价: %s" % (
+                self.title, self.pub, self.price)
     ```
 
 3. 查询返回指定列(字典表示)
     - 方法: values('列1', '列2')
     - 用法: MyModel.objects.values(...)
     - 作用: 查询部分列的数据并返回
-      
         - select 列1,列2 from xxx
     - 返回值: QuerySet
         - 返回查询结果容器，容器内存储结构为字典，每个字典代表一条数据,
@@ -1483,17 +811,15 @@ Book.objects.bulk_create([obj1, obj2, obj3])
     - 方法:values_list('列1','列2')
     - 用法:MyModel.objects.values_list(...)
     - 作用:
-      
         - 返回元组形式的查询结果
     - 返回值: QuerySet容器对象,内部存放 `元组`
-      
         - 会将查询出来的数据封装到元组中,再封装到查询集合QuerySet中
     - 示例:
         ```python
         from bookstore import models
         books = models.Book.objects.values_list("title", "pub")
         for book in books:
-        print("book=", book)  # ('Python', '清华大学出版社')...
+            print("book=", book)  # ('Python', '清华大学出版社')...
         ```
 
 5. 排序查询
@@ -1511,7 +837,7 @@ Book.objects.bulk_create([obj1, obj2, obj3])
         from bookstore import models
         books = models.Book.objects.order_by("-price")
         for book in books:
-        print("书名:", book.title, '定价:', book.price)
+            print("书名:", book.title, '定价:', book.price)
         ```
 
 6. 根据条件查询多条记录
@@ -1531,15 +857,15 @@ Book.objects.bulk_create([obj1, obj2, obj3])
         # 查询书中出版社为"清华大学出版社"的图书
         from bookstore import models
         books = models.Book.objects.filter(pub="清华大学出版社")
-    for book in books:
+        for book in books:
             print("书名:", book.title)
-
-        2. 查询Author实体中id为1并且isActive为True的
-            - authors=Author.objects.filter(id=1,isActive=True)
         ```
 
+        1. 查询Author实体中id为1并且isActive为True的
+            - authors=Author.objects.filter(id=1,isActive=True)
 
-### 字段查找
+
+### 5.4.1. 字段查找
 - 字段查询是指如何指定SQL语句中 WHERE 子句的内容。
 - 字段查询需要通过QuerySet的filter(), exclude() and get()的关键字参数指定。
 - 非等值条件的构建,需要使用字段查询
@@ -1550,7 +876,8 @@ Book.objects.bulk_create([obj1, obj2, obj3])
     # 对应
     # SELECT .... WHERE AGE > 30;
     ```
-#### 查询谓词
+
+#### 5.4.1.1. 查询谓词
 - 每一个查询谓词是一个独立的查询功能
 1. `__exact` : 等值匹配
 
@@ -1615,7 +942,6 @@ Book.objects.bulk_create([obj1, obj2, obj3])
     - 语法:
         MyModel.objects.exclude(条件)
     - 作用:
-      
         - 返回不包含此 `条件` 的 全部的数据集
     - 示例:
         - 查询 `清华大学出版社，定价大于50` 以外的全部图书
@@ -1644,7 +970,7 @@ Book.objects.bulk_create([obj1, obj2, obj3])
         book = models.Book.objects.get(id=1)
         print(book.title)
         ```
-### 修改数据记录
+## 5.4.2. 修改数据记录
 1. 修改单个实体的某些字段值的步骤:
     1. 查
         - 通过 get() 得到要修改的实体对象
@@ -1677,8 +1003,7 @@ Book.objects.bulk_create([obj1, obj2, obj3])
 路由：	/bookstore/mod/5
 
 
-
-### 删除记录
+## 5.4.3. 删除记录
 
 - 删除记录是指删除数据库中的一条或多条记录
 - 删除单个MyModel对象或删除一个查询结果集(QuerySet)中的全部对象都是调用 delete()方法
@@ -1705,7 +1030,7 @@ Book.objects.bulk_create([obj1, obj2, obj3])
         auths.delete()
         ```
 
-### 聚合查询
+## 5.4.4. 聚合查询
 - 聚合查询是指对一个数据表中的一个字段的数据进行部分或全部进行统计查询,查bookstore_book数据表中的全部书的平均价格，查询所有书的总个数等,都要使用聚合查询
 1. 不带分组聚合
     - 不带分组的聚合查询是指导将全部数据进行集中统计查询
@@ -1715,7 +1040,6 @@ Book.objects.bulk_create([obj1, obj2, obj3])
         - 聚合函数: 
             - Sum, Avg, Count, Max, Min
     - 语法: 
-      
         - MyModel.objects.aggregate(结果变量名=聚合函数('列'))
     - 返回结果:
         - 由 结果变量名和值组成的字典
@@ -1734,14 +1058,12 @@ Book.objects.bulk_create([obj1, obj2, obj3])
         from django.db.models import Count
         result = models.Book.objects.aggregate(mycnt=Count('title'))
         print("数据记录总个数是:", result['mycnt'])
-    print("result=", result)  # {"mycnt": 10}
-    
+        print("result=", result)  # {"mycnt": 10}
         ```
 2. 分组聚合
     - 分组聚合是指通过计算查询结果中每一个对象所关联的对象集合，从而得出总计值(也可以是平均值或总和)，即为查询集的每一项生成聚合。
 
     - 语法: 
-      
         - QuerySet.annotate(结果变量名=聚合函数('列'))
     - 用法步骤:
         1. 通过先用查询结果MyModel.objects.value. 查找查询要分组聚合的列
@@ -1749,8 +1071,7 @@ Book.objects.bulk_create([obj1, obj2, obj3])
             - 如: 
                 ```python
                 pub_set = models.Book.objects.values('pub')
-            print(books)  # <QuerySet [{'pub': '清华大学出版社'}, {'pub': '清华大学出版社'}, {'pub_hou {'pub': '机械工业出版社'}, {'pub': '清华大学出版社'}]>
-    
+                print(books)  # <QuerySet [{'pub': '清华大学出版社'}, {'pub': '清华大学出版社'}, {'pub_hou {'pub': '机械工业出版社'}, {'pub': '清华大学出版社'}]>
                 ```
         2. 通过返回结果的 QuerySet.annotate 方法分组聚合得到分组结果
             - QuerySet.annotate(名=聚合函数('列'))
@@ -1768,17 +1089,17 @@ Book.objects.bulk_create([obj1, obj2, obj3])
         def test_annotate(request):
            - from django.db.models import Count
         from . import models
-    
-            # 得到所有出版社的查询集合QuerySet
-            pub_set = models.Book.objects.values('pub')
-            # 根据出版社查询分组，出版社和Count的分组聚合查询集合
-            pub_count_set = pub_set.annotate(myCount=Count('pub'))  # 返回查询集合
-            for item in pub_count_set:
-                print("出版社:", item['pub'], "图书有：", item['myCount'])
-            return HttpResponse('请查看服务器端控制台获取结果')
+
+        # 得到所有出版社的查询集合QuerySet
+        pub_set = models.Book.objects.values('pub')
+        # 根据出版社查询分组，出版社和Count的分组聚合查询集合
+        pub_count_set = pub_set.annotate(myCount=Count('pub'))  # 返回查询集合
+        for item in pub_count_set:
+            print("出版社:", item['pub'], "图书有：", item['myCount'])
+        return HttpResponse('请查看服务器端控制台获取结果')
         ```
 
-### F对象
+## 5.4.5. F对象
 - 一个F对象代表数据库中某条记录的字段的信息
 1. 作用:
     - 通常是对数据库中的字段值在不获取的情况下进行操作
@@ -1795,8 +1116,6 @@ Book.objects.bulk_create([obj1, obj2, obj3])
 4. 说明:
     - 一个 F() 对象代表了一个model的字段的值
     - F对象通常是对数据库中的字段值在不加载到内存中的情况下直接在数据库服务器端进行操作
-
-
 
 5. 示例1
     - 更新Book实例中所有的零售价涨10元
@@ -1818,7 +1137,7 @@ Book.objects.bulk_create([obj1, obj2, obj3])
         print(book.title, '定价:', book.price, '现价:', book.market_price)
     ```
 
-### Q对象 - Q()
+## 5.4.6. Q对象 - Q()
 - 当在获取查询结果集 使用复杂的逻辑或  `|` 、 逻辑非 `~` 等操作时可以借助于 Q对象进行操作
 - 如: 想找出定价低于20元 或 清华大学出版社的全部书，可以写成
     ```python
@@ -1852,26 +1171,24 @@ Book.objects.bulk_create([obj1, obj2, obj3])
     models.Book.objects.filter(Q(market_price__lt=50) & ~Q(pub_house='机械工业出版社'))
     ```
 
-### 原生的数据库操作方法
+## 5.4.7. 原生的数据库操作方法
 - 使用MyModel.objects.raw()进行 数据库查询操作查询
     - 在django中，可以使用模型管理器的raw方法来执行select语句进行数据查询
     1. 语法: 
-      
-        - `MyModel.objects.raw(sql语句)`
+        - `MyModel.objects.raw(sql语句)`      
     2. 用法
-      
         - `MyModel.objects.raw('sql语句')`
     3. 返回值:
-      
         - QuerySet 集合对象
-4. 示例
-    ```python
-    books = models.Book.objects.raw('select * from bookstore_book')
-    ```
+      
+1. 示例
+
+```python
+books = models.Book.objects.raw('select * from bookstore_book')
 
 for book in books:
-​        print(book)
-​    ```
+​    print(book)
+```
 
 - 使用django中的游标cursor对数据库进行 增删改操作
     - 在Django中可以使用 如UPDATE,DELETE等SQL语句对数据库进行操作。
@@ -1916,12 +1233,13 @@ SELECT `bookstore_book`.`id`, `bookstore_book`.`title`, `bookstore_book`.`pub`, 
 
 
 <QueryDict: {'title': ['人生啊'], 'pub': ['中信'], 'price': [''], 'market_price': ['']}>
-# 《Django Web框架教学笔记》	
-## 目录
+
+
+# 6. 《Django Web框架教学笔记》
+## 6.1. 目录
 [TOC]
 
-
-## admin 后台数据库管理
+## 6.2. admin 后台数据库管理
 - django 提供了比较完善的后台管理数据库的接口，可供开发过程中调用和测试使用
 - django 会搜集所有已注册的模型类，为这些模型类提拱数据管理界面，供开发者使用
 - 使用步骤:
@@ -1945,7 +1263,7 @@ SELECT `bookstore_book`.`id`, `bookstore_book`.`title`, `bookstore_book`.`pub`, 
         - 后台管理的登录地址:
             - <http://127.0.0.1:8000/admin>
 
-### 自定义后台管理数据表
+### 6.2.1. 自定义后台管理数据表
 - 若要自己定义的模型类也能在 `/admin` 后台管理界中显示和管理，需要将自己的类注册到后台管理界面
 - 添加自己定义模型类的后台管理数据表的,需要用`admin.site.register(自定义模型类)` 方法进行注册
     - 配置步骤如下:
@@ -1970,7 +1288,7 @@ SELECT `bookstore_book`.`id`, `bookstore_book`.`title`, `bookstore_book`.`pub`, 
         admin.site.register(models.Book)  # 将Book类注册为可管理页面
         ```
 
-### 修改后台Models的展现形式
+### 6.2.2. 修改后台Models的展现形式
 - 在admin后台管理数据库中对自定义的数据记录都展示为 `XXXX object` 类型的记录，不便于阅读和判断
 - 在用户自定义的模型类中可以重写 `def __str__(self):` 方法解决显示问题,如:
     - 在 自定义模型类中重写 __str__(self) 方法返回显示文字内容:
@@ -1981,7 +1299,7 @@ SELECT `bookstore_book`.`id`, `bookstore_book`.`title`, `bookstore_book`.`pub`, 
             return "书名" + self.title
     ```
 
-### 模型管理器类
+### 6.2.3. 模型管理器类
 - 作用:
   
     - 为后台管理界面添加便于操作的新功能。
@@ -2022,7 +1340,7 @@ SELECT `bookstore_book`.`id`, `bookstore_book`.`title`, `bookstore_book`.`pub`, 
     6. 其它参见<https://docs.djangoproject.com/en/1.11/ref/contrib/admin/>
 
 
-### 数据库表管理
+### 6.2.4. 数据库表管理
 1. 修改模型类字段的显示名字
     - 模型类各字段的第一个参数为 verbose_name,此字段显示的名字会在后台数据库管理页面显示
     - 通过 verbose_name 字段选项,修改显示名称示例如下：
@@ -2056,7 +1374,7 @@ SELECT `bookstore_book`.`id`, `bookstore_book`.`title`, `bookstore_book`.`pub`, 
 
 
 
-## 数据表关联关系映射
+## 6.3. 数据表关联关系映射
 - 在关系型数据库中，通常不会把所有数据都放在同一张表中，这样做会额外占用内存空间，
 - 在关系列数据库中通常用表关联来解决数据库。
 - 常用的表关联方式有三种:
@@ -2067,7 +1385,7 @@ SELECT `bookstore_book`.`id`, `bookstore_book`.`title`, `bookstore_book`.`pub`, 
     3. 多对多映射
         - 如: 一个学生可以报多个课程，一个课程可以有多个学生学习
 
-### 一对一映射
+### 6.3.1. 一对一映射
 - 一对一是表示现实事物间存在的一对一的对应关系。
 - 如:一个家庭只有一个户主，一个男人有一个妻子，一个人有一个唯一的指纹信息等
 1. 语法
@@ -2142,7 +1460,7 @@ SELECT `bookstore_book`.`id`, `bookstore_book`.`title`, `bookstore_book`.`pub`, 
     2. 在Wife类中增加一对一关联关系,引用 Author
     3. 同步回数据库并观察结果
 
-### 一对多映射
+### 6.3.2. 一对多映射
 - 一对多是表示现实事物间存在的一对多的对应关系。
 - 如:一个学校有多个班级,一个班级有多个学生, 一本图书只能属于一个出版社,一个出版社允许出版多本图书
 
@@ -2245,7 +1563,7 @@ SELECT `bookstore_book`.`id`, `bookstore_book`.`title`, `bookstore_book`.`pub`, 
         属性:book_set(MyModel.objects)
         ```
 
-### 多对多映射
+### 6.3.3. 多对多映射
 - 多对多表达对象之间多对多复杂关系，如: 每个人都有不同的学校(小学，初中，高中,...),每个学校都有不同的学生...
 
 1. 语法
@@ -2362,8 +1680,8 @@ SELECT `bookstore_book`.`id`, `bookstore_book`.`title`, `bookstore_book`.`pub`, 
     ```
 
 
-## cookies 和 session
-### cookies
+## 6.4. cookies 和 session
+### 6.4.1. cookies
 - cookies是保存在客户端浏览器上的存储空间，通常用来记录浏览器端自己的信息和当前连接的确认信息
 - cookies 在浏览器上是以键-值对的形式进行存储的，键和值都是以ASCII字符串的形存储(不能是中文字符串)
 - cookies 的内部的数据会在每次访问此网址时都会携带到服务器端，如果cookies过大会降低响应速度
@@ -2468,7 +1786,7 @@ SELECT `bookstore_book`.`id`, `bookstore_book`.`title`, `bookstore_book`.`pub`, 
 
 
 
-### session 会话控制
+### 6.4.2. session 会话控制
 - 什么是session
   
 - session又名会话控制，是在服务器上开辟一段空间用于保留浏览器和服务器交互时的重要数据
@@ -2528,11 +1846,11 @@ $ python3 manage.py migrate
 ```
 
 
-# 《Django 项目之网络云笔记》
-## 目录
+# 7. 《Django 项目之网络云笔记》
+## 7.1. 目录
 [TOC]
 
-## 网络云笔记项目
+## 7.2. 网络云笔记项目
 - 功能:
     1. 注册
     1. 登陆
@@ -2541,7 +1859,7 @@ $ python3 manage.py migrate
     1. 创建新笔记
     1. 修改笔记
     1. 删除笔记
-### 数据库设计
+### 7.2.1. 数据库设计
 - 模型类
     1. 用户模型类
         ```python
@@ -2569,7 +1887,7 @@ $ python3 manage.py migrate
     ~~~
 
 
-### 设计规范
+### 7.2.2. 设计规范
 - 登陆设计规范(在user应用中写代码)
     | 路由正则 | 视图函数 | 模板位置 | 说明 |
     |-|-|-|-|
@@ -2620,17 +1938,17 @@ $ python3 manage.py migrate
                 - ![](cloud_note_images/index2.png)
 
 
-# 《Django Web框架教学笔记》
-## 目录
+# 8. 《Django Web框架教学笔记》
+## 8.1. 目录
 [TOC]
 
-## 缓存
+## 8.2. 缓存
 
-### 什么是缓存？
+### 8.2.1. 什么是缓存？
 
 缓存是一类可以更快的读取数据的介质统称，也指其它可以加快数据读取的存储方式。一般用来存储临时数据，常用介质的是读取速度很快的内存
 
-### 为什么使用缓存？
+### 8.2.2. 为什么使用缓存？
 
 视图渲染有一定成本，对于低频变动的页面可以考虑使用缓存技术，减少实际渲染次数
 
@@ -2659,7 +1977,7 @@ else:
 
 
 
-### 使用缓存场景：
+### 8.2.3. 使用缓存场景：
 
 1，博客列表页
 
@@ -2669,7 +1987,7 @@ else:
 
 
 
-### Django中设置缓存
+### 8.2.4. Django中设置缓存
 
 https://docs.djangoproject.com/en/1.11/topics/cache/
 
@@ -2728,7 +2046,7 @@ CACHES = {
 }
 ```
 
-### Django中使用缓存
+### 8.2.5. Django中使用缓存
 
 - 在视图View中使用
 - 在路由URL中使用
@@ -2769,13 +2087,13 @@ guoxiaonao访问  时 cache_key = sidebar + guoxiaonao
 
 
 
-### 浏览器中的缓存
+### 8.2.6. 浏览器中的缓存
 
 ![浏览器缓存](images\浏览器缓存.png)
 
 浏览器缓存分类：
 
-#### 强缓存
+#### 8.2.6.1. 强缓存
 
 **不会向服务器发送请求，直接从缓存中读取资源**
 
@@ -2801,7 +2119,7 @@ Expires=max-age + 请求时间     UTC绝对时间
 
 
 
-#### 协商缓存
+#### 8.2.6.2. 协商缓存
 
 **协商缓存就是强制缓存失效后，浏览器携带缓存标识向服务器发起请求，由服务器根据缓存标识决定是否使用缓存的过程
 
@@ -2834,7 +2152,7 @@ Expires=max-age + 请求时间     UTC绝对时间
 
 
 
-## 中间件 Middleware
+## 8.3. 中间件 Middleware
 - 中间件是 Django 请求/响应处理的钩子框架。它是一个轻量级的、低级的“插件”系统，用于全局改变 Django 的输入或输出。
 - 每个中间件组件负责做一些特定的功能。例如，Django 包含一个中间件组件 AuthenticationMiddleware，它使用会话将用户与请求关联起来。
 - 他的文档解释了中间件是如何工作的，如何激活中间件，以及如何编写自己的中间件。Django 具有一些内置的中间件，你可以直接使用。它们被记录在 built-in middleware reference 中。
@@ -2930,7 +2248,7 @@ MyMW process_response do ---
         ```
 
 
-### 跨站请求伪造保护 CSRF
+### 8.3.1. 跨站请求伪造保护 CSRF
 - 跨站请求伪造攻击
   
     - 某些恶意网站上包含链接、表单按钮或者JavaScript，它们会利用登录过的用户在浏览器中的认证信息试图在你的网站上完成某些操作，这就是跨站请求伪造(CSRF，即Cross-Site Request Forgey)。 
@@ -2953,7 +2271,7 @@ MyMW process_response do ---
 
  
 
-## 分页
+## 8.4. 分页
 - 分页是指在web页面有大量数据需要显示，为了阅读方便在每个页页中只显示部分数据。
 - 好处:
     1. 方便阅读
@@ -2961,7 +2279,7 @@ MyMW process_response do ---
 - Django提供了Paginator类可以方便的实现分页功能 
 - Paginator类位于`django.core.paginator` 模块中。
 
-### Paginator对象
+### 8.4.1. Paginator对象
 - 对象的构造方法
     - Paginator(object_list, per_page)
     - 参数
@@ -2987,7 +2305,7 @@ MyMW process_response do ---
     - PageNotAnInteger：当向page()传入一个不是整数的值时抛出
     - EmptyPage：当向page()提供一个有效值，但是那个页面上没有任何对象时抛出
 
-### Page对象
+### 8.4.2. Page对象
 - 创建对象
 Paginator对象的page()方法返回Page对象，不需要手动构造
 - Page对象属性
@@ -3063,7 +2381,7 @@ Paginator对象的page()方法返回Page对象，不需要手动构造
     ```
 
 
-## 文件上传
+## 8.5. 文件上传
 - 文件上传必须为POST提交方式
 - 表单`<form>`中文件上传时必须有带有`enctype="multipart/form-data"` 时才会包含文件内容数据。
 - 表单中用`<input type="file" name="xxx">`标签上传文件
@@ -3165,12 +2483,12 @@ Paginator对象的page()方法返回Page对象，不需要手动构造
 
 
 
-# 《Django Web框架教学笔记》
-## 目录
+# 9. 《Django Web框架教学笔记》
+## 9.1. 目录
 [TOC]
 
 
-## Django中的用户认证 (使用Django认证系统)
+## 9.2. Django中的用户认证 (使用Django认证系统)
 - Django带有一个用户认证系统。 它处理用户账号、组、权限以及基于cookie的用户会话。
 - 作用:
     1. 添加普通用户和超级用户
@@ -3220,7 +2538,7 @@ mysql> desc auth_user;
 11 rows in set (0.00 sec)
 ```
 
-### auth基本模型操作:
+### 9.2.1. auth基本模型操作:
 - 创建用户
     - 创建普通用户create_user
         ```python
@@ -3275,7 +2593,7 @@ mysql> desc auth_user;
 
 
 
-## 生成CSV文件
+## 9.3. 生成CSV文件
 
 Django可直接在视图函数中生成csv文件 并响应给浏览器
 
@@ -3301,7 +2619,7 @@ def make_csv_view(request):
 
 
 
-## 电子邮件发送
+## 9.4. 电子邮件发送
 
 - 利用QQ邮箱发送电子邮件
 - django.core.mail 子包封装了 电子邮件的自动发送SMT协议
@@ -3342,7 +2660,7 @@ mail.send_mail(
 
 
 
-## 项目部署
+## 9.5. 项目部署
 
 - 项目部署是指在软件开发完毕后，将开发机器上运行的开发板软件实际安装到服务器上进行长期运行
 - 部署要分以下几个步骤进行
@@ -3375,11 +2693,11 @@ mail.send_mail(
 
 
 
-### WSGI Django工作环境部署
+### 9.5.1. WSGI Django工作环境部署
 - WSGI (Web Server Gateway Interface)Web服务器网关接口，是Python应用程序或框架和Web服务器之间的一种接口，被广泛使用
 - 它实现了WSGI协议、http等协议。Nginx中HttpUwsgiModule的作用是与uWSGI服务器进行交换。WSGI是一种Web服务器网关接口。
 
-### uWSGI 网关接口配置 (ubuntu 18.04 配置)
+### 9.5.2. uWSGI 网关接口配置 (ubuntu 18.04 配置)
 - 使用 `python manage.py runserver` 通常只在开发和测试环境中使用。
 
 - 当开发结束后，完善的项目代码需要在一个高效稳定的环境中运行，这时可以使用uWSGI
@@ -3453,7 +2771,7 @@ mail.send_mail(
     - 在浏览器端输入<http://127.0.0.1:8000> 进行测试
     - 注意，此时端口号为8000
 
-### nginx 反向代理配置
+### 9.5.3. nginx 反向代理配置
 - Nginx是轻量级的高性能Web服务器，提供了诸如HTTP代理和反向代理、负载均衡、缓存等一系列重要特性，在实践之中使用广泛。
 - C语言编写，执行效率高
 
@@ -3506,7 +2824,7 @@ mail.send_mail(
     - 在浏览器端输入<http://127.0.0.1> 进行测试
     - 注意，此时端口号为80(nginx默认值)
 
-### nginx 配置静态文件路径
+### 9.5.4. nginx 配置静态文件路径
 - 解决静态路径问题
     ```ini
     # file : /etc/nginx/sites-available/default
@@ -3523,7 +2841,7 @@ mail.send_mail(
 
 - 修改配置文件后需要重新启动 nginx 服务
 
-### 404 界面
+### 9.5.5. 404 界面
 - 在模板文件夹内添加 404.html 模版，当视图触发Http404 异常时将会被显示
 - 404.html 仅在发布版中(即setting.py 中的 DEBUG=False时) 才起作用
 - 当向应处理函数触发Http404异常时就会跳转到404界面
