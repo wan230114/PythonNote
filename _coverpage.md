@@ -14,7 +14,7 @@
 
 
 
-[Gitee](https://gitee.com/wan230114/PythonNote.git)
+[Gitee](https://github.com/wan230114/PythonNote.git)
 [Git Start](/README.md)
 <!-- [Get Started](#quick-start) -->
 

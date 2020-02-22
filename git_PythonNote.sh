@@ -3,7 +3,7 @@
 tools_path="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 cd $tools_path
-#git clone https://gitee.com/wan230114/PythonNote.git &>>log
+#git clone https://github.com/wan230114/PythonNote.git &>>log
 
 while true; do 
   sleep 1; 

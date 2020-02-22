@@ -7,13 +7,12 @@
 > —— 陈军 1170101471@qq.com </font>  
 > <font font="等线" size="2">  
 > **网站主页地址：**   
-> https://wan230114.gitee.io/pythonnote  
-> 
-> **网站主页地址（镜像）：**  
-> http://118.89.194.65:8888  
-> 
+> https://wan230114.github.io/PythonNote  
+> http://118.89.194.65:8888   (网站实时镜像)  
+> https://wan230114.gitee.io/pythonnote   (当前码云版本已停止维护，代码已全部转移至GitHub)  
+>
 > **Git项目主页：**   
-> https://gitee.com/wan230114/PythonNote
+> https://github.com/wan230114/PythonNote
 > 
 </font>
 
