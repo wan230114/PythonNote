@@ -16,7 +16,8 @@
 链接跳转：
     页内：
     跳转链接：[内容](#jump)
-    跳转锚点：<span id="jump"></span>
+    跳转锚点：
+    
 插入：
     目录：[TOC]
 超链接：
@@ -24,6 +25,9 @@
     图片超链接(markdown中)：![GitHub Mark](http://**** "GitHub Mark")
     图片超链接：<img src="http://****" width="128" height="96" />
     网址超链接：<http://ibruce.info>
+上标下标：
+    H<sub>2</sub>O  CO<sub>2</sub>
+    爆米<sup>TM</sup>
 ```
 
 # 2. 文字
@@ -197,7 +201,7 @@ h4{
 CSS代码：
 ```
 ol {
-   list-style-type:none;		
+   list-style-type:none;        
    counter-reset:sectioncounter;
 }                      
 ol li:before {
@@ -247,8 +251,8 @@ li:before {counter-increment:a; content:counters(a,".")". ";}
     p{color:blue} 
     </style> 
     <head> 
-    <style type=”text/css”>P{ color:red }</style>
-    ol {list-style-type:none;		
+    <style type="text/css">P{ color:red }</style>
+    ol {list-style-type:none;        
        counter-reset:sectioncounter;}                      
     ol li:before {content:"美女" counter(sectioncounter) "： "; 
        counter-increment:sectioncounter;

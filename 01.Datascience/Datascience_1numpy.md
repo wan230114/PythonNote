@@ -30,9 +30,7 @@
 1. 代码简洁：减少Python代码中的循环。
 2. 底层实现：厚内核(C)+薄接口(Python)，保证性能。
 
-# 2. numpy基础
-
-## 2.1. ndarray数组
+# 2. ndarray数组
 
 用np.ndarray类的对象表示n维数组
 
@@ -55,35 +53,140 @@ print(type(ary))
     - Numpy数组是同质数组，即所有元素的数据类型必须相同
     - Numpy数组的下标从0开始，最后一个元素的下标为数组长度减1
     
-### 2.1.1. ndarray数组对象的创建
+## 2.1. ndarray数组对象的创建
 
-- np.array(任何可被解释为Numpy数组的逻辑结构)
-- np.arange(起始值(0),终止值,步长(1))
-- np.zeros(数组元素个数, dtype='类型')
-- np.ones(数组元素个数, dtype='类型')
+### 2.1.1. 基本创建方法
+
+- `np.array(任何可被解释为Numpy数组的逻辑结构)` - 通用
+- `np.zeros(数组元素个数, dtype='类型')` - 全为0
+- `np.ones(数组元素个数, dtype='类型')` - 全为1
+- `np.arange(s(0),e,step(1))` - 创建[s,e)按步长递增的数组
+- `np.random.randint(start, end, n)` - 创建[s,e)中的随机数组
 
 ```python
 import numpy as np
-a = np.array([1, 2, 3, 4, 5, 6])
-print(type(a))  # <class 'numpy.ndarray'>
-a = np.arange(0, 10, 2)
-print(a)  # [0 2 4 6 8]
-a = np.zeros(10)
-print(a)  # [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
-a = np.ones(10)
-print(a)  # [1. 1. 1. 1. 1. 1. 1. 1. 1. 1.]
+
+print(np.array([1, 2, 3, 4, 5, 6]))  # [1 2 3 4 5 6]
+print(np.zeros(10))  # [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+print(np.ones(10))  # [1. 1. 1. 1. 1. 1. 1. 1. 1. 1.]
+print(np.arange(0, 10, 2))  # [0 2 4 6 8]
+print(np.random.randint(10, 100, 5))  # [57 33 75 21 21]
+
+print(type(np.array([1, 2])))  # <class 'numpy.ndarray'>
 ```
 
-### 2.1.2. ndarray对象属性的基本操作
 
-**1. 数组的维度：** np.ndarray.shape
+### 2.1.2. 拓展：ndarray的高级创建
+
+#### 2.1.2.1. 创建等差数列
+
+- 创建等差数列数组 - np.linspace(s, e, n)  
+`numpy.linspace(start, stop, num=50, endpoint=True, retstep=False, dtype=None, axis=0)`
+
+```python
+# 从-π到π区间拆5个点
+import numpy as np
+x = np.linspace(-np.pi, np.pi, 5)
+print(x)
+```
+
+#### 2.1.2.2. 生成网格坐标点矩阵
+- 产生x,y坐标点的数组 - `np.meshgrid()`  
+(自动计算元素维度)
+
+```python
+import numpy as np
+# 产生网格坐标，生成对应两个x,y横纵轴的矩阵
+x, y = np.meshgrid([1, 2, 3], [1, 2, 3, 4, 5])
+# 合并两个矩阵，生成坐标点
+point = np.dstack((x, y))  # 可交换x和y
+print('x:\n', x)  # 横坐标 5行3列
+print('y:\n', y)  # 纵坐标 5行3列
+print('point:\n', point)
+print(point.reshape(-1, 2))  # 变维
+```
+
+#### 2.1.2.3. 矩阵间乘法
+- A*B - 数组对应位置元素相乘
+- np.multiply() - 数组对应位置的元素相乘
+- np.dot() - 数组对应位置的元素相乘的结果之和
+- np.outer() - 两两相乘
+
+```python
+import numpy as np
+
+A = np.array([1, 2, 3])
+B = np.array([10, 20, 30])
+
+print("下面我们将讨论一些关于一维数组的乘法的问题")
+print('A:\n', A, '\nB:\n', B)  # [1 2 3]  [10 20 30]
+
+# 1) A*B - 数组对应位置元素相乘
+print("A*B:\n", A * B)  # [10 40 90]
+
+# 2) np.multiply() - 数组对应位置的元素相乘
+print("np.multiply():\n", np.multiply(A, B))  # [10 40 90]
+
+# 3) np.dot() - 数组对应位置的元素相乘的结果之和
+print("np.dot():\n", np.dot(A, B))  # 140
+
+# 4) np.outer() - 两两相乘
+print("np.outer():\n", np.outer(A, B))
+"""
+ [[10 20 30]
+ [20 40 60]
+ [30 60 90]]
+"""
+```
+
+## 2.2. ndarray对象属性的基本操作
+属性：
+- **shape - 维度**
+- **dtype - 元素类型**
+- **size - 元素数量**
+- ndim - 维数，len(shape)
+- itemsize - 元素字节数
+- nbytes - 总字节数 = size x itemsize
+- real - 复数数组的实部数组
+- imag - 复数数组的虚部数组
+- T - 数组对象的转置视图
+- flat - 扁平迭代器（相当于将数组变一维去迭代）
+
+方法：
+- a.astype('str') - 类型转换
+- a.tolist() - 转换列表
+- ...
+
+```python
+import numpy as np
+a = np.array([[1 + 1j, 2 + 4j, 3 + 7j],
+              [4 + 2j, 5 + 5j, 6 + 8j],
+              [7 + 3j, 8 + 6j, 9 + 9j]])
+
+print(a.shape)
+print(a.dtype)
+print(a.ndim)
+print(a.size)
+print(a.itemsize)
+print(a.nbytes)
+print(a.real, a.imag, sep='\n')
+print(a.T)
+print([elem for elem in a.flat])
+
+print(a.astype('str'))
+print(a.tolist())
+```
+
+几个重要属性示例：
+
+1. 数组的维度： np.ndarray.shape
 ```python
 import numpy as np
 ary = np.array([[1,2,3,4], [5,6,7,8]])
 print(type(ary), ary.shape)  # <class 'numpy.ndarray'> (2, 4)
 ```
 
-**2. 元素的类型：** np.ndarray.dtype
+2. 元素的类型： np.ndarray.dtype
 ```python
 import numpy as np
 ary = np.array([1, 2, 3, 4])
@@ -96,7 +199,7 @@ ary = ary.astype('str') # return new instance
 print(ary, ary.dtype)  # ['1.0' '2.0' '3.0' '4.0'] <U32
 ```
 
-**3. 数组元素的个数：** np.ndarray.size
+3. 数组元素的个数： np.ndarray.size
 ```python
 import numpy as np
 ary = np.array([[1,2,3,4], [5,6,7,8]])
@@ -104,27 +207,9 @@ ary = np.array([[1,2,3,4], [5,6,7,8]])
 print(ary.shape, ary.size, len(ary))  # (2, 4) 8 2
 ```
 
-**4. 数组元素索引(下标)**  
-数组对象[..., 页号, 行号, 列号]  
-下标从0开始，到数组len-1结束。
 
-```python
-import numpy as np
-a = np.array([[[1, 2], [3, 4]],
-            [[5, 6], [7, 8]]])
-print(a, a.shape)  # [[[1 2] [3 4]]   [[5 6] [7 8]]]  (2, 2, 2)
-print(a[0])     # [[1 2] [3 4]]
-print(a[0][0])  # [1 2]
-print(a[0][0][0])  # 1
-print(a[0, 0, 0])  # 1
-for i in range(a.shape[0]):
-    for j in range(a.shape[1]):
-        for k in range(a.shape[2]):
-            print(a[i, j, k])  # 1 2 3 4 5 6 7 8
-```
-
-### Numpy的数据类型
-#### **Numpy的内部基本数据类型**
+## 2.3. ndarray的数据类型
+### 2.3.1. Numpy内部基本数据类型
 
 | 类型名       | 类型表示符                          |
 | ------------ | ----------------------------------- |
@@ -135,8 +220,31 @@ for i in range(a.shape[0]):
 | 复数型       | complex64/complex128                |
 | 字串型       | str_，每个字符用32位Unicode编码表示 |
 
-#### **自定义复合类型**
+### 2.3.2. 自定义复合类型
 
+基本格式：
+```python
+# 第一种dtype的设置方式
+ary = np.array(data, dtype='U2, 3int32, int32')
+
+# 第二种dtype的设置方式，列表传入
+ary = np.array(data, 
+        dtype=[ ('name', 'str', 2), 
+                ('scores', 'int32', 3), 
+                ('age', 'int32', 1)])
+
+# 第三种dtype的设置方式，字典传入
+ary = np.array(data, dtype={
+    'names':['name', 'scores', 'age'],
+    'formats':['U2', '3int32', 'int32']})
+
+# 第四种dtype的设置方式
+d = np.array(data, dtype={'name': ('U3', 0),
+                    'scores': ('3int32', 16),
+                    'age': ('int32', 28)})
+```
+
+示例：
 ```python
 """
 demo04_obj.py  自定义复合数据类型
@@ -147,18 +255,19 @@ data = [('zs', [50,51,52], 15),
         ('ls', [83,71,62], 16),
         ('ww', [90,91,92], 17)]
 
-#第一种dtype的设置方式
+# 第一种dtype的设置方式
 ary = np.array(data, dtype='U2, 3int32, int32')
-print(ary, ary[0][1])
-print(ary[0]['f0'])
-
-#第二种dtype的设置方式，列表传入
-ary = np.array(data, 
-        dtype=[ ('name', 'str', 2), 
-                ('scores', 'int32', 3), 
-                ('age', 'int32', 1)])
 print('-' * 45)
-print(ary, ary.dtype)
+print(ary, ary.dtype, ary.itemsize)
+print(ary[0][0], ary[0]['f0']) # 返回zs的年龄
+print(ary[2]['f1']) # 返回ww的成绩
+
+# 第二种dtype的设置方式，列表传入
+ary = np.array(data, dtype=[('name', 'str', 2),
+                            ('scores', 'int32', 3),
+                            ('age', 'int32', 1)])
+print('-' * 45)
+print(ary.dtype, ary.itemsize)
 print(ary[0]['age']) # 返回zs的年龄
 print(ary[2]['scores']) # 返回ww的成绩
 
@@ -166,7 +275,8 @@ print(ary[2]['scores']) # 返回ww的成绩
 ary = np.array(data, dtype={
     'names':['name', 'scores', 'age'],
     'formats':['U2', '3int32', 'int32']})
-print(ary)
+print('-' * 45)
+print(ary.dtype, ary.itemsize)
 print(ary[0]['age']) # 返回zs的年龄
 print(ary[2]['scores']) # 返回ww的成绩
 
@@ -175,19 +285,31 @@ print(ary[2]['scores']) # 返回ww的成绩
 d = np.array(data, dtype={'name': ('U3', 0),
                     'scores': ('3int32', 16),
                     'age': ('int32', 28)})
-print(d[0]['name'], d[0]['scores'], d.itemsize)
+print('-' * 45)
+print(ary.dtype, ary.itemsize)
+print(ary[0]['age']) # 返回zs的年龄
+print(ary[2]['scores']) # 返回ww的成绩
+
 
 # ndarray数组存放日期数据
-dates = ['2011-01-01', '2012-01-01', 
-         '2011-02-01', '2012', 
-         '2011-01-01 10:10:10']
+ary = np.array(["2011-01-01 10:10:10", "2011-01-01 11:10:50"], dtype="M8[s]")
+print(ary, ary.dtype)
+# ['2011-01-01T10:10:10' '2011-01-01T11:10:50'] datetime64[s]
+print(ary[1]-ary[0])
+# 3640 seconds
+
+dates = ['2010', '2011-01-02', '2011-01-02 10:10:10']
 ary = np.array(dates)
 print(ary, ary.dtype)
-ary = ary.astype('M8[D]')
-print(ary, ary.dtype, ary[1]-ary[0]) 
+# ['2010' '2011-01-02' '2011-01-02 10:10:10'] <U19
+ary = ary.astype('M8[D]')  # 转换类型
+print(ary, ary.dtype)
+# ['2010-01-01' '2011-01-02' '2011-01-02'] datetime64[D]
+print(ary[1]-ary[0])
+# 366 days
 ```
 
-#### **类型字符码**
+### 2.3.3. **类型字符码**
 
 | 类型              | 字符码                              |
 | ----------------- | ----------------------------------- |
@@ -210,19 +332,22 @@ print(ary, ary.dtype, ary[1]-ary[0])
 
 > `3i4`： 3个元素的一维数组，每个元素都是整型，每个整型元素占4个字节。  
 > `<(2,3)u8`： 小端字节序，6个元素2行3列的二维数组，每个元素都是无符号整型，每个无符号整型元素占8个字节。  
-> `U7`： 包含7个字符的Unicode字符串，每个字符占4个字节，采用默认字节序。                            |
+> `U7`： 包含7个字符的Unicode字符串，每个字符占4个字节，采用默认字节序。
 
 
-### 2.1.3.1. ndarray数组的维度操作
-- reshape() 与 ravel()
-- flatten()
+## 2.4. ndarray数组的维度操作
+
+### 2.4.1. 变维操作
+- 视图变维：reshape() 与 ravel()
+- 复制变维：flatten()
+- 就地变维：resize()
 
 **视图变维（数据共享）：** reshape() 与 ravel() 
 
 ```python
 import numpy as np
 a = np.arange(1, 9)
-print(a)		# [1 2 3 4 5 6 7 8]
+print(a)        # [1 2 3 4 5 6 7 8]
 
 a1 = a.reshape(2, 4)  #视图变维  : 变为2行4列的二维数组
 print(a1)
@@ -236,13 +361,13 @@ a3 = a1.reshape(2, 2, 2)  # 只与总数据量相关
 # [[5 6]
 #  [7 8]]]
 
-b = a3.ravel()	#视图变维	变为1维数组
+b = a3.ravel()    #视图变维    变为1维数组
 print(b)  # [1 2 3 4 5 6 7 8]
 
 # 负数代表当前维度由其他参数决定
-print(np.arange(6).reshape(2, 3, 1))
-# 等价于
 print(np.arange(6).reshape(-1, 3, 1))
+# 等价于
+print(np.arange(6).reshape(2, 3, 1))
 
 ```
 
@@ -264,15 +389,34 @@ a.resize(2, 2, 2)
 print(a)
 ```
 
-#### 2.1.3.2. 切片操作
+### 2.4.2. 索引操作
+
+**数组元素索引(下标)**  
+数组对象[..., 页号, 行号, 列号]  
+下标从0开始，到数组len-1结束。
 
 ```python
-#数组对象切片的参数设置与列表切面参数类似
-#  步长+：默认切从首到尾
-#  步长-：默认切从尾到首
-数组对象[起始位置:终止位置:步长]
-#默认位置步长：1
+import numpy as np
+a = np.array([[[1, 2], [3, 4]],
+            [[5, 6], [7, 8]]])
+print(a, a.shape)  # [[[1 2] [3 4]]   [[5 6] [7 8]]]  (2, 2, 2)
+print(a[0])     # [[1 2] [3 4]]
+print(a[0][0])  # [1 2]
+print(a[0][0][0])  # 1
+print(a[0, 0, 0])  # 1
+for i in range(a.shape[0]):
+    for j in range(a.shape[1]):
+        for k in range(a.shape[2]):
+            print(a[i, j, k])  # 1 2 3 4 5 6 7 8
 ```
+
+### 2.4.3. 切片操作
+
+- 数组对象切片的参数设置与列表切面参数类似
+  - 步长+：默认切从首到尾
+  - 步长-：默认切从尾到首
+- `数组对象[起始位置:终止位置:步长]`
+  - 默认位置步长：1
 
 ```python
 import numpy as np
@@ -308,7 +452,7 @@ print(a[::2, :])  #
 print(a[..., :1])  # 切出每一行第一列数据
 ```
 
-#### 2.1.3.3. ndarray数组的掩码操作
+### 2.4.4. 掩码操作
 
 ```python
 """
@@ -316,84 +460,97 @@ demo07_mask.py  掩码操作
 """
 import numpy as np
 a = np.array([1, 2, 3, 4, 5])
-print(a + 10)
-print(a * 2.5)
-print(a + a)
-
-# 输出100以内3的倍数
-a = np.arange(1, 10)
-mask = a % 3 == 0
-print(mask)
-print(a[mask])
-
-mask = [2, 2, 3, 3, 6, 6, 4, 4]
-print(a)
-print(a[mask])
+mask = np.array([True, False, True, False, False])
+print(a + 10)   # [11 12 13 14 15]
+print(a * 2.5)  # [ 2.5  5.   7.5 10.  12.5]
+print(a + a)    # [ 2  4  6  8 10]
+print(a[mask])  # [1 3]
 ```
 
-#### 2.1.3.4. 多维数组的组合与拆分
-
-长度相等数组组合：
-1. 垂直方向操作
-2. 水平方向操作
-3. 深度方向操作（3维）
-
+实例： 输出10以内3的倍数
 ```python
 import numpy as np
-x = np.arange(1, 7).reshape(2, 3)
-y = np.arange(7, 13).reshape(2, 3)
-# 垂直方向完成组合操作，生成新数组
-c1 = np.vstack((x, y))
-# 垂直方向完成拆分操作，生成两个数组
+a = np.arange(1, 10)
+# 分步写，便于理解
+mask = a % 3 == 0
+print(mask)     # [False False  True False ...]
+print(a[mask])  # [3 6 9]
+# 直接一步写
+print(a[a % 3 == 0])  # [3 6 9]
+```
+
+### 2.4.5. 组合与拆分
+总结：
+1. 长度相等数组组合：
+   - 垂直方向操作 - `np.vstack((a, b, ...)) / np.vsplit(c, n)`
+   - 水平方向操作 - `np.hstack((a, b, ...)) / np.hsplit(c ,n)`
+   - 深度方向操作 - `np.dstack((a, b, ...)) / np.dsplit(c, n)` (3维)
+2. 长度不等的数组组合
+   - `pad_width=(a, b)`：在数组首部补a个元素，尾部补b个元素（填充b数组使其长度与a相同
+
+3. 多维数组组合与拆分的相关函数：
+   - 组合 `np.concatenate((a, b), axis=0)`
+   - 拆分 `np.split(c, 2, axis=0)`
+   - 通过axis作为关键字参数指定组合的方向，取值如下：
+      - 0: 垂直方向组合
+      - 1: 水平方向组合
+      - 2: 深度方向组合
+
+4. 简单的一维数组组合方案  
+   - 垂直 - np.row_stack((a, b))
+   - 水平 - np.column_stack((a, b))
+
+<br>
+
+示例1：长度相等数组组合
+```python
+import numpy as np
+a = np.arange(0, 6).reshape(2, 3)
+b = np.arange(6, 12).reshape(2, 3)
+
+# 垂直方向完成组合、拆分操作
+c1 = np.vstack((a, b))
 a1, b1 = np.vsplit(c1, 2)
 
-# 水平方向完成组合操作，生成新数组
-c2 = np.hstack((x, y))
-# 水平方向完成拆分操作，生成两个数组
+# 水平方向完成组合、拆分操作
+c2 = np.hstack((a, b))
 a2, b2 = np.hsplit(c2, 2)
 
-# 深度方向（3维）完成组合操作，生成新数组
-c3 = np.dstack((x, y))
-# 深度方向（3维）完成拆分操作，生成两个数组
+# 深度方向（3维）完成组合、拆分操作
+c3 = np.dstack((a, b))
 a3, b3 = np.dsplit(c3, 2)
 ```
 
-长度不等的数组组合：
-
+示例2：长度不等的数组组合
 ```python
 import numpy as np
 a = np.array([1,2,3,4,5])
 b = np.array([1,2,3,4])
 # 填充b数组使其长度与a相同
 # pad_width=(a, b)：在数组首部补a个元素，尾部补b个元素
-b = np.pad(b, pad_width=(0, 1), mode='constant', constant_values=-1)
-print(b)
-# 垂直方向完成组合操作，生成新数组
-c = np.vstack((a, b))
+c = np.pad(b, pad_width=(0, 1),
+              mode='constant',
+              constant_values=-1)
 print(c)
 ```
 
-多维数组组合与拆分的相关函数：
+示例3：多维数组组合与拆分的相关函数
 
 ```python
-# 通过axis作为关键字参数指定组合的方向，取值如下：
-# 若待组合的数组都是二维数组：
-#	0: 垂直方向组合
-#	1: 水平方向组合
-# 若待组合的数组都是三维数组：
-#	0: 垂直方向组合
-#	1: 水平方向组合
-#	2: 深度方向组合
-np.concatenate((a, b), axis=0)
-# 通过给出的数组与要拆分的份数，按照某个方向进行拆分，axis的取值同上
-np.split(c, 2, axis=0)
+import numpy as np
+a = np.array([1, 2, 3])
+b = np.array([4, 5, 6])
+c = np.concatenate((a, b), axis=0)
+# 通过给出的数组与要拆分的份数，按照某个方向进行拆分
+# axis的取值同上
+x, y = np.split(c, 2, axis=0)
 ```
 
-简单的一维数组组合方案
-
+示例4：简单的一维数组组合方案
 ```python
-a = np.arange(1,9)		#[1, 2, 3, 4, 5, 6, 7, 8]
-b = np.arange(9,17)		#[9,10,11,12,13,14,15,16]
+import numpy as np
+a = np.arange(1,9)        #[1, 2, 3, 4, 5, 6, 7, 8]
+b = np.arange(9,17)        #[9,10,11,12,13,14,15,16]
 #把两个数组摞在一起成两行
 c = np.row_stack((a, b))
 print(c)
@@ -402,89 +559,21 @@ d = np.column_stack((a, b))
 print(d)
 ```
 
-### 2.1.4. ndarray类的其他属性
-
-- shape - 维度
-- dtype - 元素类型
-- size - 元素数量
-- ndim - 维数，len(shape)
-- itemsize - 元素字节数
-- nbytes - 总字节数 = size x itemsize
-- real - 复数数组的实部数组
-- imag - 复数数组的虚部数组
-- T - 数组对象的转置视图
-- flat - 扁平迭代器
-
-```python
-import numpy as np
-a = np.array([[1 + 1j, 2 + 4j, 3 + 7j],
-              [4 + 2j, 5 + 5j, 6 + 8j],
-              [7 + 3j, 8 + 6j, 9 + 9j]])
-print(a.shape)
-print(a.dtype)
-print(a.ndim)
-print(a.size)
-print(a.itemsize)
-print(a.nbytes)
-print(a.real, a.imag, sep='\n')
-print(a.T)
-print([elem for elem in a.flat])
-b = a.tolist()
-print(b)
-```
-
-# 3. numpy中的矩阵生成
-
-## 3.1. numpy快速生成数组
-```python
-# 从-π到π区间拆10个点
-import numpy as np
-x = np.linspace(-np.pi, np.pi, 10)
-print(x)
-```
-
-## 3.2. 生成网格坐标点矩阵
-```python
-import numpy as np
-
-# 产生网格坐标，生成对应两个x,y横纵轴的矩阵
-nm = np.meshgrid(x, y)
-xv, yv = np.meshgrid([1, 2, 3], [4, 5, 6, 7])
-print(xv)
-print(yv)
-print(xv.shape)
-print(yv.shape)
-
-# 合并两个矩阵，生成坐标点
-point = np.dstack((xv, yv))
-print(point.reshape(int(point.size/2), 2))
-```
-
-## 3.3. 矩阵间乘法
-```python
-import numpy as np
-
-print("下面我们将讨论一些关于一维数组的乘法的问题")
-A = np.array([1, 2, 3])
-B = np.array([2, 3, 4])
-print('A:\n', A, '\nB:\n', B)
-# 对数组执行的是对应位置元素相乘
-print("A*B:\n", A * B)
-# 当dot遇到佚为1，执行按位乘并相加
-print("np.dot():\n", np.dot(A, B))
-# 对数组执行的是对应位置的元素相乘
-print("np.multiply():\n", np.multiply(A, B))
-# A的一个元素和B的元素相乘的到结果的一行
-print("np.outer():\n", np.outer(A, B))
-```
-
-
-# 4. numpy中的高级应用
+# 3. numpy中的高级应用
 （在学习本章之前，先学习matplotlib）
 
-## 4.1. numpy常用函数
+## 3.1. 科学计算常用
 
-### 4.1.1. 加载文件
+```python
+import numpy as np
+np.pi  # 3.141592653589793
+# 保留小数位数
+np.round(np.pi, 2)  # 3.14
+```
+
+## 3.2. numpy常用函数
+
+### 3.2.1. 加载文件
 
 numpy提供了函数用于加载逻辑上可被解释为二维数组的文本文件，格式如下：
 
@@ -502,7 +591,7 @@ BB:BB:BB:BB:BB
 
 调用numpy.loadtxt()函数可以直接读取该文件并且获取ndarray数组对象：
 
-#### 案例：读取文件并使用matplotlib绘制K线图、蜡烛图
+#### 3.2.1.1. 案例：读取文件并使用matplotlib绘制K线图、蜡烛图
 案例：读取aapl.csv文件，得到文件中的信息：
 
 文件内容：[./aapl.csv](./aapl.csv)
@@ -514,25 +603,28 @@ AAPL,31-01-2011, ,335.8,340.04,334.3,339.32,13473000
 ```
 
 ```python
-# 0) 读取：
 import numpy as np
 import datetime as dt
+
 # 日期转换函数
 def dmy2ymd(dmy):
-	dmy = str(dmy, encoding='utf-8')
-	time = dt.datetime.strptime(dmy, '%d-%m-%Y').date()
-	t = time.strftime('%Y-%m-%d')
-	return t
-dates, opening_prices,highest_prices, \
-	lowest_prices, closeing_prices  = np.loadtxt(
-    './data/aapl.csv',		# 文件路径
-    delimiter=',',			# 分隔符
-    usecols=(1, 3, 4, 5, 6),			# 读取1、3两列 （下标从0开始）
+    dmy = str(dmy, encoding='utf-8')
+    time = dt.datetime.strptime(dmy, '%d-%m-%Y').date()
+    t = time.strftime('%Y-%m-%d')
+    return t
+
+# 1) 调用numpy.loadtxt()读取：
+(dates, opening_prices, highest_prices, 
+ lowest_prices, closeing_prices) = np.loadtxt(
+    './data/aapl.csv',        # 文件路径
+    delimiter=',',            # 分隔符
+    usecols=(1, 3, 4, 5, 6),  # 读取1、3两列 （下标从0开始）
     unpack=True,
-    dtype='M8[D], f8, f8, f8, f8',		# 制定返回每一列数组中元素的类型
+    dtype='M8[D], f8, f8, f8, f8',  # 制定返回每一列数组中元素的类型
     converters={1:dmy2ymd})
 
-# 1) 绘制dates与收盘价的折线图：
+
+# 2) 绘制dates与收盘价的折线图：
 import numpy as np
 import datetime as dt
 import matplotlib.pyplot as mp
@@ -555,7 +647,7 @@ mp.tick_params(labelsize=8)
 dates = dates.astype(md.datetime.datetime)
 
 mp.plot(dates, opening_prices, color='dodgerblue',
-		linestyle='-')
+        linestyle='-')
 mp.gcf().autofmt_xdate()
 mp.show()
 
@@ -569,64 +661,59 @@ edgecolor = np.array([('red' if x else 'limegreen') for x in rise])
 
 #绘制线条
 mp.bar(dates, highest_prices - lowest_prices, 0.1,
-	lowest_prices, color=edgecolor)
+    lowest_prices, color=edgecolor)
 #绘制方块
 mp.bar(dates, closeing_prices - opening_prices, 0.8,
-	opening_prices, color=color, edgecolor=edgecolor)
+    opening_prices, color=color, edgecolor=edgecolor)
 
 mp.show()
 ```
 
 
-### 4.1.2. 算数平均值
+### 3.2.2. 算数平均值
 
-```
-S = [s1, s2, ..., sn]
-```
+- `np.mean(array)`
 
-样本中的每个值都是真值与误差的和。
-
-```
-算数平均值：
-m = (s1 + s2 + ... + sn) / n
-```
-
-算数平均值表示对真值的无偏估计。
-
-```python
-np.mean(array)
-```
+- 解释：  
+    样本中的每个值都是真值与误差的和。  
+    算数平均值表示对真值的无偏估计。
+    ```
+    假设存在数列
+    S = [s1, s2, ..., sn]
+    算数平均值：
+    m = (s1 + s2 + ... + sn) / n
+    ```
 
 案例：计算收盘价的算术平均值。
 
 ```python
 import numpy as np
-closing_prices = np.loadtxt(
-    './data/aapl.csv', delimiter=',',
-    usecols=(6), unpack=True)
+
+closing_prices = np.loadtxt('./data/aapl.csv',
+                            delimiter=',',
+                            usecols=(6), unpack=True)
+
+# 1) 手动计算
 mean = 0
 for closing_price in closing_prices:
     mean += closing_price
 mean /= closing_prices.size
 print(mean)
+
+# 2) 调用np.mean()函数计算
 mean = np.mean(closing_prices)
 print(mean)
 ```
 
-### 4.1.3. 加权平均值
+### 3.2.3. 加权平均值
 
-样本：S = [s<sub>1</sub>, s<sub>2</sub>, ..., s<sub>n</sub>]
+- `np.average(closing_prices, weights=volumes)`
+- 解释  
+  - 样本：S = [s<sub>1</sub>, s<sub>2</sub>, ..., s<sub>n</sub>]
+  - 权重：W = [w<sub>1</sub>, w<sub>2</sub>, ..., w<sub>n</sub>]
+  - 加权平均值：a = (s<sub>1</sub>w<sub>1</sub>+s<sub>2</sub>w<sub>2</sub>+...+s<sub>n</sub>w<sub>n</sub>)/(w<sub>1</sub>+w<sub>2</sub>+...+w<sub>n</sub>)
 
-权重：W = [w<sub>1</sub>, w<sub>2</sub>, ..., w<sub>n</sub>]
-
-加权平均值：a = (s<sub>1</sub>w<sub>1</sub>+s<sub>2</sub>w<sub>2</sub>+...+s<sub>n</sub>w<sub>n</sub>)/(w<sub>1</sub>+w<sub>2</sub>+...+w<sub>n</sub>)
-
-```python
-np.average(closing_prices, weights=volumes)
-```
-
-
-
+**案例：**  
 VWAP - 成交量加权平均价格（成交量体现了市场对当前交易价格的认可度，成交量加权平均价格将会更接近这支股票的真实价值）
 
 ```python
@@ -634,6 +721,8 @@ import numpy as np
 closing_prices, volumes = np.loadtxt(
     './data/aapl.csv', delimiter=',',
     usecols=(6, 7), unpack=True)
+
+# 手动计算
 vwap, wsum = 0, 0
 for closing_price, volume in zip(
         closing_prices, volumes):
@@ -641,6 +730,8 @@ for closing_price, volume in zip(
     wsum += volume
 vwap /= wsum
 print(vwap)
+
+# 调用函数
 vwap = np.average(closing_prices, weights=volumes)
 print(vwap)
 ```
@@ -661,32 +752,37 @@ days, closing_prices = np.loadtxt(
     './data/aapl.csv', delimiter=',',
     usecols=(1, 6), unpack=True,
     converters={1: dmy2days})
+
 twap = np.average(closing_prices, weights=days)
 print(twap)
 ```
 
-### 4.1.4. 最值
+### 3.2.4. 最值
 
-**np.max()  np.min() np.ptp()：** 返回一个数组中最大值/最小值/极差
+- 返回一个数组中最大值/最小值/极差：
+  - `np.max()` - 最大值
+  - `np.min()` - 最小值
+  - `np.ptp()` - 极差值
+- 返回一个数组中最大/最小元素的下标
+  - `np.argmax()` - 最大元素的下标
+  - `mp.argmin()` - 最小元素的下标
+- 将两个同维数组中对应元素中相比更大/更小元素构成一个新的数组
+  - `np.maximum()`
+  - `np.minimum()`
 
+示例：
 ```python
 import numpy as np
 # 产生9个介于[10, 100)区间的随机数
 a = np.random.randint(10, 100, 9)
-print(a)
+b = np.arange(10, 100, 10)
+print('a:', a)
+print('b:', b)
+# 返回最大值/最小值/极差
 print(np.max(a), np.min(a), np.ptp(a))
-```
-
-**np.argmax() mp.argmin()：** 返回一个数组中最大/最小元素的下标
-
-```python
+# 返回最大值/最小值的下标
 print(np.argmax(a), np.argmin(a))
-```
-
-**np.maximum() np.minimum()：** 将两个同维数组中对应元素中相比更大/更小元素构成一个新的数组
-
-
-```python
+# 比较和选出两个数组中更大/小的数组成一个新数组
 print(np.maximum(a, b), np.minimum(a, b), sep='\n')
 ```
 
@@ -728,24 +824,21 @@ lowest_ptp = np.ptp(lowest_prices)
 print(lowest_ptp, highest_ptp)
 ```
 
-### 4.1.5. 中位数
-
-将多个样本按照大小排序，取中间位置的元素。
-
-**若样本数量为奇数，中位数为最中间的元素**
-
-1 2000 3000 4000 10000000
-
-**若样本数量为偶数，中位数为最中间的两个元素的平均值**
-
-1 2000 3000 4000 5000 10000000
+### 3.2.5. 中位数
+- `np.median()`
+- 解释：  
+将多个样本按照大小排序，取中间位置的元素。  
+**若样本数量为奇数，中位数为最中间的元素**  
+1 2 3 4 1  
+**若样本数量为偶数，中位数为最中间的两个元素的平均值**  
+1 2 3 4 5 1
 
 案例：分析中位数的算法，测试numpy提供的中位数API：
 
 ```python
 import numpy as np
 closing_prices = np.loadtxt( './data/aapl.csv', 
-	delimiter=',', usecols=(6), unpack=True)
+    delimiter=',', usecols=(6), unpack=True)
 size = closing_prices.size
 sorted_prices = np.msort(closing_prices)
 median = (sorted_prices[int((size - 1) / 2)] + sorted_prices[int(size / 2)]) / 2
@@ -754,16 +847,17 @@ median = np.median(closing_prices)
 print(median)
 ```
 
-### 4.1.6. 标准差
-
-样本：S = [s1, s2, ..., sn]
-平均值：m = (s1+s2+...+sn)/n
-离差：D = [d1, d2, ..., dn], di = si-m
-离差方：Q = [q1, q2, ..., qn], qi = di<sup>2</sup>
-总体方差：v = (q1+q2+...+qn)/n
-总体标准差：s = sqrt(v)，方均根
-样本方差：v' = (q1+q2+...+qn)/(n-1)
-样本标准差：s' = sqrt(v')，方均根
+### 3.2.6. 标准差
+- `np.std()`
+- 解释：  
+样本：$S = [s_{1}, s_{2}, ..., s_{n}]$  
+平均值：$m = (s_{1}+s_{2}+...+s_{n})/n$  
+离差：$D = [d_{1}, d_{2}, ..., d_{n}], d_{i} = s_{i}-m$  
+离差方：$Q = [q_{1}, q_{2}, ..., q_{n}], q_{i}=d _{i}^{2}$  
+总体方差：$v = (q_{1}+q_{2}+...+q_{n})/n$  
+总体标准差：$s = \sqrt{v}$，方均根  
+样本方差：$v' = (q_{1}+q_{2}+...+q_{n})/(n-1)$  
+样本标准差：$s' = \sqrt{v'}$，方均根  
 
 ```python
 import numpy as np
@@ -782,9 +876,9 @@ sstd = np.std(closing_prices, ddof=1)  # 样本标准差
 print(pstd, sstd)
 ```
 
-### 4.1.7. 案例应用
+### 3.2.7. 案例应用
 
-#### 4.1.7.1. 时间数据处理
+#### 3.2.7.1. 时间数据处理
 
 案例：统计每个周一、周二、...、周五的收盘价的平均值，并放入一个数组。
 
@@ -799,47 +893,47 @@ def dmy2wday(dmy):
     wday = date.weekday()  # 用 周日
     return wday
 
-wdays, closing_prices = np.loadtxt('./data/aapl.csv', delimiter=',',
-    	usecols=(1, 6), unpack=True, converters={1: dmy2wday})
+wdays, closing_prices = np.loadtxt(
+        './data/aapl.csv', delimiter=',',
+        usecols=(1, 6), unpack=True, converters={1: dmy2wday})
 
 ave_closing_prices = np.zeros(5)
 for wday in range(ave_closing_prices.size):
     ave_closing_prices[wday] = closing_prices[wdays == wday].mean()
 
 for wday, ave_closing_price in zip(
-    	['MON', 'TUE', 'WED', 'THU', 'FRI'],
+        ['MON', 'TUE', 'WED', 'THU', 'FRI'],
         ave_closing_prices):
     print(wday, np.round(ave_closing_price, 2))
 ```
 
-#### 4.1.7.2. 数组的轴向汇总
+#### 3.2.7.2. 数组的轴向汇总
 
 案例：汇总每周的最高价，最低价，开盘价，收盘价。
 
 ```python
 def func(data):
     pass
-#func 	处理函数
-#axis 	轴向 [0,1]
-#array 	数组
+#func     处理函数
+#axis     轴向 [0,1]
+#array     数组
 np.apply_along_axis(func, axis, array)
 ```
 
 沿着数组中所指定的轴向，调用处理函数，并将每次调用的返回值重新组织成数组返回。
 
-#### 4.1.7.3. 移动均线
+#### 3.2.7.3. 移动均线
 
 收盘价5日均线：从第五天开始，每天计算最近五天的收盘价的平均值所构成的一条线。
 
 移动均线算法：
-
-```python
-(a+b+c+d+e)/5
-(b+c+d+e+f)/5
-(c+d+e+f+g)/5
-...
-(f+g+h+i+j)/5
-```
+$$
+(a+b+c+d+e)/5 \\ 
+(b+c+d+e+f)/5 \\
+(c+d+e+f+g)/5 \\
+... \\
+(f+g+h+i+j)/5 \\
+$$
 
 在K线图中绘制5日均线图
 
@@ -882,7 +976,7 @@ mp.gcf().autofmt_xdate()
 mp.show()
 ```
 
-#### 4.1.7.4. 卷积
+#### 3.2.7.4. 卷积
 
 激励函数：g(t)
 
@@ -890,9 +984,9 @@ mp.show()
 
 绘制时间（t）与痛感（h）的函数关系图。
 
-a = [1 2 3 4 5]	（理解为某单位时间的击打力度序列）
+a = [1 2 3 4 5]    （理解为某单位时间的击打力度序列）
 
-b = [6 7 8]		（理解为痛感系数序列）
+b = [6 7 8]        （理解为痛感系数序列）
 
 ```python
 c = numpy.convolve(a, b, 卷积类型)
@@ -936,15 +1030,15 @@ mp.plot(dates[4:], sma52, c='red', alpha=0.5,
         linewidth=2, label='SMA-5')
 ```
 
-#### 4.1.7.5. 布林带
+#### 3.2.7.5. 布林带
 
 布林带由三条线组成：
 
 中轨：移动平均线
 
-上轨：中轨+2x5日收盘价标准差	（顶部的压力）
+上轨：中轨+2x5日收盘价标准差    （顶部的压力）
 
-下轨：中轨-2x5日收盘价标准差 	（底部的支撑力）
+下轨：中轨-2x5日收盘价标准差     （底部的支撑力）
 
 布林带收窄代表稳定的趋势，布林带张开代表有较大的波动空间的趋势。
 
@@ -969,20 +1063,20 @@ mp.plot(dates[4:], uppers, c='orangered', label='Upper')
 
 
 
-## 4.2. 线性模型
+## 3.3. 线性模型
 
 什么是线性关系？
 
-1	2	3	4	5
+1    2    3    4    5
 
-60  65	70	75	？
+60  65    70    75    ？
 
-#### 4.2.1. 线性预测
+#### 3.3.1. 线性预测
 
 假设一组数据符合一种线型规律，那么就可以预测未来将会出现的数据。
 
 ```python
-a	b	c	d	e	f	?
+a    b    c    d    e    f    ?
 
 ax + by + cz = d
 bx + cy + dz = e
@@ -1042,7 +1136,7 @@ mp.gcf().autofmt_xdate()
 mp.show()
 ```
 
-#### 4.2.2. 线性拟合
+#### 3.3.2. 线性拟合
 
 线性拟合可以寻求与一组散点走向趋势规律相适应的线型表达式方程。
 
@@ -1157,7 +1251,7 @@ mp.scatter(dates, support_points, c='limegreen', alpha=0.5, s=60, zorder=2)
 mp.plot(dates, support_line, c='limegreen', linewidth=3, label='Support')
 ```
 
-## 4.3. 协方差、相关矩阵、相关系数
+## 3.4. 协方差、相关矩阵、相关系数
 
 通过两组统计数据计算而得的协方差可以评估这两组统计数据的相似程度。
 
@@ -1279,13 +1373,13 @@ numpy提供了求得相关矩阵的API：
 
 ```python
 # 相关矩阵
-numpy.corrcoef(a, b)	
+numpy.corrcoef(a, b)    
 # 相关矩阵的分子矩阵 
 # [[a方差，ab协方差], [ba协方差, b方差]]
-numpy.cov(a, b)			
+numpy.cov(a, b)            
 ```
 
-## 4.4. 多项式拟合
+## 3.5. 多项式拟合
 
 多项式的一般形式：
 $$
@@ -1385,7 +1479,7 @@ mp.plot(dates, poly_closing_prices, c='limegreen',
 mp.scatter(dates, diff_closing_prices, c='dodgerblue',
            alpha=0.5, s=60, label='Difference Price')
 roots_x = roots_x.astype(int).astype('M8[D]').astype(
-    		md.datetime.datetime)
+            md.datetime.datetime)
 mp.scatter(roots_x, roots_y, marker='^', s=80,
            c='orangered', label='Peek', zorder=4)
 mp.legend()
@@ -1393,7 +1487,7 @@ mp.gcf().autofmt_xdate()
 mp.show()
 ```
 
-## 4.5. 数据平滑
+## 3.6. 数据平滑
 
 数据的平滑处理通常包含有降噪、拟合等操作。降噪的功能意在去除额外的影响因素，拟合的目的意在数学模型化，可以通过更多的数学方法识别曲线特征。
 
@@ -1454,7 +1548,7 @@ mp.plot(dates[7:], vale_polyfit_y, color='orangered', label='vale_returns_polyfi
 ```python
 #求两条曲线的交点  f(bhp) = f(vale)的根
 sub_p = np.polysub(bhp_p, vale_p)
-roots_x = np.roots(sub_p)	# 让f(bhp) - f(vale) = 0  函数的两个根既是两个函数的焦点
+roots_x = np.roots(sub_p)    # 让f(bhp) - f(vale) = 0  函数的两个根既是两个函数的焦点
 roots_x = roots_x.compress( (dates[0] <= roots_x) & (roots_x <= dates[-1]))
 roots_y = np.polyval(bhp_p, roots_x)
 #绘制这些点
@@ -1463,7 +1557,7 @@ mp.scatter(roots_x, roots_y, marker='D', color='green', s=60, zorder=3)
 
 
 
-## 4.6. 符号数组
+## 3.7. 符号数组
 
 sign函数可以把样本数组的变成对应的符号数组，正数变为1，负数变为-1，0则变为0。
 
@@ -1526,7 +1620,7 @@ d = np.piecewise(
 # d = [ 1  1  0 -1 -1]
 ```
 
-## 4.7. 矢量化
+## 3.8. 矢量化
 
 矢量化指的是用数组代替标量来操作数组里的每个元素。
 
@@ -1614,7 +1708,7 @@ mp.gcf().autofmt_xdate()
 mp.show()
 ```
 
-## 4.8. 矩阵
+## 3.9. 矩阵
 
 矩阵是numpy.matrix类类型的对象，该类继承自numpy.ndarray，任何针对多维数组的操作，对矩阵同样有效，但是作为子类矩阵又结合其自身的特点，做了必要的扩充，比如：乘法计算、求逆等。
 
@@ -1624,8 +1718,8 @@ mp.show()
 # 如果copy的值为True(缺省)，所得到的矩阵对象与参数中的源容器共享同一份数
 # 据，否则，各自拥有独立的数据拷贝。
 numpy.matrix(
-    ary,		# 任何可被解释为矩阵的二维容器
-  	copy=True	# 是否复制数据(缺省值为True，即复制数据)
+    ary,        # 任何可被解释为矩阵的二维容器
+      copy=True    # 是否复制数据(缺省值为True，即复制数据)
 )
 ```
 
@@ -1686,18 +1780,18 @@ print(l)
 案例：假设一帮孩子和家长出去旅游，去程坐的是bus，小孩票价为3元，家长票价为3.2元，共花了118.4；回程坐的是Train，小孩票价为3.5元，家长票价为3.6元，共花了135.2。分别求小孩和家长的人数。使用矩阵求解。
 $$
 \left[ \begin{array}{ccc}
-	3 & 3.2 \\
-	3.5 & 3.6 \\
+    3 & 3.2 \\
+    3.5 & 3.6 \\
 \end{array} \right]
 \times
 \left[ \begin{array}{ccc}
-	x \\
+    x \\
     y \\
 \end{array} \right]
 =
 \left[ \begin{array}{ccc}
-	118.4 \\
-	135.2 \\
+    118.4 \\
+    135.2 \\
 \end{array} \right]
 $$
 
@@ -1713,7 +1807,7 @@ print(persons)
 
 案例：斐波那契数列
 
-1	1	 2	 3	5	8	13	21	34 ...
+1    1     2     3    5    8    13    21    34 ...
 
 ```python
 X      1   1    1   1    1   1
@@ -1721,7 +1815,7 @@ X      1   1    1   1    1   1
     --------------------------------
 1  1   2   1    3   2    5   3
 1  0   1   1    2   1    3   2
- F^1    F^2      F^3 	  F^4  ...  f^n
+ F^1    F^2      F^3       F^4  ...  f^n
 ```
 
 **代码**
@@ -1739,7 +1833,7 @@ print(fibo(n))
 print(int((np.mat('1. 1.; 1. 0.') ** (n - 1))[0, 0]))
 ```
 
-## 4.9. 通用函数
+## 3.10. 通用函数
 
 **数组的裁剪**
 
@@ -1795,13 +1889,13 @@ print(np.arange(2, n + 1).prod())
 
 
 
-### 4.9.1. 加法通用函数
+### 3.10.1. 加法通用函数
 
 ```python
-add(a, a) 					# 两数组相加
-add.reduce(a) 				# a数组元素累加和
-add.accumulate(a) 			# 累加和过程
-add.outer([10, 20, 30], a)	# 外和
+add(a, a)                     # 两数组相加
+add.reduce(a)                 # a数组元素累加和
+add.accumulate(a)             # 累加和过程
+add.outer([10, 20, 30], a)    # 外和
 ```
 
 案例：
@@ -1817,16 +1911,16 @@ c = np.add.reduce(a)
 print(c)
 d = np.add.accumulate(a)
 print(d)
-#  +  	 1  2  3  4  5  6   
-#	   --------------------
+#  +       1  2  3  4  5  6   
+#       --------------------
 # 10   |11 12 13 14 15 16 |
 # 20   |21 22 23 24 25 26 |
 # 30   |31 32 33 34 35 36 |
        --------------------
 f = np.add.outer([10, 20, 30], a)
 print(f)
-#  x  	 1  2  3  4  5  6   
-#	   -----------------------
+#  x       1  2  3  4  5  6   
+#       -----------------------
 # 10   |10 20 30  40  50  60 |
 # 20   |20 40 60  80 100 120 |
 # 30   |30 60 90 120 150 180 |
@@ -1835,14 +1929,14 @@ g = np.outer([10, 20, 30], a)
 print(g)
 ```
 
-### 4.9.2. 除法通用函数
+### 3.10.2. 除法通用函数
 
 ```python
-np.true_divide(a, b) 	# a 真除 b  （对应位置相除）
-np.divide(a, b) 		# a 真除 b
-np.floor_divide(a, b)	# a 地板除 b	（真除的结果向下取整）
-np.ceil(a / b) 		# a 天花板除 b	（真除的结果向上取整）
-np.trunc(a / b)			# a 截断除 b	（真除的结果直接干掉小数部分）
+np.true_divide(a, b)     # a 真除 b  （对应位置相除）
+np.divide(a, b)         # a 真除 b
+np.floor_divide(a, b)    # a 地板除 b    （真除的结果向下取整）
+np.ceil(a / b)         # a 天花板除 b    （真除的结果向上取整）
+np.trunc(a / b)            # a 截断除 b    （真除的结果直接干掉小数部分）
 ```
 
 案例：
@@ -1871,7 +1965,7 @@ g = np.around(a / b)
 print('around ndarray:',g)
 ```
 
-### 4.9.3. 三角函数通用函数
+### 3.10.3. 三角函数通用函数
 
 ```python
 numpy.sin()
@@ -1894,13 +1988,13 @@ x = np.linspace(-2*np.pi, 2*np.pi, 1000)
 y = np.zeros(1000)
 n = 1000
 for i in range(1， n+1):
-	y += 4 / ((2 * i - 1) * np.pi) * np.sin((2 * i - 1) * x)
+    y += 4 / ((2 * i - 1) * np.pi) * np.sin((2 * i - 1) * x)
 mp.plot(x, y, label='n=1000')
 mp.legend()
 mp.show()
 ```
 
-### 4.9.4. 位运算通用函数
+### 3.10.4. 位运算通用函数
 
 **位异或：**
 
@@ -1987,8 +2081,8 @@ bitwise_not
 **移位：**
 
 ```python
-<<		__lshift__		left_shift
->>		__rshift__		right_shift
+<<        __lshift__        left_shift
+>>        __rshift__        right_shift
 ```
 
 左移1位相当于乘2，右移1位相当于除2。
@@ -2002,7 +2096,7 @@ f = np.left_shift(d, 1)
 print(f)
 ```
 
-## 4.10. 特征值和特征向量
+## 3.11. 特征值和特征向量
 
 对于n阶方阵A，如果存在数a和非零n维列向量x，使得Ax=ax，则称a是矩阵A的一个特征值，x是矩阵A属于特征值a的特征向量
 
@@ -2024,8 +2118,8 @@ print(A)
 eigvals, eigvecs = np.linalg.eig(A)
 print(eigvals)
 print(eigvecs)
-print(A * eigvecs[:, 0])	# 方阵*特征向量
-print(eigvals[0] * eigvecs[:, 0])	#特征值*特征向量
+print(A * eigvecs[:, 0])    # 方阵*特征向量
+print(eigvals[0] * eigvecs[:, 0])    #特征值*特征向量
 S = np.mat(eigvecs) * np.mat(np.diag(eigvals)) * np.mat(eigvecs.I)
 ```
 
@@ -2060,7 +2154,7 @@ mp.tight_layout()
 mp.show()
 ```
 
-## 4.11. 奇异值分解
+## 3.12. 奇异值分解
 
 有一个矩阵M，可以分解为3个矩阵U、S、V，使得U x S x V等于M。U与V都是正交矩阵（乘以自身的转置矩阵结果为单位矩阵）。那么S矩阵主对角线上的元素称为矩阵M的奇异值，其它元素均为0。
 
@@ -2081,7 +2175,7 @@ print(U * S * V)
 
 ```python
 original = sm.imread('../data/lily.jpg', True)
-#提取奇异值  sv 	
+#提取奇异值  sv     
 U, sv, V = np.linalg.svd(original)
 print(U.shape, sv.shape, V.shape)
 sv[50:] = 0
@@ -2100,7 +2194,7 @@ mp.tight_layout()
 
 ```
 
-## 4.12. 快速傅里叶变换模块(fft)
+## 3.13. 快速傅里叶变换模块(fft)
 
 什么是傅里叶变换？
 
@@ -2116,7 +2210,7 @@ y = A_1sin(\omega_1x+\phi_1) +  A_2sin(\omega_2x+\phi_2) +  A_2sin(\omega_2x+\ph
 $$
 所以傅里叶变换可以把一个比较复杂的函数转换为多个简单函数的叠加，看问题的角度也从时间域转到了频率域，有些的问题处理起来就会比较简单。
 
-### 4.12.1. **傅里叶变换相关函数**
+### 3.13.1. **傅里叶变换相关函数**
 
 导入快速傅里叶变换所需模块
 
@@ -2171,7 +2265,7 @@ mp.tight_layout()
 mp.show()
 ```
 
-### 4.12.2. 基于傅里叶变换的频域滤波
+### 3.13.2. 基于傅里叶变换的频域滤波
 
  含噪信号是高能信号与低能噪声叠加的信号，可以通过傅里叶变换的频域滤波实现降噪。
 
@@ -2253,11 +2347,11 @@ mp.legend()
 wf.write('./data/filter.wav',sample_rate,(filter_sigs * 2 ** 15).astype(np.int16))
 ```
 
-### 4.12.3. 随机数模块(random)
+### 3.13.3. 随机数模块(random)
 
 生成服从特定统计规律的随机数序列。
 
-#### 4.12.3.1. 二项分布（binomial）
+#### 3.13.3.1. 二项分布（binomial）
 
 二项分布就是重复n次独立事件的伯努利试验。在每次试验中只有两种可能的结果，而且两种结果发生与否互相对立，并且相互独立，事件发生与否的概率在每一次独立试验中都保持不变。
 
@@ -2280,14 +2374,14 @@ sum(np.random.binomial(10, 0.3, 200000) == 5) / 200000
 sum(np.random.binomial(3, 0.6, 200000) == 0) / 200000
 ```
 
-#### 4.12.3.2. 超几何分布(hypergeometric)
+#### 3.13.3.2. 超几何分布(hypergeometric)
 
 ```python
 # 产生size个随机数，每个随机数t为在总样本中随机抽取nsample个样本后好样本的个数，总样本由ngood个好样本和nbad个坏样本组成
 np.random.hypergeometric(ngood, nbad, nsample, size)
 ```
 
-#### 4.12.3.3. 正态分布(normal)
+#### 3.13.3.3. 正态分布(normal)
 
 ```python
 # 产生size个随机数，服从标准正态(期望=0, 标准差=1)分布。
@@ -2300,9 +2394,9 @@ $$
 标准正态分布概率密度: \frac{e^{-\frac{x^2}{2}}}{\sqrt{2\pi}}
 $$
 
-## 4.13. 杂项功能
+## 3.14. 杂项功能
 
-### 4.13.1. 排序
+### 3.14.1. 排序
 
 **联合间接排序**
 
@@ -2323,7 +2417,7 @@ names = ['Product1','Product2','Product3','Product4','Product5','Product6','Prod
 ind = np.lexsort((volumes*-1, prices)) 
 print(ind)
 for i in ind:
-	print(names[i], end=' ')
+    print(names[i], end=' ')
 ```
 
 **复数数组排序**
@@ -2362,7 +2456,7 @@ print(d)
 
 ```
 
-### 4.13.2. 插值
+### 3.14.2. 插值
 
 scipy提供了常见的插值算法可以通过  一定规律插值器函数。若我们给插值器函数更多的散点x坐标序列，该函数将会返回相应的y坐标序列。
 
@@ -2458,7 +2552,7 @@ area = si.quad(f, a, b)[0]
 print(area)
 ```
 
-### 4.13.3. 图像
+### 3.14.3. 图像
 
 scipy.ndimage中提供了一些简单的图像处理，如高斯模糊、任意角度旋转、边缘识别等功能。
 
@@ -2496,7 +2590,7 @@ mp.tight_layout()
 mp.show()
 ```
 
-### 4.13.4. 金融相关
+### 3.14.4. 金融相关
 
 ```python
 import numpy as np

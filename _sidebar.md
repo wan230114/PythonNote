@@ -4,6 +4,13 @@
     * [Chapter01.Python简介](/00.Python/Chapter01.PythonReview.md)
     * [Chapter02.数值](/00.Python/Chapter02.Value.md)
     * [Chapter03.数据容器](/00.Python/Chapter03.DataContainers.md)
+    * *Chapter04.逻辑运算*
+    * *Chapter05.数据的迭代与生成*
+    * *Chapter06.函数function*
+    * *Chapter07.错误及异常处理*
+    * *Chapter08.文件file及编码*
+    * *Chapter09.面向对象*
+    * *Chapter10.模块和包*
     * [附录](/00.Python/Chapter_Appendix.md)
 * **Python进阶部分**
     * [Chapter01.正则匹配RE模块](/00.Python_Advanced/Chapter01.RE.md)
