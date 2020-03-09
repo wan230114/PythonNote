@@ -11,9 +11,9 @@
     * *Chapter08.文件file及编码*
     * *Chapter09.面向对象*
     * *Chapter10.模块和包*
-    * [附录](/00.Python/Chapter_Appendix.md)
+    * [附录](/00.Python/ChapterN_Appendix.md)
 * **Python进阶部分**
-    * [Chapter01.正则匹配RE模块](/00.Python_Advanced/Chapter01.RE.md)
+    * [Chapter01.网络编程](/00.Python_Advanced/Chapter01.PythonNet.md)
     * [Chapter02.多进程多线程](/00.Python_Advanced/Chapter02.PythonThread.md)
     * [Django框架笔记](/00.Python_Advanced/Django_note/django_all.md)
       * [Chapter01 概述与基本使用](/00.Python_Advanced/Django_note/django01.md)
@@ -29,8 +29,8 @@
 * **AI机器学习——算法进阶篇**
     * [Introduction 简介](/03.AI_ML_机器学习算法集训营/Introduction.md)
     * ***阶段一***
-      * [Chapter01 初识人工智能](/03.AI_ML_机器学习算法集训营/Phase1/Chapter01.初识人工智能.md)
-      * [Chapter02 第一个监督学习算法KNN](/03.AI_ML_机器学习算法集训营/Phase1/Chapter02.第一个监督学习算法KNN.md)
+      * [Chapter01 初识人工智能](/03.AI_ML_机器学习算法集训营/Phase1/01_初识人工智能.md)
+      * [Chapter02 第一个监督学习算法KNN](/03.AI_ML_机器学习算法集训营/Phase1/02_第一个监督学习算法KNN.md)
 * **AI机器学习——公式推导**
     * ***补充ing***
 * **其他笔记**

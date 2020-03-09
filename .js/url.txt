@@ -1,0 +1,9 @@
+https://unpkg.com/docsify@4.10.2/lib/docsify.js
+https://unpkg.com/prismjs@1.19.0/components/prism-bash.js
+https://unpkg.com/docsify@4.10.2/lib/plugins/zoom-image.js
+https://unpkg.com/gitalk@1.6.2/dist/gitalk.css
+https://unpkg.com/gitalk@1.6.2/dist/gitalk.min.js
+https://unpkg.com/prismjs@1.19.0/components/prism-python.js
+https://unpkg.com/docsify@4.10.2/lib/plugins/search.js
+https://unpkg.com/docsify@4.10.2/lib/plugins/gitalk.min.js
+https://unpkg.com/docsify-copy-code@2.1.0/dist/docsify-copy-code.min.js

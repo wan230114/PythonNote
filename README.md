@@ -1,23 +1,22 @@
 <font face="楷体">
-<h2>《Python学习之极简笔记——从零到催生AGI》</h2>
-</font>
 
-<font face="楷体">
+<h2>《Python学习之极简笔记——从零到催生AGI》</h2>
 
 > 从Python入门到人工智能的专属知识图谱。包含了从Python基础到高阶使用，以及一些日常探索，只为让零碎知识逐渐整体化。  
 > 一个开源的知识图谱，进步与分享必将让世界变得更为美好。让我们在踏实打下基础的同时，逐渐迈向创造通用型人工智能(AGI)。  
 > A general knowledge map.  
-> —— 陈军 1170101471@qq.com </font>  
+> —— 陈军 1170101471@qq.com 
+
+</font>  
 
 > <font font="等线" size="2">**网站主页地址：**   
 > https://wan230114.github.io/PythonNote  
 > http://118.89.194.65:8888   (网站实时镜像)  
-> https://wan230114.gitee.io/pythonnote   (当前码云版本已停止维护，代码已全部转移至GitHub)  
+> https://wan230114.gitee.io/pythonnote   (备用)  
 >
 > **Git项目主页：**   
-> https://github.com/wan230114/PythonNote
-> 
-</font>
+> https://github.com/wan230114/PythonNote  
+> https://gitee.com/wan230114/PythonNote  (备用)</font>
 
 <h3> 笔记总目录 </h3>
 
@@ -34,9 +33,9 @@
     * *Chapter08.文件file及编码*
     * *Chapter09.面向对象*
     * *Chapter10.模块和包*
-    * [附录](/00.Python/Chapter_Appendix.md)
+    * [附录](/00.Python/ChapterN_Appendix.md)
 * **Python进阶部分**
-    * [Chapter01.正则匹配RE模块](/00.Python_Advanced/Chapter01.RE.md)
+    * [Chapter01.网络编程](/00.Python_Advanced/Chapter01.PythonNet.md)
     * [Chapter02.多进程多线程](/00.Python_Advanced/Chapter02.PythonThread.md)
     * [Django框架笔记](/00.Python_Advanced/Django_note/django_all.md)
       * [Chapter01 概述与基本使用](/00.Python_Advanced/Django_note/django01.md)
@@ -52,8 +51,8 @@
 * **AI机器学习——算法进阶篇**
     * [Introduction 简介](/03.AI_ML_机器学习算法集训营/Introduction.md)
     * ***阶段一***
-      * [Chapter01 初识人工智能](/03.AI_ML_机器学习算法集训营/Phase1/Chapter01.初识人工智能.md)
-      * [Chapter02 第一个监督学习算法KNN](/03.AI_ML_机器学习算法集训营/Phase1/Chapter02.第一个监督学习算法KNN.md)
+      * [Chapter01 初识人工智能](/03.AI_ML_机器学习算法集训营/Phase1/01_初识人工智能.md)
+      * [Chapter02 第一个监督学习算法KNN](/03.AI_ML_机器学习算法集训营/Phase1/02_第一个监督学习算法KNN.md)
 * **AI机器学习——公式推导**
     * ***补充ing***
 * **其他笔记**
@@ -168,6 +167,6 @@ Python，语言简洁，活跃社区，丰富的共享资料及库等优势，�
 ---
 
 <font face="仿宋">
-以上为Python基础部分主页。<br>
-其他内容，如高级使用，数据分析，机器学习等，见各个子文件夹~
+以上为《Python学习之极简笔记——基础部分》主页。<br>
+更多其他内容，如高级使用，数据分析，机器学习等，见各个子文件夹~
 </font>
