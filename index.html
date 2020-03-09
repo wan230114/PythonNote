@@ -6,13 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="Description">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <!-- <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css"> -->
-  <link rel="stylesheet" href="//unpkg.com/docsify/themes/vue.css">
+  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+  <!-- <link rel="stylesheet" href="//unpkg.com/docsify/themes/vue.css"> -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css">
   <script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.js"></script>
-
-  <!-- 评论插件 -->
-  <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
 
   <style>
     .sidebar>h1 a {
@@ -52,25 +49,46 @@
         paths: 'auto',
         depth: 6
       },
+      // plugins: [
+      //   function(hook, vm) {
+      //     hook.beforeEach(function(content) {
+      //       // 每次开始解析 Markdown 内容时调用
+      //       // 将所有../img替换成img
+      //       // https://github.com/docsifyjs/docsify/issues/936
+      //       return content.replace(/..\/img/g, "img");
+      //     })
+      //     hook.doneEach(function () {
+      //       window.MathJax.Hub.Queue(["Typeset", MathJax.Hub, document.getElementById('app')]);
+      //     })
+      //   }
+      // ],
+      // formatUpdated: '{MM}/{DD} {HH}:{mm}',
       plugins: [
-        function(hook, vm) {
-          hook.beforeEach(function(content) {
-            // 每次开始解析 Markdown 内容时调用
-            // 将所有../img替换成img
-            // https://github.com/docsifyjs/docsify/issues/936
-            return content.replace(/..\/img/g, "img");
-          })
+        function (hook, vm) {
+          hook.beforeEach(function (html) {
+            if (/githubusercontent\.com/.test(vm.route.file)) {
+              url = vm.route.file
+                .replace('raw.githubusercontent.com', 'github.com')
+                .replace(/\/master/, '/blob/master')
+            } else {
+              url = 'https://github.com/wan230114/PythonNote/blob/master/' + vm.route.file
+            }
+            var editHtml = '[:memo: Edit Document](' + url + ')\n'
 
-          hook.doneEach(function () {
-            window.MathJax.Hub.Queue(["Typeset", MathJax.Hub, document.getElementById('app')]);
+            return editHtml
+              + html
+              + '\n\n----'
+              // + '\n\n----\n\n'
+              // + '<a href="https://github.com/wan230114/PythonNote.git" target="_blank" style="color: inherit; font-weight: normal; text-decoration: none;">Powered by ChenJun</a>'
           })
-        }
+        },
       ],
       externalLinkTarget: '_target',
       // name: '<font color="#42a5f5" face="楷体">《Python学习之极简笔记》</font>',
       // name: '《Python学习之极简笔记——从人工智能到机器智能》',
+      repo: 'https://github.com/wan230114/PythonNote.git',
       name: '《Python学习之极简笔记》',
-      repo: 'https://github.com/wan230114/PythonNote.git'
+      // nameLink: 'https://github.com/wan230114/PythonNote',
     }
   </script>
   <script type="text/x-mathjax-config">
@@ -96,12 +114,18 @@
   <script src="//unpkg.com/docsify/lib/plugins/search.js"></script>
   <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <!-- 评论插件 -->
-  <script src="//unpkg.com/docsify/lib/plugins/gitalk.min.js"></script>
+<!-- 评论插件 -->
+<!-- <script>
+  ((window.gitter = {}).chat = {}).options = {
+    room: 'PythonNoteTalk/PythonNote'
+  };
+</script>
+<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script> -->
+
+
+<!-- 评论插件 -->
+  <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
   <script src="//unpkg.com/gitalk/dist/gitalk.min.js"></script>
-  <!-- <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
-  <script src="//unpkg.com/docsify/lib/plugins/gitalk.min.js"></script>
-  <script src="//unpkg.com/gitalk/dist/gitalk.min.js"></script> -->
   <script>
     var gitalk = new Gitalk({
       clientID: '381baf0bd6252c1a156f',
@@ -109,19 +133,62 @@
       repo: 'PythonNote_Gitalk',
       owner: 'wan230114',
       admin: ['wan230114'],
-      title: location.hash.match(/#(.*?)([?]|$)/)[1],
-      id: location.hash.match(/#(.*?)([?]|$)/)[1],
+      // title: location.hash.match(/#(.*?)([?]|$)/)[1],
+      // id: location.hash.match(/#(.*?)([?]|$)/)[1],
+      title: location.pathname.split('/', 1)[1],
+      id: location.pathname.split('/', 1)[1],      // Ensure uniqueness and length less than 50
+      distractionFreeMode: false  // Facebook-like distraction free mode
     })
   </script>
+
+  <!-- <script src="//unpkg.com/docsify/lib/plugins/gitalk.min.js"></script> -->
+  <script>
+    $docsify.plugins = [].concat(function(i) {
+      var e = Docsify.dom;
+      i.mounted(function(i) {
+        var n = e.create("div");
+        n.id = "gitalk-container";
+        var t = e.getNode("#main");
+        (n.style = "width: " + t.clientWidth + "px; margin: 0 auto 20px;"),
+          e.appendTo(e.find(".content"), n);
+      }),
+        i.doneEach(function(i) {
+          for (
+            var n = document.getElementById("gitalk-container");
+            n.hasChildNodes();
+
+          )
+            n.removeChild(n.firstChild);
+          gitalk.render("gitalk-container");
+        });
+    }, $docsify.plugins);
+  </script>
+
   <script>
     // 监听URL中hash的变化，如果发现换了一个MD文件，那么刷新页面，解决整个网站使用一个gitalk评论issues的问题。
     window.onhashchange = function(event){
-      if(event.newURL.split('?')[0] !== event.oldURL.split('?')[0]) {
+      if(event.newURL.split('#')[1] == "/") {
         location.reload()
-      }
-    }
+      };
+      if(event.newURL.split('?')[0] !== event.oldURL.split('?')[0]) {
+        // location.reload();
+        var gitalk = new Gitalk({
+          clientID: '381baf0bd6252c1a156f',
+          clientSecret: '8d1dd2057c4f02315e8aba569ed7cfe34538c043',
+          repo: 'PythonNote_Gitalk',
+          owner: 'wan230114',
+          admin: ['wan230114'],
+          // title: location.hash.match(/#(.*?)([?]|$)/)[1],
+          // id: location.hash.match(/#(.*?)([?]|$)/)[1],
+          title: location.pathname.split('/', 1)[1],
+          id: location.pathname.split('/', 1)[1],      // Ensure uniqueness and length less than 50
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+        gitalk.render('gitalk-container');
+        }
+    };
     // 由于docsify/lib/plugins/gitalk.min.js文件中已经有下面代码了，所以不需要在写一次了
-    gitalk.render('gitalk-container')
+    gitalk.render('gitalk-container');
   </script>
 
 </body>
