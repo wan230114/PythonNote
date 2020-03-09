@@ -949,8 +949,8 @@ def dmy2ymd(dmy):
     ymd = date.strftime('%Y-%m-%d')
     return ymd
 
-dates, closing_prices = np.loadtxt('./data/aapl.csv', delimiter=',',
-    usecols=(1, 6), unpack=True, dtype='M8[D], f8', converters={1: dmy2ymd})
+dates, closing_prices = np.loadtxt(
+    './data/aapl.csv', delimiter=',', usecols=(1, 6), unpack=True, dtype='M8[D], f8', converters={1: dmy2ymd})
 sma51 = np.zeros(closing_prices.size - 4)
 for i in range(sma51.size):
     sma51[i] = closing_prices[i:i + 5].mean()
@@ -972,7 +972,7 @@ dates = dates.astype(md.datetime.datetime)
 mp.plot(dates, closing_prices, c='lightgray', label='Closing Price')
 mp.plot(dates[4:], sma51, c='orangered', label='SMA-5(1)')
 mp.legend()
-mp.gcf().autofmt_xdate()
+mp.gcf().autofmt_xdate()  # 自动格式化
 mp.show()
 ```
 
@@ -1013,6 +1013,9 @@ b = [1/5, 1/5, 1/5, 1/5, 1/5]
 
 
 ```python
+import numpy as np
+import matplotlib.pyplot as mp
+
 # **使用卷积函数numpy.convolve(a, b, 卷积类型)实现5日均线**
 sma52 = np.convolve( closing_prices, np.ones(5) / 5, 'valid')
 mp.plot(dates[4:], sma52, c='limegreen', alpha=0.5,
