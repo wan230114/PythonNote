@@ -67,6 +67,8 @@
 
 ---
 
+[![Join the chat at https://gitter.im/pythonnote_talk/community](https://badges.gitter.im/pythonnote_talk/community.svg)](https://gitter.im/pythonnote_talk/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 <h3> Python基础主页：</h3>
 <br>
 <br>
