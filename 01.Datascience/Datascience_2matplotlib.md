@@ -2,44 +2,44 @@
 
 # 目录
 
-1. [matplotlib概述](#matplotlib概述)
-2. [目录](#目录)
-3. [1. matplotlib概述](#1-matplotlib概述)
-   1. [1.1. matplotlib基本功能](#11-matplotlib基本功能)
-   2. [1.2. 包的导入](#12-包的导入)
-4. [2. matplotlib基本功能详解](#2-matplotlib基本功能详解)
-   1. [2.1. 基本绘图](#21-基本绘图)
-      1. [2.1.1. 绘图核心API mp.plot](#211-绘图核心api-mpplot)
-      2. [2.1.2. 绘制水平线与垂直线 mp.vlines, mp.hlines](#212-绘制水平线与垂直线-mpvlines-mphlines)
-      3. [2.1.3. 设置坐标轴范围 mp.xlim/mp.ylim](#213-设置坐标轴范围-mpxlimmpylim)
-      4. [2.1.4. 设置坐标刻度 mp.xticks/mp.yticks](#214-设置坐标刻度-mpxticksmpyticks)
-      5. [2.1.5. 设置坐标轴 mp.gca().spines().set_...](#215-设置坐标轴-mpgcaspinesset_)
-      6. [2.1.6. 图例 mp.legend](#216-图例-mplegend)
-      7. [2.1.7. 特殊点标注绘制 mp.scatter](#217-特殊点标注绘制-mpscatter)
-      8. [2.1.8. 备注文本 mp.annotate](#218-备注文本-mpannotate)
-      9. [2.1.9. 绘图案例](#219-绘图案例)
-   2. [2.2. 图形对象（图形窗口）](#22-图形对象图形窗口)
-      1. [2.2.1. 图形窗口创建及选择 mp.figure](#221-图形窗口创建及选择-mpfigure)
-      2. [2.2.2. 设置当前窗口的参数 mp.title/mp.xlabel/mp.tick_params/mp.grid](#222-设置当前窗口的参数-mptitlempxlabelmptick_paramsmpgrid)
-      3. [2.2.3. 子图](#223-子图)
-         1. [2.2.3.1. 矩阵式布局 mp.subplot](#2231-矩阵式布局-mpsubplot)
-         2. [2.2.3.2. 网格式布局 mp.subplot(mg.GridSpec(3, 3)[0, :2])](#2232-网格式布局-mpsubplotmggridspec3-30-2)
-         3. [2.2.3.3. 自由式布局 mp.axes](#2233-自由式布局-mpaxes)
-      4. [2.2.4. 刻度定位器 mp.gca().xaxis.set_major_locator()](#224-刻度定位器-mpgcaxaxisset_major_locator)
-      5. [2.2.5. 刻度网格线 mp.gca().grid()](#225-刻度网格线-mpgcagrid)
-      6. [2.2.6. 半对数坐标 mp.semilogy](#226-半对数坐标-mpsemilogy)
-      7. [2.2.7. 散点图 mp.scatter](#227-散点图-mpscatter)
-      8. [2.2.8. 填充 mp.fill_between](#228-填充-mpfill_between)
-      9. [2.2.9. 条形图（柱状图） mp.bar](#229-条形图柱状图-mpbar)
-      10. [2.2.10. 饼图 mp.axis, mp.pie](#2210-饼图-mpaxis-mppie)
-      11. [2.2.11. 等高线图 mp.clabel(mp.contour)](#2211-等高线图-mpclabelmpcontour)
-      12. [2.2.12. 热成像图 mp.imshow, mp.colorbar](#2212-热成像图-mpimshow-mpcolorbar)
-      13. [2.2.13. 3D图像绘制 mp.gca(projection='3d')](#2213-3d图像绘制-mpgcaprojection3d)
-         1. [2.2.13.1. 3D点阵绘制 ax.scatter](#22131-3d点阵绘制-axscatter)
-         2. [2.2.13.2. 3D曲面绘制 ax.plot_surface](#22132-3d曲面绘制-axplot_surface)
-         3. [2.2.13.3. 3D线框图 ax.plot_wireframe](#22133-3d线框图-axplot_wireframe)
-      14. [2.2.14. 极坐标系 mp.gca(projection='polar')](#2214-极坐标系-mpgcaprojectionpolar)
-      15. [2.2.15. 简单动画 ma.FuncAnimation(mp.gcf(), func, interval=10)](#2215-简单动画-mafuncanimationmpgcf-func-interval10)
+* [matplotlib概述](#_matplotlib概述)
+* [目录](#_目录)
+* [1. matplotlib概述](#__1-matplotlib概述)
+  * [1.1. matplotlib基本功能](#_11-matplotlib基本功能)
+  * [1.2. 包的导入](#_12-包的导入)
+* [2. matplotlib基本功能详解](#_2-matplotlib基本功能详解)
+  * [2.1. 基本绘图](#_21-基本绘图)
+    * [2.1.1. 绘图核心API mp.plot](#_211-绘图核心api-mpplot)
+    * [2.1.2. 绘制水平线与垂直线 mp.vlines, mp.hlines](#_212-绘制水平线与垂直线-mpvlines-mphlines)
+    * [2.1.3. 设置坐标轴范围  mp.xlim/mp.ylim](#_213-设置坐标轴范围-mpxlimmpylim)
+    * [2.1.4. 设置坐标刻度 mp.xticks/mp.yticks](#_214-设置坐标刻度-mpxticksmpyticks)
+    * [2.1.5. 设置坐标轴 mp.gca().spines().set_...](#_215-设置坐标轴-mpgcaspinesset_)
+    * [2.1.6. 图例 mp.legend](#_216-图例-mplegend)
+    * [2.1.7. 特殊点标注绘制 mp.scatter](#_217-特殊点标注绘制-mpscatter)
+    * [2.1.8. 备注文本 mp.annotate](#_218-备注文本-mpannotate)
+    * [2.1.9. 绘图案例](#_219-绘图案例)
+  * [2.2. 图形对象（图形窗口）](#_22-图形对象图形窗口)
+    * [2.2.1. 图形窗口创建及选择 mp.figure](#_221-图形窗口创建及选择-mpfigure)
+    * [2.2.2. 设置当前窗口的参数 mp.title/mp.xlabel/mp.tick_params/mp.grid](#_222-设置当前窗口的参数-mptitlempxlabelmptick_paramsmpgrid)
+    * [2.2.3. 子图](#_223-子图)
+      * [2.2.3.1. 矩阵式布局 mp.subplot](#_2231-矩阵式布局-mpsubplot)
+      * [2.2.3.2. 网格式布局 mp.subplot(mg.GridSpec(3, 3)[0, :2])](#_2232-网格式布局-mpsubplotmggridspec3-30-2)
+      * [2.2.3.3. 自由式布局 mp.axes](#_2233-自由式布局-mpaxes)
+    * [2.2.4. 刻度定位器 mp.gca().xaxis.set_major_locator()](#_224-刻度定位器-mpgcaxaxisset_major_locator)
+    * [2.2.5. 刻度网格线 mp.gca().grid()](#_225-刻度网格线-mpgcagrid)
+    * [2.2.6. 半对数坐标 mp.semilogy](#_226-半对数坐标-mpsemilogy)
+    * [2.2.7. 散点图 mp.scatter](#_227-散点图-mpscatter)
+    * [2.2.8. 填充 mp.fill_between](#_228-填充-mpfill_between)
+    * [2.2.9. 条形图（柱状图） mp.bar](#_229-条形图柱状图-mpbar)
+    * [2.2.10. 饼图 mp.axis, mp.pie](#_2210-饼图-mpaxis-mppie)
+    * [2.2.11. 等高线图 mp.clabel(mp.contour)](#_2211-等高线图-mpclabelmpcontour)
+    * [2.2.12. 热成像图 mp.imshow, mp.colorbar](#_2212-热成像图-mpimshow-mpcolorbar)
+    * [2.2.13. 3D图像绘制 mp.gca(projection='3d')](#_2213-3d图像绘制-mpgcaprojection3d)
+      * [2.2.13.1. 3D点阵绘制 ax.scatter](#_22131-3d点阵绘制-axscatter)
+      * [2.2.13.2. 3D曲面绘制 ax.plot_surface](#_22132-3d曲面绘制-axplot_surface)
+      * [2.2.13.3. 3D线框图 ax.plot_wireframe](#_22133-3d线框图-axplot_wireframe)
+    * [2.2.14. 极坐标系 mp.gca(projection='polar')](#_2214-极坐标系-mpgcaprojectionpolar)
+    * [2.2.15. 简单动画 ma.FuncAnimation(mp.gcf(), func, interval=10)](#_2215-简单动画-mafuncanimationmpgcf-func-interval10)
 
 # 1. matplotlib概述
 
@@ -206,7 +206,7 @@ mp.show()
 ```
 设置图例的位置
 loc: <关键字参数> 制定图例的显示位置 (若不设置loc，则显示默认位置)
-	 ===============   =============
+     ===============   =============
    Location String   Location Code
    ===============   =============
    'best'            0
@@ -268,11 +268,11 @@ import matplotlib.pyplot as mp
 xarray = [1, 2, 3, 4]
 yarray = [3, 1, 2, 4]
 mp.scatter(xarray, yarray, 
-           marker='o', 		#点型 ~ matplotlib.markers
-           s=60, 			#大小
-           edgecolor='red', 	#边缘色
-           facecolor='orange',	#填充色
-           zorder=3			#绘制图层编号 （编号越大，图层越靠上）
+           marker='o',         #点型 ~ matplotlib.markers
+           s=60,             #大小
+           edgecolor='red',     #边缘色
+           facecolor='orange',    #填充色
+           zorder=3            #绘制图层编号 （编号越大，图层越靠上）
 )
 mp.show()
 ```
@@ -292,12 +292,12 @@ import matplotlib.pyplot as mp
 # 在图表中为某个点添加备注。包含备注文本，备注箭头等图像的设置。
 import numpy as np
 mp.annotate(
-    r'$(\frac{\pi}{4}, 5)$',	#备注中显示的文本内容
-    xycoords='data',			#备注目标点所使用的坐标系（data表示数据坐标系）
-    xy=(np.pi/4, 0.5),			#备注目标点的坐标
-    textcoords='offset points',	#备注文本所使用的坐标系（offset points表示参照点的偏移坐标系）
-    xytext=(30, 20),		    #备注文本的坐标
-    fontsize=14,				#备注文本的字体大小
+    r'$(\frac{\pi}{4}, 5)$',    #备注中显示的文本内容
+    xycoords='data',            #备注目标点所使用的坐标系（data表示数据坐标系）
+    xy=(np.pi/4, 0.5),            #备注目标点的坐标
+    textcoords='offset points',    #备注文本所使用的坐标系（offset points表示参照点的偏移坐标系）
+    xytext=(30, 20),            #备注文本的坐标
+    fontsize=14,                #备注文本的字体大小
     arrowprops=dict(  #arrowprops字典参数的常用key
         arrowstyle='->', #定义箭头样式
         connectionstyle='angle3' #定义连接线的样式
@@ -337,11 +337,11 @@ Name           Attrs
 ============   =============================================
 Name           Attrs
 ============   =============================================
-  'angle' 		angleA=90,angleB=0,rad=0.0
-  'angle3' 		angleA=90,angleB=0`   
-  'arc'			angleA=0,angleB=0,armA=None,armB=None,rad=0.0
-  'arc3' 		rad=0.0
-  'bar' 		armA=0.0,armB=0.0,fraction=0.3,angle=None
+  'angle'         angleA=90,angleB=0,rad=0.0
+  'angle3'         angleA=90,angleB=0`   
+  'arc'            angleA=0,angleB=0,armA=None,armB=None,rad=0.0
+  'arc3'         rad=0.0
+  'bar'         armA=0.0,armB=0.0,fraction=0.3,angle=None
 ============   =============================================
 
 ```
@@ -395,28 +395,28 @@ mp.scatter(px, py, marker='o', s=70,
 
 # 绘制点的备注
 mp.annotate(r'$[\frac{\pi}{2}, 1]$', 
-	xycoords='data',
-	xy=(np.pi/2, 1),
-	textcoords='offset points',
-	xytext=(30, 20),
-	fontsize=14,
-	arrowprops=dict(
-		arrowstyle='->',
-		connectionstyle='angle3'
-	)
+    xycoords='data',
+    xy=(np.pi/2, 1),
+    textcoords='offset points',
+    xytext=(30, 20),
+    fontsize=14,
+    arrowprops=dict(
+        arrowstyle='->',
+        connectionstyle='angle3'
+    )
 )
 
 
 mp.annotate(r'$[\frac{\pi}{2}, 0]$', 
-	xycoords='data',
-	xy=(np.pi/2, 0),
-	textcoords='offset points',
-	xytext=(-50, -50),
-	fontsize=14,
-	arrowprops=dict(
-		arrowstyle='->',
-		connectionstyle='angle3'
-	)
+    xycoords='data',
+    xy=(np.pi/2, 0),
+    textcoords='offset points',
+    xytext=(-50, -50),
+    fontsize=14,
+    arrowprops=dict(
+        arrowstyle='->',
+        connectionstyle='angle3'
+    )
 )
 
 # 显示图例
@@ -434,10 +434,10 @@ mp.show()
 import matplotlib.pyplot as mp
 # 手动构建 matplotlib 窗口
 mp.figure(
-    '文本1',			#窗口标题栏文本
-    figsize=(4, 3),		#窗口大小 <元组>
-    dpi=120,			#像素密度
-    facecolor='green'	#图表背景色
+    '文本1',            #窗口标题栏文本
+    figsize=(4, 3),        #窗口大小 <元组>
+    dpi=120,            #像素密度
+    facecolor='green'    #图表背景色
 )
 mp.show()
 ```
@@ -458,10 +458,10 @@ mp.ylabel('y_label_str', fontsize=12)
 # 4) 设置刻度参数   labelsize设置刻度字体大小
 mp.tick_params(labelsize=8)
 # 5) 设置图表网格线  linestyle设置网格线的样式
-	#	-  or solid 粗线
-	#   -- or dashed 虚线
-	#   -. or dashdot 点虚线
-	#   :  or dotted 点线
+    #    -  or solid 粗线
+    #   -- or dashed 虚线
+    #   -. or dashdot 点虚线
+    #   :  or dotted 点线
 mp.grid(linestyle=':')
 # 6) 设置紧凑布局
 mp.tight_layout() 
@@ -501,17 +501,17 @@ mp.show()
 import matplotlib.pyplot as mp
 mp.figure('Subplot Layout', facecolor='lightgray')
 # 拆分矩阵
-	# rows:	行数
-    # cols:	列数
-    # num:	编号
+    # rows:    行数
+    # cols:    列数
+    # num:    编号
 # mp.subplot(rows, cols, num)
 mp.subplot(3, 3, 1)
 mp.subplot(3, 3, 3)
-	#	1 2 3
-	#	4 5 6
-	#	7 8 9 
-mp.subplot(3, 3, 5)		#操作3*3的矩阵中编号为5的子图
-mp.subplot(336)			#简写
+    #    1 2 3
+    #    4 5 6
+    #    7 8 9 
+mp.subplot(3, 3, 5)        #操作3*3的矩阵中编号为5的子图
+mp.subplot(336)            #简写
 mp.show()
 ```
 
@@ -524,11 +524,11 @@ demo04_subplot.py  矩阵式子图
 import matplotlib.pyplot as mp
 mp.figure('Subplot', facecolor='lightgray')
 for i in range(1, 10):
-	mp.subplot(3, 3, i)
-	mp.text(0.5, 0.5, i, ha='center', 
-			va='center', size=36, alpha=0.7)
-	mp.xticks([])
-	mp.yticks([])
+    mp.subplot(3, 3, i)
+    mp.text(0.5, 0.5, i, ha='center', 
+            va='center', size=36, alpha=0.7)
+    mp.xticks([])
+    mp.yticks([])
 mp.tight_layout()
 mp.show()
 ```
@@ -545,9 +545,9 @@ import matplotlib.gridspec as mg
 mp.figure('Grid Layout', facecolor='lightgray')
 
 # 调用GridSpec方法拆分网格式布局
-# rows:	行数
-# cols:	列数
-# gs = mg.GridSpec(rows, cols)	拆分成3行3列
+# rows:    行数
+# cols:    列数
+# gs = mg.GridSpec(rows, cols)    拆分成3行3列
 gs = mg.GridSpec(3, 3)
 
 # 合并0行与0、1列为一个子图表
@@ -571,31 +571,31 @@ mp.figure('Grid Subplot', facecolor='lightgray')
 gs = mg.GridSpec(3, 3)
 mp.subplot(gs[0, :2])
 mp.text(0.5, 0.5, 1, ha='center', 
-		va='center', size=36, alpha=0.7)
+        va='center', size=36, alpha=0.7)
 mp.xticks([])
 mp.yticks([])
 
 mp.subplot(gs[:2, -1])
 mp.text(0.5, 0.5, 2, ha='center', 
-		va='center', size=36, alpha=0.7)
+        va='center', size=36, alpha=0.7)
 mp.xticks([])
 mp.yticks([])
 
 mp.subplot(gs[1, 1])
 mp.text(0.5, 0.5, 3, ha='center', 
-		va='center', size=36, alpha=0.7)
+        va='center', size=36, alpha=0.7)
 mp.xticks([])
 mp.yticks([])
 
 mp.subplot(gs[1:, 0])
 mp.text(0.5, 0.5, 4, ha='center', 
-		va='center', size=36, alpha=0.7)
+        va='center', size=36, alpha=0.7)
 mp.xticks([])
 mp.yticks([])
 
 mp.subplot(gs[-1, 1:])
 mp.text(0.5, 0.5, 5, ha='center', 
-		va='center', size=36, alpha=0.7)
+        va='center', size=36, alpha=0.7)
 mp.xticks([])
 mp.yticks([])
 
@@ -612,8 +612,8 @@ import matplotlib.pyplot as mp
 # 设置图标的位置，给出左下角点坐标与宽高即可
 # left_bottom_x: 左下角点x坐标
 # left_bottom_y: 左下角点y坐标
-# width:		 宽度
-# height:		 高度
+# width:         宽度
+# height:         高度
 # mp.axes([left_bottom_x, left_bottom_y, width, height])
 mp.figure('Flow Layout', facecolor='lightgray')
 mp.axes([0.2, 0.5, 0.3, 0.4])
@@ -677,23 +677,23 @@ demo07_locators.py  刻度定位器
 import matplotlib.pyplot as mp
 import numpy as np
 locators = ['mp.NullLocator()', 
-			'mp.MultipleLocator(2)', 
-			'mp.MaxNLocator(nbins=4)']
+            'mp.MultipleLocator(2)', 
+            'mp.MaxNLocator(nbins=4)']
 mp.figure('Locators', facecolor='lightgray')
 for i, locator in enumerate(locators):
-	mp.subplot(len(locators), 1, i+1)
-	ax = mp.gca()
-	# ax.spines['left'].set_color('none')
-	ax.spines['top'].set_color('none')
-	ax.spines['right'].set_color('none')
-	mp.ylim(-1, 1)
-	mp.xlim(1, 10)
-	ax.spines['bottom'].set_position(('data', 0))
-	# 设置主刻度定位器 与 次刻度定位器
-	maloc = eval(locator)
-	ax.xaxis.set_major_locator(maloc)
-	miloc = mp.MultipleLocator(0.1)
-	ax.xaxis.set_minor_locator(miloc)
+    mp.subplot(len(locators), 1, i+1)
+    ax = mp.gca()
+    # ax.spines['left'].set_color('none')
+    ax.spines['top'].set_color('none')
+    ax.spines['right'].set_color('none')
+    mp.ylim(-1, 1)
+    mp.xlim(1, 10)
+    ax.spines['bottom'].set_position(('data', 0))
+    # 设置主刻度定位器 与 次刻度定位器
+    maloc = eval(locator)
+    ax.xaxis.set_major_locator(maloc)
+    miloc = mp.MultipleLocator(0.1)
+    ax.xaxis.set_minor_locator(miloc)
 mp.show()
 ```
 
@@ -765,9 +765,9 @@ ymiloc = mp.MultipleLocator(50)
 ax.yaxis.set_minor_locator(ymiloc)
 # 绘制刻度网格线
 ax.grid(which='major', axis='both',
-	color='orangered', linewidth=0.75)
+    color='orangered', linewidth=0.75)
 ax.grid(which='minor', axis='both',
-	color='orangered', linewidth=0.25)
+    color='orangered', linewidth=0.25)
 mp.plot(y, 'o-')
 
 # 半对数坐标系
@@ -806,14 +806,14 @@ mp.show()
 绘制散点图的相关API：
 ```python
 mp.scatter(
-    x, 					# x轴坐标数组
-    y,					# y轴坐标数组
-    marker='', 			# 点型
-    s=10,				# 大小
-    color='',			# 颜色
-    edgecolor='', 		# 边缘颜色
-    facecolor='',		# 填充色
-    zorder=''			# 图层序号
+    x,                     # x轴坐标数组
+    y,                    # y轴坐标数组
+    marker='',             # 点型
+    s=10,                # 大小
+    color='',            # 颜色
+    edgecolor='',         # 边缘颜色
+    facecolor='',        # 填充色
+    zorder=''            # 图层序号
 )
 ```
 
@@ -821,9 +821,9 @@ numpy.random提供了normal函数用于产生符合 正态分布 的随机数
 
 ```python
 n = 100
-# 172:	期望值
-# 10:	标准差
-# n:	数字生成数量
+# 172:    期望值
+# 10:    标准差
+# n:    数字生成数量
 x = np.random.normal(172, 20, n)
 y = np.random.normal(60, 10, n)
 ```
@@ -848,7 +848,7 @@ d = (x-175)**2 + (y-65)**2
 # 设置点的颜色
 # mp.scatter(x, y, c='red')  #直接设置颜色
 mp.scatter(x, y, s=60, label='Persons',
-	c=d, cmap='jet')
+    c=d, cmap='jet')
 mp.legend()
 mp.show()
 ```
@@ -871,7 +871,7 @@ mp.fill_between(
 )
 ```
 
-案例：绘制两条曲线： sin_x = sin(x)   cos_x = cos(x / 2) / 2	[0-8π]  
+案例：绘制两条曲线： sin_x = sin(x)   cos_x = cos(x / 2) / 2    [0-8π]  
 
 ```python
 """
@@ -886,14 +886,14 @@ cosx = np.cos(x/2) / 2
 mp.figure('Fill', facecolor='lightgray')
 mp.title('Fill')
 mp.plot(x, sinx, color='dodgerblue', 
-	label='sinx', linewidth=2)
+    label='sinx', linewidth=2)
 mp.plot(x, cosx, color='orangered', 
-	label='cosx', linewidth=2)
+    label='cosx', linewidth=2)
 # 绘制填充
 mp.fill_between(x, sinx, cosx, sinx>cosx, 
-	color='dodgerblue', alpha=0.5)
+    color='dodgerblue', alpha=0.5)
 mp.fill_between(x, sinx, cosx, sinx<cosx, 
-	color='orangered', alpha=0.5)
+    color='orangered', alpha=0.5)
 
 mp.legend()
 mp.show()
@@ -906,12 +906,12 @@ mp.show()
 ```python
 mp.figure('Bar', facecolor='lightgray')
 mp.bar(
-	x,				# 水平坐标数组
-    y,				# 柱状图高度数组
-    width,			# 柱子的宽度  0.8
-    color='', 		# 填充颜色
-    label='',		#
-    alpha=0.2		#
+    x,                # 水平坐标数组
+    y,                # 柱状图高度数组
+    width,            # 柱子的宽度  0.8
+    color='',         # 填充颜色
+    label='',        #
+    alpha=0.2        #
 )
 ```
 
@@ -946,14 +946,14 @@ mp.show()
 ```python
 mp.axis('equal')
 mp.pie(
-    values, 		# 值列表		
-    spaces, 		# 扇形之间的间距列表
-    labels, 		# 标签列表
-    colors, 		# 颜色列表
-    '%d%%',			# 标签所占比例格式
-	shadow=True, 	# 是否显示阴影
-    startangle=90	# 逆时针绘制饼状图时的起始角度
-    radius=1		# 半径
+    values,         # 值列表        
+    spaces,         # 扇形之间的间距列表
+    labels,         # 标签列表
+    colors,         # 颜色列表
+    '%d%%',            # 标签所占比例格式
+    shadow=True,     # 是否显示阴影
+    startangle=90    # 逆时针绘制饼状图时的起始角度
+    radius=1        # 半径
 )
 ```
 
@@ -966,18 +966,18 @@ demo03_pie.py  饼状图
 import numpy as np
 
 labels=['Python', 'Javascript', 'C++', 
-		'Java', 'PHP']
+        'Java', 'PHP']
 values=[26, 17, 21, 29, 11]
 spaces=[0.05, 0.01, 0.01, 0.01, 0.01]
 colors=['dodgerblue', 'orangered', 
-		'limegreen', 'violet', 'gold']
+        'limegreen', 'violet', 'gold']
 
 mp.figure('Pie Chart', facecolor='lightgray')
 mp.title('Languages PR')
 mp.axis('equal')  # 等轴比例显示正圆
 mp.pie(values, spaces, labels, colors, 
-	'%.1f%%', shadow=True, startangle=45,
-	radius=1)
+    '%.1f%%', shadow=True, startangle=45,
+    radius=1)
 mp.legend()
 mp.show()
 ```
@@ -989,12 +989,12 @@ mp.show()
 绘制等高线的相关API：
 ```python
 cntr = mp.contour(
-    x, 					# 网格坐标矩阵的x坐标 （2维数组）
-    y, 					# 网格坐标矩阵的y坐标 （2维数组）
-    z, 					# 网格坐标矩阵的z坐标 （2维数组）
-    8, 					# 把等高线绘制成8部分，在高度上需要分多少阶
-    colors='black',		# 等高线的颜色
-	linewidths=0.5		# 线宽
+    x,                     # 网格坐标矩阵的x坐标 （2维数组）
+    y,                     # 网格坐标矩阵的y坐标 （2维数组）
+    z,                     # 网格坐标矩阵的z坐标 （2维数组）
+    8,                     # 把等高线绘制成8部分，在高度上需要分多少阶
+    colors='black',        # 等高线的颜色
+    linewidths=0.5        # 线宽
 )
 # 为等高线图添加高度标签
 mp.clabel(cntr, inline_spacing=1, fmt='%.1f', fontsize=10)
@@ -1059,7 +1059,7 @@ import matplotlib.pyplot as mp
 
 n = 1000
 x, y = np.meshgrid(np.linspace(-3, 3, n), 
-				   np.linspace(-3, 3, n))
+                   np.linspace(-3, 3, n))
 #  根据一个奇妙的公式算出每个坐标点的高度值z
 z = (1 - x/2 + x**5 + y**3) * np.exp(-x**2 - y**2)
 # 绘制
@@ -1080,23 +1080,23 @@ from mpl_toolkits.mplot3d import axes3d
 ax3d = mp.gca(projection='3d')   # class axes3d
 
 # matplotlib支持绘制三维点阵、三维曲面、三维线框图：
-ax3d.scatter(..)		# 绘制三维点阵
-ax3d.plot_surface(..)	# 绘制三维曲面
-ax3d.plot_wireframe(..)	# 绘制三维线框图
+ax3d.scatter(..)        # 绘制三维点阵
+ax3d.plot_surface(..)    # 绘制三维曲面
+ax3d.plot_wireframe(..)    # 绘制三维线框图
 
 # 3d散点图的绘制相关API：
 ax3d.scatter(
-    x, 				# x轴坐标数组
-    y,				# y轴坐标数组
-    z,				# z轴坐标数组
-    marker='', 		# 点型
-    s=10,			# 大小
-    zorder='',		# 图层序号
-    color='',		# 颜色
-    edgecolor='', 	# 边缘颜色
-    facecolor='',	# 填充色
-    c=v,			# 颜色值 根据cmap映射应用相应颜色
-    cmap=''			# 
+    x,                 # x轴坐标数组
+    y,                # y轴坐标数组
+    z,                # z轴坐标数组
+    marker='',         # 点型
+    s=10,            # 大小
+    zorder='',        # 图层序号
+    color='',        # 颜色
+    edgecolor='',     # 边缘颜色
+    facecolor='',    # 填充色
+    c=v,            # 颜色值 根据cmap映射应用相应颜色
+    cmap=''            # 
 )
 ```
 
@@ -1132,12 +1132,12 @@ mp.show()
 
 ```python
 ax3d.plot_surface(
-    x, 					# 网格坐标矩阵的x坐标 （2维数组）
-    y, 					# 网格坐标矩阵的y坐标 （2维数组）
-    z, 					# 网格坐标矩阵的z坐标 （2维数组）
-    rstride=30,			# 行跨距
-    cstride=30, 		# 列跨距
-    cmap='jet'			# 颜色映射
+    x,                     # 网格坐标矩阵的x坐标 （2维数组）
+    y,                     # 网格坐标矩阵的y坐标 （2维数组）
+    z,                     # 网格坐标矩阵的z坐标 （2维数组）
+    rstride=30,            # 行跨距
+    cstride=30,         # 列跨距
+    cmap='jet'            # 颜色映射
 )
 ```
 
@@ -1176,7 +1176,7 @@ mp.show()
 # rstride: 行跨距
 # cstride: 列跨距 
 ax3d.plot_wireframe(x,y,z,rstride=30,cstride=30, 
-	linewidth=1, color='dodgerblue')
+    linewidth=1, color='dodgerblue')
 ```
 案例：3d线框图的绘制
 ```python
@@ -1241,9 +1241,9 @@ import matplotlib.animation as ma
 def update(number):
     pass
 # 每隔10毫秒执行一次update更新函数，作用于mp.gcf()当前窗口对象
-# mp.gcf()：	获取当前窗口
-# update：	更新函数
-# interval：	间隔时间（单位：毫秒）
+# mp.gcf()：    获取当前窗口
+# update：    更新函数
+# interval：    间隔时间（单位：毫秒）
 anim = ma.FuncAnimation(mp.gcf(), update, interval=10)
 mp.show()
 ```
@@ -1257,7 +1257,7 @@ import matplotlib.animation as ma
 
 #自定义一种可以存放在ndarray里的类型，用于保存一个球
 ball_type = np.dtype([
-	('position', float, 2),  # 位置(水平和垂直坐标)
+    ('position', float, 2),  # 位置(水平和垂直坐标)
     ('size', float, 1),      # 大小
     ('growth', float, 1),    # 生长速度
     ('color', float, 4)])    # 颜色(红、绿、蓝和透明度)
@@ -1291,11 +1291,11 @@ def update(number):
     # 重新设置属性
     sc.set_sizes(balls['size'])
     sc.set_offsets(balls['position'])
-	
+    
 # 每隔30毫秒执行一次update更新函数，作用于mp.gcf()当前窗口对象
-# mp.gcf()：	获取当前窗口
-# update：		更新函数
-# interval：	间隔时间（单位：毫秒）
+# mp.gcf()：    获取当前窗口
+# update：        更新函数
+# interval：    间隔时间（单位：毫秒）
 anim = ma.FuncAnimation(mp.gcf(), update, interval=30)
 mp.show()  # 触发动画
 ```
@@ -1313,7 +1313,7 @@ def update(data):
     pass
 
 def generator():
-	yield t, v
+    yield t, v
         
 # 每隔10毫秒将会先调用生成器，获取生成器返回的数据，
 # 把生成器返回的数据交给并且调用update函数，执行更新图像函数

@@ -7,25 +7,23 @@
     <meta name="description" content="Description">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <!-- <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css"> -->
-    <link rel="stylesheet" href="./.js/vue.css">
     <!-- <link rel="stylesheet" href="//unpkg.com/docsify/themes/vue.css"> -->
+    <link rel="stylesheet" href="./.js/vue.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css">
     <script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.js"></script>
     
     <style>
-    .sidebar>h1 a {
-      font-size: 20px;
-      color: black;
-    }
-    .content {
-      padding-top: 5px;
-    }
-    .markdown-section {
-      padding-top: 10px;
-    }
-  </style>
-
-
+      .sidebar>h1 a {
+        font-size: 20px;
+        color: black;
+      }
+      .content {
+        padding-top: 5px;
+      }
+      .markdown-section {
+        padding-top: 10px;
+      }
+    </style>
 </head>
 
 
@@ -97,6 +95,7 @@
       "HTML-CSS": { fonts: ["TeX"] }
     });
   </script>
+
   <!-- <script src="docsify.js"></script> -->
   <!-- <script src="//unpkg.com/docsify/lib/docsify.min.js"></script> -->
   <!-- <script src="//unpkg.com/docsify/lib/docsify.js"></script>
@@ -114,17 +113,23 @@
   <script src="./.js/search.js"></script>
 
   <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-  
 
-  <!-- 实时聊天插件 -->
+
+<!-- 返回顶部的按钮 -->
+  <link rel="stylesheet" href="./.js/jump2top.css">
+  <script src="./.js/jump2top.js"></script>
+  <button onclick="topFunction()" id="myBtn" title="回顶部">返回<br>顶部</button>
+
+
+<!-- 实时聊天插件 -->
   <script>
     ((window.gitter = {}).chat = {}).options = {
       room: 'PythonNoteTalk/PythonNote'
     };
   </script>
   <script src="./.js/sidecar.v1.js" async defer></script>
-  <!-- <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script> -->
   <script>  // gitter实时聊天的功能补充，按键盘esc退出gitter 或者 点击区域外任意处退出
+    // <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer><\/script>
     function closechart(params) {
       const buts = document.getElementsByClassName("gitter-chat-embed-action-bar-item");
       for (let but of buts) {
