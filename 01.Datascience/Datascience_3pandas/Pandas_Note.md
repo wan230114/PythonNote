@@ -8,6 +8,29 @@
 
 ## 1.1. 简介
 
+目录：
+* [Pandas数据分析](#_pandas数据分析)
+* [1. pandas数据分析](#_1-pandas数据分析)
+  * [1.1. 简介](#_11-简介)
+  * [1.2. pandas介绍](#_12-pandas介绍)
+* [2. pandas的核心数据结构](#_2-pandas的核心数据结构)
+  * [2.1. Series](#_21-series)
+    * [2.1.1. Series创建](#_211-series创建)
+    * [2.1.2. Series查看](#_212-series查看)
+  * [2.2. Dataframe](#_22-dataframe)
+    * [2.2.1. Dataframe创建](#_221-dataframe创建)
+    * [2.2.2. Dataframe查看](#_222-dataframe查看)
+    * [2.2.3. DataFrame更新修改数据](#_223-dataframe更新修改数据)
+    * [2.2.4. DataFrame增添数据](#_224-dataframe增添数据)
+    * [2.2.5. DataFrame删除某列或某行数据](#_225-dataframe删除某列或某行数据)
+    * [2.2.6. 对DataFrame数据进行排序](#_226-对dataframe数据进行排序)
+* [3. 数据描述与统计](#_3-数据描述与统计)
+  * [3.1. 数值型特征的描述性统计](#_31-数值型特征的描述性统计)
+  * [3.2. 类别型特征的描述性统计](#_32-类别型特征的描述性统计)
+* [4. 从文件中读取数据](#_4-从文件中读取数据)
+* [5. 常用操作](#_5-常用操作)
+
+
 常用的参考文档：
 - 查询API调用接口：https://pandas.pydata.org/pandas-docs/stable/reference/index.html
 
