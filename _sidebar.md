@@ -4,8 +4,8 @@
     * [Chapter01.Python简介](/00.Python/Chapter01.PythonReview.md)
     * [Chapter02.数值](/00.Python/Chapter02.Value.md)
     * [Chapter03.数据容器](/00.Python/Chapter03.DataContainers.md)
-    * *Chapter04.逻辑运算*
-    * *Chapter05.数据的迭代与生成*
+    * [Chapter04.流程控制](/00.Python/Chapter04.ProcessControl.md)
+    * [Chapter05.数据的遍历访问](/00.Python/Chapter05.DataTraversal.md)
     * *Chapter06.函数function*
     * *Chapter07.错误及异常处理*
     * *Chapter08.文件file及编码*

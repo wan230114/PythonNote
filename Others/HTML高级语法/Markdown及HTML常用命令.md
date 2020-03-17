@@ -15,9 +15,8 @@
     <font color=""></font>
 链接跳转：
     页内：
-    跳转链接：[内容](#jump)
-    跳转锚点：
-    
+    跳转链接：[xxx文本显示内容](#jump)
+    跳转锚点：<span id="jump"></span>
 插入：
     目录：[TOC]
 超链接：

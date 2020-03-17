@@ -1,5 +1,3 @@
-# Pandas数据分析
-
 # 1. pandas数据分析
 - 基础知识
 - 统计分析基础
@@ -9,7 +7,6 @@
 ## 1.1. 简介
 
 目录：
-* [Pandas数据分析](#_pandas数据分析)
 * [1. pandas数据分析](#_1-pandas数据分析)
   * [1.1. 简介](#_11-简介)
   * [1.2. pandas介绍](#_12-pandas介绍)
@@ -27,7 +24,17 @@
 * [3. 数据描述与统计](#_3-数据描述与统计)
   * [3.1. 数值型特征的描述性统计](#_31-数值型特征的描述性统计)
   * [3.2. 类别型特征的描述性统计](#_32-类别型特征的描述性统计)
-* [4. 从文件中读取数据](#_4-从文件中读取数据)
+* [4. 数据的IO —— 文件读取与写入](#_4-数据的io--文件读取与写入)
+  * [4.1. 文本文件](#_41-文本文件)
+    * [4.1.1. 文本文件读取](#_411-文本文件读取)
+    * [4.1.2. 文本文件写入](#_412-文本文件写入)
+  * [4.2. Excel文件](#_42-excel文件)
+    * [4.2.1. Excel文件读取](#_421-excel文件读取)
+    * [4.2.2. Excel文件写入](#_422-excel文件写入)
+  * [4.3. 扩展：数据库数据](#_43-扩展数据库数据)
+    * [4.3.1. sql读取](#_431-sql读取)
+    * [4.3.2. sql存储](#_432-sql存储)
+    * [4.3.3. 其他](#_433-其他)
 * [5. 常用操作](#_5-常用操作)
 
 
@@ -104,14 +111,15 @@ s3 = pd.Series({"A": 3, "B": -5, "C": 7, "D": 4})
 
 print("Series数据类型：", type(s1))
 print(s1)
-"""
+```
+
+```
 Series数据类型： <class 'pandas.core.series.Series'>
 A    3
 B   -5
 C    7
 D    4
 dtype: int64
-"""
 ```
 
 ### 2.1.2. Series查看
@@ -166,7 +174,8 @@ DataFrame 可以理解为一个二维数组，index有两个维度，可更改�
     - columns(列索引)： Index or array-like  
     - dtype(data的数据类型)： dtype, default None  
 
-**Dataframe的常见属性：**  
+**Dataframe的常见属性：**
+
 |  函数   |        返回值        |
 | ------- | -------------------- |
 | values  | 元素                 |
@@ -260,24 +269,28 @@ print(df)
    - 访问某几行 `df[s:e]`, s和e分别是行索引的位置
    - 取开头或结尾：`head`和`tail`
 
-    ```python
-    import pandas as pd
-    data = [['Belglum', 'Brussels', 11190846],  # 比利时 布鲁塞尔
-            ['Indla', 'New Delhi', 1303171035],  # 印度 新德里
-            ['Brazil', 'Brasilia', 207847528]]  # 巴西 巴西利亚
-    # DataFrame创建
-    df = pd.DataFrame(data=data,
-                      index=[1, 2, 3],
-                      columns=["a", "b", "c"])
-    print("列访问")
-    print(df.a)     # 访问第一列
-    print(df['a'])  # 访问第一列
-    print(df[['a', 'b']])  # 访问第一列和第二列
-    print("行访问")
-    print(df[0:2])     # 访问第一行和第二行
-    print(df[::-1])    # 倒序访问
-    print(df.head(2))  # 访问第一行和第二行
-    ```
+示例：
+```python
+import pandas as pd
+data = [['Belglum', 'Brussels', 11190846],  # 比利时 布鲁塞尔
+        ['Indla', 'New Delhi', 1303171035],  # 印度 新德里
+        ['Brazil', 'Brasilia', 207847528]]  # 巴西 巴西利亚
+# DataFrame创建
+df = pd.DataFrame(data=data,
+                  index=[1, 2, 3],
+                  columns=["a", "b", "c"])
+
+print("列访问")
+print(df.a)            # 访问第一列, 返回Series
+print(df['a'])         # 访问第一列, 返回Series
+print(df[['a']])       # 访问第一列, 返回DataFrame
+print(df[['a', 'b']])  # 访问第一列和第二列, 返回DataFrame
+
+print("行访问")
+print(df[0:2])     # 访问第一行和第二行
+print(df[::-1])    # 倒序访问
+print(df.head(2))  # 访问第一行和第二行
+```
 
 ---
 查看访问DataFrame中的数据——通用方法：
@@ -311,17 +324,24 @@ print(df)
     df = pd.DataFrame(data=data,
                     index=[1, 2, 3],
                     columns=["a", "b", "c"])
+    #
+    # 1) 统一都取1和2行, a和b列
     print(df.loc[1:2, "a":"b"])  # 闭区间
-    print(df.iloc[0:1, 0:1])     # 开区间
+    print(df.iloc[0:2, 0:2])     # 开区间
     # 条件表达式
     print(df.loc[df.index<3, "a":"b"])
-    print(df.loc[df.c==207847528, "a":"b"])
-    # 列表指定取值
+    print(df.loc[df.c!=207847528, "a":"b"])
+    # 列表指定取行和列
     print(df.loc[[1,2], ["a","b"]])
+    print(df.loc[1:2,   ["a","b"]])
     print(df.iloc[[0,1], [0,1]])
-    # 单个数据
-    print(df.loc[1,"a"], df.iloc[0,0])
-    print(df.at[1,"a"], df.iat[0,0])
+    #
+    # 2) 取单个数据
+    print(df.loc[1,"a"], df.iloc[0,0])  # Belglum Belglum
+    print(df.at[1,"a"], df.iat[0,0])    # Belglum Belglum
+    # 取出单列数据时的；类型区别
+    print(type(df.loc[1]))    # <class 'pandas.core.series.Series'>
+    print(type(df.loc[1:1]))  # <class 'pandas.core.frame.DataFrame'>
     ```
 
 2. 切片方法之ix
@@ -376,9 +396,15 @@ print(df)
 ### 2.2.4. DataFrame增添数据
 
 列增加：
-   - 索引赋值：`df[new_colums] = [values...]` 或 `df[col_index] = {'fiels1':values,'fiels2':values...}`，df原对象新增的一列值是相同的可直接赋值一个常量。如 `df[new_colums] = values`
-   - insert增加：`df.insert(num, colums_name, [values...])`，df原对象新增一列
-   - reindex改动：`df1 = df.reindex(columns=[name1, name2, ...])`，返回挑选列的新对象，若列不存在与原df中则创建没有的列，值默认为空
+   - 索引赋值：
+     - df原对象新增的一列：
+       - `df[new_col_index] = [values...]`
+       - `df[new_col_index] = {'fiels1':values,'fiels2':values...}`
+     - 值是相同的可直接赋值一个常量。 如 `df[new_colums] = values`
+   - insert增加：
+     - `df.insert(num, colums_name, [values...])`，df原对象新增一列
+   - reindex改动：
+     - `df1 = df.reindex(columns=[name1, name2, ...])`，返回挑选列的df新对象，若列不存在与原df中则创建没有的列，值默认为空
 
 行增加：
    - 索引赋值：`df.loc[row_index] = [x1, x2, ...]`
@@ -404,6 +430,25 @@ df1 = df.reindex(columns=['Name', 'Gender', 'City', 'Adress', 'Age', 'Score'])
 print('【n列增删】\n', df1)
 ```
 
+```
+【原始df】
+    Name  Age
+1   hua   20
+2  ming   19
+【1列Score增加】
+    Name  Age  Score
+1   hua   20     87
+2  ming   19     99
+【1列Gender增加】
+    Name Gender  Age  Score
+1   hua      M   20     87
+2  ming      F   19     99
+【n列增删】
+    Name Gender  City  Adress  Age  Score
+1   hua      M   NaN     NaN   20     87
+2  ming      F   NaN     NaN   19     99
+```
+
 示例：行增加
 ```python
 import pandas as pd
@@ -422,13 +467,36 @@ print('【df1】\n', df1)
 print('【df2】\n', df2)
 ```
 
+```
+【原始df】
+   Name  Age
+0  hua   20
+【行增加】
+   Name  Age
+0  hua   20
+3   hu   22
+【df1】
+    Name  Age
+0   hua   20
+1    hu   22
+2  juan   14
+3  juan   14
+【df2】
+    Name  Age
+0   hua   20
+1    hu   22
+2  juan   14
+3  juan   14
+```
+
 ### 2.2.5. DataFrame删除某列或某行数据
 
 删除某列或某行数据需要用到pandas提供的方法drop，drop方法的用法如下:  
-`drop(labels, axis=0, level=None, inplace=False, errors='raise')`  
-axis为0时表示删除行，axis为1时表示删除列。
+- `drop(labels, axis=0, level=None, inplace=False, errors='raise')`  
+- axis为0时表示删除行，axis为1时表示删除列。
 
 常用参数如下所示。
+
 | 参数名称 |                        说明                         |
 | -------- | --------------------------------------------------- |
 | labels   | 接收string或array。代表删除的行或列的标签。无默认。 |
@@ -445,7 +513,7 @@ df = pd.DataFrame(np.arange(6).reshape(-1, 3),
 print("【df】\n", df)
 df1 = df.drop(labels=0, axis=0)  # 删除第一行的数据
 df2 = df.drop(labels='z', axis=1)  # 删除z列的数据
-df3 = df.drop(labels='x', axis=1, inplace=True)  # 删除z列的数据
+df3 = df.drop(labels='x', axis=1, inplace=True)  # 删除z列的数据，原对象操作，不返回新df对象
 print("【df1】\n", df1)
 print("【df2】\n", df2)
 print("【df3】\n", df3)
@@ -550,23 +618,263 @@ pandas描述性统计方法描述分析DataFrame数据
 > - 偏度含义是统计数据分布偏斜方向和程度 的度量，是统计数据分布非对称程度的数 字特征。
 > - 峰度，表征概率密度分布曲线在平均值处 峰值高低的特征数，反映了峰部的尖度。
 
+示例：
+```python
+import pandas as pd
+import numpy as np
+df = pd.DataFrame(np.arange(50).reshape(10, 5), columns=list('abcde'))
+print('\ndf：', df, 
+      '\ndf.describe()：', df.describe(),
+      '\ndf.sem()：', df.sem(), sep='\n')
+```
+
+```
+df：
+    a   b   c   d   e
+0   0   1   2   3   4
+1   5   6   7   8   9
+2  10  11  12  13  14
+3  15  16  17  18  19
+4  20  21  22  23  24
+5  25  26  27  28  29
+6  30  31  32  33  34
+7  35  36  37  38  39
+8  40  41  42  43  44
+9  45  46  47  48  49
+
+df.describe()：
+               a          b          c          d          e
+count  10.000000  10.000000  10.000000  10.000000  10.000000
+mean   22.500000  23.500000  24.500000  25.500000  26.500000
+std    15.138252  15.138252  15.138252  15.138252  15.138252
+min     0.000000   1.000000   2.000000   3.000000   4.000000
+25%    11.250000  12.250000  13.250000  14.250000  15.250000
+50%    22.500000  23.500000  24.500000  25.500000  26.500000
+75%    33.750000  34.750000  35.750000  36.750000  37.750000
+max    45.000000  46.000000  47.000000  48.000000  49.000000
+
+df.sem()：
+a    4.787136
+b    4.787136
+c    4.787136
+d    4.787136
+e    4.787136
+dtype: float64
+```
+
 ## 3.2. 类别型特征的描述性统计
 
 描述类别型特征的分布状况，可以使用频数统计表。pandas库中实现频数统计的方法为`value_counts`。
 
-describe方法除了支持传统数值型以外，还能够支持对数据进行描述性统计，四个统计量分别为：
+`describe` 方法除了支持传统数值型以外，还能够支持对数据进行描述性统计，四个统计量分别为：
 - 列非空元素的数目
 - 类别的数目
 - 数目最多的类别
 - 数目最多类别的数目
 
-# 4. 从文件中读取数据
+示例：
+```python
+import pandas as pd
+import numpy as np
 
-...
+ss = pd.Series(['Tokyo', 'Nagoya', 'Nagoya', 'Osaka', 'Tokyo', 'Tokyo'])
+# 东京 名古屋 大阪
+# value_counts 直接用来计算series里面相同数据出现的频率
+print('\nss.value_counts()：', ss.value_counts(), 
+      '\nss.describe()：', ss.describe(), sep='\n')
+```
 
-# 5. 常用操作
+```
+ss.value_counts()：
+Tokyo     3
+Nagoya    2
+Osaka     1
+dtype: int64
+
+ss.describe()：
+count         6
+unique        3
+top       Tokyo
+freq          3
+dtype: object
+```
+
+# 4. 数据的IO —— 文件读取与写入
+
+## 4.1. 文本文件
+### 4.1.1. 文本文件读取
+
+（从文件中读取数据）
+
+文本文件是一种由若干行字符构成的计算机文件，它是一种典型的顺序文件。
+
+如：csv是一种逗号分隔的文件格式，因为其分隔符不一定是逗号，又被称为字符分隔文件，文
+件以纯文本形式存储表格数据（数字和文本）。
+
+文本文件读取
+- 使用read_table来读取文本文件。
+```python
+pandas.read_table(filepath_or_buffer, sep='\t', 
+                  header='infer', names=None, index_col=None,
+                  dtype=None, engine=None, nrows=None)
+```
+- 使用read_csv函数来读取csv文件。
+```python
+pandas.read_csv(filepath_or_buffer, sep=',', 
+                header='infer', names=None, index_col=None,
+                dtype=None, engine=None, nrows=None)
+```
+
+read_table和read_csv常用参数及其说明。
+
+| 参数名称 |                                             说明                                             |
+| -------- | -------------------------------------------------------------------------------------------- |
+| filepath | 接收string。代表文件路径。无默认。该字符串可以是一个URL。有效的URL方案包括http, ftps3和file |
+| sep      | 接收string。代表分隔符。read_csv默认为〃,〃，readable默认为制表符〃[Tab]〃。                 |
+| header   | 接收int或sequence。表示将某行数据作为列名。默认为infer，表示自动识别。                       |
+| names    | 接收array。表示列名。默认为None。                                                            |
+| indexcol | 接收int、sequence或False。表示索引列的位置，取值为sequence则代表多重索引。默认为 None。      |
+| dtype    | 接收dict。代表写入的数据类型（列名为key,数据格式为values)。默认为None。                      |
+| engine   | 接收c或者python。代表数据解析引擎。默认为c。                                                 |
+| nrows    | 接收int。表示读取前n行。默认为None。                                                         |
+
+注：
+- read_table和read_csv函数中的sep参数是指定文本的分隔符的，如果分隔符指定错误，在读取数据的时候，每一行数据将连成一片。
+- header参数是用来指定列名的，如果是None则会添加一个默认的列名。
+- encoding代表文件的编码格式，常用的编码有utf-8、utf-16、gbk、gb2312、gb18030等。如果编码指定错误数据将无法读取，IPython解释器会报解析错误。
+
+### 4.1.2. 文本文件写入
+
+文本文件储存 涉及xlrd openpyxl库的安装
+
+文本文件的存储和读取类似，结构化数据可以通过pandas中的to_csv函数实现以csv文件格
+式存储文件。
+```python
+DataFrame.to_csv(path_or_buf=None, sep=',', na_rep='',
+                columns=None, header=True, index=True,
+                index_label=None,mode='w',encoding=None)
+```
+
+|   参数名称   |                         说明                          |
+| ------------ | ----------------------------------------------------- |
+| path_or_buf  | 接收string。代表文件路径。无默认。                    |
+| sep          | 接收string。代表分隔符。默认为",〃。                  |
+| na_rep       | 接收string。代表缺失值。默认为""。                    |
+| columns      | 接收list。代表写出的列名。默认为None。                |
+| header       | 接收boolean,代表是否将列名写出。默认为True。          |
+| index        | 接收boolean,代表是否将行名（索引)写出。 默认为True。  |
+| index labels | 接收sequence。表示索引名。默认为None。                |
+| mode         | 接收特定string。代表数据写入模式。默认为w。           |
+| encoding     | 接收特定string。代表存储文件的编码格式。默 认为None。 |
+
+## 4.2. Excel文件
+### 4.2.1. Excel文件读取
+
+pandas提供了read_excel函数来读取"xls","xlsx"两种Excel文件。
+
+```python
+pandas.read_excel(io, sheetname=0, header=0, 
+                  index_col=None, names=None, dtype=None)
+```
+
+| 参数名称  |                                            说明                                            |
+| --------- | ------------------------------------------------------------------------------------------ |
+| io        | 接收string。表示文件路径。无默认。                                                         |
+| sheetname | 接收string、int。代表excel表内数据的分表位置。默认为0。                                    |
+| header    | 接收int或sequence。表示将某行数据作为列名。默认为infer,表示自动识别。                      |
+| names     | 接收int、sequence或者False。表示索引列的位置，取值为sequence则代表多重索引。默认 为 None。 |
+| index col | 接收int、sequence或者False。表示索引列的位置，取值为sequence则代表多重索引。默认 为 None。 |
+| dtype     | 接收diet。代表写入的数据类型（列名为key,数据格式为values)。默认为None。                    |
+
+### 4.2.2. Excel文件写入
+
+将文件存储为Excel文件，可以使用to_excel方法。其语法格式如下。
+```python
+DataFrame.to_excel(excel_writer=None, sheetname=None'', 
+                   na_rep='', header=True, index=True,
+                   index_label=None, mode='w', encoding=None)
+```
+to_csv方法的常用参数基本一致，区别之处在于指定存储文件的文件路径参数名称为excel_writer，并且没有sep参数，增加了一个sheetnames参数用来指定存储的Excel sheet的名称，默认为
+sheet1。
+
+## 4.3. 扩展：数据库数据
+### 4.3.1. sql读取
+- pandas提供了读取与存储关系型数据库数据的函数与方法。除了pandas库外，还需要使用SQLAlchemy库建立对应的数据库连接。SQLAlchemy配合相应数据库的Python连接工具（例如MySQL数据库需要安装mysqlclient或者pymysql库），使用create_engine函数，建立一个数据库连接。
+- creat_engine中填入的是一个连接字符串。在使用Python的SQLAlchemy时，MySQL和Oracle数据库连接字符串的格式如下：
+  `数据库产品名+连接工具名：//用户名:密码@数据库IP地址:数据库端口号/数据库名称?charset=`
+
+数据库数据编码
+```python
+from sqlalchemy import create_engine
+engine = create_engine('mysql+mysqldb://root@localhost:3306/shop)
+```
+
+-  `read_sql_table` 只能够读取数据库的某一个表格，不能实现查询的操作。
+```python
+pandas.read_sql_table(table_name, con, schema=None, index_col=None,
+                      coerce_float=True, columns=None)
+```
+
+- `read_sql_query` 则只能实现查询操作，不能直接读取数据库中的某个表。
+```python
+pandas.read_sql_query(sql, con, index_col=None, coerce_float=True)
+```
+
+- `read_sql` 是两者的综合，既能够读取数据库中的某一个表，也能够实现查询操作。
+```python
+pandas.read_sql(sql, con, index_col=None, coerce_float=True, columns=None)
+```
+
+pandas三个数据库数据读取函数的参数几乎完全一致，唯一的区别在于传入的是语句还是表名。
+
+|     参数名称      |                                            说明                                            |
+| ----------------- | ------------------------------------------------------------------------------------------ |
+| sql or table_name | 接收string。表示读取的数据的表名或者sql语句。无默认。                                      |
+| con               | 接收数据库连接。表示数据库连接信息。无默认                                                 |
+| index_col         | 接收int，sequence或者False。表示设定的列作为列名，如果是一个数列则是多重索引。默认为None。 |
+| coerce_float      | 接收boolean。将数据库中的decimal类型的数据转换为pandas中的float64类型的数据。默认为True。  |
+| columns           | 接收list。表示读取数据的列名。默认为None。                                                 |
+
+### 4.3.2. sql存储
+
+数据库数据读取有三个函数，但数据存储则只有一个to_sql方法。
+```python
+DataFrame.to_sql(name, con, schema=None, if_exists='fail', 
+                 index=True, index_label=None, dtype=None)
+```
+
+|  参数名称   |        说明          |
+| ----------- | -------------------  |
+| name        | 接收string。代表数据库表名。无默认。 |
+| con         | 接收数据库连接。无默认。             |
+| if_exists   | 接收fail，replace，append。fail表示如果表名存在则不执行写入操作；replace表示如果存在，将原数据库表删除，再重新创建；append则表示在原数据库表的基础上追加数据。默认为fail。 |
+| index       | 接收boolean。表示是否将行索引作为数据传入数据库。默认True。    |
+| index_label | 接收string或者sequence。代表是否引用索引名称，如果index参数为True此参数为None则使用默认名称。如果为多重索引必须使用sequence形式。默认为None。  |
+| dtype       | 接收dict。代表写入的数据类型（列名为key，数据格式为values）。默认为None。 |
+
+### 4.3.3. 其他
+扩展：其他格式
+- HDF5: HDF5 是一种层次化的格式（hierarchical format），经常用于存储复杂的科学数据。例如 MATLAB 就是用这个格式来存储数据。在存储带有关联的元数据（metadata）的复杂层次化数据的时候，这个格式非常有用，例如计算机模拟实验的运算结果等等，
+- pandas还提供一个直接读取h5文件的函数： pd.HDFStore
+- Json: 通过json模块转换为字典，再转换为DataFrame，pd.read_json
+- MongoDB数据库：需要结合相应的数据库模块，如：pymongo，再通过游标把数据读出来，转换为DataFrame
+
+# Pandas数据分析与可视化
+
+
+
+# 附：常用操作
 
 列调换
 ```python
 df.insert(1,'调换',df.pop('A'))  #改变某一列的位置。如：先删除A列，然后在原表data中第1列插入被删掉的列。
 ```
+
+消掉打印不完全中间的省略号
+```python
+# 核心代码，设置显示的最大列、宽等参数，
+pd.set_option('display.max_colwidth', 1000)
+pd.set_option('display.max_columns', 1000)
+pd.set_option('display.width', 1000)
+```
+

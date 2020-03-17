@@ -49,6 +49,7 @@
         depth: 6
       },
       // formatUpdated: '{MM}/{DD} {HH}:{mm}',
+      noCompileLinks: ['/foo', '/bar/.*'],  //不处理的链接地址
       plugins: [
         function (hook, vm) {
           hook.beforeEach(function (html) {
@@ -59,25 +60,19 @@
             } else {
               url = 'https://github.com/wan230114/PythonNote/blob/master/' + vm.route.file
             }
-            var editHtml = '<img class="emoji" src="./.js/memo.png" alt="memo" />[ Edit Document](' + url + ')\n'
-            // var editHtml = '<img class="emoji" src="https://github.githubassets.com/images/icons/emoji/memo.png" alt="memo" />[:memo: Edit Document](' + url + ')\n'
+            var editHtml = '<img class="emoji" src="./.js/memo.png" alt="memo" />[ Edit Document](' + url + ')\n'  // var editHtml = '<img class="emoji" src="https://github.githubassets.com/images/icons/emoji/memo.png" alt="memo" />[:memo: Edit Document](' + url + ')\n'
             if (location.hash == "#/"){
-              return html
-              + '\n\n----'
+              return html + '\n\n----'
             } else {
-              return editHtml + '\n'
-              + html
-              + '\n\n----'
-            }
-            // + '\n\n----\n\n'
-            // + '<a href="https://github.com/wan230114/PythonNote.git" target="_blank" style="color: inherit; font-weight: normal; text-decoration: none;">Powered by ChenJun</a>'
+              return editHtml + '\n' + html + '\n\n----'
+            }  // + '\n\n----\n\n' // + '<a href="https://github.com/wan230114/PythonNote.git" target="_blank" style="color: inherit; font-weight: normal; text-decoration: none;">Powered by ChenJun</a>'
           })
         },
       ],
-      externalLinkTarget: '_target',
+      externalLinkTarget: '_target',  //当前默认为 _blank, 配置一下就可以
+      name: '《Python学习之极简笔记》',
       // name: '<font color="#42a5f5" face="楷体">《Python学习之极简笔记》</font>',
       // name: '《Python学习之极简笔记——从人工智能到机器智能》',
-      name: '《Python学习之极简笔记》',
       // nameLink: '/',
       repo: 'https://github.com/wan230114/PythonNote.git'
     }
