@@ -48,8 +48,15 @@
         paths: 'auto',
         depth: 6
       },
-      // formatUpdated: '{MM}/{DD} {HH}:{mm}',
+      formatUpdated: '{MM}/{DD} {HH}:{mm}',
       noCompileLinks: ['/foo', '/bar/.*'],  //不处理的链接地址
+      basePath: 'docs/',
+      externalLinkTarget: '_target',  //当前默认为 _blank, 配置一下就可以
+      name: '《Python学习之极简笔记》',
+      // name: '<font color="#42a5f5" face="楷体">《Python学习之极简笔记》</font>',
+      // name: '《Python学习之极简笔记——从人工智能到机器智能》',
+      // nameLink: '/',
+      repo: 'https://github.com/wan230114/PythonNote.git',
       plugins: [
         function (hook, vm) {
           hook.beforeEach(function (html) {
@@ -68,13 +75,7 @@
             }  // + '\n\n----\n\n' // + '<a href="https://github.com/wan230114/PythonNote.git" target="_blank" style="color: inherit; font-weight: normal; text-decoration: none;">Powered by ChenJun</a>'
           })
         },
-      ],
-      externalLinkTarget: '_target',  //当前默认为 _blank, 配置一下就可以
-      name: '《Python学习之极简笔记》',
-      // name: '<font color="#42a5f5" face="楷体">《Python学习之极简笔记》</font>',
-      // name: '《Python学习之极简笔记——从人工智能到机器智能》',
-      // nameLink: '/',
-      repo: 'https://github.com/wan230114/PythonNote.git'
+      ]
     }
   </script>
   <script type="text/x-mathjax-config">

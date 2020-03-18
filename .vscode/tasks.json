@@ -5,8 +5,8 @@
     "tasks": [
         {
             "label": "README_to_get_sidebar",
-            "type": "process",
-            "command": "README_to_get_sidebar.exe",
+            "type": "shell",
+            "command": "python README_to_get_sidebar.py",
             "group": {
                 "kind": "build",
                 "isDefault": true
