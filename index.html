@@ -1,33 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Python学习之极简笔记——从人工智能到机器智能</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="description" content="Description">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <!-- <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css"> -->
-    <!-- <link rel="stylesheet" href="//unpkg.com/docsify/themes/vue.css"> -->
-    <link rel="stylesheet" href="./.js/vue.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.js"></script>
-    
-    <style>
-      .sidebar>h1 a {
-        font-size: 20px;
-        color: black;
-      }
-      .content {
-        padding-top: 5px;
-      }
-      .markdown-section {
-        padding-top: 10px;
-      }
-    </style>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Python学习之极简笔记——从人工智能到机器智能</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="Description">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <!-- <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css"> -->
+  <!-- <link rel="stylesheet" href="//unpkg.com/docsify/themes/vue.css"> -->
+  <link rel="stylesheet" href="./.js/vue.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.js"></script>
+
+  <link rel="import" href="./.js/gitalk.html" id="page1" />
+
+  <style>
+    .sidebar>h1 a {
+      font-size: 20px;
+      color: black;
+    }
+
+    .content {
+      padding-top: 5px;
+    }
+
+    .markdown-section {
+      padding-top: 10px;
+    }
+  </style>
 </head>
 
 
 <body>
+
+  <script>
+    // 兼容性代码
+    function autoHeight(iframe) {
+      if (iframe) {
+        var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+        if (iframeWin.document.body) {
+          iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+          iframe.width = iframeWin.document.documentElement.scrollWidth || iframeWin.document.body.scrollWidth;
+        }
+      }
+    }
+    window.onload = function () {
+      autoHeight(document.getElementById('iframe'));
+    }
+  </script>
+
   <div id="app"></div>
   <script>
     window.$docsify = {
@@ -44,10 +67,11 @@
       },
       search: {
         placeholder: '搜索',
-      	noData: '搜索无结果!',
+        noData: '搜索无结果!',
         paths: 'auto',
         depth: 6
       },
+      ga: 'UA-161196727-1',
       formatUpdated: '{MM}/{DD} {HH}:{mm}',
       noCompileLinks: ['/foo', '/bar/.*'],  //不处理的链接地址
       basePath: 'docs/',
@@ -62,34 +86,28 @@
           hook.beforeEach(function (html) {
             if (/githubusercontent\.com/.test(vm.route.file)) {
               url = vm.route.file
-              .replace('raw.githubusercontent.com', 'github.com')
-              .replace(/\/master/, '/blob/master')
+                .replace('raw.githubusercontent.com', 'github.com')
+                .replace(/\/master/, '/blob/master')
             } else {
               url = 'https://github.com/wan230114/PythonNote/blob/master/' + vm.route.file
-            }
+            };
             var editHtml = '<img class="emoji" src="./.js/memo.png" alt="memo" />[ Edit Document](' + url + ')\n'  // var editHtml = '<img class="emoji" src="https://github.githubassets.com/images/icons/emoji/memo.png" alt="memo" />[:memo: Edit Document](' + url + ')\n'
-            if (location.hash == "#/"){
+            if (location.hash == "#/") {
               return html + '\n\n----'
             } else {
               return editHtml + '\n' + html + '\n\n----'
             }  // + '\n\n----\n\n' // + '<a href="https://github.com/wan230114/PythonNote.git" target="_blank" style="color: inherit; font-weight: normal; text-decoration: none;">Powered by ChenJun</a>'
-          })
+          });
+          // hook.afterEach(function (html) {
+          // 每次路由切换时数据全部加载完成后调用，没有参数。
+          // ...
+          // location.reload()
+          // gitalk.render('gitalk-container');
+          // return html + '<b>测试</b>' + 
+          // })
         },
       ]
     }
-  </script>
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      extensions: ["tex2jax.js"],
-      jax: ["input/TeX", "output/HTML-CSS"],
-      tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-        processEscapes: true,
-        skipTags: ["script", "noscript", "style", "textarea", "pre", "code", "a"]
-      },
-      "HTML-CSS": { fonts: ["TeX"] }
-    });
   </script>
 
   <!-- <script src="docsify.js"></script> -->
@@ -108,72 +126,61 @@
   <script src="./.js/prism-python.js"></script>
   <script src="./.js/search.js"></script>
 
-  <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- Math -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      extensions: ["tex2jax.js"],
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+          processEscapes: true,
+          skipTags: ["script", "noscript", "style", "textarea", "pre", "code", "a"]
+        },
+        "HTML-CSS": { fonts: ["TeX"] }
+      });
+    </script>
+  <script async="async" type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 
-<!-- 返回顶部的按钮 -->
+  <!-- 谷歌的网站统计 -->
+  <!-- <script src="//unpkg.com/docsify" data-ga="UA-161196727-1"></script> -->
+  <!-- <script src="//unpkg.com/docsify/lib/plugins/ga.js"></script> -->
+  <script src="./.js/ga.js"></script>
+
+
+  <!-- 返回顶部的按钮 -->
   <link rel="stylesheet" href="./.js/jump2top.css">
   <script src="./.js/jump2top.js"></script>
   <button onclick="topFunction()" id="myBtn" title="回顶部">返回<br>顶部</button>
 
 
-<!-- 实时聊天插件 -->
+  <!-- 实时聊天插件 -->
   <script>
-    ((window.gitter = {}).chat = {}).options = {
+      ((window.gitter = {}).chat = {}).options = {
       room: 'PythonNoteTalk/PythonNote'
     };
   </script>
+  <!-- <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer><\/script> -->
   <script src="./.js/sidecar.v1.js" async defer></script>
   <script>  // gitter实时聊天的功能补充，按键盘esc退出gitter 或者 点击区域外任意处退出
-    // <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer><\/script>
-    function closechart(params) {
+    function closechart(params){
       const buts = document.getElementsByClassName("gitter-chat-embed-action-bar-item");
-      for (let but of buts) {
-        if (but.className == "gitter-chat-embed-action-bar-item gitter-chat-embed-action-bar-item-collapse-chat") { but.click(); }
-      }
+      for (let but of buts){if(but.className == "gitter-chat-embed-action-bar-item gitter-chat-embed-action-bar-item-collapse-chat")but.click();}
     }
-    document.onkeydown = function () {if (event.keyCode == 27) {closechart()}};
-    document.onclick = function (e) {if (e.target.className.indexOf("gitter-open-chat-button") == -1) {closechart()}};
+    document.onkeydown = function(){if(event.keyCode == 27)closechart()};
+    document.onclick = function(e){if(e.target.className.indexOf("gitter-open-chat-button")==-1)closechart()};
   </script>
 
-<!-- 评论插件 -->
-<!-- <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
-<script src="//unpkg.com/gitalk/dist/gitalk.min.js"></script>
-<script src="//unpkg.com/docsify/lib/plugins/gitalk.min.js"></script> -->
-
-<link rel="stylesheet" href="./.js/gitalk.css">
-<script src="./.js/gitalk.min.js"></script>
-<script src="./.js/plugins.gitalk.min.js"></script>
-
-<script>
-  var gitalk = new Gitalk({
-    clientID: '381baf0bd6252c1a156f',
-    clientSecret: '8d1dd2057c4f02315e8aba569ed7cfe34538c043',
-      repo: 'PythonNote_Gitalk',
-      owner: 'wan230114',
-      admin: ['wan230114'],
-      title: location.hash.match(/#(.*?)([?]|$)/)[1],
-      id: location.hash.match(/#(.*?)([?]|$)/)[1],
-      distractionFreeMode: false  // Facebook-like distraction free mode
-    })
-  </script>
-
-
-
-<script>
-  // 监听URL中hash的变化，如果发现换了一个MD文件，那么刷新页面，解决整个网站使用一个gitalk评论issues的问题。
-  window.onhashchange = function(event){
-    // if(event.newURL.split('#')[1] == "/") {
-    //   location.reload()
-    // };
-    if(event.newURL.split('?')[0] !== event.oldURL.split('?')[0]) {
-      location.reload();
-      // gitalk.render('gitalk-container');
-    }
-  };
-  // 由于docsify/lib/plugins/gitalk.min.js文件中已经有下面代码了，所以不需要在写一次了
-  gitalk.render('gitalk-container');
-  </script>
+  <!-- 评论插件 -->
+  <!-- <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
+  <script src="//unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="//unpkg.com/docsify/lib/plugins/gitalk.min.js"></script> -->
+  <link rel="stylesheet" href="./.js/gitalk.css">
+  <script src="./.js/gitalk.min.js"></script>
+  <script src="./.js/own/plugins.gitalk.min.js"></script>
 
 </body>
+
 </html>

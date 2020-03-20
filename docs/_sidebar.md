@@ -1,17 +1,19 @@
 <!-- menu -->
 * **Python基础部分**
+    <!-- menu_base -->
     * [Introduction 前言](00.Python/Introduction.md)
     * [Chapter01.Python简介](00.Python/Chapter01.PythonReview.md)
     * [Chapter02.数值](00.Python/Chapter02.Value.md)
     * [Chapter03.数据容器](00.Python/Chapter03.DataContainers.md)
     * [Chapter04.流程控制](00.Python/Chapter04.ProcessControl.md)
     * [Chapter05.数据的遍历访问](00.Python/Chapter05.DataTraversal.md)
-    * *Chapter06.函数function*
+    * [Chapter06.函数function](00.Python/Chapter06.Function.md)
     * *Chapter07.错误及异常处理*
     * *Chapter08.文件file及编码*
     * *Chapter09.面向对象*
     * *Chapter10.模块和包*
     * [附录](00.Python/ChapterN_Appendix.md)
+    <!-- menu_base -->
 * **Python进阶部分**
     * [Introduction 简介](00.Python_Advanced/Introduction.md)
     * [Chapter01.网络编程](00.Python_Advanced/Chapter01.PythonNet.md)
