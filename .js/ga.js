@@ -12,10 +12,9 @@
     appendScript();
     window.ga =
       window.ga ||
-      function() {
+      function () {
         (window.ga.q = window.ga.q || []).push(arguments);
       };
-
     window.ga.l = Number(new Date());
     window.ga('create', id, 'auto');
   }
@@ -24,20 +23,15 @@
     if (!window.ga) {
       init($docsify.ga);
     }
-
     window.ga('set', 'page', location.hash);
     window.ga('send', 'pageview');
   }
-
-  var install = function(hook) {
+  var install = function (hook) {
     if (!$docsify.ga) {
       console.error('[Docsify] ga is required.');
       return;
     }
-
     hook.beforeEach(collect);
   };
-
   $docsify.plugins = [].concat(install, $docsify.plugins);
-
 }());

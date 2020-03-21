@@ -44,6 +44,11 @@
 # 1. matplotlib概述
 
 matplotlib是python的一个绘图库。使用它可以很方便的绘制出版质量级别的图形。
+## matplotlib起源和发展
+
+
+- 一些优秀的拓展包：
+  - `Seaborn`：是matplotlib的强大的一个扩展，可以让代码更加简洁，绘图更加丰富。
 
 ## 1.1. matplotlib基本功能
 

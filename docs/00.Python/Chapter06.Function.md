@@ -1,5 +1,5 @@
 # 6. 函数FUNCTION
-## 6.1.  基本概念
+## 6.1. 基本概念
 基本认识：
 - 函数是可以重复执行的语句块。
 - 用于封装语句，调高代码重用性
@@ -18,17 +18,20 @@ def 函数名(形参列表):
 ```
 
 说明：
-- 函数的名字就是语句块的名称
-- 函数名的命名规则与变量名相同（函数名必须是标识符）
-- 函数名是一个变量
-- 函数有自己的命名空间，在函数外部不可访问函数内部的变量，在函数内部可以访问外部的变量，要让函数处理外部数据需要用参数给函数传入一些数据。
-- 参数列表可以为空
-- 语句部分不能为空，如果为空需要用pass填充。
-- 函数调用语句是一个表达式，一定会有返回值，能赋值给一个变量。
-  - 如果没有return语句，函数执行完毕后返回None对象
-  - 如果函数需要返回其它的对象需要用到return语句
+- 函数结构
+  - 参数列表可以为空。
+  - 语句部分不能为空，如果为空需要用pass填充。
+- 函数名
+  - 函数的名字就是语句块的名称
+  - 函数名的命名规则与变量名相同（函数名必须是标识符）
+  - 函数名是一个变量问题: `函数名`是变量, 它绑定一个函数, `函数名()`是函数的具体调用
+- 函数调用
+  - 函数调用语句是一个表达式，一定会有返回值，能赋值给一个变量。
+  - 如果没有return语句，函数执行完毕后返回None对象；如果函数需要返回其它的对象需要用到return语句
+- 命名空间
+  - 函数有自己的命名空间，在函数外部不可访问函数内部的变量，在函数内部可以访问外部的变量，要让函数处理外部数据需要用参数给函数传入一些数据。
 
-## 函数的返回值
+## 6.2. 函数的返回值
 - return语句
   - 作用：结束函数的运行，并返回return的结果
 
@@ -126,7 +129,7 @@ myfunc(3)
 结束执行
 ```
 
-## 函数的参数传递
+## 6.3. 函数的参数传递
 
 形参和实参可以理解为调用函数与被调用函数之间的数据传输接口。
 
@@ -144,9 +147,9 @@ def 函数名(形参列表):
 函数名(实参列表)
 ```
 
-### 函数的缺省值理解
+### 6.3.1. 函数的缺省值理解
 
-#### 缺省值
+#### 6.3.1.1. 缺省值
 - 在形参加入初始值，传参时便可省略一部分值。
 - 缺省参数规则：
   - 缺省参数可以有零个和多个，甚至全部。
@@ -180,7 +183,7 @@ myrange(s=5, end=10, n=2)  #报错
 ```
 
 
-#### 缺省值与函数的创建过程理解
+#### 6.3.1.2. 缺省值与函数的创建过程理解
 - Python程序自上而下运行，函数的初始化一般只能执行一次。当然也可以使用嵌套函数进行重复定义。
 - 若函数创建时，形参定义了初始化值，后续多次的使用中该值是不能再次被重新初始化的。假如是可变对象，将一直持续受到影响。 如下示例：函数在初始化时，形参创建一个可变对象，且重新指定新的对象后仍然回到原对象。
 
@@ -232,7 +235,7 @@ f(4)  # ____________ 此处是精髓
 [123, 1234, 4]
 ```
 
-### 6.2. 函数的参数传递过程理解
+### 6.3.2. 函数的参数传递过程理解
 
 ```python
 # 函数定义
@@ -285,16 +288,16 @@ def 函数名(形参列表):
   - 错误：`def func(a=1, b, c)`、`func(a=10, 2, 3)`
   - 正确：`def func(b, c, a=1)`、`func(2, 3, a=10)`
 
-```python
-def func(b, c, a=1):
-    print(a, b, c)
-
-func(2, 3, a=10)  # 10 2 3
-```
+    ```python
+    def func(b, c, a=1):
+        print(a, b, c)
+    
+    func(2, 3, a=10)  # 10 2 3
+    ```
 
 ---
 
-示例：一个实例看懂所有传参方式
+示例1：一个实例看懂所有传参方式
 
 ```python
 def myfun(a, b=0, *args, **kwargs):
@@ -313,7 +316,7 @@ myfun(**{'a': 1, 'b': 2, 'c': 3, 'd':4})  # 字典关键字传参
 # 混合传参
 myfun(1, 2, *[-1], -2, c=3, *[-3], d=4, **{'e':5})
 ```
-
+运行结果：
 ```
 a:1 b:2 args:(3,) kwargs:{}
 a:1 b:2 args:(3,) kwargs:{}
@@ -323,7 +326,27 @@ a:1 b:2 args:() kwargs:{'c': 3, 'd': 4}
 a:1 b:2 args:(-1, -2, -3, -4, -5) kwargs:{'c': 3, 'd': 4, 'e': 5}
 ```
 
-### 函数作为实参传递
+---
+示例2：序列传参的应用
+- 如何打印一个可迭代对象
+```python
+L = [1, 2, 3, 4, 5]
+
+print('常规方法：')
+for x in L:
+    print(x, end=' ')
+
+print('\n序列传参方法：')
+print(*L)
+
+print('\n序列传参，还可以应用于一切可迭代对象：\nrange:')
+print(*range(6))
+print('iter:')
+print(*iter(range(6)))
+```
+
+
+### 6.3.3. 函数作为实参传递
 Python语言相较于其他语言的一个特点：参数还可以传函数
 
 - 一个函数可以作为另一个函数实参传递
@@ -417,7 +440,7 @@ func(9)  # 同一命名空间，函数可使用，但不可更改变量和其绑
 ```
 (若对象是可变的，当然其内部数据也可变)
 
-### 局部变量与全局变量
+### 6.5.1. 局部变量与全局变量
 - 局部变量
   - 定义在函数内部的变量称为局部变量（函数的形参也是局部变量）。
   - 局部变量只能在函数内部使用。
@@ -510,16 +533,16 @@ def f():
 print(data)  # 依然输出123
 ```
 
-### 6.5.2.  		Python作用域
+### 6.5.2. Python中的作用域
 作用域也叫命名空间，是访问变量时查找变量名的范围空间。
-#### 6.5.2.1.	Python的四个作用域：LEGB
+#### 6.5.2.1. Python的四个作用域类别：LEGB
 
-| 作用域              | 英文解释                | 英文简写 |
-|------------------|---------------------|------|
-| 局部作用域（函数内）       | Local（function）     | L    |
-| 外部嵌套函数作用域        | Enclosing function  | E    |
-| 函数定义所在模块（文件）的作用域 | Globals（module）     | G    |
-| Python内置模块的作用域   | Builtin（python）     | B    |
+|              作用域              |      英文解释      | 英文简写 |
+| -------------------------------- | ------------------ | -------- |
+| 局部作用域（函数内）             | Local（function）  | L        |
+| 外部嵌套函数作用域               | Enclosing function | E        |
+| 函数定义所在模块（文件）的作用域 | Globals（module）  | G        |
+| Python内置模块的作用域           | Builtin（python）  | B        |
 
 说明：
 ```
@@ -535,16 +558,20 @@ print(data)  # 依然输出123
   2. 在默认情况下,变量名赋值会创建或者改变本地作用域变量
 ```
 
-- 一般全局变量为Globals，本地变量为Local。
-- Builtin内建作用域变量如max,min,len等是只读的不能改变。
-- 变量和del都是在操作Globals作用域，如重新赋值max，优先访问全局的。
-
-- globals和locals函数打印作用域字典
-  - globals() 返回当前全局作用域内变量的字典
-  - locals()  返回当前局部作用域内的变量的字典
+- 说明：
+  - 一般全局变量为Globals，本地变量为Local。
+  - globals()和locals()函数可以打印作用域字典。
+    - globals() 返回当前全局作用域内变量的字典；
+    - locals()  返回当前局部作用域内的变量的字典；
+    - 调用示例见示例1。
+  - 变量赋值和del都是在操作Globals或Local作用域。
+    - 如重新赋值max，会增加Globals或Local的变量，由于调用Local/Globals比Builtin优先级更高，优先访问Globals。Builtin内建作用域变量如max, min, len等是只读的不能改变。
+    - 调用示例见示例2，
+  - Python程序自上而下运行，函数在定义之初就已经确定作用域，与后续多重嵌套调用无关。
+    - 调用示例见示例3，print_y1的打印。该示例更深入讲解了LEGB关系。
 
 ---
-示例：
+示例1：locals和globals的调用
 ```python
 a = 1
 b = 2
@@ -553,37 +580,35 @@ c = 3
 def fx(c, d):
     e = 300
     # 此处有几个局部变量?
-    print('locals() 返回', locals())
-    # 3个变量：c,d,e
-    print("globals() 返回", globals())
-    # a,b,c,fx，及其他
-    print(c)  # 100
-    print(globals()['c'])  # 3
+    print('locals():', locals())  # 3个变量：c,d,e
+    print("\nglobals():", globals())  # a,b,c,fx，及其他
+    print('\nlocals c:', c)  # 100
+    print('\nglobals c:', globals()['c'])  # 3
 
 fx(100, 200)
 ```
 
 ```
-locals() 返回 {'c': 100, 'd': 200, 'e': 300}
-globals() 返回 {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader object at 0x000002E8944B1688>, '__spec__': None, '__annotations__': {}, '__builtins__': <module 'builtins' (built-in)>, '__file__': 'test.py', '__cached__': None, 
-                'a': 1, 'b': 2, 'c': 3, 'fx': <function fx at 0x000002E8960EFEE8>}
-100
-3
+locals(): {'c': 100, 'd': 200, 'e': 300}
+
+globals(): {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader object at 0x000001F3D8CF1608>, '__spec__': None, '__annotations__': {}, '__builtins__': <module 'builtins' (built-in)>, '__file__': 'test.py', '__cached__': None, 'a': 1, 'b': 2, 'c': 3, 'fx': <function fx at 0x000001F3D8D7FEE8>}
+
+locals c: 100
+
+globals c: 3
 ```
 
-
 ---
-示例1：重定义max
+示例2：解释LEGB原理中的 B和G 关系
+
+code1：重定义max
 ```python
 def max(a, b):
     return min(a, b)
 print(max(10, 9))  #9
 ```
-
----
-示例2：解释LEGB原理
-- 由于 Locals 和 Global 优先于 builtin，该命名的优先级就高于 Builtin 了。
-- 例如，在 Global下 str定义为123，调用 str时，就会先调用 Global 下的 str（即 123）
+code2: 重定义str
+- 在 Global下 str定义为123，调用 str时，就会先调用 Global 下的 str（即 123）。由于 Locals 和 Global 优先于 builtin，该命名的优先级就高于 Builtin。
 ```python
 print('\nstr:', str)  # <class 'str'>
 print(dir())  # [..., '__spec__']
@@ -598,7 +623,6 @@ print(dir())  # [..., '__spec__']
 ```
 运行结果
 ```
-
 str: <class 'str'>
 ['__annotations__', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', 
         '__package__', '__spec__']
@@ -613,52 +637,119 @@ str: <class 'str'>
 ```
 
 
-示例3：外部嵌套函数Enclosing function调用
-由于LEGB的原则，print_y中的y调用的是print_y所在空间
+示例3：解释LEGB原理中的 BGEL 关系
+- 嵌套函数Enclosing function调用
 ```python
-def print_y1():  # 属于外部嵌套函数Enclosing function
-    print('\nprint_y1:', y)     # 10
-    print('locals:', locals())
-    print('globals:', globals())
+def print_y1():
+    print('\nprint_y1 locals:', locals())
+    print('y:', y)
 
-
-def f():
+def f():  # 属于print_y2的外部嵌套函数（Enclosing function空间）
     y = 20
-    print_y1()  # 10
+    print_y1()  # ______________? 此处y打印多少
 
     def print_y2():
-        print('locals:', locals())
-        print('\nprint_y2:', y)  # 20
-        print('locals:', locals())
-        print('globals:', globals())
-    print_y2()  # 20
-
+        print('\nprint_y2 locals:', locals())
+        print('y:', y)  # ______________? 此处y打印多少
+        print_y1()  # ______________? 此处y打印多少
+    print_y2()  
 
 def main():
     y = 100  # main的作用域内，对其他函数无影响
     f()
-
 
 y = 10
 main()
 ```
 运行结果：
 ```
+print_y1 locals: {}
+y: 10
 
-print_y1: 10
-locals: {}
-globals: {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader object at 0x0000024F9AE61648>, '__spec__': None, '__annotations__': {}, '__builtins__': <module 'builtins' (built-in)>, '__file__': 'test.py', '__cached__': None, 'print_y1': <function print_y1 at 0x0000024F9AF0A0D8>, 'f': <function f at 0x0000024F9AF0E558>, 'main': <function main at 0x0000024F9AF0E798>, 'y': 10}
-locals: {'y': 20}
-
-print_y2: 20
-locals: {'y': 20}
-globals: {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader object at 0x0000024F9AE61648>, '__spec__': None, '__annotations__': {}, '__builtins__': <module 'builtins' (built-in)>, '__file__': 'test.py', '__cached__': None, 'print_y1': <function print_y1 at 0x0000024F9AF0A0D8>, 'f': <function f at 0x0000024F9AF0E558>, 'main': <function main at 0x0000024F9AF0E798>, 'y': 10}
+print_y2 locals: {'y': 20}
+y: 20
 ```
 原理解释：
 
 ![](img/c5_namespace.png)
 
-#### 利用可变对象“穿透”作用域限制
+#### 6.5.2.2. global 和 nonlocal 语句
+
+- global 语句
+  - 作用:
+    1. 告诉解释器, global语句声明的一个或多个变量,这些变量的作用域为模块级的作用域(也称作全局变量)
+    2. 全局声明(global) 将赋值的变量映射到模块文件内部的作用域
+  - 语法:
+    - `global 变量1, 变量2, ...`  
+    - 如:  
+      - `global v, a, b, c`  
+      - `global d`  
+
+  - global说明
+    1. 全局变量如果要在函数内部被赋值,则必须经过全局 声明(否则会被认为是局部变量)
+    2. 全局变量在函数内部不经过声明就可以直接访问
+    3. 不能先创建局部变量,再用global声明为全局变量,此做法不附合规则
+    4. global变量列表里的变量名不能出现在此作用域内形参列表里
+  - 示例：
+    ```python
+    v = 100
+    def fn():
+        # 添加全局声明,告诉解释执行器,本函数内的变量v为全局变量
+        global v
+        v = 200  # 本意想要修改全局变量v让它绑定200
+    
+    fn()
+    print("v =", v)  # v = 200
+    ```
+  - 练习:  
+    写一个函数
+    ```python
+    def hello(name):
+        ...  此处自己实现
+
+    count = 0  # 此变量用来记录hello函数被调用的次数
+    hello("小张")
+    hello("小李")
+    print("函数hello已经被调用%d次" % count ) # 2
+    hello("小赵")
+    print("函数hello已经被调用%d次" % count ) # 3
+    ```
+    
+- nonlocal
+  - 作用:
+    - 告诉解释器,nonlocal声明的变量不是局部变量,也不是全局变量,而是外部嵌套函数内的变量
+
+  - nonlocal的语法
+    `nonlocal 变量名1, 变量名2, ...`
+  - 说明:
+    1. nonlocal 语句只能在被嵌套的函数内部进行使用
+    2. 访问nonlocal变量将对外部嵌套函数作用域内的变量进行操作
+    3. 当有两层或两层以上函数嵌套时,访问nonlocal变量只对最近一层的变量进行操作
+    4. nonlocal语句的变量列表里的变量名,不能出现在此函数参数列表中
+  - 示例:
+    ```python
+    var = 100
+    def f1():
+        var = 200
+        print("f1里的 var =", var)
+
+        def f2():
+            nonlocal var  # 声明var为f2以外,全局变量以内的变量
+            var = 300
+        f2()
+        print('f1调用结束时 var =', var)
+
+    f1()
+    print("全局的 var =", var)
+    ```
+    运行结果：
+    ```
+    f1里的 var = 200
+    f1调用结束时 var = 300
+    全局的 var = 100
+    ```
+
+#### 6.5.2.3. 利用可变对象“穿透”作用域限制
 - 前面我们提到，当局部作用域的变量名和外部同名时，如果没有直接引用，直接创建新对象进行重新赋值绑定后，会在当前局部作用域创建一个同名局部变量，并且与外部互相不干扰。
 - <font color="red">但当外界的这个变量绑定的是一个可变对象，并且我们不创建新对象进行重新绑定，直接对这个可变对象操作改动会发生什么？</font>
 - 对这个可变对象内部进行数据修改，将能实现内部影响外界空间，内部数据可以同外界共通，实现“穿透”作用域限制。
@@ -688,6 +779,7 @@ f(L)
 print(L)  # [200, 200, 300, 400]
 ```
 
+<span id='lambda'></span>
 
 ## 6.6. 高级函数
 ### 6.6.1. lambda表达式（lambda匿名函数）
@@ -706,18 +798,24 @@ print(L)  # [200, 200, 300, 400]
 - 只能包含一条表达式
 
 ---
-示例：
+示例：lambda函数理解
 ```python
+# 1) 普通函数func_add的定义
 def func_add(x, y):
     return x + y
 print(func_add(10, 20))  # 30
 
-# 对于函数func_add, 可以使用lambda表达式一行定义
-myadd = lambda x,y: x + y
+# 2) 对于函数func_add, 可以使用lambda表达式一行定义
+myadd = lambda x, y: x + y
 print(myadd(10, 20))  # 30
 
-myadd = lambda: print('hello', end=' ')
-print(myadd())  # hello None
+# 3) 语法理解 x 为形参接收值, 后面紧跟表达式返回值
+myfunc = lambda x: 123 + x
+print(myfunc(100))  # 223
+
+# lambda可以行使正常函数的所有功能
+myfunc = lambda: print('hello', end=' ')
+print(myfunc())  # hello None
 
 # 求1到10的平方和
 fun = lambda x: sum([x * x for x in range(1, x + 1)])
@@ -731,23 +829,23 @@ print(fun(10))  # 385
   - 格式:
     - `eval(source [, globals=None[, locals=None]])`
   - 运行机制：
-    - 先将参数1字符串表达式格式化预执行，再用参数2赋值，再用参数3赋值
-  - 示例1：
+    - 先将 参数1 字符串表达式 格式化预执行，再用 参数2 变量赋值，再用 参数3 变量赋值，最后进行执行操作
+  - 示例1：基本使用
     ```python
     a = eval('1')  # 创建数值1对象
     b = eval('[]')  # 创建列表空对象
     c = eval('a + 10')  # 计算 a + 10
     print(a, b, c)  # 1 [] 11
     ```
-  - 示例2：
+  - 示例2：高级使用
     ```python
     x = 10
     y = 20
-    print(eval('x + y'))  # 30
     # 自定义global环境变量，local环境变量
+    print(eval('x + y'))  # 30
     print(eval('x + y', {'x':1, 'y':2}))  # 3
     print(eval('x + y', {'x':1, 'y':2}, {'x':100}))  # 102
-    # print(eval('x + y', {'x':1}))  # 无y报错
+    # print(eval('x + y', {'x':1}))  # 报错，无y
     ```
 
 - exec函数:
@@ -759,258 +857,503 @@ print(fun(10))  # 385
     ```python
     x = 100
     y = 200
-    s = '''z = x+y
-    print('z =', z)
-    print("hello world!")
-    '''
-    exec(s)  # 执行 s这个字符串  # z= 300  # hello world!
+    s = '\n'.join(('z = x+y',
+                   'print("z =", z)',
+                   'print("hello world!")'))
+    exec(s)  # 执行 s这个字符串语句
+    ```
+    ```
+    z= 300
+    hello world!
     ```
   - 示例2: 执行过后的变量也会更新到给定环境中
     ```python
     x = 100
     y = 200
+    s = '\n'.join(('z = x+y',
+                   'print("z =", z)',
+                   'print("hello world!")'))
     dict_local = {'x': 1}
+    print(dict_local)
     exec(s, None, dict_local)  # z= 201   # hello world!
-    print(dict_local)  # {'x': 1, 'z': 201}
+    print(dict_local)
     ```
-  - 注：
-    - 当字符串过长时，可以使用隐式换行：`\`或`('' '' '')`。详细描述见第三章 [长字符串的换行](00.Python/Chapter03.DataContainers.md#huanhang)。
+    ```
+    {'x': 1}
+    z = 201
+    hello world!
+    {'x': 1, 'z': 201}
+    ```
+  - 提示：
+    - 当字符串过长时，可以使用显式换行或隐式换行：`\`或`('' '' '')`。详细描述见第三章 [长字符串的换行](00.Python/Chapter03.DataContainers.md#huanhang)。
 
-6.7  	函数式编程
+## 6.7. 函数式编程
 - 函数式编程
-概念：是指用一系列函数解决问题
-  函数是一等公民(Guido)
+  - 是指用一系列函数解决问题
+
+- 函数是一等公民(Guido)
   1. 函数本身可以赋值给变量,赋值后变量绑定函数
   2. 允许将函数本身作为参数传入另一个函数
   3. 允许函数返回一个函数
-好处:
-  用每一个函数完成细小的功能,一系列函数在任意组合可以完成大问题
-函数的可重入性:
-当一个函数在运行时不读取和改变除局部作用域以外的变量时,此函数为可重入函数
-可重入函数在每次调用时,如果参数一定,则结果必然一定
+
+- 好处:
+  - 用每一个函数完成细小的功能,一系列函数在任意组合可以完成大问题
+
+- 函数的可重入性:
+  - 当一个函数在运行时不读取和改变除局部作用域以外的变量时,此函数为可重入函数
+  - 可重入函数在每次调用时,如果参数一定,则结果必然一定
+
 示例:
-  可重入函数:
-def add1(x, y):
-	return x + y
-    
-  不可重入函数示例:
-y = 200
-def add2(x):
-    return x + y
-print(add2(10))  # 210
-y = 300
-print(add2(10))  # 310
+- 可重入函数:
+    ```python
+    def add1(x, y):
+        return x + y
+    ```
 
+- 不可重入函数示例:
+    ```python
+    y = 200
+    def add2(x):
+        return x + y
+    print(add2(10))  # 210
+    y = 300
+    print(add2(10))  # 310
+    ```
 
-6.7.1  	高阶函数
-概念：什么是高阶函数(high order function)？
-    满足下列条件中一个的函数即为高阶函数
+### 6.7.1. 高阶函数
+- 概念：什么是高阶函数(high order function)？
+  - 满足下列条件中一个的函数即为高阶函数
       1. 函数接收一个或多个函数作为参数传入
       2. 函数返回一个函数
-- python中内建的高阶函数:
+- python中内建的高阶函数:  
   map, filter, sorted
-map是用函数取迭代对象的值
-filter是用函数判断筛选对象的值
-sorted是用函数排序对象的值
-6.7.1.1	map 函数
-格式：
-	map(func, *iterables)
-	func是<可传参函数>，*iterables是<可迭代对象>
-用函数和对可迭代对象中的每一个元素作为参数返回新的可迭代对象;当最短的一个可迭代对象不再提供数据时迭代结束
-返回：
-可迭代对象
-要求: 
-func函数接收的参数个数必须与可迭代对象的个数相同【？我不认同】
-示例:
->>> def square(x) :            # 计算平方数
-        return x ** 2
->>> map(square, [1,2,3,4,5])   # 计算列表各个元素的平方
-[1, 4, 9, 16, 25]
->>> map(lambda x: x ** 2, [1, 2, 3, 4, 5])  # 使用 lambda 匿名函数
-[1, 4, 9, 16, 25]
+  - map 是用函数取迭代对象的值
+  - filter 是用函数判断筛选对象的值
+  - sorted 是用函数排序对象的值
 
-# 提供了两个列表，对相同位置的列表数据进行相加
->>> map(lambda x, y: x + y, [1, 3, 5, 7, 9], [2, 4, 6, 8, 10])
-[3, 7, 11, 15, 19]
+#### 6.7.1.1. map 函数
+- 格式：
+    ```python
+    map(func, *iterables)
+    func是<可传参函数>，*iterables是<可迭代对象>
+    ```
+- 用函数和对可迭代对象中的每一个元素作为参数返回新的可迭代对象; 当最短的一个可迭代对象不再提供数据时迭代结束
+
+- 返回： 迭代器对象（数据只能取出一次）
+- 要求:  func函数接收的参数个数必须与可迭代对象的个数相同
+
+map常于lambda表达式联用
+
+---
+示例1: 单个参数个数
+```python
+def square(x) :            # 计算平方数
+    return x ** 2
+
+# 自定义函数
+print(*map(square, [1, 2, 3, 4, 5]))   # 计算列表各个元素的平方
+# 1 4 9 16 25
+
+# map与lambda联用, 使用 lambda 匿名函数
+print(*map(lambda x: x ** 2, [1, 2, 3, 4, 5]))
+# 1 4 9 16 25
+print(*map(lambda x: x ** 2 , range(1, 6)))
+# 1 4 9 16 25
 
 # 字符拼接
->>> list = ['abc','def','xyz']
->>> map(lambda x: 'str_'+x, list);
-['str_abc', 'str_def', 'str_xyz']
+L = ['abc', 'def', 'xyz']
+print(*map(lambda x: 'str_' + x, L))
+# str_abc str_def str_xyz
+```
 
-for x in map(lambda x: x**2 , range(1, 5)):
-    print(x, end=' ')  # 1 4 9 16
-for x in map(lambda x, y: x + y, [1, 2, 3, 4], [5, 6, 7, 8, 9, 10]):
-    print(x, end=' ')  # 6 8 10 12
+示例2：多个参数个数
+```python
+# 提供了两个列表，对相同位置的列表数据进行相加
+L1 = [1, 3, 5, 7, 9]
+L2 = [2, 4, 6, 8, 10]
+print(*map(lambda x, y: x + y, L1, L2))
+# [3, 7, 11, 15, 19]
 
-练习 :
-  1. 求 1**2 + 2**2 + 3**2 + ...+ 9**2的和
-     (用函数式和高阶函数map实现)
-s=0
-for x in map(lambda x:x**2,range(1,10)):
-    s+=x
-print(s)
-  2. 求: 1**9 + 2**8 + 3**7 + .... + 9**1的和
-s = 0
-for x in map(lambda x, y: x ** y,
-             range(1, 10),
-             reversed(range(1, 10))):
-    s += x
-print(s)
+# 长度不等时
+L1 = [1, 2, 3, 4]
+L2 = [5, 6, 7, 8, 9, 10]
+print(*map(lambda x, y: x + y, L1, L2))
+
+# 提供3个列表，接收的参数个数必须与可迭代对象的个数相同
+L1 = [1, 2, 3]
+L2 = [4, 5, 6]
+L3 = [7, 8 ,9]
+print(*map(lambda x, y, z: x + y + z, L1, L2, L3))
+# 12 15 18
+```
+
+练习：
+- 求: `1**9 + 2**8 + 3**7 + .... + 9**1`的和
+```python
+print(*map(lambda x, y: x ** y,
+           range(1, 10),
+           reversed(range(1, 10))))
+# 1 256 2187 4096 3125 1296 343 64 9
+```
 
 
-6.7.1.2	filter 函数:
-格式:
-filter(function, iterable)
-作用:
-筛选可迭代对象iterable中的数据,返回一个可迭代对象,此可迭代对象将对iterable提供的数据进行筛选
-说明:
-函数function 将对iteralbe中的每个元素进行求布尔值,返回True则保留,返回False则丢弃
-示例见:
-print('test1:')
-for x in filter(lambda x: x % 2 == 1, range(41, 53)):
-    print(x, end=' ')    # 41 43 45 47 49 51
+#### 6.7.1.2. filter 函数:
+- 格式:
+  - `filter(function, iterable)`
+  - 返回：迭代器对象
+- 作用:
+  - 筛选可迭代对象iterable中的数据, 返回一个可迭代对象, 此可迭代对象将对iterable提供的数据进行筛选
+- 说明:
+  - 函数function 将对iteralbe中的每个元素进行求布尔值, 返回True则保留, 返回False则丢弃
 
-print('\ntest2:')
+---
+示例：常与lambda联用
+```python
 def func1(x):
     if x % 2 == 1:
         return x
-for x in filter(func1, range(41, 53)):
-    print(x, end=' ')    # 41 43 45 47 49 51
+
+print(*filter(func1, range(10)))
+# 1 3 5 7 9
+
+print(*filter(lambda x: x % 2 == 1, range(10)))
+# 1 3 5 7 9
+```
+
 
 练习:
   1. 把之前写的is_prime(x)判断x是否为素数的函数复制过来
      1) 用filter函数把100到200的全部素数求出来,放入列表L中
      2) 求300 ~ 400之间全部素数的和
 
+<span id='sorted'></span>
 
-    
-6.7.1.3	sorted 函数
-作用:
-将原可迭代对象提供的数据进行排序，生成排序后的列表
-格式:
-sorted(iterable, key=None, reverse=False)
-说明:
-iterable 可迭代对象
-key 函数是用来提供一个排序参考值的函数，这个函数的返回值将作为排序的依据
-key的值有：
-reverse 标志用来设置是否降序排序
-- 简单示例:
+#### 6.7.1.3. sorted 函数
+- 作用:
+  - 将原可迭代对象提供的数据进行排序，生成排序后的列表
+- 格式:
+  - `sorted(iterable, key=None, reverse=False)`
+  - 说明:
+    - `iterable` 可迭代对象
+    - `key` 函数是用来提供一个排序参考值的函数，这个函数的返回值将作为排序的依据
+    - `reverse` 标志用来设置是否降序排序
+  - 返回
+    - 列表`list`
+- 理解：
+  - 此处的`key=`需要传递一个函数，相当于将`iterable`中的每一个元素迭代取出，传入`key=`处给定的函数，通过函数处理返回的值组成的新的迭代对象，通过该新对象的排序映射回`iterable`完成排序。
+
+- 与列表中自带方法 `L.sort()` 有什么区别？
+  - `sorted(L)`
+    - 是Building域名空间的一个系统函数；
+    - 是将L作为参数输入，返回新列表，对原列表无影响；
+  - `L.sort()`
+    - 是list类中的一个方法，只能痛殴；
+    - 是将L的内部元素进行直接排列，不返回新对象
+  - 示例：
+    ```python
+    L = [3, 5, 4, 2, 1]
+    L2 = sorted(L)
+    print("L:", L, "L2:", L2)
+    # L: [3, 5, 4, 2, 1] L2: [1, 2, 3, 4, 5]
+    a = L.sort()
+    print("L:", L, "a:", a)
+    # L: [1, 2, 3, 4, 5] a: None
+    ```
+---
+示例1: sorted的简单示例
+```python
 L = [5, -2, -4, 0, 3, 1]
-L2 = sorted(L)  # [-4, -2, 0, 1, 3, 5]
-# 要得到这样的结果该怎么办？
-L3 = sorted(L, key=abs)  # [0, 1, -2, 3, -4, 5]
+print(sorted(L))  # 直接按大小排序
+# [-4, -2, 0, 1, 3, 5]
+print(sorted(L, key=abs))  # 按绝对值排序
+# [0, 1, -2, 3, -4, 5]
+print(sorted(L, key=abs, reverse=True)  # 按绝对值降序排序
+# [5, -4, 3, -2, 1, 0]
+```
 
-names = ['Tom', 'Jerry', 'Spike', 'Tyke']
-L = sorted(names, key=len)
-# 结果 ['Tom', 'Tyke', 'Jerry', 'Spike']
-- 示例：与lambda高级联用
-1、lambda与sorted联用对列表里的字典排序
->>> L = [{'a': 1, 'b': 4}, {'a': 1111, 'b': 2}, {'a': 1111, 'b': 3}]
->>> sorted(L, key=lambda d: d['b'], reverse=False)
-[{'a': 1111, 'b': 2}, {'a': 1111, 'b': 3}, {'a': 1, 'b': 4}]
-2、对字典进行按key排序
->>> d={'a':25,'c':27,'b':20,'d':22}
->>> sorted(d.keys())
-['a', 'b', 'c', 'd']
-3、对字典进行按values排序
->>> d={'a':25,'c':27,'b':20,'d':22}
->>> sorted(d.items(),key=lambda item:item[1])
-[('b', 20), ('d', 22), ('a', 25), ('c', 27)] 
->>> sorted(d.items(),key=lambda item:item[1],reverse=True)
-[('c', 27), ('a', 25), ('d', 22), ('b', 20)]
-4、对列表多重排序
->>> sorted([2,3,4,1],key=lambda x: x)
-[1, 2, 3, 4]
->>> sorted([2,3,4,1],key=lambda x: x*-1)
-[4, 3, 2, 1]
->>> sorted([['a',2], ['b',3], ['c',4], ['d',1]],key=lambda x: x[1]*-1)
-[['c', 4], ['b', 3], ['a', 2], ['d', 1]]
-对sorted的key=function中lambda的理解：
->>> sorted([['a',2, 1], ['b',3,1],['bb',4,1], ['c',4,2], ['d',1,2]],key=lambda x: (x[2], x[1]*-1))
-[['bb', 4, 1], ['b', 3, 1], ['a', 2, 1], ['c', 4, 2], ['d', 1, 2]]
-
->>> def fn(x):
-...     return (x[2], x[1]*-1)
-...
->>> sorted([['a',2, 1], ['b',3,1],['bb',4,1], ['c',4,2], ['d',1,2]],key=fn)
-[['bb', 4, 1], ['b', 3, 1], ['a', 2, 1], ['c', 4, 2], ['d', 1, 2]]
+---
+示例2: sorted原理解析 —— 自定义函数实现sorted
+```python
+# sorted原理解析 —— 自定义函数实现sorted
+def my_sorted(iters, key=None, reverse=None):
+    if key:
+        DICT = dict()
+        for it in iters:
+            # 用函数处理过后的值做键, 处理相同的键加入列表
+            DICT.setdefault(key(it), []).append(it)
+        INDEX = list(DICT)  # 获得函数处理过后的值列表
+        INDEX.sort(reverse=reverse)  # 排序
+        # 按顺序展开
+        return [xx for x in INDEX for xx in DICT[x]]
+    else:
+        INDEX = list(iters)
+        INDEX.sort(reversed=reverse)
+        return INDEX
 
 
+names = ['Tom', 'Spike', 'Jerry', 'Tyke']
 
-利用模块，编程排序（不如lambda灵活，特别是目前未找到多重排序如何实现一正排序同时一负排序）
-Operator 模块函数（python 列表排序方法sort、sorted技巧篇 - whaben - 博客园）
+L = sorted(names, key=len, reverse=True)
+print(L)  # 结果 ['Tom', 'Tyke', 'Jerry', 'Spike']
 
-上面的key参数的使用非常广泛，因此python提供了一些方便的函数来使得访问方法更加容易和快速。operator模块有itemgetter，attrgetter，从2.6开始还增加了methodcaller方法。使用这些方法，上面的操作将变得更加简洁和快速：
+L = my_sorted(names, key=len, reverse=True)
+print(L)  # 结果 ['Tom', 'Tyke', 'Jerry', 'Spike']
+```
 
->>> from operator import itemgetter, attrgetter
->>> sorted(student_tuples, key=itemgetter(2))
-[('dave', 'B', 10), ('jane', 'B', 12), ('john', 'A', 15)]
->>> sorted(student_objects, key=attrgetter('age'))
-[('dave', 'B', 10), ('jane', 'B', 12), ('john', 'A', 15)]
+---
+高级示例：
+- `lambda`与`sorted`高级联用
+1. 对列表里的字典排序
+```python
+L = [{'a': 1, 'b': 4}, {'a': 1111, 'b': 2}, {'a': 1111, 'b': 3}]
+L_sorted = sorted(L, key=lambda d: d['b'], reverse=False)
+# [{'a': 1111, 'b': 2}, {'a': 1111, 'b': 3}, {'a': 1, 'b': 4}]
+```
 
-operator模块还允许多级的排序，例如，先以grade，然后再以age来排序：
->>> sorted(student_tuples, key=itemgetter(1,2))
+2. 对字典进行按key排序
+```python
+d = {'a':25, 'c':27, 'b':20, 'd':22}
+L_sorted = sorted(d.items(), key=lambda x:x[0])
+print(L_sorted)
+# [('a', 25), ('b', 20), ('c', 27), ('d', 22)]
+```
+
+3. 对字典进行按values排序
+
+```python
+d = {'a':25, 'c':27, 'b':20, 'd':22}
+L_sorted = sorted(d.items(), key=lambda x:x[1])
+print(L_sorted)
+# [('b', 20), ('d', 22), ('a', 25), ('c', 27)]
+```
+
+4. 降序排序的另类写法
+   - 问题一：如何对字母进行数学上写法的降序排序？  
+     利用`ord()`函数转为编码值，再`*-1`
+```python
+Data = [['y', 2], ['x', 3], ['z', 4], ['a',1]]
+
+# 对每个列表的第一个值进行正常排序
+print(sorted(Data, key=lambda x: x[0]))
+# [['a', 1], ['x', 3], ['y', 2], ['z', 4]]
+# 对每个列表的第一个值进行降序排序
+print(sorted(Data, key=lambda x: x[0], reverse=True))
+# [['z', 4], ['y', 2], ['x', 3], ['a', 1]]
+print(sorted(Data, key=lambda x: ord(x[0])*-1))  # 问题一
+# [['z', 4], ['y', 2], ['x', 3], ['a', 1]]
+
+# 对每个列表的第二个值进行正常排序
+print(sorted(Data, key=lambda x: x[1]))
+# [['a', 1], ['y', 2], ['x', 3], ['z', 4]]
+# 对每个列表的第二个值进行降序排序
+print(sorted(Data, key=lambda x: x[1], reverse=True))
+# [['z', 4], ['x', 3], ['y', 2], ['a', 1]]
+print(sorted(Data, key=lambda x: x[1]*-1))
+# [['z', 4], ['x', 3], ['y', 2], ['a', 1]]
+```
+
+5. 多重排序
+   - 难点：  
+     如何实现部分列的升序和部分列的降序排序同时存在？
+```python
+# - 排序规则
+#   - 先按照书籍编号降序排序
+#   - 再按照书名正序排序
+#   - 再按照年份降序排序
+
+# 书籍的编号
+number = {
+    "Robinson Crusoe": "B",
+    "The Old Man and the Sea": "A",
+    "The Little Prince": "C",
+    "Secret garden": "A",
+    "Thorn bird": "A"
+}
+
+# 年份，书籍，销售额
+data_text = """2017,126,Robinson Crusoe
+2017,110,The Old Man and the Sea
+2017,152,The Little Prince
+2017,98,Secret garden
+2017,89,Thorn bird
+2018,116,Robinson Crusoe
+2018,98,The Old Man and the Sea
+2018,176,The Little Prince
+2018,79,Secret garden
+2018,90,Thorn bird
+2019,122,Robinson Crusoe
+2019,102,The Old Man and the Sea
+2019,187,The Little Prince
+2019,102,Secret garden
+2019,103,Thorn bird"""
+
+Datas = [x.split(',') for x in data_text.splitlines()]
+# 对数据进行排序
+result = sorted(Datas, key=lambda x: (ord(number[x[2]])*-1,
+                                      x[2], int(x[0])*-1))
+# 结果的打印
+for x in result:
+    print(number[x[2]], *x, sep='\t')
+```
+运行结果：
+```
+C       2019    187     The Little Prince
+C       2018    176     The Little Prince
+C       2017    152     The Little Prince
+B       2019    122     Robinson Crusoe
+B       2018    116     Robinson Crusoe
+B       2017    126     Robinson Crusoe
+A       2019    102     Secret garden
+A       2018    79      Secret garden
+A       2017    98      Secret garden
+A       2019    102     The Old Man and the Sea
+A       2018    98      The Old Man and the Sea
+A       2017    110     The Old Man and the Sea
+A       2019    103     Thorn bird
+A       2018    90      Thorn bird
+A       2017    89      Thorn bird
+```
+
+- itemgetter与attrgetter模块的使用
+  - 可以简化代码
+```python
+from operator import itemgetter
+
+student_tuples = [
+    ('john', 'A', 15),
+    ('jane', 'B', 12),
+    ('dave', 'B', 10),
+]
+
+# 按照索引为2的数据排序
+print(sorted(student_tuples, key=itemgetter(2)))
+# [('dave', 'B', 10), ('jane', 'B', 12), ('john', 'A', 15)]
+
+# 多重排序：按照索引为1，再按照2的数据排序
+print(sorted(student_tuples, key=itemgetter(1, 2)))
+# [('john', 'A', 15), ('dave', 'B', 10), ('jane', 'B', 12)]
+```
+```python
+from operator import attrgetter
+
+ class Student:
+        def __init__(self, name, grade, age):
+                self.name = name
+                self.grade = grade
+                self.age = age
+        def __repr__(self):
+                return repr((self.name, self.grade, self.age))
+
+student_objects = [
+        Student('john', 'A', 15),
+        Student('jane', 'B', 12),
+        Student('dave', 'B', 10),
+]
+
+# 按age排序
+print(sorted(student_objects, key=attrgetter('age')))
+# [('dave', 'B', 10), ('jane', 'B', 12), ('john', 'A', 15)]
+
+# 多重排序，先以grade，然后再以age来排序
+print(sorted(student_objects, key=attrgetter('grade', 'age')))
 [('john', 'A', 15), ('dave', 'B', 10), ('jane', 'B', 12)]
->>> sorted(student_objects, key=attrgetter('grade', 'age'))
-[('john', 'A', 15), ('dave', 'B', 10), ('jane', 'B', 12)]
-
+```
 
 练习:
-  已知:
-    names = ['Tom', 'Jerry', 'Spike', 'Tyke']
-  排序的依据为原字符串反序的字符串
-             'moT', 'yrreJ', 'ekipS', 'ekyT'
-  结果:
-    ['Spike', 'Tyke', 'Tom', 'Jerry']
+  - 已知:
+    - `names = ['Tom', 'Jerry', 'Spike', 'Tyke']`
+  - 排序的依据为原字符串反序的字符串
+    - `'moT', 'yrreJ', 'ekipS', 'ekyT'`
+  - 结果:
+    - `['Spike', 'Tyke', 'Tom', 'Jerry']`
+
 参考：
->>> sorted(['Tom', 'Jerry', 'Spike', 'Tyke'],key=lambda x:x[::-1])
+```python
+>>> sorted(['Tom', 'Jerry', 'Spike', 'Tyke'],
+           key=lambda x:x[::-1])
 ['Spike', 'Tyke', 'Tom', 'Jerry']
-
-#### 排序操作
-- sorted函数
-```python
-sorted(iterable[, reverse=False])
-  对任意可迭代元素排序，返回生成一个排序后的列表
-选项:
-  iterable    可以是序列
-  reverse     默认缺省参数reverse=True，代表正序，False代表逆序
 ```
-- 列表中自带方法
-```python
-L.sort()
-```
-列表中的方法L.sort()与函数方法L.sorted()有什么区别？
-示例：
-L2 = sorted(L)
 
+### 6.7.2. 递归函数 recursion
 
-6.7.2  	递归函数 recursion
-- 递归函数
-直接或间接的调用自身的函数
+递归函数
+  - 直接或间接的调用自身的函数
+
 特征：
-递归一定要控制递归的层数，当符合一定条件时要终止递归调用 
-几乎所有的递归都能用while循环来代替
-- 优点:
-递归可以把问题简单化，让思路更为清晰,代码更简洁
-- 缺点:
-递归因系统环境影响大，当递归深度太大时，可能会得到不可预知的结果
-示例:
-def f():
-  f()  # 直接调用自己，进入递归
-f()
-# 函数间接调用自身
-def fa():
-  fb()
-def fb():
-  fa()
-fa()
-print("递归完成")
+  - 递归一定要控制递归的层数，当符合一定条件时要终止递归调用 
+  - 几乎所有的递归都能用while循环来代替
 
-- 注意事项：
-递归要防止栈溢出，有调用层数限制。
-当递归层数过多会出现报错，应使用循环替代
-示例：
+核心思想：
+  - 递归的实现方法： 先假设函数已经实现
+
+优缺点：
+  - 优点:
+    - 递归可以把问题简单化，让思路更为清晰,代码更简洁
+  - 缺点:
+    - 递归因系统环境影响大，当递归深度太大时，可能会得到不可预知的结果
+
+递归的两个阶段：
+  - 递推阶段: 从原问题出发，按递归公式递推从未知到已知，最终达到递归的终止条件
+  - 回归阶段: 按递归终止条件求出结果，逆向逐步代入递归公式，回归到问题求解
+
+注意事项：
+  - 递归要防止栈溢出，有调用层数限制。
+  - 当递归层数过多会出现报错，应使用循环替代
+
+#### 6.7.2.1. 递归的简易示例
+---
+示例1: 直接调用自身
+```python
+def f(n):
+    if n == 0:
+        print('递归结束')
+    else:
+        print('递归中, n:', n)
+        f(n-1)  # 直接调用自己，进入递归
+        print('函数返回, n:', n)
+f(3)
+```
+```
+递归中, n: 3
+递归中, n: 2
+递归中, n: 1
+递归结束
+函数返回, n: 1
+函数返回, n: 2
+函数返回, n: 3
+```
+
+---
+示例2: 间接调用自身
+```python
+# 函数间接调用自身
+def fa(a):
+    if a == 0:
+        print('递归结束')
+    else:
+        print('递归中, n:', a)
+        fb(a)
+        print('函数返回, n:', a)
+
+def fb(b):
+    fa(b-1)
+
+fa(3)
+```
+```
+递归中, n: 3
+递归中, n: 2
+递归中, n: 1
+递归结束
+函数返回, n: 1
+函数返回, n: 2
+函数返回, n: 3
+```
+
+---
+示例3：递归层数控制
+code1：使用递归逆向实现
+```python
 def f(n):
     if n == 1:
         return 1
@@ -1019,7 +1362,9 @@ def f(n):
 
 f(998)  # 正常运行
 # f(999)  # 报错，RecursionError
-
+```
+code2：改用while正向实现
+```python
 def f(n):
     r = 1
     i = 1
@@ -1030,127 +1375,145 @@ def f(n):
 
 f(998) # 正常运行
 f(999) # 正常运行
+```
 
-
-- 递归的两个阶段：
-递推阶段:  从原问题出发，按递归公式递推从未知到已知，最终达到递归的终止条件
-回归阶段: 按递归终止条件求出结果，逆向逐步代入递归公式，回归到问题求解
-
-示例见:
-def fn(n):
-    print("递归进入第", n, '层')
-    # 当递归进入第三层时，将不再向下走，开始回归
-    if n == 3:
-        return
-    fn(n + 1)
-    print('递归退出第', n, '层')
-
-fn(1)
-print("程序结束")
-
-'''
-递归进入第 1 层
-递归进入第 2 层
-递归进入第 3 层
-递归退出第 2 层
-递归退出第 1 层
-程序结束
-'''
-
-
-示例:
-写一个函数求n的阶乘（递归实现）
-  见:
+#### 6.7.2.2. 递归的实例应用
+---
+示例1: 写一个函数求n的阶乘（递归实现）
+```python
 def myfac(n):
     if n == 1:
         return 1
     return n * myfac(n-1)
 
 print('5的阶乘是:', myfac(5))
+```
+运行结果：
+```
+5的阶乘是: 120
+```
+原理理解：
+```
+f(5)
+= 5 * f(4)
+= 5 * 4 * f(3)
+= 5 * 4 * 3 * f(2)
+= 5 * 4 * 3 * 2 * f(1)
+= 5 * 4 * 3 * 2 * 1
+= 120
+```
 
-- 递归的实现方法
-先假设函数已经实现
+---
+示例2: 
+```python
+def fn(n):
+    # 当递归进入第三层时，将不再向下走，开始回归
+    if n >= 3:
+        return 1
+    else:
+        return fn(n + 1) + fn(n + 2)
 
-练习:
-  写一个函数mysum(n), 用递归方法求
-    1 + 2 + 3 + 4 + .... + n的和
-  def mysum(n):
-      ....
-  print(mysum(100))  # 5050
+s = fn(0)
+print("程序结束, s:", s)
+```
+运行结果：
+```
+程序结束, s: 5
+```
+原理理解：
+```
+f(0)
+= f(1) + f(2)
+= f(2) + f(3) + f(3) + f(4)
+= f(3) + f(4) + f(3) + f(3) + f(4)
+= 5
+```
+
+---
+练习1 :  
+写一个函数mysum(n), 用递归方法求`1 + 2 + 3 + 4 + .... + n`的和
+
+```python
 def mysum(n):
     if n == 1:
         return 1
     return n + mysum(n-1)
 
 print(mysum(4))
+```
 
-练习:
-  1. 已知:
-      第五个人比第四个人大2岁
-      第四个人比第三个人大2岁
-      第三个人比第二个人大2岁
-      第二个人比第一个人大2岁
-      第一个人说他10岁
-    编写程序算出第5个人几岁?
-      (思考是否可以使用递归和循环两种方式来做)
+练习2 :
+  1. 已知:  
+      第五个人比第四个人大2岁  
+      第四个人比第三个人大2岁  
+      第三个人比第二个人大2岁  
+      第二个人比第一个人大2岁  
+      第一个人说他10岁  
+      编写程序算出第5个人几岁?  
+      (思考是否可以使用递归和循环两种方式来做)  
+```python
 # 循环实现
-x=1
-age=10
-while x<5:
-    age=age+2
-    x+=1
-print(age)
+x = 1
+age = 10
+while x < 5:
+    age = age + 2
+    x += 1
+print(age)  # 18
+```
 
+```python
 # 递归实现
 def f(n):
-    if n==1:
+    if n == 1:
         return 10
-    return 2+f(n-1)
-print(f(5))
-  2. 已知有列表:
-     L = [[3, 5, 8], 10, [[13, 14], 15, 18], 20]
-     1) 写一个函数print_list(lst)打印出列表内的所有元素
-        print_list(L)  # 3 5 8 10 13 14...
-     2) 写一个函数sum_list(lst): 返回这个列表中所有元素的和
-       print(sum_list(L))  # 86
-    注:
-      type(x) 可以返回一个变量的类型
-      如:
-        >>> type(20) is int  # True
-        >>> type([3, 5, 8]) is list  # True
+    return 2 + f(n-1)
+print(f(5))  # 18
+```
+
+练习3 ：  
+- 已知有列表:
+  - `L = [[3, 5, 8], 10, [[13, 14], 15, 18], 20]`
+- 写一个函数print_list(lst)打印出列表内的所有元素
+  - `print_list(L)  # 3 5 8 10 13 14...`
+- 写一个函数sum_list(lst): 返回这个列表中所有元素的和
+  - `print(sum_list(L))  # 86`
+```python
 def func(x):
-    if type(x) == typeL:
+    if type(x) == typeL:  # 判断类型
         for xx in x:
             if type(xx) == typeL:
                 # 使用return跳转后将不会回到原函数
                 # return func(xx)
                 func(xx)
             else:
-                print(xx)
                 newL.append(xx)
     else:
-        print(x)
         newL.append(x)
+
 L = [[3, 5, 8], 10, [[13, 14], 15, 18], 20]
 typeL = type(L)  # type([3, 5, 8]) is list  # True
 newL = []
+add_num = 0
 func(L)
 print('\nnewL:\n', newL)
+```
 
-
-
-6.7.3  	闭包 closure 闭包函数
+### 6.7.3. 闭包 closure 闭包函数
 概念：
-闭包是指引用了此函数外部嵌套函数作用域变量的函数
+- 闭包是指引用了此函数外部嵌套函数作用域变量的函数
+
 语法：
-闭包必须满足三个条件:
+- 闭包必须满足三个条件:
   1. 必须有内嵌函数（def一行）
   2. 内嵌函数必须引用外部函数中的变量（y）
   3. 外部函数返回值必须是内嵌函数.（fn）
+
 应用：
-定义一次以后可以减少传参数量
-- 实例：
+- 定义一次以后可以减少传参数量
+
+---
 示例1:
+```python
 def make_power(y):
     def fn(x):
         return x ** y
@@ -1158,7 +1521,6 @@ def make_power(y):
 
 pow2 = make_power(2)
 print('5的平方是:', pow2(5))
-
 print('5的平方是:', make_power(2)(5))  # 还可以一句话直接生成
 
 pow3 = make_power(3)
@@ -1168,106 +1530,82 @@ print("6的立方是", pow3(6))
 # 1** 2 + 2**2 + 3**2 + ..... + 9 ** 2
 print(sum(map(lambda x: x**2, range(1, 9))))
 print(sum(map(make_power(2), range(1, 9))))
+```
 
-示例2：
-def get_fx(a, b, c):
-    def fx(x):
-        return a*x**2 + b*x**1 + c
-    return fx
-
-# 创建函数 f(x) = 1*x**2 + 2*x**1 + 3
-f123 = get_fx(1, 2, 3)
-print(f123(20))
-print(f123(50))
-
-f654 = get_fx(6,5,4)
-print(f654(20))
-print(f654(50))
-我的理解：
+示例2：在每做一件事之前先执行另一件事
+```python
 def f(info):
     def fn(x):
-        print('hello1')
-        print(info)
-        print(x)
+        print('do before:', info)
+        print('do:', x)
     return fn
 
-do = f('hello2')
-do('hello3')
-- 应用：减少print(file=fo)的写法次数
-import time
+do = f('Will do some things.')
 
+do('do my things 1')
+do('do my things 2')
+```
+
+示例3：自定义函数myprint，将打印日志写入文件my.log
+```python
+import time
 
 def f(foname):
     def g(*args):
         print(*args, file=fo)
+    # open函数见后续章节文件读写
     fo = open(foname, 'w', buffering=1)
     return g
 
+myprint = f('my.log')
 
-def main():
-    myprint = f('my.log')
-    # print([1, 2], {4: 4}, 1, 2)
-    myprint([1, 2], {4: 4}, 1, 2)
-    # fo.write(str([1, 2]) + str({4: 4}))
-    time.sleep(20)
-    # print([1, 2], {4: 4}, 1, 2)
-    myprint([1, 2], {4: 4}, 1, 2)
+myprint('hello')
+myprint([1, 2], {4: 4}, 1, 2)
+```
 
-
-if __name__ == '__main__':
-    main()
-
-
-  3. 改写之前的学生信息管理程序
-     要求添加四个功能:
-        | 5)  按学生成绩高-低显示学生信息 |
-        | 6)  按学生成绩低-高显示学生信息 |
-        | 7)  按学生年龄高-低显示学生信息 |
-        | 8)  按学生年龄低-高显示学生信息 |
-
-
-
-模块也是对象
-
-6.7.4  	装饰器 decorators(专业提高往篇)
-问题:
-函数名 /  函数名()  区别
-函数名是变量，它绑定一个函数
+### 6.7.4. 装饰器 decorators(专业提高往篇)
 什么是装饰器？
-概念： 
-装饰器是一个函数，主要作用是用来包装另一个函数或类(后面会讲)
-作用：
-是在不改变原函数名(或类名)的情况下改变被包装对象的行为
-函数装饰器:
-函数装饰器是指装饰器是一个函数，传入的是一个函数，返回的也是一个函数
-语法:
+- 概念： 
+  - 装饰器是一个函数，主要作用是用来包装另一个函数或类(后面会讲)
+- 作用：
+  - 是在不改变原函数名(或类名)的情况下改变被包装对象的行为
+- 函数装饰器:
+  - 函数装饰器是指装饰器是一个函数，传入的是一个函数，返回的也是一个函数
+- 语法:
+```python
 def 装饰器函数名(参数):
     语句块
     return 函数对象
+
 @装饰器函数名<换行>
 def 函数名(形参列表):
     语句块
+
 函数名()
+```
+
 优秀参考文档：
 这是我见过最全面的Python装饰器详解！没有学不会这种说法！ - Python程序员的博客 - CSDN博客
 https://blog.csdn.net/qq_42156420/article/details/81169554
 
-6.7.4.1	运行机制：
+- 运行机制：
 - 原理描述：
 1. 调用顺序，遵循入栈出栈思想
 2. 装饰器实际上是一个闭包函数
+```python
 @mydeco
 def myfunc()....
  	等同于
 myfunc = mydeco(myfunc)
+```
 - 运行过程
 1.	将函数名myfun(x)作为一个对象传入装饰器函数形参fn，即fn=myfun(x)
 2.	装饰器函数中，return返回其内部定义的子函数fx，并使用参数x
 3.	子函数内部可以直接return返回fn(n)
 
 示例见:
+```python
 import time
-
 
 def mydeco(fn):
     def fx(x, y=0):
@@ -1277,7 +1615,6 @@ def mydeco(fn):
         print('运行', time.time() - t0, '秒')
     return fx
 
-
 @mydeco
 def myfunc(x):
     time.sleep(1)
@@ -1285,11 +1622,16 @@ def myfunc(x):
 
 L = [0]
 myfunc(5)  # 相当于 f = mydeco(myfunc); f(5)
-	运行结果：
+```
+运行结果：
+```
 start 5 0
 被装饰函数 5
 运行 1.0078682899475098 秒
+```
+
 探索：
+```python
 def mydeco1(function):
     print('阶段一：程序读取mydeco1（1）')
 
@@ -1299,7 +1641,6 @@ def mydeco1(function):
         print('mydeco1，over, x=%d,y=%d' % (x, y))
     print('阶段一：程序读取mydeco1（2）')
     return func
-
 
 def mydeco2(function):
     print('阶段一：程序读取mydeco2（1）')
@@ -1319,11 +1660,12 @@ def myfunc(x):  # 1,            myfunc(5)
 
 print('-------------\n开始执行myfunc(5)')
 myfunc(5)
+```
 
-6.7.4.2	应用实例：
+#### 6.7.4.1. 应用实例：
+
+```python
 # 此示例示意再加一个装饰器用来添加余额变动提醒功能
-
-
 def send_message(fn):
     # 小姜写了一个装饰器函数用来发送短信  # send_message(fn=privillage_check(savemoney("小张", 200)))
     def fy(name, x):
@@ -1349,8 +1691,10 @@ def privillage_check(fn):
     return fx
 
 
-@send_message  # send_message(privillage_check(savemoney("小张", 200)))
-@privillage_check  # privillage_check(savemoney("小张", 200))
+# send_message(privillage_check(savemoney("小张", 200)))
+# privillage_check(savemoney("小张", 200))
+@send_message
+@privillage_check
 # 写一个操作数据的函数(此函数用来示意存钱操作)
 def savemoney(name, x):     # 魏老师写的函数,用于存钱
     print(name, '存钱', x, '元')
@@ -1398,9 +1742,11 @@ withdraw('小杜', 500)
 正在检查权限.....
 小杜无权限操作
 '''
-6.7.4.3	示例：给运行函数前后加上运行的时间
-import time
+```
 
+#### 6.7.4.2. 示例：给运行函数前后加上运行的时间
+```python
+import time
 
 def print_runtime(func):
     def do(*args, **kwargs):
@@ -1423,7 +1769,9 @@ def do(x, y, *args, **kwargs):
 if __name__ == '__main__':
     do(1, 2)
     do(1, 2, 3, 4, n=5, nn=6)
+```
 运行结果：
+```
 [开始运行]2019-09-11 15:28:21
 1 2 () {}
 [运行结束]2019-09-11 15:28:23
@@ -1433,10 +1781,11 @@ if __name__ == '__main__':
 1 2 (3, 4) {'n': 5, 'nn': 6}
 [运行结束]2019-09-11 15:28:25
 [运行了2.006秒]
+```
 
-6.7.4.4	示例：给运行函数前后加上运行的时间（格式化）
+#### 6.7.4.3. 示例：给运行函数前后加上运行的时间（格式化）
+```python
 import time
-
 
 def getformattime(n):
     s = '%.3fs' % (n % 60)
@@ -1447,7 +1796,6 @@ def getformattime(n):
             break
         s = '%d%s_' % x + s
     return s
-
 
 def print_runtime(func):
     def do(*args, **kwargs):
@@ -1461,48 +1809,56 @@ def print_runtime(func):
         print('[运行了%.3f秒] %s\n' % (t1, getformattime(t1)))
     return do
 
-
 @print_runtime
 def f(a=1):
     time.sleep(1.4)
     print(a)
 
-
 print(getformattime(3600 * 25 + 3700))
 f('ceshi')
+```
 运行结果：
+```
 1d_2h_1m_40.000s
 [开始运行]2019-10-09 23:45:06
 ceshi
 [运行结束]2019-10-09 23:45:08
 [运行了1.406秒] 1.406s
-6.8  	函数的文档字符串
+```
+
+## 6.8. 函数的文档字符串
 定义：
-函数内第一次未赋值给任何变量的字符串是此函数的文档字符串
+- 函数内第一次未赋值给任何变量的字符串是此函数的文档字符串
 说明:
 1. 文档字符串通常用来说明本函数的功能和使用方法
 2. 在交互模式下，输入:help(函数名) 可以查看函数的文档字符串
-- 语法:
+
+语法:
+```python
 def 函数名(形参列表):
     '''函数的文档字符串'''
     函数语句块
-- 查看方法：
-help(函数名) 用于查看函数的帮助信息
+```
+查看方法：  
+`help(函数名)` 用于查看函数的帮助信息
 
-函数的 __doc__ 属性
-__doc__ 属性用于记录文档字符串。用来绑定函数的文档字符串
+- 函数的 __doc__ 属性
+  - __doc__ 属性用于记录文档字符串。用来绑定函数的文档字符串
 
-函数的 __name__ 属性
-__name__ 用于记录函数的名称。用来绑定函数名(字符串)
+- 函数的 __name__ 属性
+  - __name__ 用于记录函数的名称。用来绑定函数名(字符串)
 示例:
+```python
 def hello():
     '''此函数用来打招呼...
     这是函数的文档字符串
     '''
     pass
 >>> help(hello)
+```
 
 函数的定义语法:
+```python
 @装饰器1
 @装饰器2
 ...
@@ -1510,24 +1866,29 @@ def 函数名(位置形参, *元组形参(或*), 命名关键字形参, **字典
   '''文档字符串'''
   语句块
 
-6.9  	机制研究
+```
+## 6.9. 机制研究
 函数绑定
-6.9.1  	可变对象思考（函数中的）
+### 6.9.1. 可变对象思考（函数中的）
 - 现象
 面试题,思考？
+```python
 L = [1, 2, 3]
+
 def f(n=0, lst=[]):
- lst.append(n)
- print(lst)
+    lst.append(n)
+    print(lst)
 
 f(4, L)  # 打印结果是什么？·[1, 2, 3, 4]
 f(5, L)  # 打印结果是什么？ [1, 2, 3, 4, 5]
 f(100)  [100]
 f(200)  # 打印结果是什么？为什么？  [100, 200]
+```
 
 如下代码的打印结果是什么？
-L = [1, 2, 3]
 
+```python
+L = [1, 2, 3]
 
 def f(n=0, lst=None):
     if lst is None:
@@ -1539,13 +1900,17 @@ f(4, L)  # 打印结果是什么？·[1, 2, 3, 4]
 f(5, L)  # 打印结果是什么？ [1, 2, 3, 4, 5]
 f(100)  # [100]
 f(200)  # 打印结果是什么？为什么？  [200]
-- 本质理解
-函数在一开始初始化时，初始形参的变量即被创建和绑定一个对象。
-若调用函数不再改变，绑定的对象将在之后的调用处理中也一直是该对象。
+```
 
-用列表进行函数传参ID是否变化？
-L是独立的空间，函数内可以直接更改L，内外都相同
+- 本质理解
+  - 函数在一开始初始化时，初始形参的变量即被创建和绑定一个对象。
+  - 若调用函数不再改变，绑定的对象将在之后的调用处理中也一直是该对象。
+
+  - 用列表进行函数传参ID是否变化？
+  - L是独立的空间，函数内可以直接更改L，内外都相同
+
 示例：
+```python
 >>> def f(x,L):
 ...     print("ID",id(L))
 ...     L+=[1]
@@ -1560,3 +1925,4 @@ ID 21181864
 >>> id(L)
 21181864
 
+```
