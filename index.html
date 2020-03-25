@@ -6,8 +6,7 @@
   <title>Python学习之极简笔记——从人工智能到机器智能</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="Description">
-  <meta name="viewport"
-    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <!-- <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css"> -->
   <!-- <link rel="stylesheet" href="//unpkg.com/docsify/themes/vue.css"> -->
   <link rel="stylesheet" href="./.js/vue.css">
@@ -16,6 +15,10 @@
 
   <!-- <script src="//unpkg.com/docsify" data-ga="UA-161196727-1"></script> -->
   <script src=".js/docsify" data-ga="UA-161196727-1"></script>
+
+  <!-- 流程图 -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css">
+  <script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
 
   <style>
     .sidebar>h1 a {
@@ -37,19 +40,8 @@
 <body>
 
   <script>
-    // 兼容性代码
-    function autoHeight(iframe) {
-      if (iframe) {
-        var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
-        if (iframeWin.document.body) {
-          iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
-          iframe.width = iframeWin.document.documentElement.scrollWidth || iframeWin.document.body.scrollWidth;
-        }
-      }
-    }
-    window.onload = function () {
-      autoHeight(document.getElementById('iframe'));
-    }
+    var num = 0;
+    mermaid.initialize({ startOnLoad: false });
   </script>
 
   <div id="app"></div>
@@ -64,7 +56,17 @@
         '/.*/_sidebar.md': '/_sidebar.md',
       },
       markdown: {
-        latexRender: katex.renderToString.bind(katex)
+        latexRender: katex.renderToString.bind(katex),
+        renderer: {
+          code: function (code, lang) {
+            if (lang === "mermaid") {
+              return (
+                '<div class="mermaid">' + mermaid.render('mermaid-svg-' + num++, code) + "</div>"
+              );
+            }
+            return this.origin.code.apply(this, arguments);
+          }
+        }
       },
       search: {
         placeholder: '搜索',

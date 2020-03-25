@@ -30,7 +30,7 @@
     * [Chapter04.流程控制](00.Python/Chapter04.ProcessControl.md)
     * [Chapter05.数据的遍历访问](00.Python/Chapter05.DataTraversal.md)
     * [Chapter06.函数function](00.Python/Chapter06.Function.md)
-    * *Chapter07.错误及异常处理*
+    * [Chapter07.错误及异常处理](00.Python/Chapter07.Exception.md)
     * *Chapter08.文件file及编码*
     * *Chapter09.面向对象*
     * *Chapter10.模块和包*
@@ -160,7 +160,7 @@ Python，语言简洁，活跃社区，丰富的共享资料及库等优势，�
 * [Chapter04.流程控制](00.Python/Chapter04.ProcessControl.md)
 * [Chapter05.数据的遍历访问](00.Python/Chapter05.DataTraversal.md)
 * [Chapter06.函数function](00.Python/Chapter06.Function.md)
-* *Chapter07.错误及异常处理*
+* [Chapter07.错误及异常处理](00.Python/Chapter07.Exception.md)
 * *Chapter08.文件file及编码*
 * *Chapter09.面向对象*
 * *Chapter10.模块和包*

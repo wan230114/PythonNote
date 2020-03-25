@@ -190,7 +190,7 @@ s' = std(a', b', c')
 > <h4>数学知识补充：</h4>  
 > 标准差计算：  
 > 
-> $${\rm{Std}} = \sqrt {{1 \over {n}}\sum\limits_{i = 1}^n {{{({x_i} - \overline x )}^2}} } $$
+> $$ {\rm{Std}} = \sqrt {{1 \over {n}}\sum\limits_{i = 1}^n {{{({x_i} - \overline x )}^2}} } $$
 
 
 **示例：**
