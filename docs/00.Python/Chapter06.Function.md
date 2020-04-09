@@ -1250,6 +1250,7 @@ print(*map(lambda x, y, z: x + y + z, L1, L2, L3))
 
 练习：
 - 求: `1**9 + 2**8 + 3**7 + .... + 9**1`的和
+
 ```python
 print(*map(lambda x, y: x ** y, range(1, 10), reversed(range(1, 10))))
 # 1 256 2187 4096 3125 1296 343 64 9

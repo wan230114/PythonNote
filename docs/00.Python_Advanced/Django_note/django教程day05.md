@@ -605,6 +605,7 @@
             - `import django.conf.global_settings`
 
 - 注: 当使用session时需要迁移数据库,否则会出现错误
+
 ```sh
 $ python3 manage.py makemigrations
 $ python3 manage.py migrate

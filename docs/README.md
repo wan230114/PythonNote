@@ -18,6 +18,9 @@
 > https://github.com/wan230114/PythonNote  
 > https://gitee.com/wan230114/PythonNote  (备用)</font>
 
+> **快速开始：**  
+> [>> PythonNote使用方法](Usage.md)
+
 <h3> 笔记总目录 </h3>
 
 <!-- menu -->

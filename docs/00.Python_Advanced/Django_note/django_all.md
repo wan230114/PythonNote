@@ -31,6 +31,7 @@ MTV设计模式，MTV 代表 Model-Template-View（模型-模板-视图） 模�
 
 - 默认的模块文件夹`templates`
 - 修改settings.py文件，设置TEMPLATES的DIRS值为`'DIRS': [os.path.join(BASE_DIR, 'templates')],`
+
 ```python
 # file: settings.py
 TEMPLATES = [
@@ -1840,6 +1841,7 @@ SELECT `bookstore_book`.`id`, `bookstore_book`.`title`, `bookstore_book`.`pub`, 
             - `import django.conf.global_settings`
 
 - 注: 当使用session时需要迁移数据库,否则会出现错误
+
 ```sh
 $ python3 manage.py makemigrations
 $ python3 manage.py migrate
@@ -2167,6 +2169,7 @@ Expires=max-age + 请求时间     UTC绝对时间
     - 注： 中间件中的大多数方法在返回None时表示忽略当前操作进入下一项事件，当返回HttpResponese对象时表示此请求结束，直接返回给客户端
 
 - 编写中间件类:
+
 ```python
 # file : middleware/mymiddleware.py
 from django.http import HttpResponse, Http404
@@ -2191,7 +2194,8 @@ class MyMiddleWare(MiddlewareMixin):
         return response
 ```
 - 注册中间件:
-```python
+
+python
 # file : settings.py
 MIDDLEWARE = [
     ...
@@ -2517,6 +2521,7 @@ Paginator对象的page()方法返回Page对象，不需要手动构造
     | date_joined | 用户创建的时间 |
 
 - 数据库表现形式
+
 ```sql
 mysql> use myauth;
 mysql> desc auth_user;

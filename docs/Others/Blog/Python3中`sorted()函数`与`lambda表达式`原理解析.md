@@ -226,6 +226,7 @@ print(L_sorted)
 4. 降序排序的另类写法
 - 问题一：如何对字母进行数学上写法的降序排序？
   - 利用`ord()`函数转为编码值，再`*-1`
+
 ```python
 Data = [['y', 2], ['x', 3], ['z', 4], ['a',1]]
 
@@ -251,6 +252,7 @@ print(sorted(Data, key=lambda x: x[1]*-1))
 5. 多重排序
 - 难点：
   - 如何实现部分列的升序和部分列的降序排序同时存在？
+
 ```python
 # - 排序规则
 #   - 先按照书籍编号降序排序
@@ -312,6 +314,7 @@ A       2017    89      Thorn bird
 
 - itemgetter与attrgetter模块的使用
   - 可以简化代码
+
 ```python
 from operator import itemgetter
 

@@ -10,15 +10,23 @@
   <!-- <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css"> -->
   <!-- <link rel="stylesheet" href="//unpkg.com/docsify/themes/vue.css"> -->
   <link rel="stylesheet" href="./.js/vue.css">
+
+  <!-- 数学公式 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css">
   <script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.js"></script>
+  <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" /> -->
+  <!-- <script src="//cdn.jsdelivr.net/npm/docsify-katex@latest/dist/docsify-katex.js"></script> -->
 
+
+  <!-- 谷歌统计 -->
   <!-- <script src="//unpkg.com/docsify" data-ga="UA-161196727-1"></script> -->
   <script src=".js/docsify" data-ga="UA-161196727-1"></script>
 
   <!-- 流程图 -->
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css">
-  <script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css">
+  <script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script> -->
+  <link rel="stylesheet" href="./.js/mermaid.min.css">
+  <script src="./.js/mermaid.min.js"></script>
 
   <style>
     .sidebar>h1 a {
@@ -38,12 +46,6 @@
 
 
 <body>
-
-  <script>
-    var num = 0;
-    mermaid.initialize({ startOnLoad: false });
-  </script>
-
   <div id="app"></div>
   <script>
     window.$docsify = {
@@ -113,6 +115,7 @@
     }
   </script>
 
+  <!-- 主脚本 -->
   <!-- <script src="docsify.js"></script> -->
   <!-- <script src="//unpkg.com/docsify/lib/docsify.min.js"></script> -->
   <!-- <script src="//unpkg.com/docsify/lib/docsify.js"></script>
@@ -122,7 +125,8 @@
   <script src="//unpkg.com/prismjs/components/prism-python.js"></script>
   <script src="//unpkg.com/docsify/lib/plugins/search.js"></script> -->
 
-  <script src="./.js/docsify.js"></script>
+  <script src="./.backfile/docsify.js"></script>
+  <!-- <script src="./.js/docsify.js"></script> -->
   <script src="./.js/zoom-image.js"></script>
   <script src="./.js/docsify-copy-code.min.js"></script>
   <script src="./.js/prism-bash.js"></script>
@@ -131,10 +135,10 @@
 
   <!-- Math -->
   <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      extensions: ["tex2jax.js"],
-      jax: ["input/TeX", "output/HTML-CSS"],
-      tex2jax: {
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX", "output/HTML-CSS"],
+        tex2jax: {
           inlineMath: [ ['$','$'], ["\\(","\\)"] ],
           displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
           processEscapes: true,
@@ -143,9 +147,7 @@
         "HTML-CSS": { fonts: ["TeX"] }
       });
     </script>
-  <script async="async" type="text/javascript"
-    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
+  <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
   <!-- 谷歌统计 - Google Analytics -->
   <!-- <script src="//unpkg.com/docsify" data-ga="UA-161196727-1"></script> -->
@@ -183,6 +185,12 @@
   <link rel="stylesheet" href="./.js/gitalk.css">
   <script src="./.js/gitalk.min.js"></script>
   <script src="./.js/own/plugins.gitalk.min.js"></script>
+
+  <!-- 流程图 -->
+  <script>
+    var num = 0;
+    mermaid.initialize({ startOnLoad: false });
+  </script>
   
   <!-- 广告插件定义 -->
   <script src="./.js/own/ad.js"></script>

@@ -713,12 +713,14 @@ dtype: object
 
 文本文件读取
 - 使用read_table来读取文本文件。
+
 ```python
 pandas.read_table(filepath_or_buffer, sep='\t', 
                   header='infer', names=None, index_col=None,
                   dtype=None, engine=None, nrows=None)
 ```
 - 使用read_csv函数来读取csv文件。
+
 ```python
 pandas.read_csv(filepath_or_buffer, sep=',', 
                 header='infer', names=None, index_col=None,
@@ -810,17 +812,20 @@ engine = create_engine('mysql+mysqldb://root@localhost:3306/shop)
 ```
 
 -  `read_sql_table` 只能够读取数据库的某一个表格，不能实现查询的操作。
+
 ```python
 pandas.read_sql_table(table_name, con, schema=None, index_col=None,
                       coerce_float=True, columns=None)
 ```
 
 - `read_sql_query` 则只能实现查询操作，不能直接读取数据库中的某个表。
+
 ```python
 pandas.read_sql_query(sql, con, index_col=None, coerce_float=True)
 ```
 
 - `read_sql` 是两者的综合，既能够读取数据库中的某一个表，也能够实现查询操作。
+
 ```python
 pandas.read_sql(sql, con, index_col=None, coerce_float=True, columns=None)
 ```

@@ -33,6 +33,7 @@
     | date_joined | 用户创建的时间 |
 
 - 数据库表现形式
+
 ```sql
 mysql> use myauth;
 mysql> desc auth_user;

@@ -39,6 +39,7 @@
 
 - 默认的模块文件夹`templates`
 - 修改settings.py文件，设置TEMPLATES的DIRS值为`'DIRS': [os.path.join(BASE_DIR, 'templates')],`
+
 ```python
 # file: settings.py
 TEMPLATES = [

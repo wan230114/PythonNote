@@ -228,6 +228,7 @@ Expires=max-age + 请求时间     UTC绝对时间
     - 注： 中间件中的大多数方法在返回None时表示忽略当前操作进入下一项事件，当返回HttpResponese对象时表示此请求结束，直接返回给客户端
 
 - 编写中间件类:
+
 ```python
 # file : middleware/mymiddleware.py
 from django.http import HttpResponse, Http404
@@ -252,6 +253,7 @@ class MyMiddleWare(MiddlewareMixin):
         return response
 ```
 - 注册中间件:
+
 ```python
 # file : settings.py
 MIDDLEWARE = [

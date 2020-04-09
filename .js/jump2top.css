@@ -6,7 +6,7 @@
     z-index: 99; 
     border: none;
     outline: none; 
-    /* background-color: #c1c1c1; 设置背景颜色，你可以设置自己想要的颜色或图片 */
+    background-color: #c1c1c1;  /* 设置背景颜色，你可以设置自己想要的颜色或图片 */
     color: white; /* 文本颜色 */
     cursor: pointer; 
     padding: 5px; 
