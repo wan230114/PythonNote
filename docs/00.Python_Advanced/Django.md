@@ -46,11 +46,13 @@
 
 ### 1.1.1. Django的安装
 - 查看已安装的版本
+
     ```python
     >>> import django
     >>> print(django.VERSION)
     (1, 11, 8, 'final', 0)
     ```
+
 - 安装
     1. 在线安装
         - `$ sudo pip3 install django`  安装django的最新版本
@@ -86,14 +88,18 @@
     
     - $ django-admin startproject mysite1
   - 运行
+
     ```shell
     $ cd mysite1
     $ python3 manage.py runserver
     # 或
     $ python3 manage.py runserver 5000  # 指定只能本机使用127.0.0.1的5000端口访问本机
     ```
+
 ### 1.2.2. Django项目的目录结构
+
 - 示例:
+
     ```shell
     $ django-admin startproject mysite1
     $ tree mysite1/

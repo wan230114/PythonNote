@@ -34,7 +34,7 @@
     * [Chapter05.数据的遍历访问](/docs/00.Python/Chapter05.DataTraversal.md)
     * [Chapter06.函数function](/docs/00.Python/Chapter06.Function.md)
     * [Chapter07.错误及异常处理](/docs/00.Python/Chapter07.Exception.md)
-    * *Chapter08.文件file及编码*
+    * [Chapter08.文件file及编码](/docs/00.Python/Chapter08.FileIO.md)
     * *Chapter09.面向对象*
     * *Chapter10.模块和包*
     * [附录](/docs/00.Python/ChapterN_Appendix.md)
@@ -164,7 +164,7 @@ Python，语言简洁，活跃社区，丰富的共享资料及库等优势，�
 * [Chapter05.数据的遍历访问](/docs/00.Python/Chapter05.DataTraversal.md)
 * [Chapter06.函数function](/docs/00.Python/Chapter06.Function.md)
 * [Chapter07.错误及异常处理](/docs/00.Python/Chapter07.Exception.md)
-* *Chapter08.文件file及编码*
+* [Chapter08.文件file及编码](/docs/00.Python/Chapter08.FileIO.md)
 * *Chapter09.面向对象*
 * *Chapter10.模块和包*
 * [附录](/docs/00.Python/ChapterN_Appendix.md)

@@ -1,5 +1,6 @@
 ### 开始
 - 下载以及clone：  
+
     ```bash
     git clone https://github.com/wan230114/PythonNote.git
     ```
@@ -9,6 +10,7 @@
   - https://code.visualstudio.com/
 - 安装插件 **(推荐)**
   - Settings Sync，设置 sync.gist:
+
     ```
     9119aa6c385cce49769343cd90e5dc7d
     ```
