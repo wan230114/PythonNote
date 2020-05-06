@@ -1,13 +1,13 @@
-### 开始
+### 1. 开始
 - 下载以及clone：  
 
     ```bash
     git clone https://github.com/wan230114/PythonNote.git
     ```
 
-### 软件安装
+### 2. Markdown本地神器安装
 - 安装vscode软件：  
-  - https://code.visualstudio.com/
+  - https://code.visualstudio.com/Download
 - 安装插件 **(推荐)**
   - Settings Sync，设置 sync.gist:
 
@@ -16,20 +16,20 @@
     ```
 
 - 插件包含内容：
-  - markdown、Python及其相关插件
+  - Markdown、Python及其相关插件
   - IPython for VSCode(发送当前选择行到ipython终端运行)
   - 常用自定义快捷键，markdown中：
     - `ctrl+g` 可以快速选择markdown中的代码块
+    - `ctrl+enter` 可以快速运行Python命令行，用于markdown内部code的直接运行
+    - ...
 
 - 打开PythonNote目录作为项目目录  
   - 文件 --> 打开文件夹  --> PythonNote
   - File --> Open Folder --> PythonNote
 
 
-## 1.1. 本地运行Python脚本方法
-
-
-## 1.2. 本地访问文档
+附：本地访问文档
+---
 
 先安装docsify-cli工具:
 ```shell
