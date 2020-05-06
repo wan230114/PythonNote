@@ -769,7 +769,6 @@ B.remove(value)  | 删除第一个出现的字节，如果没有出现，则产�
 ### 8.4.1. 打开创建文件对象open
 - 函数 open
   - 函数：  
-
     用于打开一个文件，返回此文件对应的文件流对象，如果打开失败，则会触发OSError错误！
     ```python
     open(file, mode='r', buffering=-1, encoding=None, errors=None, newline=None, closefd=True, opener=None)

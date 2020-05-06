@@ -1,3 +1,84 @@
+<font face="楷体">
+
+<h2>《Python学习之极简笔记——从零到催生AGI》</h2>
+
+> 从Python入门到人工智能的专属知识图谱。包含了从Python基础到高阶使用，以及一些日常探索，只为让零碎知识逐渐整体化。  
+> 一个开源的知识图谱，进步与分享必将让世界变得更为美好。让我们在踏实打下基础的同时，逐渐迈向创造通用型人工智能(AGI)。  
+> A general knowledge map.  
+> —— 陈军 1170101471@qq.com 
+
+</font>  
+
+> <font font="等线" size="2">**网站主页地址：**   
+> https://wan230114.github.io/PythonNote  
+> https://wan230114.gitee.io/pythonnote   (备用)  
+> http://118.89.194.65:8888   (备用网站实时镜像)  
+>
+> **Git项目主页：**   
+> https://github.com/wan230114/PythonNote  
+> https://gitee.com/wan230114/PythonNote  (备用)</font>
+
+> **快速开始：**  
+> [>> PythonNote使用方法](/docs/Usage.md)
+
+<h3> 笔记总目录 </h3>
+
+<!-- menu -->
+* **Python基础部分**
+    <!-- menu_base -->
+    * [Introduction 前言](/docs/00.Python/Introduction.md)
+    * [Chapter01.Python简介](/docs/00.Python/Chapter01.PythonReview.md)
+    * [Chapter02.数值](/docs/00.Python/Chapter02.Value.md)
+    * [Chapter03.数据容器](/docs/00.Python/Chapter03.DataContainers.md)
+    * [Chapter04.流程控制](/docs/00.Python/Chapter04.ProcessControl.md)
+    * [Chapter05.数据的遍历访问](/docs/00.Python/Chapter05.DataTraversal.md)
+    * [Chapter06.函数function](/docs/00.Python/Chapter06.Function.md)
+    * [Chapter07.错误及异常处理](/docs/00.Python/Chapter07.Exception.md)
+    * [Chapter08.文件file及编码](/docs/00.Python/Chapter08.FileIO.md)
+    * *Chapter09.面向对象*
+    * *Chapter10.模块和包*
+    * [附录](/docs/00.Python/ChapterN_Appendix.md)
+    <!-- menu_base -->
+* **Python进阶部分**
+    * [Introduction 简介](/docs/00.Python_Advanced/Introduction.md)
+    * [Chapter01.网络编程](/docs/00.Python_Advanced/Chapter01.PythonNet.md)
+    * [Chapter02.多进程多线程](/docs/00.Python_Advanced/Chapter02.PythonThread.md)
+    * [Django框架笔记](/docs/00.Python_Advanced/Django_note/django_all.md)
+      * [Chapter01 概述与基本使用](/docs/00.Python_Advanced/Django_note/django01.md)
+      * [Chapter02 请求和相应](/docs/00.Python_Advanced/Django_note/django02.md)
+* **Python高级部分——数据分析**
+    * [Introduction 简介](/docs/01.Datascience/Introduction.md)
+    * [Chapter01 Numpy的多维矩阵批量操作方法](/docs/01.Datascience/Datascience_1numpy.md)
+    * [Chapter02 Matplotlib绘图工具](/docs/01.Datascience/Datascience_2matplotlib.md)
+    * [Chapter03 Pandas与数据分析](/docs/01.Datascience/Datascience_3pandas/Pandas_Note.md)
+* **AI机器学习——入门**
+    * [Introduction 简介](/docs/02.AI_ML/Introduction.md)
+    * [所有笔记汇总 --> Note 教程](/docs/02.AI_ML/ML.md)
+* **AI机器学习——算法进阶篇**
+    * [Introduction 简介](/docs/03.AI_ML_机器学习算法集训营/Introduction.md)
+    * ***阶段一***
+      * [Chapter01 初识人工智能](/docs/03.AI_ML_机器学习算法集训营/Phase1/01_初识人工智能.md)
+      * [Chapter02 第一个监督学习算法KNN](/docs/03.AI_ML_机器学习算法集训营/Phase1/02_第一个监督学习算法KNN.md)
+* **AI机器学习——公式推导**
+    * [Introduction 简介](/docs/01.Datascience/Introduction.md)
+    * ***补充ing***
+* **其他笔记**
+    * ***Markdown与HTML笔记***
+      * [Markdown 语法](/docs/Others/HTML高级语法/Markdown及HTML常用命令.md)
+      * [HTML 语法](/docs/Others/HTML高级语法/HTML高级语法.md)
+    * ***Git***
+      * [Git笔记](/docs/Others/Git/Git_Note.md)
+    * ***LeetCode***
+      * [LeetCode](/docs/Others/Python_leetcode/Summary.md)
+<!-- menu -->
+
+---
+
+<h3> Python基础主页：</h3>
+<br>
+<br>
+
+
 <!-- introduction -->
 <h1><center><font color="#42a5f5" face="仿宋">《Python学习之极简笔记——基础部分》</font></center></h1>
 
@@ -75,20 +156,28 @@ Python，语言简洁，活跃社区，丰富的共享资料及库等优势，�
 # 目录大纲
 
 <!-- menu_write -->
-* [Introduction 前言](00.Python/Introduction.md)
-* [Chapter01.Python简介](00.Python/Chapter01.PythonReview.md)
-* [Chapter02.数值](00.Python/Chapter02.Value.md)
-* [Chapter03.数据容器](00.Python/Chapter03.DataContainers.md)
-* [Chapter04.流程控制](00.Python/Chapter04.ProcessControl.md)
-* [Chapter05.数据的遍历访问](00.Python/Chapter05.DataTraversal.md)
-* [Chapter06.函数function](00.Python/Chapter06.Function.md)
-* [Chapter07.错误及异常处理](00.Python/Chapter07.Exception.md)
-* [Chapter08.文件file及编码](00.Python/Chapter08.FileIO.md)
+* [Introduction 前言](/docs/00.Python/Introduction.md)
+* [Chapter01.Python简介](/docs/00.Python/Chapter01.PythonReview.md)
+* [Chapter02.数值](/docs/00.Python/Chapter02.Value.md)
+* [Chapter03.数据容器](/docs/00.Python/Chapter03.DataContainers.md)
+* [Chapter04.流程控制](/docs/00.Python/Chapter04.ProcessControl.md)
+* [Chapter05.数据的遍历访问](/docs/00.Python/Chapter05.DataTraversal.md)
+* [Chapter06.函数function](/docs/00.Python/Chapter06.Function.md)
+* [Chapter07.错误及异常处理](/docs/00.Python/Chapter07.Exception.md)
+* [Chapter08.文件file及编码](/docs/00.Python/Chapter08.FileIO.md)
 * *Chapter09.面向对象*
 * *Chapter10.模块和包*
-* [附录](00.Python/ChapterN_Appendix.md)
+* [附录](/docs/00.Python/ChapterN_Appendix.md)
 <!-- menu_write -->
 
 （文章笔记暂未完全转化，原始文档下载链接：https://1drv.ms/w/s!AofyZDsRK31B8m8uzCxonAKFeOEl?e=JWqhA2
 ）
 <!-- introduction -->
+
+
+---
+
+<font face="仿宋">
+以上为《Python学习之极简笔记——基础部分》主页。<br>
+更多其他内容，如高级使用，数据分析，机器学习等，见各个子文件夹~
+</font>
