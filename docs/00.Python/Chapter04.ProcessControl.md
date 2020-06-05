@@ -126,14 +126,76 @@ else <真值表达式2>：
 > - 若为False，则执行else语句，else语句可以省略。
 
 ---
-
-示例：
+示例1：循环结束后更改while的判断和使用值
 ```python
 a = 0
 while a < 6:
     print(a, end=' ')
     a += 1
 # 0 1 2 3 4 5
+```
+
+---
+示例2：while-True用法
+```python
+# code1:
+a = 3
+while True:
+    if not a:
+        break
+    print(a, end=' ')
+    a -= 1
+print('exit:', a)
+# 3 2 1 exit: 0
+
+# code2:
+a = 3
+while a:
+    print(a, end=' ')
+    a -= 1
+print('exit:', a)
+# 3 2 1 exit: 0
+```
+
+---
+示例3：警惕while循环一开始就改变使用值  
+
+code1: 简易示例  
+```python
+a = 3
+while a:
+    a -= 1  # 警惕while结构中在一开始就改变值的语句
+    print(a, end=' ')  # 后续使用可能都会错位一个值，造成逻辑错误
+print('exit:', a)
+# 运行结果：2 1 0 exit: 0
+```
+
+code2: 数据处理的逻辑错误
+```python
+i = 0
+L = [(1, 45.3), (2, 33.4), (3, 66.6), (None, None)]
+num, data = L[i]
+print('[%s '% data, end=' ')
+print('%s]' % int(data), end=' ')
+while num != None:
+    i += 1
+    num, data = L[i]
+    print('[%s '% data, end=' ')
+    print('%s]' % int(data), end=' ')
+# 运行结果：[45.3  45] [33.4  33] [66.6  66] [None ......(后续报错信息)
+```
+
+code3：纠正
+```python
+i = 0
+L = [(1, 45.3), (2, 33.4), (3, 66.6), (None, None)]
+num, data = L[i]
+while num != None:
+    print('[%s '% data, end=' ')
+    print('%s]' % int(data), end=' ')
+    i += 1
+    num, data = L[i]
+# 运行结果：[45.3  45] [33.4  33] [66.6  66]
 ```
 
 ### 4.2.2. for-else语句
@@ -263,12 +325,12 @@ else:
 
 ---
 
-##### 4.2.2.2.1. 示例1：探索`for ... in ...`中`in`的含义
+##### 4.2.2.2.1. `in`的含义探索
 code1:
 ```python
 print('for循环探索')
 i = 6
-for x in range(1, i):
+for x in range(1, i):  # 此处in是什么含义？
     # for ... in ... 迭代[1,i)
     # 每个循环向后逐个取出元素，赋值给x
     print('x=', x, '  i=', i)
@@ -277,7 +339,7 @@ for x in range(1, i):
 print('while循环探索')
 i = 6
 x = 1
-while x in range(1, i):
+while x in range(1, i):  # 此处in是什么含义？
     # ... in ... 判断x是否在[1,i)内
     print('x=', x, '  i=', i)
     x += 1
@@ -330,7 +392,7 @@ x= 2   i= 5
 x= 3   i= 4
 ```
 
-##### 4.2.2.2.2. 示例2：探索`for语句`中`<可迭代对象>`变化带来的影响
+##### 4.2.2.2.2. `<可迭代对象>`变化带来的影响
 
 code1: 列表有规律可寻，是按照位置索引向下逐渐取值的
 ```python
@@ -348,7 +410,7 @@ for x in L:
 13 [2, 11, 13] --> [2, 11, 23]
 ```
 
-##### 4.2.2.2.3. 示例3：通过for语句机制探索for是否按索引步进取值的
+##### 4.2.2.2.3. for是否按索引步进取值的
 
 code1: 列表探索
 
@@ -385,7 +447,7 @@ print('a最终结果：', a)
 2 5 [2, 4, 5, 6] --> [2, 4, 6]
 a最终结果： [2, 4, 6]
 ```
-（运行结果以上一共重复3次）
+（运行结果以上一共重复2次）
 
 
 code2： 集合探索
@@ -443,8 +505,8 @@ def veri(s):
         # s.update({x+10})
         print(s)
 
-veri({1000, 2000, 3000, 4000})  # 会取出4次
-veri({1000, 2000, 3000, 10000})  # 会取出3次
+veri({1000, 2000, 3000})  # 会取出4次
+veri({1000, 2000, 10000})  # 会取出5次
 ```
 
 ### 4.2.3. continue语句 与 break语句

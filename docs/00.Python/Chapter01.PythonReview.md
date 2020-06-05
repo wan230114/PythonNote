@@ -588,6 +588,27 @@ locals()    # 返回当前局部作用域内的变量的字典
 [..., 'append', 'clear', 'copy', 'count', 'extend', 'index', 'insert', 'pop', 'remove', 'reverse', 'sort']
 ```
 
+3. locals() / globals()
+
+环境变量的本质其实也是一个字典，如：(本内容初学时仅做了解)
+```python
+print(locals().keys())
+a = 1
+print(locals().keys())  # 比前一次多了 'a'
+# 直接对环境变量的字典修改
+locals().update({'b': 2})
+print(locals().keys())  # 比前一次多了 'b'
+print(b)  # 可以直接使用变量b
+```
+运行结果：
+```
+dict_keys(['__name__', '__doc__', '__package__', '__loader__', '__spec__', '__annotations__', '__builtins__', '__file__', '__cached__'])
+dict_keys(['__name__', '__doc__', '__package__', '__loader__', '__spec__', '__annotations__', '__builtins__', '__file__', '__cached__', 'a'])
+dict_keys(['__name__', '__doc__', '__package__', '__loader__', '__spec__', '__annotations__', '__builtins__', '__file__', '__cached__', 'a', 'b'])
+2
+```
+
+
 ### 1.6.3. 如何查看对象基本属性？
 如何理解基本属性？  
 > 该数据对象是什么？【数据对象类型】  
