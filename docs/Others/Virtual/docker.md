@@ -15,8 +15,7 @@ docker image rm <IMAGE_ID>  # 镜像删除
 
 # 镜像操作
 
-## 基本
-拉取、查看、启动、进入
+## 基本: 拉取、查看、启动、进入
 ```bash
 # 拉取centos7镜像
 docker pull centos:7
@@ -24,6 +23,7 @@ docker pull centos:7
 docker images
 # 启动镜像centos7，如果不指定 /bin/bash，容器运行后会自动停止
 docker run -d -i -t <IMAGE_ID> /bin/bash
+docker run -d -i -t 5746fb19a6cb /usr/sbin/sshd -D  # 使容器启动sshd服务并一直运行
 # 进入容器，使用exec或attach
 # docker ps|head -2|sed 1d|awk '{print $1}'|xargs -i echo docker exec -it {} bash
 docker exec -it <CONTAINER_ID> bash
@@ -94,13 +94,33 @@ docker load -i  nginx.tar
 
 ## 配置共享文件夹
 
-加入-v参数，代表将本地目录/test挂载为容器的/soft，不存在时则自动创建
+加入-v参数，代表将本地目录~/share_docker挂载为容器的/share_dir，不存在时则自动创建
 ```bash
-docker run -it -v /test:/soft centos /bin/bash
+docker run -dit -v ~/share_docker:/share_dir centos_conda /bin/bash
 ```
 
 来源：详解Docker挂载本地目录及实现文件共享_mager的专栏-CSDN博客_docker共享目录  
 https://blog.csdn.net/magerguo/article/details/72514813/
+
+
+## 普通用户执行docker
+
+```bash
+# 添加 docker 用户组
+groupadd docker
+# 把需要执行的 docker 用户添加进该组，这里是 test
+gpasswd -a test docker
+# 重启 docker
+systemctl restart docker
+su -l test
+# 运行...
+# 运行成功
+docker ps -a 
+```
+
+新开用户加入docker组，并没有获得系统级权限，只是能运行docker。
+
+不过使用docer run -v 挂载共享文件夹运行后，docker内创建的文件用户与组会在外部系统显示相同，如果是root下创建，那么就是root权限，这一点需要注意一下。
 
 ## 可能有用的教程：
 ---
