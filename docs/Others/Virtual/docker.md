@@ -1,6 +1,38 @@
 虚拟化技术之docker
 
+
+# linux准备
+
+yum换源：  
+[ref](https://blog.csdn.net/sinat_33384251/article/details/91404617)
+
+```bash
+# 1,备份一下原本的yum源：
+mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
+# 2,下载阿里云的yum源【我下的是CentOS7的，如果需要其他版本，那么只需要将下面的7改成5或6即可】【这一步需要能联网】：
+wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+# 3,之后运行给install生成缓存
+yum clean all
+yum makecache
+yum -y install git screen
+```
+
+
 # docker的安装
+
+```bash
+yum install -y yum-utils device-mapper-persistent-data lvm2 bind-utils
+yum-config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo 
+yum install docker-ce
+# 开机自启
+sudo systemctl enable docker 
+# 启动docker服务  
+sudo systemctl start docker
+# 
+```
+
+CentOS Docker 安装 | 菜鸟教程
+https://www.runoob.com/docker/centos-docker-install.html
 
 linux安装docker - 简书  
 https://www.jianshu.com/p/2dae7b13ce2f
@@ -23,7 +55,6 @@ docker pull centos:7
 docker images
 # 启动镜像centos7，如果不指定 /bin/bash，容器运行后会自动停止
 docker run -d -i -t <IMAGE_ID> /bin/bash
-docker run -d -i -t 5746fb19a6cb /usr/sbin/sshd -D  # 使容器启动sshd服务并一直运行
 # 进入容器，使用exec或attach
 # docker ps|head -2|sed 1d|awk '{print $1}'|xargs -i echo docker exec -it {} bash
 docker exec -it <CONTAINER_ID> bash
@@ -32,8 +63,30 @@ docker attach <CONTAINER_ID>
 
 运行命令说明：这样就能启动一个一直停留在后台运行的Centos了。如果少了/bin/bash的话，Docker会生成一个Container但是马上就停止了，不会一致运行即使有了-d参数。
 
----
-镜像内操作，安装ssh。  
+
+### 高级启动方式
+
+加入-v参数，代表将本地目录~/share_docker挂载为容器的/share_dir，不存在时则自动创建
+```bash
+# 使容器启动sshd服务并一直运行
+docker run -dit 5746fb19a6cb /usr/sbin/sshd -D
+
+# 共享端口 外部8080 --> 内部8080
+docker run  -p 8080:8080 -dit 5746fb19a6cb /usr/sbin/sshd -D
+
+# 配置共享文件夹
+docker run -dit -v ~/share_docker:/share_dir centos_conda /bin/bash
+docker run -dit -v /root/docker/data:/root/workdir/ centos_conda /usr/sbin/sshd -D
+```
+
+参考：详解Docker挂载本地目录及实现文件共享_mager的专栏-CSDN博客_docker共享目录  
+https://blog.csdn.net/magerguo/article/details/72514813/
+
+
+## 镜像内自定义操作
+
+安装ssh
+
 目的：通过ssh方式简易登录运行。（docker运行后，同一个镜像每次运行的ID不同，进入docker内部略显麻烦。）
 
 ```bash
@@ -47,7 +100,7 @@ cd ~ && nohup /usr/sbin/sshd -D &>sshd.log &
 
 ## 镜像打包
 
-**step1: 镜像准备**
+### **step1: 镜像准备**
 
 先清理缓存等文件，使得打包体积更小
 ```bash
@@ -55,7 +108,7 @@ yum clean all
 conda clean -a
 ```
 
-**step2: 打包到镜像**
+### **step2: 打包到镜像**
 
 方法一：
 ```bash
@@ -80,7 +133,7 @@ EXPOSE 22
 docker build -t centos_conda ./
 ```
 
-**step3: 镜像打包到本地文件**
+### **step3: 镜像打包到本地文件**
 ```bash
 docker save -o centos_conda.tar centos_conda:latest
 ```
@@ -91,17 +144,6 @@ docker save -o centos_conda.tar centos_conda:latest
 docker load -i  centos_conda.tar
 docker load -i  nginx.tar
 ```
-
-## 配置共享文件夹
-
-加入-v参数，代表将本地目录~/share_docker挂载为容器的/share_dir，不存在时则自动创建
-```bash
-docker run -dit -v ~/share_docker:/share_dir centos_conda /bin/bash
-```
-
-来源：详解Docker挂载本地目录及实现文件共享_mager的专栏-CSDN博客_docker共享目录  
-https://blog.csdn.net/magerguo/article/details/72514813/
-
 
 ## 普通用户执行docker
 

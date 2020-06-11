@@ -400,7 +400,7 @@ GIT
     # 初始化一个git 仓库cd 切换到工程目录
     git init
     # (你的远程仓库地址，即是码云的项目路径) //和远程仓库进行关联
-    git remote add origin git@gitee.com:wan230114/mytools.git
+    git remote add origin git@github.com:wan230114/mytools.git
     ```
 
 3. 上传文件
