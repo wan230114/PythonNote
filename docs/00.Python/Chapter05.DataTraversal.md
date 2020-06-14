@@ -493,7 +493,14 @@ print(L_new)
 ```
 > 备注：`zip(*L)`相当于`zip(L[0], L[1], L[2], ...)`，该知识位于后续函数章节序列位置传参
 
-示例3: 本质探索, zip生成的是一个多维元组组成的迭代器。
+示例3：一维数组的变维操作
+```python
+Lline = range(12)
+Lline4 = list(zip(*[Lline[x::4] for x in range(4)]))
+print(Lline4)
+```
+
+示例4: 本质探索, zip生成的是一个多维元组组成的迭代器。
 ```python
 from collections import Iterable, Iterator, Generator
 
