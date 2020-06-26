@@ -10,8 +10,8 @@
     * [Chapter06.函数function](00.Python/Chapter06.Function.md)
     * [Chapter07.错误及异常处理](00.Python/Chapter07.Exception.md)
     * [Chapter08.文件file及编码](00.Python/Chapter08.FileIO.md)
-    * *Chapter09.面向对象*
-    * *Chapter10.模块和包*
+    * [Chapter09.面向对象](00.Python/Chapter09.Classes.md)
+    * [Chapter10.模块和包](00.Python/Chapter10.Modules.md)
     * [附录](00.Python/ChapterN_Appendix.md)
     <!-- menu_base -->
 * **Python进阶部分**

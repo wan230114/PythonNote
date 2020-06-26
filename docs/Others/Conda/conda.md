@@ -18,6 +18,26 @@ conda deactivate # 退出当前环境
 conda env remove --name myenv # 移除环境
 ```
 
+```bash
+# 基于 python3.6 创建一个名为test_py3 的环境
+conda create --name test_py3 python=3.6 
+
+# 基于 python2.7 创建一个名为test_py2 的环境
+conda create --name test_py2 python=2.7
+
+# 激活 test 环境
+activate test_py2  # windows
+source activate test_py2 # linux/mac
+
+# 切换到python3
+activate test_py3
+```
+
+删除环境（不要乱删啊啊啊）
+
+```bash
+conda remove -n py36 --all
+```
 
 ## 安装软件
 从conda网页内查找：http://bioconda.github.io/conda-recipe_index.html
