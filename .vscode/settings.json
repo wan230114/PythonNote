@@ -1,4 +1,4 @@
 {
-    "python.pythonPath": "/home/chenjun/software/linux_tools/miniconda3/bin/python",
+    "python.pythonPath": "/home/chenjun/software/linux_tools/miniconda3/bin/clean_bin/python",
     "liveServer.settings.port": 5501
 }

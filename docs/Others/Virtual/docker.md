@@ -11,6 +11,8 @@ yum换源：
 mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
 # 2,下载阿里云的yum源【我下的是CentOS7的，如果需要其他版本，那么只需要将下面的7改成5或6即可】【这一步需要能联网】：
 wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+# 并替换部分字段（非阿里云机器需要做）
+sed -i -e '/mirrors.cloud.aliyuncs.com/d' -e '/mirrors.aliyuncs.com/d' /etc/yum.repos.d/CentOS-Base.repo
 # 3,之后运行给install生成缓存
 yum clean all
 yum makecache
@@ -23,10 +25,12 @@ yum -y install git screen
 ```bash
 yum install -y yum-utils device-mapper-persistent-data lvm2 bind-utils
 yum-config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo 
-yum install docker-ce
-# 开机自启
+## 报错时使用，安装最新版containerd.io。 Error:Problem: package docker-ce-3:19.03.8-3.el7.x86_64 requires containerd.io >= 1.2.2-3
+# dnf install https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm
+yum -y install docker-ce
+## 开机自启
 sudo systemctl enable docker 
-# 启动docker服务  
+## 启动docker服务  
 sudo systemctl start docker
 # 
 ```
@@ -66,7 +70,10 @@ docker attach <CONTAINER_ID>
 
 ### 高级启动方式
 
+`-v local_path:docker_path`
+
 加入-v参数，代表将本地目录~/share_docker挂载为容器的/share_dir，不存在时则自动创建
+
 ```bash
 # 使容器启动sshd服务并一直运行
 docker run -dit 5746fb19a6cb /usr/sbin/sshd -D
@@ -75,12 +82,17 @@ docker run -dit 5746fb19a6cb /usr/sbin/sshd -D
 docker run  -p 8080:8080 -dit 5746fb19a6cb /usr/sbin/sshd -D
 
 # 配置共享文件夹
-docker run -dit -v ~/share_docker:/share_dir centos_conda /bin/bash
-docker run -dit -v /root/docker/data:/root/workdir/ centos_conda /usr/sbin/sshd -D
+docker run -dit -v ~/share_dir:/share_dir centos_conda /bin/bash
+docker run -dit -v /root/workdir/:/root/workdir/ centos_conda /usr/sbin/sshd -D
 ```
 
 参考：详解Docker挂载本地目录及实现文件共享_mager的专栏-CSDN博客_docker共享目录  
 https://blog.csdn.net/magerguo/article/details/72514813/
+
+
+## 镜像的管理和删除
+
+https://blog.csdn.net/flydreamzhll/article/details/80900509
 
 
 ## 镜像内自定义操作

@@ -120,3 +120,9 @@ function exec1(command)
     <br/> 
     <iframe src="/Others/HTML高级语法/now_time.txt" name=iframe1 width='100%' height='100' frameborder='1' ></iframe>
 </div>
+
+
+# 主页基础属性设置
+
+- [让所有链接在新窗口中打开的html代码](http://www.freebaidu.cn/show.asp?id=26171)
+

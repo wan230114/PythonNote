@@ -9,19 +9,31 @@
 - 安装vscode软件：  
   - https://code.visualstudio.com/Download
 - 安装插件 **(推荐)**
-  - Settings Sync，设置 sync.gist:
+  - 插件的一键同步设置：
+    - 首先手动安装插件Settings Sync，
+    - 设置 sync.gist:
+      - `9119aa6c385cce49769343cd90e5dc7d`
+- 本套设置及特点：
+  - 丰富的实用插件
+  - 丰富的设置，及快键键设置
 
-    ```
-    9119aa6c385cce49769343cd90e5dc7d
-    ```
+### 本gist内容常用简介
+插件：
+- Markdown、Python及其相关插件
+- IPython for VSCode(发送当前选择行到ipython终端运行)
 
-- 插件包含内容：
-  - Markdown、Python及其相关插件
-  - IPython for VSCode(发送当前选择行到ipython终端运行)
-  - 常用自定义快捷键，markdown中：
-    - `ctrl+g` 可以快速选择markdown中的代码块
-    - `ctrl+enter` 可以快速运行Python命令行，用于markdown内部code的直接运行
-    - ...
+常用自定义快捷键，markdown中：
+|win|mac|说明|
+|-|-|-|
+|Markdown：
+| `ctrl+g` | `ctrl+G` | 可以快速选择markdown中的代码块|
+| `ctrl+enter`| `command+enter` | 可以快速运行Python命令行，用于markdown内部code的直接运行|
+|`ctrl+L`|`ctrl+L`|设置列表|
+|窗口管理：
+| ... | `command+W` |关闭窗口|
+
+返回上次所在位置
+返回下次所在位置
 
 - 打开PythonNote目录作为项目目录  
   - 文件 --> 打开文件夹  --> PythonNote

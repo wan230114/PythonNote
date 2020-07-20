@@ -9,3 +9,9 @@ slurm 优势：
   https://blog.csdn.net/mr_zhang2014/article/details/78671831
 
 
+## 命令
+
+```bash
+sbatch --wrap="uptime"
+
+```
