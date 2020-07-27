@@ -116,3 +116,14 @@ conda install R=3.6
 - conda 安装R语言及其R包 - 简书  
   https://www.jianshu.com/p/a5e572bc5da5
 
+
+## Conda环境更名
+
+比如，想把环境 rcnn 重命名成 tf
+
+第1步
+
+```bash
+conda create -n tf --clone rcnn
+conda remove -n rcnn --all
+```
