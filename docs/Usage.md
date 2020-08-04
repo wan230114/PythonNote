@@ -33,6 +33,7 @@ git clone https://github.com/wan230114/PythonNote.git
 
 自定义的终端设置：
 - 鼠标融合，双击复制，右击粘贴。（复制的分隔符设置位于 `设置 --> 功能 --> 终端 --> 最后一项terminal.integrated.wordSeparators` ）
+- 在终端中打开目录或文件到编辑器。
 
 常用自定义快捷键：
 | win          | mac             | 说明                           |
@@ -69,3 +70,8 @@ npm i docsify-cli -g
 ```shell
 docsify serve ./
 ```
+
+
+# 补充
+怎么快速从终端中打开一个文件？
+怎么从某一个文件快速进入当前文件目录终端？
