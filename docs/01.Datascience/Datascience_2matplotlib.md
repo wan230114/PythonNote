@@ -668,7 +668,7 @@ ax.spines['bottom'].set_position(('data', 0))
 ax.xaxis.set_major_locator(mp.NullLocator())
 # 设置水平坐标轴的次刻度定位器为多点定位器，间隔0.1
 ax.xaxis.set_minor_locator(mp.MultipleLocator(0.1))
-# 标记所用刻度定位器类名 
+# 标记所用刻度定位器类名
 mp.text(5, 0.3, 'NullLocator()', ha='center', size=12)
 mp.show()
 ```
@@ -1363,4 +1363,25 @@ def y_generator():
 anim = ma.FuncAnimation(mp.gcf(), update, y_generator, interval=20)
 mp.tight_layout()
 mp.show()
+```
+
+# 图像的输出
+
+【待补充】
+
+# 附
+
+## 一些画图调试技巧
+
+实时显示
+
+```python
+import matplotlib.pyplot as mp
+import matplotlib.gridspec as mg
+
+mp.ion()  # 开启一个画图的窗口
+mp.plot([1,2,3], [2,5,6])
+mp.figure()
+mp.plot([1,2,3], [1,3,2])
+mp.show() # 前台画图窗口
 ```

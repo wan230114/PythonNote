@@ -37,6 +37,10 @@ brew cask install dozer
 ```
 [一个完全免费的 macOS 菜单栏工具，一拖一点就能轻松隐藏图标：Dozer | App+1 - 少数派](https://sspai.com/post/52826)
 
+## 压缩软件
+解决压缩文件只能解压再预览的问题
+[Entropy Mac破解版下载 - Entropy for Mac - Entropy.dmg下载 - Entropy：Mac系统上解压压缩工具- 知您网(zhinin.com)](https://www.zhinin.com/entropy-mac.html)
+
 # 待完全转移
 
 ---

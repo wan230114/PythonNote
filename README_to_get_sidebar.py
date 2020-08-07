@@ -26,16 +26,16 @@ if L_job1 and L_job2:
 
 # 2) sidebar和intro匹配
 with open('./README.md', 'rb') as fi:
-    doc = fi.read().replace(b'/docs/', b'')
+    doc = fi.read()  # .replace(b'/docs/', b'')
     L_job1 = macth(
         rb'<!-- menu -->.*?<!-- menu -->', doc)
     L_job2 = macth(
         rb'<!-- introduction -->.*?<!-- introduction -->', doc)
-with open('./docs/README.md', 'wb') as fo:
-    info('./docs/README.md')
-    fo.write(doc)
+# with open('./docs/README.md', 'wb') as fo:
+#     info('./docs/README.md')
+#     fo.write(doc)
 if L_job1:
-    sidebar = './docs/_sidebar.md'
+    sidebar = './_sidebar.md'
     with open(sidebar, 'wb') as fo:
         info(sidebar)
         fo.write(L_job1[0])
