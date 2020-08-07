@@ -36,13 +36,12 @@
       * [Chapter02 第一个监督学习算法KNN](/docs/03.AI_ML_机器学习算法集训营/Phase1/02_第一个监督学习算法KNN.md)
 * **AI机器学习——公式推导**
     * [Introduction 简介](/docs/01.Datascience/Introduction.md)
-    * ***补充ing***
+    <!-- * ***补充ing*** -->
 * **其他笔记**
-    * ***Markdown与HTML笔记***
-      * [Markdown 语法](/docs/Others/HTML高级语法/Markdown及HTML常用命令.md)
-      * [HTML 语法](/docs/Others/HTML高级语法/HTML高级语法.md)
-    * ***Git***
-      * [Git笔记](/docs/Others/Git/Git_Note.md)
-    * ***LeetCode***
-      * [LeetCode](/docs/Others/Python_leetcode/Summary.md)
+    * [Markdown 语法](/docs/Others/HTML高级语法/Markdown及HTML常用命令.md)
+    * [HTML 语法](/docs/Others/HTML高级语法/HTML高级语法.md)
+    * [Git笔记](/docs/Others/Git/Git_Note.md)
+    * [LeetCode](/docs/Others/Python_leetcode/Summary.md)
+* **附**  
+    * [Personal resume](/docs/Interview/me.md)
 <!-- menu -->
