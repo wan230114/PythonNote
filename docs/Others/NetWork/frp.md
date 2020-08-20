@@ -1,3 +1,7 @@
+## 写在前面
+
+有些操作，如需要指定80端口，需要用到root权限
+
 ## 下载软件
 
 ```bash
@@ -11,7 +15,15 @@ tar xzvf frp*.tar.gz
 cd frp*
 ```
 
-# frps
+## 一键配置
+
+```bash
+wget https://github.com/fatedier/frp/releases/download/v0.29.0/frp_0.29.0_linux_amd64.tar.gz
+tar xzvf frp_0.29.0_linux_amd64.tar.gz
+cd frp_0.29.0_linux_amd64
+cat frps_full.ini |sed "s# = frps.com# = `curl icanhazip.com 2>/dev/null`#" >frps.ini
+```
+
 ## 配置文件
 
 ### conf1

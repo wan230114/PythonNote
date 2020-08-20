@@ -2,14 +2,12 @@
 
 ## 1.1. Django框架的介绍
 
-### 1.1.1. 起源、发展及用途
+### 1.1.1. 概述
 
+**起源、发展及用途**
 - 2005年发布,采用Python语言编写的开源web框架
-
 - 早期的时候Django主做新闻和内容管理的
-
 - Django本身提供了强大的后台管理系统
-
 - 一个重量级的 Python Web框架，Django 配备了常用的大部分组件
     1. 基本配置  
     2. 路由系统   
@@ -21,30 +19,30 @@
     8. 分页
     9. 数据库后台管理系统admin
 
-- Django的用途
-    - 网站后端开发
-    - 微信公众号、微信小程序等后台开发
-    - 基于HTTP/HTTPS协议的后台服务器开发
-    - tornado/gevent 4层
-        - 在线语音/图像识别服务器
-        - 在线第三方身份验证服务器等
+**Django的用途**
+- 网站后端开发
+- 微信公众号、微信小程序等后台开发
+- 基于HTTP/HTTPS协议的后台服务器开发
+- tornado/gevent 4层
+   - 在线语音/图像识别服务器
+   - 在线第三方身份验证服务器等
 
-- Django的版本
-    - 最新版本:2.2.x
-    - 当前教学版本:1.11.8
+**Django的版本**
+- 最新版本:2.2.x
+- 当前教学版本:1.11.8
 
-- Django 的开发环境
-    - Django 1.11.x 支持 Python 2.7, 3.4, 3.5 和 3.6（长期支持版本 LTS)
-    - 注: Django 1.11.x 不支持 Python 3.7
+**Django的开发环境**
+- Django 1.11.x 支持 Python 2.7, 3.4, 3.5 和 3.6（长期支持版本 LTS)
+- 注: Django 1.11.x 不支持 Python 3.7
 
-- Django的官网
-    - 官方网址: <http://www.djangoproject.com>
-    - 中文文档(第三方):
-        - <https://yiyibooks.cn/>
-        - <http://djangobook.py3k.cn/>
-    - Django的离线文档
-        1. 解压缩数据包 `django-docs-1.11-en.zip`
-        2. 用浏览器打开 `django-docs-1.11-en/index.html`
+**Django的官网**
+- 官方网址: <http://www.djangoproject.com>
+- 中文文档(第三方):
+    - <https://yiyibooks.cn/>
+    - <http://djangobook.py3k.cn/>
+- Django的离线文档
+    1. 解压缩数据包 `django-docs-1.11-en.zip`
+    2. 用浏览器打开 `django-docs-1.11-en/index.html`
 
 
 ### 1.1.2. Django 框架
@@ -98,7 +96,6 @@
         ![](images/mtv.png)
 
 
-
 ## 1.1.3. Django的安装
 
 查看已安装的版本
@@ -137,50 +134,56 @@ $ python
   
 
 ## 1.2. Django框架开发基本指令
+
 ### 创建项目的指令  
-命令:  
-`$ django-admin startproject 项目名称`  
-如:  
- `$ django-admin startproject mysite1`
 
-### 项目的基本运行
-    ```shell
-    # 进入项目目录
-    $ cd mysite1
+命令： `django-admin startproject 项目名称`
 
-    # 按照默认配置运行
-    $ python3 manage.py runserver
-
-    # 指定只能本机使用127.0.0.1的5000端口访问本机
-    $ python3 manage.py runserver 5000
-
-    # 指定只能任何机器使用IP的5000端口访问本机
-    $ python3 manage.py runserver 0.0.0.0:5000
-    ```
----
-拓展：端口占用 出现8000端口已占用 解决方案
-
-1，查看是否有django进程启动  
-`ps aux|grep 'runserver'`
-
-2，若grep中出现 相关进程，直接干！  
-`kill -9  pid pid `
-
-案例如下：
-
-```shell
-# 执行 查！
-$ ps aux|grep 'runserver'
-test    13984  0.0  0.4 125980 39604 pts/0    S+   15:39   0:00 python3 manage.py runserver
-test    14914  1.2  0.5 202864 41312 pts/0    Sl+  16:10   0:05 /usr/bin/python3 manage.py runserver
-test    15056  0.0  0.0  21532  1156 pts/4    S+   16:17   0:00 grep --color=auto runserver
-
-# 执行 干！
-$ kill -9 13984 14914
+示例:  
+```bash
+django-admin startproject mysite1
 ```
 
+### 项目的基本运行
+
+```bash
+cd mysite1  # 进入项目目录
+# 按照默认配置运行
+python3 manage.py runserver
+# 指定只能本机使用127.0.0.1的5000端口访问本机
+python3 manage.py runserver 5000
+# 指定只能任何机器使用IP的5000端口访问本机
+python3 manage.py runserver 0.0.0.0:5000
+```
+
+---
+拓展：端口占用 出现8000端口已占用 解决方案
+> 
+> 1. 查看是否有django进程启动  
+> `ps aux|grep 'runserver'`
+> 
+> 2. 若grep中出现 相关进程，可直接杀掉！(最好用默认 `-s 15`)  
+> `kill -9  pid pid `
+> 
+> 案例如下：
+> 
+> ```shell
+> # 执行 查！
+> $ ps aux|grep 'runserver'
+> test    13984  0.0  0.4 125980 39604 pts/0    S+   15:39   0:00 python3 manage.py runserver
+> test    14914  1.2  0.5 202864 41312 pts/0    Sl+  16:10   0:05 /usr/bin/python3 manage.py runserver
+> test    15056  0.0  0.0  21532  1156 pts/4    S+   16:17   0:00 grep --color=auto runserver
+> 
+> # 执行 干！
+> $ kill -9 13984 14914
+> ```
+
+
 ## 1.3. Django项目的目录结构
+### 1.3.1. 项目目录结构解析:
+
 - 示例:
+
     ```shell
     $ django-admin startproject mysite1
     $ tree mysite1/
@@ -195,7 +198,6 @@ $ kill -9 13984 14914
     1 directory, 5 files
     ```
 
-### 1.3.1. 项目目录结构解析:
 - **`manage.py`**
     - 此文件是项目管理的主程序,在开发阶段用于管理整个项目的开发运行的调式
     - `manage.py` 包含项目管理的子命令, 如:

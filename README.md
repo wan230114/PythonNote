@@ -9,17 +9,17 @@
 
 </font>  
 
-> <font font="等线" size="2">**网站主页地址：**   
+> <font font="等线" size="2">**网站主页：**   
 > https://wan230114.github.io/PythonNote  
 > https://wan230114.gitee.io/pythonnote   (备用)  
 > http://118.89.194.65:8888   (备用网站实时镜像)  
 >
-> **Git项目主页：**   
+> **项目主页：**   
 > https://github.com/wan230114/PythonNote  
-> https://gitee.com/wan230114/PythonNote  (备用)</font>
-
+> https://gitee.com/wan230114/PythonNote  (备用)
+>
 > **食用方法：**  
-> [>> PythonNote使用方法](/docs/Usage.md)
+> [>> PythonNote使用方法](/docs/Usage.md)</font>
 
 <h3> 笔记总目录 </h3>
 
