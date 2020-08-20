@@ -5,7 +5,7 @@
 文件准备： 运行以下代码, 生成文件 test_file.txt , 以便后续学习运行使用
 
 ```python
-with open('test_file.txt', 'wb') as fo:
+with open('demo_Chapter08/test_file.txt', 'wb') as fo:
     for i in range(0, 64, 8):
         fo.write((''.join(['%02d'%xx for xx in range(i, i+8)])
                   +'\r\n').encode())
@@ -54,22 +54,26 @@ ffff ffff ffff ffff ffff ffff ffff ffff
 ffff ffff ffff ffff ffff ffff ffff ffff
 ffff ffff ffff ffff ffff ffff ffff 
 """
-L = []
-for x in text.split():
-    L.append(x[:2])
-    L.append(x[2:])
-L_bytes = [int('0x'+x, 16) for x in L]
+L = [xx for x in text.split() for xx in (x[:2], x[2:])]
+L_bytes = [int('0x'+xx, 16) for xx in L]
 print(*zip(L, L_bytes))
 
 codes = bytes(L_bytes)
-print(codes)
-with open('test.bmp', 'wb') as fo:
+with open('demo_Chapter08/test.bmp', 'wb') as fo:
+    print(codes)
     fo.write(codes)
 ```
 
 图像：
 
-![](img/test.bmp)
+<div align=center>
+<img src="demo_Chapter08/test.bmp"  width="20" align="middle" style="border:0px solid black">
+<br><br>
+<p><b></b></p>
+<p></p>
+<br><br>
+</div>
+
 
 
 #### 8.2.1.1. 文件基本概念
