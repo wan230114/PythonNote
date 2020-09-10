@@ -43,7 +43,13 @@
 
 # 1. matplotlib概述
 
-matplotlib是python的一个绘图库。使用它可以很方便的绘制出版质量级别的图形。
+`matplotlib`是python的一个绘图库。使用它可以很方便的绘制出版质量级别的图形。
+
+在这基础上，有二次封装开发，或模仿的包，以下还例举了一些其他的可视化工具：
+- `pyecharts`。支持多达400+地图；支持Jupyter Notebook、JupyterLab；可轻松集成至 Flask，Sanic，Django 等主流 Web 框架
+- `AutoViz`。数据可视化，大多数都需要把数据读取到内存中，然后对内存中的数据进行可视化。但是，对于真正令人头疼的是一次又一次的开发读取离线文件的数据接口。而AutoViz就是用于解决这个痛点的，它真正的可以做到1行代码轻松实现可视化。它可以同时兼容txt、json、csv等主流离线数据格式，比较适合于机器学习、计算机视觉等涉及离线数据较多的应用场景。
+- `Altair`。一款基于Vega 和Vega-Lite开发的统计可视化库。Altair构建在强大的Vega-Lite JSON规范之上，并且具有API简单、友好、一致等诸多优点。
+
 ## matplotlib起源和发展
 
 

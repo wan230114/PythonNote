@@ -1,6 +1,6 @@
-# Conda的基本使用
+# 1. Conda的基本使用
 
-## 配置镜像源
+## 1.1. 配置镜像源
 ```bash
 conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free
 conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge
@@ -49,7 +49,19 @@ channels:
 show_channel_urls: true
 ```
 
-## 环境配置
+- 取出`待查找类D`：将`当前查找类D`放入到`查找列表__mro__`
+- 判断1：`待查找类D`的所有`父类`及`父类的父类`是否还未遍历完毕？
+  - 否，则取出object，放入到`查找列表__mro__`，【查找结束】
+  - 是，准备从`当前查找类`继续向上查找剩余的父类，进行判断2。
+    - 判断2：`待查找父类`是否是Object。
+      - 是，重置`当前查找类`为`待查找类D`，回到判断1
+      - 否，进行判断3
+        - 判断3：`待查找父类`是否包含其他子类，且子类满足`待查找类D`的父类或父类的父类。
+          - 是，则暂时跳过该 `待查找父类` 的查找，将`父类`的下一个满足是`待查找类D`的条件的子类取出放入到`查找列表__mro__`
+          - 否，则将`待查找父类`取出放入到`查找列表__mro__`
+        - 准备从`当前查找类`继续向上查找它的父类。回到判断2
+
+## 1.2. 环境配置
 
 ```bash
 conda info --envs # 查看环境
@@ -81,14 +93,14 @@ activate test_py3
 conda remove -n py36 --all
 ```
 
-## 安装软件
+## 1.3. 安装软件
 从conda网页内查找：http://bioconda.github.io/conda-recipe_index.html
 - conda search PACKAGENAME：运行命令查找是否存在
 - conda 安装R语言以及R包示例
 
-## 示例
+### 1.3.1. 示例
 
-### 创建单独环境
+#### 1.3.1.1. 创建单独环境
 ```python
 conda info --envs # 查看环境
 conda create -n R3.6 # 创建名为R3.6的环境
@@ -99,7 +111,7 @@ conda install r-stringi # R包 以 r- 开头
 conda deactivate     # 退出当前环境
 ```
 
-### 安装指定版本
+#### 1.3.1.2. 安装指定版本
 - conda install numpy=1.11：即安装能模糊匹配到numpy版本为1.11
 - conda install numpy==1.11：即精确安装numpy为1.11的版本
 
@@ -114,7 +126,7 @@ conda install R=3.6
   https://www.jianshu.com/p/a5e572bc5da5
 
 
-## Conda环境更名
+## 1.4. Conda环境更名
 
 比如，想把环境 rcnn 重命名成 tf
 
@@ -126,7 +138,7 @@ conda remove -n rcnn --all
 ```
 
 
-## conda环境的迁移
+## 1.5. conda环境的迁移
 
 参考：[conda环境迁移到其他机器上_ysq319的博客-CSDN博客_conda 环境迁移](https://blog.csdn.net/ysq319/article/details/102773615)
 
@@ -141,5 +153,5 @@ pip freeze > requirements.txt
 conda env create -f your_env.yaml
 pip install -r requirements.txt
 ```
-注意：在环境移植的过程中，如果想要在不联网的情况下直接复制别的机器或者自己的环境，可以将env下面对应的环境直接进行拷贝，（只适用于anacoda大版本相近anaconda2与3应该是不行的因为对应路径就已经有了变化），直接将整个环境复制然后全部拷贝到新环境的路径文件夹中。
 
+> 注意：在环境移植的过程中，如果想要在不联网的情况下直接复制别的机器或者自己的环境，可以将env下面对应的环境直接进行拷贝，（只适用于anacoda大版本相近。anaconda2与3应该是不行的因为对应路径就已经有了变化），直接将整个环境复制然后全部拷贝到新环境的路径文件夹中。

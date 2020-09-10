@@ -1,5 +1,14 @@
 # 8. 文件FILE及编码
 
+---
+导读：
+> 如何理解文件是什么？  
+> 如何理解位(bit)、字节(byte)、字符、编码之间的关系？  
+> 编码是什么？为什么会有不同编码？  
+> utf-8和gbk编码的文件区别是什么？  
+> 字节串是什么，与二进制文件有什么关系？  
+> Python在Linux下和Windows下读文件区别？  
+
 学习前准备：
 
 文件准备： 运行以下代码, 生成文件 test_file.txt , 以便后续学习运行使用
@@ -12,29 +21,69 @@ with open('demo_Chapter08/test_file.txt', 'wb') as fo:
 ```
 
 ## 8.1. 基本概念
+
+文件是什么，如何理解不同的文件类型？
+
 ### 8.1.1. 文件
 
-问题1：文件是什么，存储方式是什么？
+什么是文件？各种格式之间有什么区别？
 
-文件的本质都是二进制流, 写一个文件时, 文件的后缀是可随意改的。
+可以用一句话概括：
+- 文件是存储字节串的容器；编码只是文件转换为人类能看懂的翻译规则；后缀名只是告诉了该系统中如何对这个文件的这些字节串进行解码(后缀名常用于区分文件格式，文件类型)。
+
+
+---
+#### 8.2.1.1. 数据存储基础
+
+**数据的存储基础：** 
+
+- 位：数据存储的最小单位。在计算机中的二进制数系统中，位，简记为b，也称为比特，每个0或1就是一个位(bit)。
+- 字节：用于计量存储容量的一种计量单位。大多数计算中，1字节(B,byte) = 8位(b, bit)，由 8个位 (8个`0`或`1`) 组成了一个字节。能表示0-255这256个信息，1字节刚好与两位十六进制数对应，从`00`到`ff`。以下关于文件的描述都默认8位=1字节。
+
+**关于字节的一些换算单位：**
+- 字节(Byte)=8位(bit)
+- 1KB( Kilobyte，千字节)=1024B
+- 1MB( Megabyte，兆字节)=1024KB
+- 1GB( ... 
+
+
+---
+#### 8.2.1.2. 文件储存的信息本质
+
+**文件存储的信息本质：**
+- 文件的本质都是二进制流，八个位组成的“字节”为文件存储的基本单位。
+- 文件的存储，是由一系列字节组合的字节串存储。
+- 文件的编码与解码规则，则是将文件中一个字节或多个连续字节翻译成一个有意义的值。存储的数据本身没有任何意义，“编码规则”、“翻译规则”则是人为规定，使字节的各类特定组合对应了人们理解的不同信息，而让文件有了意义。
+- 文件类型(文件格式)，常使用后缀名来区分。后缀名也没有任何意义，后缀名只是告诉了该系统中如何对该文件内容的字节串进行解码。一个文件的后缀名是可随意改的，不由计算机确认翻译规则，由我们人为指定也是可以的。 
+
+Ps: 从字节的规定，到翻译规则的建立，到如何让操作系统自动解析，所有的规则规定，如同语言，文化一样，语言与文化本质上就是同化更多人。
+
+**文件的存储特点：**  
+- 文件中的数据是以字节为单位进行顺序存储的；
+- 文件又是数据存储的一个单位；
+- 文件通常用来长期存储数据；
+
+**二进制文件是什么，与文本文件有什么关系？**  
+- **二进制文件的组成同样是由 不同8个位组成的字节，再由不同字节组合而成的字节串。** 文本文件只是二进制文件中的一种特例，为了与文本文件相区别，人们又把除了文本文件以外的文件称为二进制文件。[——百度百科](https://baike.baidu.com/item/%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6)
+
 
 ---
 
 实验1-1：  
-> 打开 sublime text 软件，将以下代码复制到软件终端，选择以十六进制保存 `文件 > 以...编码保存`，文件名命名为`test.bmp`，之后便可以双击打开该文件，可以看到一个 `8像素 x 5像素` 包含横线的图像。
+> 打开 sublime text 软件，将以下代码复制到软件终端，选择以十六进制保存 `文件 > 以...编码保存(保存编码方式) > 选最后一行以十六进制保存`，文件名命名为`test.bmp`，之后便可以双击打开该文件，可以看到一个 `8像素 x 5像素` 包含横线的背景为灰色的图像。（示例中，从aa开始的每三个字节`aaaaaa` 代表一组RGB色彩，如三原色，Red170, Green170, Blue170组合成了灰色；而`000000`代表黑色）
 
 ```
 424d ae00 0000 0000 0000 3600 0000 2800
 0000 0800 0000 0500 0000 0100 1800 0000
 0000 7800 0000 7412 0000 7412 0000 0000
-0000 0000 0000 ffff ffff ffff ffff ffff
-ffff ffff ffff ffff ffff ffff ffff ffff
-ffff ffff ffff ffff ffff ffff ffff ffff
-ffff ffff ffff ffff ff00 0000 0000 0000
-0000 0000 0000 0000 0000 00ff ffff ffff
-ffff ffff ffff ffff ffff ffff ffff ffff
-ffff ffff ffff ffff ffff ffff ffff ffff
-ffff ffff ffff ffff ffff ffff ffff 
+0000 0000 0000 aaaa aaaa aaaa aaaa aaaa
+aaaa aaaa aaaa aaaa aaaa aaaa aaaa aaaa
+aaaa aaaa aaaa aaaa aaaa aaaa aaaa aaaa
+aaaa aaaa aaaa aaaa aa00 0000 0000 0000
+0000 0000 0000 0000 0000 00aa aaaa aaaa
+aaaa aaaa aaaa aaaa aaaa aaaa aaaa aaaa
+aaaa aaaa aaaa aaaa aaaa aaaa aaaa aaaa
+aaaa aaaa aaaa aaaa aaaa aaaa aaaa 
 ```
 
 实验1-2：  
@@ -45,14 +94,14 @@ text = """
 424d ae00 0000 0000 0000 3600 0000 2800
 0000 0800 0000 0500 0000 0100 1800 0000
 0000 7800 0000 7412 0000 7412 0000 0000
-0000 0000 0000 ffff ffff ffff ffff ffff
-ffff ffff ffff ffff ffff ffff ffff ffff
-ffff ffff ffff ffff ffff ffff ffff ffff
-ffff ffff ffff ffff ff00 0000 0000 0000
-0000 0000 0000 0000 0000 00ff ffff ffff
-ffff ffff ffff ffff ffff ffff ffff ffff
-ffff ffff ffff ffff ffff ffff ffff ffff
-ffff ffff ffff ffff ffff ffff ffff 
+0000 0000 0000 aaaa aaaa aaaa aaaa aaaa
+aaaa aaaa aaaa aaaa aaaa aaaa aaaa aaaa
+aaaa aaaa aaaa aaaa aaaa aaaa aaaa aaaa
+aaaa aaaa aaaa aaaa aa00 0000 0000 0000
+0000 0000 0000 0000 0000 00aa aaaa aaaa
+aaaa aaaa aaaa aaaa aaaa aaaa aaaa aaaa
+aaaa aaaa aaaa aaaa aaaa aaaa aaaa aaaa
+aaaa aaaa aaaa aaaa aaaa aaaa aaaa 
 """
 L = [xx for x in text.split() for xx in (x[:2], x[2:])]
 L_bytes = [int('0x'+xx, 16) for xx in L]
@@ -64,96 +113,31 @@ with open('demo_Chapter08/test.bmp', 'wb') as fo:
     fo.write(codes)
 ```
 
-图像：
+图像展示：
+
+<!-- ![](demo_Chapter08/test.bmp) -->
 
 <div align=center>
-<img src="demo_Chapter08/test.bmp"  width="20" align="middle" style="border:0px solid black">
-<br><br>
-<p><b></b></p>
-<p></p>
-<br><br>
+<img src="docs/00.Python/demo_Chapter08/test.bmp"  width="50" align="middle" style='border:0px solid black'>
 </div>
-
-
-
-#### 8.2.1.1. 文件基本概念
-什么是文件？各种格式之间有什么区别吗？
-
-可以用一句话概括：
-- 文件是存储字节串的容器，编码只是它的翻译规则。后缀名(文件格式)只是定义了该系统中如何对这些字节进行解码。
-
-特点：
-- 文件是数据存储的一个单位
-- 文件通常用来长期存储数据
-- 文件中的数据是以字节为单位进行顺序存储的
-
-#### 8.2.1.2. 文件储存的信息本质
-引入：
-```python
-# 观察，下列数字都为十进制97
->>> 97
-97
->>> 0b01100001
-97
->>> 0x61
-97
->>> b'\x61'
-b'a'
-```
-
-文件的存储本质：存储基本字节码，显示时被各类编码规则(`gbk`, `utf8`等)转码显示于屏幕。
-
-如文件中的十六进制原码：
-```
-6162 6331 3233 e4b8 ade6 9687
-```
-通过utf-8转码：
-```
-abc123中文
-```
-
-转码示例：
-```python
->>> b'\x61 \x62 \x63 \x31 \x32 \x33 \xe4\xb8\xad \xe6\x96\x87'.decode('utf-8')
-'a b c 1 2 3 中 文'
-```
-
-文件存储的信息本质：
-- 由 8个位 (8个`0`或`1`)组成了一个字节。
-- 都是字节串存储
-
-如何理解？  
-文件的外部存储本身都没有任何编码信息，都是以字节串存储的。  
-这些字节串信息用不同的编码方法能读出不同的信息。
 
 ### 8.1.2. 编码
 
-编码是什么？为什么会有不同编码？
+**编码是什么？怎么理解编码与文件的关系？**
+- 文件本质并无差异，都是字节串文件，差异在于打开文件后的编码(翻译)规则。 如：打开文本文件显示时被各类编码规则(`gbk`, `utf8`等)转码显示于屏幕。打开图片文件时，被RGB颜色组合翻译规则显示为图片。文本文件和图片文件的信息本质都是一样的，他们都由基本字节组合而成。
 
-utf-8和gbk的文件区别是什么？  
-猜测：文件的头几个编码不同造成这些文件差异？  
-经验证并非如此，他们文件本质并无差异，都是字节串文件，差异在于文本模式打开后的汉字编码(翻译)规则。  
-字节串和二进制文件有什么关系？  
-字节串是二进制文件的存储方式。  
-为什么Python在Linux下能正常open并read文件，而把文件放在Windows不能？  
-系统的编码不同win --> gbk，linux --> utf-8。  
-linux的默认  
+**Unicode是什么，ascII、gbk、utf8是什么，他们是什么联系？**
+- Unicode 是「字符集」。
+- UTF-8 是「编码规则」。是Unicode的实现方式，UTF-8 最大的一个特点，就是它是一种变长的编码方式。它可以使用1~4个字节表示一个符号，根据不同的符号而变化字节长度。GBK与UTF-8类似，也是变长编码方式，但他们并不完全兼容。  
 
-那么，何为字节串，何为Unicode？ascII又是什么，与utf8等又是什么联系？  
-编码，其实相当于一套翻译规则。
+**常见的utf-8和gbk编码规则是什么，他们区别是什么？**
+- 它们是特别的可用于中文的一套文本编码规则。 gbk为汉字标准特有，常见于Windows系统，2字节编码1汉字。而utf8是国际通用标准，常见于Linux系统，3字节编码1汉字。    
 
-数据的存储基础:   
-数据最小单位1Bye(字节)=8位。  
-位(bit)、字节(byte)、字符、编码之间的关系
+关于编码的深入理解，更多详情，可看一篇博文：[字符编码笔记：ASCII，Unicode 和 UTF-8 - 阮一峰的网络日志](http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html)
 
+
+---
 #### 8.2.2.1. 汉字编码
-问题:
-“十个汉字占多少个字节”这句话存储的文件占多少个字节？
-```
-不同编码，不同结果。
-utf-8     30
-gbk(ANSI) 20
-```
 
 国标系列:
 ```
@@ -162,26 +146,59 @@ GB18030(二字节或四字节编码, 共27533个汉字)
     GB2312(二字节编码, 共个6763汉字)
 (Windows 常用)
 ```
+
 国际标准:
 ```
 UNICODE32(UNICODE16) < ---> UTF - 8
   (Linux, Mac OS X, IOS, Android等常用)
 有趣的是，这套标准里，3/4都是中亚文，
-【问题：ASCii和这些编码是什么关系？【？】】
+【问题：ASCii和这些编码是什么关系？是否为包含关系？】
 ```
 
 ---
-示例：同一字节串的不同解码方式对比
+示例1：Python中的十六进制数转码
 ```python
+# 如文件中的十六进制原码： `61 62 63 31 32 33 e4b8ad e69687`
+# 通过utf-8转码： `a b c 1 2 3 中 文`
+>>> b'\x61 \x62 \x63 \x31 \x32 \x33 \xe4\xb8\xad \xe6\x96\x87'.decode('utf-8')
+'a b c 1 2 3 中 文'
+
+# 十六进制数如何理解？61表示ascii的编码规则对应字母a。
+## Python中，默认打印十进制，61(16)对应97(10)。
+>>> print(97, 0b01100001, 0x61, "该十进制表示的ascii字母是：", b'\x61')
+97 97 97 该进制数61表示的ascii字母是： b'a'
+```
+
+---
+示例2：同一字节串的不同解码方式对比
+```python
+# 不同解码方式获得不同结果，utf8一个汉字用3字节表示，gbk一个汉字用2字节表示
 >>> b'\xe7\xa8\x8b\xe5\xba\x8f'.decode('utf8')
 '程序'
 >>> b'\xe7\xa8\x8b\xe5\xba\x8f'.decode('gbk')
 '绋嬪簭'
 ```
 
+---
+示例3：问题: “十个汉字占多少个字节”这句话存储的文件占多少个字节？
+
+```python
+# 不同编码，不同结果。
+# utf-8     30
+# gbk(ANSI) 20
+```
+
+
 ### 8.2.3. 不同系统平台的编码问题
+---
 #### 8.2.3.1. Python下读取文件的编码错误问题
+
+（可暂时跳过，等学习到编码规则后在进行此节学习）
+
 问题描述
+
+为什么Python在`open("utf8.file")`在Linux下能正常open并read包含汉字的utf8文件，而把该文件放在Windows却报错？  
+- 系统的编码不同open函数默认为系统编码，win --> gbk，linux --> utf-8。  
 
 有时候在Windows下打开带中文的utf-8编码的文件出现报错：
 
@@ -341,6 +358,7 @@ open_file("test_f_utf8.txt")
 open_file("test_f_gbk.txt")
 ```
 
+---
 #### 8.2.3.3. Python中 “换行符” 的处理
 各种操作系统的换行符:
 
@@ -406,6 +424,7 @@ with open("./test_f_utf8.txt", 'rb') as fi:
 ```
 
 ### 8.2.4. 文件与MD5值
+
 文件的MD5值实际上是对文件的字节码进行MD5算法加密所获得的唯一码
 
 示例：
@@ -445,7 +464,7 @@ with open('test.txt','rb') as fi:
 ## 8.3. Python中的编码说明
 ### 8.3.1. Python 的内部(内存)编码
 
-Python3的字符串内部都是用UNICODE来存储字符的。可以理解为操作过程中，内存的字符串编码方式是Unicode。
+Python3的字符串内部都是用UNICODE来存储字符的。可以理解为操作过程中，内存的字符集是Unicode表示，当输出或写入文件时才调用指定的编码方式utf8/gbk等。
 
 't'  文本模式(默认)
 
@@ -485,6 +504,7 @@ list, str, tuple, bytes, bytearray
 所有字符转码为字节作为通信传输。  
 存储以字节为单位的数据
 
+---
 #### 8.3.3.1. 概念
 何为字节串？
 - 由多个字节组合而成的序列
@@ -502,6 +522,7 @@ b ... bit     表示位
 - 字节串是不可变的字节序列
 - 字节是0~255之间的整数
 
+---
 #### 8.3.3.2. 字节串的创建
 
 - python:字节串创建的三种方式  
@@ -609,6 +630,7 @@ print(b"\xd5\xe2")
 print(b"\xd5\xe2".decode('gbk'))
 ```
 
+---
 示例2：`bytes()`函数
 ```python
 # bytes(int), 批量创建b'\x00'
@@ -631,6 +653,7 @@ print(bytes('你好', encoding='utf-8'))
 # b'\xe4\xbd\xa0\xe5\xa5\xbd'
 ```
 
+---
 #### 8.3.3.3. bytes、str的区别与转换
 
 字节串与字符串的区别本质:
@@ -690,6 +713,7 @@ print(len(s), len(e1), len(e2))  # ______
 6
 ```
 
+---
 #### 8.3.3.4. 字节串的运算
 ```
 +  +=  *  *=
@@ -712,6 +736,7 @@ print(65 in b'ABCD')    # True
 print(b'A' in b'ABCD')  # True
 ```
 
+---
 #### 8.3.3.5. 用于字节串的函数
 
 字节串存储的本质是ascii编码数值，因而同数值一样，可以进行如下函数操作：（详情见数值一章节）
@@ -728,6 +753,7 @@ any(x)
 ### 8.3.4. 字节数组 bytearray
 可变的字节序列
 
+---
 #### 8.3.4.1. 字节数组的创建
 ```python
 bytearray()  # 创建空的字节数组
@@ -737,6 +763,7 @@ bytearray(字符串, encoding='utf-8')
 # 注: 以上参数等同于字节串
 ```
 
+---
 #### 8.3.4.2. 字节数组的运算:
 ```python
 +  +=  *  *= 
@@ -752,6 +779,7 @@ in / not in
 bytearray(b'0B1D2F')
 ```
 
+---
 #### 8.3.4.3. bytearray的方法:
 |方法|功能|
 |-|-|
@@ -791,6 +819,7 @@ B.remove(value)  | 删除第一个出现的字节，如果没有出现，则产�
     open返回的文件流对象是可迭代对象
 
 
+---
 #### 8.4.1.1. 操作模式
 模式(mode)字符的含义：
 

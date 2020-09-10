@@ -349,3 +349,56 @@ tag_p = list_foods[0].find('p', class_='ing ellipsis')  # 提取第0个父级标
 ingredients = tag_p.text[1:-1]  # 食材，使用[1:-1]切掉了多余的信息  
 print(ingredients)  # 打印食材  
 ```
+
+# xpath的基本使用
+
+```python
+from lxml import etree
+ 
+wb_data = """
+        <div>
+            <ul>
+                 <li class="item-0"><a href="link1.html">first item</a></li>
+                 <li class="item-1"><a href="link2.html">second item</a></li>
+                 <li class="item-inactive"><a href="link3.html">third item</a></li>
+                 <li class="item-1"><a href="link4.html">fourth item</a></li>
+                 <li class="item-0"><a href="link5.html">fifth item</a>
+             </ul>
+         </div>
+        """
+
+def exp(html_data):
+    print(type(html_data[0]))
+    for i in html_data:
+        if type(i) == etree._Element:
+            print("  i.text: ", i.text)
+        else:
+            print("  i:", i)
+
+html = etree.HTML(wb_data)  # 初始化
+print(html)  # Element
+result = etree.tostring(html)  # 打印字符串
+print(result.decode("utf-8"))
+
+# 获取标签a 文本内容
+exp(html.xpath('/html/body/div/ul/li/a'))  # [Element, ]
+# 获取标签a 文本内容
+exp(html.xpath('/html/body/div/ul/li/a/text()'))  # [str, ]
+# 获取标签a 属性（网址）
+exp(html.xpath('/html/body/div/ul/li/a/@href'))  # [str, ]
+# 获取标签a 属性（网址==特定值）的文本内容
+exp(html.xpath('/html/body/div/ul/li/a[@href="link2.html"]/text()'))  # [str, ]
+# 获取标签a 文本内容， li相对路径下
+exp(html.xpath('//li/a'))  # [Element, ]
+# 获取标签a 文本内容， li相对路径下
+exp(html.xpath('//li/a/text()'))  # [str, ]
+# 获取标签a 文本内容， li相对路径下
+exp(html.xpath('//li/a//@href'))  # [str, ]
+# 获取标签a 文本内容， li相对路径下
+exp(html.xpath('//li/a[@href="link2.html"]'))  # [Element,]
+# 查找最后一个li标签里的a标签的href属性
+exp(html.xpath('//li[last()]/a/text()'))
+# 查找倒数第二个li标签里的a标签的href属性
+exp(html.xpath('//li[last()-1]/a/text()'))
+
+```
