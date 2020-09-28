@@ -389,8 +389,9 @@ GIT
     ```
     远程身份验证密匙配置：
     ```bash
-    ssh-keygen -t rsa -C "1170101471@qq.com"
-    git clone下载（全部克隆针对新的）
+    ssh-keygen -t rsa -C "1170101471@qq.com"  # 按三下enter
+    # cat ~/.ssh/id_rsa.pub, 将内容复制到 https://github.com/settings/ssh/new 内
+    # git clone下载（全部克隆针对新的）
     git clone git@gitee.com:wan230114/mytools.git
     ```
 

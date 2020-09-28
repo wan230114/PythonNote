@@ -2,12 +2,11 @@
 
 ---
 导读：
-> 如何理解文件是什么？  
-> 如何理解位(bit)、字节(byte)、字符、编码之间的关系？  
-> 编码是什么？为什么会有不同编码？  
-> utf-8和gbk编码的文件区别是什么？  
-> 字节串是什么，与二进制文件有什么关系？  
-> Python在Linux下和Windows下读文件区别？  
+> 1. 如何理解文件是什么？  
+> 2. 如何理解位(bit)、字节(byte)、字符、编码之间的关系？  
+> 3. 编码是什么？为什么会有不同编码？utf-8和gbk编码的文件区别是什么？  
+> 4. 字节串是什么，与二进制文件有什么关系？  
+> 5. Python在Linux下和Windows下读文件区别？  
 
 学习前准备：
 
@@ -53,18 +52,19 @@ with open('demo_Chapter08/test_file.txt', 'wb') as fo:
 **文件存储的信息本质：**
 - 文件的本质都是二进制流，八个位组成的“字节”为文件存储的基本单位。
 - 文件的存储，是由一系列字节组合的字节串存储。
-- 文件的编码与解码规则，则是将文件中一个字节或多个连续字节翻译成一个有意义的值。存储的数据本身没有任何意义，“编码规则”、“翻译规则”则是人为规定，使字节的各类特定组合对应了人们理解的不同信息，而让文件有了意义。
-- 文件类型(文件格式)，常使用后缀名来区分。后缀名也没有任何意义，后缀名只是告诉了该系统中如何对该文件内容的字节串进行解码。一个文件的后缀名是可随意改的，不由计算机确认翻译规则，由我们人为指定也是可以的。 
+- 文件的编码与解码规则，则是将文件中一个字节或多个连续字节翻译成一个有意义的信息。存储的数据本身没有任何意义，“编码规则”、“翻译规则”则是人为规定而使字节的各类特定组合对应了人们理解的不同信息，从而文件有了意义。
+- 文件类型(文件格式)，常使用后缀名来区分。后缀名也没有任何意义，后缀名只是告诉了该系统中如何对该文件内容的字节串进行解码。一个文件的后缀名是可随意改的，不由计算机确认翻译规则，由我们人为指定如何指定特定解读方式也是可以的。 
 
-Ps: 从字节的规定，到翻译规则的建立，到如何让操作系统自动解析，所有的规则规定，如同语言，文化一样，语言与文化本质上就是同化更多人。
+Ps: 从字节的规定，到翻译规则的建立，到如何让操作系统自动解析，所有的规则规定，如同语言，文化一样，语言与文化本质上可以说是用一套方便的规则去同化了更多人。
 
 **文件的存储特点：**  
 - 文件中的数据是以字节为单位进行顺序存储的；
-- 文件又是数据存储的一个单位；
+- 文件是数据存储的容器；
 - 文件通常用来长期存储数据；
 
 **二进制文件是什么，与文本文件有什么关系？**  
-- **二进制文件的组成同样是由 不同8个位组成的字节，再由不同字节组合而成的字节串。** 文本文件只是二进制文件中的一种特例，为了与文本文件相区别，人们又把除了文本文件以外的文件称为二进制文件。[——百度百科](https://baike.baidu.com/item/%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6)
+- **二进制文件的组成同样是由 不同8个位组成的那256种字节，再由这些不同字节组合而成的字节串。**
+- **文本文件只是二进制文件中的一种特例**，为了与文本文件相区别，人们又把除了文本文件以外的文件称为二进制文件。[——百度百科](https://baike.baidu.com/item/%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6)
 
 
 ---
@@ -103,10 +103,13 @@ aaaa aaaa aaaa aaaa aaaa aaaa aaaa aaaa
 aaaa aaaa aaaa aaaa aaaa aaaa aaaa aaaa
 aaaa aaaa aaaa aaaa aaaa aaaa aaaa 
 """
+# 以每两位分割
 L = [xx for x in text.split() for xx in (x[:2], x[2:])]
+# 将其作为十六进制数值，转换为数值类型
 L_bytes = [int('0x'+xx, 16) for xx in L]
+# 查看一下转换的对应关系。PS：Python用十进制显示数值
 print(*zip(L, L_bytes))
-
+# 使用bytes函数在内存中将数组转换为16进制源码并写入文件
 codes = bytes(L_bytes)
 with open('demo_Chapter08/test.bmp', 'wb') as fo:
     print(codes)
@@ -115,25 +118,26 @@ with open('demo_Chapter08/test.bmp', 'wb') as fo:
 
 图像展示：
 
-<!-- ![](demo_Chapter08/test.bmp) -->
 
 <div align=center>
 <img src="docs/00.Python/demo_Chapter08/test.bmp"  width="50" align="middle" style='border:0px solid black'>
 </div>
 
+---
 ### 8.1.2. 编码
 
-**编码是什么？怎么理解编码与文件的关系？**
-- 文件本质并无差异，都是字节串文件，差异在于打开文件后的编码(翻译)规则。 如：打开文本文件显示时被各类编码规则(`gbk`, `utf8`等)转码显示于屏幕。打开图片文件时，被RGB颜色组合翻译规则显示为图片。文本文件和图片文件的信息本质都是一样的，他们都由基本字节组合而成。
-
-**Unicode是什么，ascII、gbk、utf8是什么，他们是什么联系？**
-- Unicode 是「字符集」。
-- UTF-8 是「编码规则」。是Unicode的实现方式，UTF-8 最大的一个特点，就是它是一种变长的编码方式。它可以使用1~4个字节表示一个符号，根据不同的符号而变化字节长度。GBK与UTF-8类似，也是变长编码方式，但他们并不完全兼容。  
-
-**常见的utf-8和gbk编码规则是什么，他们区别是什么？**
-- 它们是特别的可用于中文的一套文本编码规则。 gbk为汉字标准特有，常见于Windows系统，2字节编码1汉字。而utf8是国际通用标准，常见于Linux系统，3字节编码1汉字。    
-
-关于编码的深入理解，更多详情，可看一篇博文：[字符编码笔记：ASCII，Unicode 和 UTF-8 - 阮一峰的网络日志](http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html)
+开题三问：
+> **编码是什么？怎么理解编码与文件的关系？**
+> - 文件本质并无差异，都是字节串文件，差异在于打开文件后的编码(翻译)规则。 如：打开文本文件显示时被各类编码规则(`gbk`, `utf8`等)转码显示于屏幕的文本文件；打开图片文件时，被RGB颜色组合翻译规则显示于屏幕的图片文件；还有压缩包被解码查看的压缩包文件；...。文本文件和图片文件的信息本质都是一样的，他们都由基本字节组合而成。
+> 
+> **Unicode是什么，ascII、gbk、utf8是什么，他们是什么联系？**
+> - Unicode 是「字符集」。
+> - UTF-8 是「编码规则」。编码规则是Unicode的实现方式。以UTF-8为代表的一些编码规则最大的一个特点，就是它是一种变长的编码方式。它可以使用1~4个字节表示一个符号，根据不同的符号而变化字节长度。ascII只编码了英文数字和一些符号的单字节，可以说被包含于UTF-8等规则中，GBK与UTF-8虽然类似，也是变长编码方式，都可编码中文，但他们并不完全兼容。  
+> 
+> **常见的utf-8和gbk编码规则是什么，他们区别是什么？**
+> - 它们是特别的可用于中文的一套文本编码规则。 gbk为汉字标准特有，常见于Windows系统，2字节编码1汉字。而utf8是国际通用标准，常见于Linux系统，3字节编码1汉字。    
+> 
+> 关于编码的深入理解，更多详情，可看一篇博文：[字符编码笔记：ASCII，Unicode 和 UTF-8 - 阮一峰的网络日志](http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html)
 
 
 ---
@@ -362,12 +366,12 @@ open_file("test_f_gbk.txt")
 #### 8.2.3.3. Python中 “换行符” 的处理
 各种操作系统的换行符:
 
-|         系统         | 换行符 |
-| :------------------: | :----: |
-|     Linux换行符:     |  `'\n'`  |
-|    Window换行符:     | `'\r\n'` |
-| 旧的Macintosh换行符: |  `'\r'`  |
-|  新的Mac Os 换行符:  |  `'\n'`  |
+| 系统                 | 换行符   |
+|----------------------|----------|
+| Linux换行符:         | `'\n'`   |
+| Window换行符:        | `'\r\n'` |
+| 旧的Macintosh换行符: | `'\r'`   |
+| 新的Mac Os 换行符:   | `'\n'`   |
 
 说明: 
 - 在文件文件模式下
@@ -375,6 +379,12 @@ open_file("test_f_gbk.txt")
   - 在从Python内存中写入文件时，又会将`"\n"`转换成`“对应使用操作系统的换行符”`
 
   如：Windows下，如果以"文本"方式打开一个文件，那么在读字符的时候，系统会把所有的`"\r\n"`序列转成`"\n"`，在写入时把`"\n"`转成`"\r\n"`
+
+> 机制是：
+> - \n一般会操作系统被翻译成"行的结束"，即LF(Line-Feed)
+> - \r会被翻译成"回车"，即CR(Cariage-Return)
+> - 对于文本文件的新行，在UNIX上，一般用\n(LF)来表示，Mac上用\r(CR)来表示，
+> - Windows上是用\n\r(CR-LF)来表示。
 
 ---
 这个知识有什么用呢？
@@ -469,6 +479,7 @@ Python3的字符串内部都是用UNICODE来存储字符的。可以理解为操
 't'  文本模式(默认)
 
 1. 默认文件中存储的数据为字符数据，以行为单位分隔，在 Python 内部统一用`'\n'`作为换行符进行分隔
+2. 对文本文件的读写需要用字符串(str)进行读取和写入数据
 
 ### 8.3.2. python文件的编码注释
 python 编码 encode 字符串:
@@ -491,7 +502,12 @@ python 编码 encode 字符串:
 # 设置python文件读取的编码格式为utf-8
 ```
 
-### 8.3.3. 字节串 bytes
+
+
+## 8.3.3. 字节串 bytes
+
+—— 不可变数据类型，与`str`相对应
+
 - 引入：
 回顾问题:
 之前学的容器类型:  
@@ -505,7 +521,7 @@ list, str, tuple, bytes, bytearray
 存储以字节为单位的数据
 
 ---
-#### 8.3.3.1. 概念
+### 8.3.3.1. 概念
 何为字节串？
 - 由多个字节组合而成的序列
 
@@ -523,99 +539,16 @@ b ... bit     表示位
 - 字节是0~255之间的整数
 
 ---
-#### 8.3.3.2. 字节串的创建
+### 8.3.3.2. 字节串的创建
 
-- python:字节串创建的三种方式  
-
-  1. `b'字面值'` 直接生成
-  2. `bytes()` 使用函数生成
-  3. `"str".encode()` 转码
-
-      ```python
-      # 1) b''直接生成
-      print(b'zifuchuang')
-      # 2) bytes()函数
-      print(bytes('zifuchuang',encoding='utf-8'))
-      # 3) 字符串转换
-      print('zifuchuang'.encode('utf-8'))
-      ```
+#### `b'字面值'` 直接生成
 
 - 说明：
   - 字面值只能是字母、数字、英文符号等256个ascii的值，或者十六进制码表示的值，如`'\x09'`
+  - Python中对于字节串是默认显示ascii翻译后的字符。
 
-- 字节串的构造函数 bytes
-  - 格式：
-
-    ```python
-    # 1) 生成一个空的字节串 等同于 b''
-    bytes()
-    
-    # 2) 生成n个值为零的字节串
-    bytes(整形数int)
-    
-    # 3) 用可迭代对象初始化一个字节串
-    # 将可迭代对象中整型数按照ascii转码并拼接
-    bytes(包含整型数int的可迭代对象)
-
-    # 4) 用字符串的转换编码生成一个字节串
-    bytes(字符串, encoding='utf-8')
-    ```
-
-说明：
-1. Python中对于字节串是默认显示翻译后的字符。
-
-    示例: 使用`\x09\x0a`与`\t\n`表示相同字节串，最后表示为翻译后
-    ```python
-    print(repr('\x09\x0a\x0b'))  # '\t\n\x0b'
-    print(repr('\t\n\x0b'))  # '\t\n\x0b'
-    ```
-2. 字节串的创建必须使用范围内的数，`b'字面值'`、整形数int、整型数int构成的可迭代对象，其中的整型数int必须在`[0, 256)`范围内，因为1个字节有8位，每个位有`0`和`1`两种组合，共计`2^8=256`个组合。
-
-    示例：查看所有可输入的字节码
-    ```python
-    seed = 8
-    for i in range(0, 256, seed):
-        print('%03d-%03d bytes:'%(i, i + seed - 1, ),
-              bytes(range(i, i + seed)))
-    ```
-    运行结果：
-    ```
-    000-007 bytes: b'\x00\x01\x02\x03\x04\x05\x06\x07'
-    008-015 bytes: b'\x08\t\n\x0b\x0c\r\x0e\x0f'
-    016-023 bytes: b'\x10\x11\x12\x13\x14\x15\x16\x17'
-    024-031 bytes: b'\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f'
-    032-039 bytes: b' !"#$%&\''
-    040-047 bytes: b'()*+,-./'
-    048-055 bytes: b'01234567'
-    056-063 bytes: b'89:;<=>?'
-    064-071 bytes: b'@ABCDEFG'
-    072-079 bytes: b'HIJKLMNO'
-    080-087 bytes: b'PQRSTUVW'
-    088-095 bytes: b'XYZ[\\]^_'
-    096-103 bytes: b'`abcdefg'
-    104-111 bytes: b'hijklmno'
-    112-119 bytes: b'pqrstuvw'
-    120-127 bytes: b'xyz{|}~\x7f'
-    128-135 bytes: b'\x80\x81\x82\x83\x84\x85\x86\x87'
-    136-143 bytes: b'\x88\x89\x8a\x8b\x8c\x8d\x8e\x8f'
-    144-151 bytes: b'\x90\x91\x92\x93\x94\x95\x96\x97'
-    152-159 bytes: b'\x98\x99\x9a\x9b\x9c\x9d\x9e\x9f'
-    160-167 bytes: b'\xa0\xa1\xa2\xa3\xa4\xa5\xa6\xa7'
-    168-175 bytes: b'\xa8\xa9\xaa\xab\xac\xad\xae\xaf'
-    176-183 bytes: b'\xb0\xb1\xb2\xb3\xb4\xb5\xb6\xb7'
-    184-191 bytes: b'\xb8\xb9\xba\xbb\xbc\xbd\xbe\xbf'
-    192-199 bytes: b'\xc0\xc1\xc2\xc3\xc4\xc5\xc6\xc7'
-    200-207 bytes: b'\xc8\xc9\xca\xcb\xcc\xcd\xce\xcf'
-    208-215 bytes: b'\xd0\xd1\xd2\xd3\xd4\xd5\xd6\xd7'
-    216-223 bytes: b'\xd8\xd9\xda\xdb\xdc\xdd\xde\xdf'
-    224-231 bytes: b'\xe0\xe1\xe2\xe3\xe4\xe5\xe6\xe7'
-    232-239 bytes: b'\xe8\xe9\xea\xeb\xec\xed\xee\xef'
-    240-247 bytes: b'\xf0\xf1\xf2\xf3\xf4\xf5\xf6\xf7'
-    248-255 bytes: b'\xf8\xf9\xfa\xfb\xfc\xfd\xfe\xff'
-    ```
-  
 ---
-示例1：`b'字面值'`创建
+示例1: `b'字面值'`创建
 ```python
 # 创建空字节串的字面值:
 print(b'', b"", b'''''', b"""""", B"")
@@ -631,20 +564,80 @@ print(b"\xd5\xe2".decode('gbk'))
 ```
 
 ---
+示例2: Python中对于字节串是默认显示翻译后的字符。  
+使用`\x09\x0a`与`\t\n`表示相同字节串，最后表示为翻译后
+
+```python
+print(b'\x09\x0a\x0b')  # '\t\n\x0b'
+print(b'\t\n\x0b')      # '\t\n\x0b'
+```
+
+
+---
+#### `bytes()` 字节串的构造函数
+
+格式：
+
+```python
+# 1) 生成一个空的字节串 等同于 b''
+bytes()
+
+# 2) 生成n个值为零的字节串
+bytes(整形数int)
+
+# 3) 用可迭代对象初始化一个字节串
+# 将可迭代对象中整型数按照ascii转码并拼接
+bytes(包含整型数int的可迭代对象)
+
+# 4) 用字符串的转换编码生成一个字节串，encoding为必须参数
+bytes(字符串, encoding='utf-8')
+```
+
+说明：
+- 字节串的创建必须使用范围内的数，`b'字面值'`、整形数int、整型数int构成的可迭代对象，其中的整型数int必须在`[0, 256)`范围内，因为1个字节有8位，每个位有`0`和`1`两种组合，共计`2^8=256`个组合。
+
+---
+示例1：查看所有可输入的字节码
+```python
+seed = 16
+for i in range(0, 256, seed):
+    print('%03d-%03d bytes:'%(i, i + seed - 1, ),
+          bytes(range(i, i + seed)))
+```
+
+运行结果：
+```
+000-015 bytes: b'\x00\x01\x02\x03\x04\x05\x06\x07\x08\t\n\x0b\x0c\r\x0e\x0f'
+016-031 bytes: b'\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f'
+032-047 bytes: b' !"#$%&\'()*+,-./'
+048-063 bytes: b'0123456789:;<=>?'
+064-079 bytes: b'@ABCDEFGHIJKLMNO'
+080-095 bytes: b'PQRSTUVWXYZ[\\]^_'
+096-111 bytes: b'`abcdefghijklmno'
+112-127 bytes: b'pqrstuvwxyz{|}~\x7f'
+128-143 bytes: b'\x80\x81\x82\x83\x84\x85\x86\x87\x88\x89\x8a\x8b\x8c\x8d\x8e\x8f'
+144-159 bytes: b'\x90\x91\x92\x93\x94\x95\x96\x97\x98\x99\x9a\x9b\x9c\x9d\x9e\x9f'
+160-175 bytes: b'\xa0\xa1\xa2\xa3\xa4\xa5\xa6\xa7\xa8\xa9\xaa\xab\xac\xad\xae\xaf'
+176-191 bytes: b'\xb0\xb1\xb2\xb3\xb4\xb5\xb6\xb7\xb8\xb9\xba\xbb\xbc\xbd\xbe\xbf'
+192-207 bytes: b'\xc0\xc1\xc2\xc3\xc4\xc5\xc6\xc7\xc8\xc9\xca\xcb\xcc\xcd\xce\xcf'
+208-223 bytes: b'\xd0\xd1\xd2\xd3\xd4\xd5\xd6\xd7\xd8\xd9\xda\xdb\xdc\xdd\xde\xdf'
+224-239 bytes: b'\xe0\xe1\xe2\xe3\xe4\xe5\xe6\xe7\xe8\xe9\xea\xeb\xec\xed\xee\xef'
+240-255 bytes: b'\xf0\xf1\xf2\xf3\xf4\xf5\xf6\xf7\xf8\xf9\xfa\xfb\xfc\xfd\xfe\xff'
+```
+
+---
 示例2：`bytes()`函数
 ```python
-# bytes(int), 批量创建b'\x00'
+# 1) bytes(int), 批量创建b'\x00'
 print(bytes(1))  # b'\x00'
 print(bytes(5))  # b'\x00\x00\x00\x00\x00'
-```
-```python
-# bytes([int, int, ...]), 创建"你好"的字节串
+
+# 2) bytes([int, int, ...]), 创建"你好"的字节串
 a = b"\xd5\xe2"
 b = bytes([213, 226])
 print(a==b, a, a.decode('gbk'))  # True b'\xd5\xe2' 这
-```
-```python
-# bytes('str', encoding="code")
+
+# 3) bytes('str', encoding="code")
 print(bytes('a', encoding='utf-8'))
 # b'a'
 print(bytes('你好', encoding='gbk'))
@@ -653,68 +646,52 @@ print(bytes('你好', encoding='utf-8'))
 # b'\xe4\xbd\xa0\xe5\xa5\xbd'
 ```
 
+
 ---
-#### 8.3.3.3. bytes、str的区别与转换
+#### `"str".encode()` 字符串对象转码方法
+
+---
+示例：
+```python
+# 2) bytes()函数
+print(bytes('zifuchuang',encoding='utf-8'))
+# 3) 字符串转换
+print('zifuchuang'.encode('utf-8'))
+```
+
+---
+Ps： 字节串和字符串区别与转换
+bytes、str的区别与转换
 
 字节串与字符串的区别本质:
 - bytes --- 存储字节(0-255)
 - str --- 存储Unicode字符(0-65535)
 
 字节串与字符串之间的转换方法：
-- 编码(encode)
-  - str -------------->  bytes
-
-    ```python
-    b = s.encode('utf-8')  
-    ```
-
-- 解码(decode)
-  - bytes------------->  str
-
-    ```python
-    s = b.decode('utf-8')
-    ```
+- 编码(encode)：str -> bytes  
+  `b = s.encode('utf-8')`  
+- 解码(decode)：bytes -> str
+  `s = b.decode('utf-8')`
+关于字节串长度：
+- 文本模式下，长度为转码后的字符长度
+- 二进制模式下，长度为单字节长度
 
 ---
 示例：
 ```python
 print('你好'.encode('utf-8')) # b'\xe4\xbd\xa0\xe5\xa5\xbd'
 print(b'\xe4\xbd\xa0\xe5\xa5\xbd'.decode('utf-8'))  # 你好
-```
 
-
-长度：
-- 文本模式下，长度为转码后的字符长度
-- 二进制模式下，长度为转码前的字节长度
-
-示例：
-```python
+# 字符串与字节串长度表示相同信息时，编码字节长度可能是不一样的
 s = '你好'
-
 e1 = s.encode('gbk')
 e2 = s.encode('utf8')
-
 print(len(s), len(e1), len(e2))  # ______
 # 2 4 6
 ```
 
-字符串与字节串长度表示相同信息时，字节长度可能是不一样的：
-```python
->>> len('abc123')
-6
->>> len(bytes('abc123', encoding='utf-8'))
-6
-
->>> len('你好')
-2
->>> len(bytes('你好', encoding='gbk'))
-4
->>> len(bytes('你好', encoding='utf-8'))
-6
-```
-
 ---
-#### 8.3.3.4. 字节串的运算
+### 8.3.3.4. 字节串的运算
 ```
 +  +=  *  *=
 <  <=  >  >=  ==  !=
@@ -737,7 +714,7 @@ print(b'A' in b'ABCD')  # True
 ```
 
 ---
-#### 8.3.3.5. 用于字节串的函数
+### 8.3.3.5. 用于字节串的函数
 
 字节串存储的本质是ascii编码数值，因而同数值一样，可以进行如下函数操作：（详情见数值一章节）
 
@@ -750,11 +727,17 @@ all(x)
 any(x) 
 ```
 
-### 8.3.4. 字节数组 bytearray
+---
+示例：
+```python
+print(sum(b"AB"))  # ascii数值是65+66
+```
+
+## 8.3.4. 字节数组 bytearray
 可变的字节序列
 
 ---
-#### 8.3.4.1. 字节数组的创建
+### 8.3.4.1. 字节数组的创建
 ```python
 bytearray()  # 创建空的字节数组
 bytearray(整数)
@@ -764,7 +747,7 @@ bytearray(字符串, encoding='utf-8')
 ```
 
 ---
-#### 8.3.4.2. 字节数组的运算:
+### 8.3.4.2. 字节数组的运算:
 ```python
 +  +=  *  *= 
 比较运算:  <  <= > >= == !=
@@ -780,16 +763,20 @@ bytearray(b'0B1D2F')
 ```
 
 ---
-#### 8.3.4.3. bytearray的方法:
-|方法|功能|
-|-|-|
-|B.clear()  | 清空字节数组|
-|B.append(n)  | 追加一个字节(n为0-255的整数)|
-B.remove(value)  | 删除第一个出现的字节，如果没有出现，则产生|ValueError错误|
-|B.reverse()  | 字节的顺序进行反转|
-|B.decode(encoding='utf-8')  | # 解码|
-|B.find(sub[, start[, end]])  | 查找|
+### 8.3.4.3. bytearray的方法:
+
+| 方法                        | 功能                                                      |
+|-----------------------------|-----------------------------------------------------------|
+| B.clear()                   | 清空字节数组                                              |
+| B.append(n)                 | 追加一个字节(n为0-255的整数)                              |
+| B.remove(value)             | 删除第一个出现的字节，如果没有出现，则产生 ValueError错误 |
+| B.reverse()                 | 字节的顺序进行反转                                        |
+| B.decode(encoding='utf-8')  | 解码                                                      |
+| B.find(sub[, start[, end]]) | 查找                                                      |
+
+
 字节数组的方法详见: help(bytearray)
+
 
 ## 8.4. 文件的操作流程
 1. 打开文件
@@ -821,17 +808,18 @@ B.remove(value)  | 删除第一个出现的字节，如果没有出现，则产�
 
 ---
 #### 8.4.1.1. 操作模式
+
 模式(mode)字符的含义：
 
-| 字符 |                                       含义                                       |
-| ---- | -------------------------------------------------------------------------------- |
-| 'r'  | 以只读方式打开(默认)                                                              |
-| 'w'  | 以只写方式打开，删除原有文件内容(如果文件不存在，则创建该文件并以只写方式打开)   |
-| 'x'  | 创建一个新文件, 并以写模式打开这个文件,如果文件存在则会产生"FileExistsError"错误 |
-| 'a'  | 以只写文件打开一个文件，如果有原文件则追加到文件末尾                             |
-| 't'  | 文本文件模式打开 (默认)                                                          |
-| 'b'  | 用二进制模式打开                                                                 |
-| '+'  | 为更新内容打开一个磁盘文件 (可读可写)                                            |
+| 字符 | 含义                                                      |
+|------|-----------------------------------------------------------|
+| 'r'  | 以只读方式打开(默认)                                      |
+| 'w'  | 创建并以只写方式打开，并清空文件内容                      |
+| 'x'  | 创建并以只写方式打开，若文件存在抛出"FileExistsError"异常 |
+| 'a'  | 以只写文件打开一个文件，如果有原文件则追加到文件末尾      |
+| '+'  | 为更新内容打开一个磁盘文件 (可读可写)                     |
+| 't'  | 文本文件模式打开 (默认)                                   |
+| 'b'  | 用二进制模式打开                                          |
 
 - 说明：
   - 缺省参数模式是 'rt'
@@ -839,11 +827,15 @@ B.remove(value)  | 删除第一个出现的字节，如果没有出现，则产�
   - 'r+b' 以二进制读和更新模式打开文件,打开文件时不会清空文件内容
   - 'r+' 以文本模式读和更新模式打开文件,打开文件时不会清空文件内容
 
-注：Unicode/UTF/UCS格式的文件，必须用二进制方式打开和读写。【？待确认】
+注：Unicode/UTF/UCS等编码文件，必须用二进制方式打开和读写。
 
 示例见:
 file_write_binary.py
 file_read_binary.py
+
+文本文件操作的两种模式:
+   'b'  二进制模式
+   't'  文本模式
 
 ---
 文本模式(textmode)和二进制模式(binarymode)的区别：
@@ -859,10 +851,6 @@ file_read_binary.py
 <!-- - 二进制模式的文件操作  
   - 默认的文件中存储的都是以字节为单位的数据，通常有人为规则的格式，需要以字节为单位进行读写 -->
 
-- 补充：Linux中以十六进制方式查看文件内容的命令:
-  ```
-  xxd 文件名
-  ```
 
 ### 8.4.2. 读取方法read
 以读模式打开文件：
@@ -881,7 +869,7 @@ file_read_binary.py
 文件的迭代读取:
 > `for line in file: print(line)`
 
-<!-- 注：【此处过去遇到过这样的问题，但验证却无法复现了，很奇怪，还没有尝试过python2和python3区别。此处先行放置，日后再看】
+注：【此处过去遇到过这样的问题，但验证却无法复现了，很奇怪，还没有尝试过python2和python3区别。此处先行放置，日后再看】
 file.readline()  读取的内容等同于  for s in file: s 的第一句
 但不同之处在于，它可以精确控制光标，而用for循环读取时，光标被一次性移动至末尾。
 
@@ -901,7 +889,7 @@ with open('test_f_utf8.txt', 'rb') as f:
             break
         print(line)
         print(f.tell())
-``` -->
+```
 
 
 ### 8.4.3. 写入write
@@ -1024,8 +1012,8 @@ print("打开文件失败")
 
 ### 8.4.7. python 文件方法总结
 
-|           方法            | 返回 | 输入 |                           说明                            |
-| ------------------------- | ---- | ---- | --------------------------------------------------------- |
+| 方法                      | 返回 | 输入 | 说明                                                      |
+|---------------------------|------|------|-----------------------------------------------------------|
 | F.read(size=-1)           | str  | int  | 从一个文件流中最多读取size个字符，并将光标从文件流后移    |
 | F.readline()              | str  | /    | 读取一行数据, 如果到达文件尾则返回空行                    |
 | F.readlines(max_chars=-1) | list | /    | 返回每行字符串的列表,max_chars为最大字符(或字节)数        |
@@ -1043,14 +1031,21 @@ print("打开文件失败")
 
 
 ## 8.5. with语句
+
 简化try open文件
+
 注意事项：
+
 1、with语句命名空间
+
+```bash
 with open(file) as fi:
     test = 'hello'
 print(test)  # 正常显示
-8.6.  原理理解
-8.6.1.  读取的原理
+```
+
+## 8.6.  原理理解
+### 8.6.1.  读取的原理
 问题引入：
 for迭代文件对象，与next()方法读取下一行，以及readline()读取下一行都有区别吗？
 【无区别，原理本质都是通过光标读取下一行，在深入一点为指针】
@@ -1133,3 +1128,146 @@ $ python3 test2.py
 []
 []
 ```
+
+## Python中文件处理的常见错误解析
+
+### 打开文件的编码错误解决
+
+Python脚本运行的平台兼容性问题：
+- windows下正常读取“gbk编码”，却不能正常读取“utf-8编码”文件
+- linux下正常读取“utf-8编码”文件，却不能正常读取“gbk编码”文件
+- 都返回UnicodeDecodeError错误
+
+
+问题描述
+
+在Windows下打开utf-8编码文件出现报错：
+
+```python
+>>> with open('mod-run.sh') as fi:
+... 	data = fi.read()
+... 
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+UnicodeDecodeError: 'gbk' codec can't decode byte 0xb4 in position 183: illegal multibyte sequence
+```
+
+---
+探索解析
+	探索实例：
+文本内容： 
+```
+abc123中文
+ABC英文
+hello world
+```
+另存为myfile1.txt（“utf-8编码”），myfile2.txt（“gbk编码(ANSI)”）
+Windows下运行：
+打开文件1报错：
+f = open('myfile1.txt', 'rt')
+print("打开文件成功!")
+s = f.read()
+print("读取文件成功!")
+print("文件中的内容是:", s)
+报错：
+UnicodeDecodeError: 'gbk' codec can't decode byte 0xad in position 8: illegal multibyte sequence
+打开文件2正常读取：
+f = open('myfile2.txt', 'rt')
+print("打开文件成功!")
+s = f.read()
+print("读取文件成功!")
+print("文件中的内容是:", s)
+打开文件成功!
+读取文件成功!
+文件中的内容是: abc123中文
+ABC英文
+hello world
+
+linux下运行结果则相反，实例不列举
+
+
+### 打印文本输出重定向到文件的编码问题
+
+结论：重定向时，会按照系统编码进行转码写入，实际应用时应注意使用场景避免程序出现这样的BUG报错。
+
+> 结果说明：执行打印不报错，而重定向到文件，或直接写入到文件反而报错。  
+> 原因分析：Python打印时默认编码为UTF-8，而输出重定向时，却将编码转换为gbk，而部分字节不符合gbk编码规则从而发生报错。
+
+测试环境：
+- 系统：`win10`
+- 终端：`cmd`, `PowerShell`, `git bash` 
+
+---
+情形1：
+
+有脚本`test.py`内容如下：
+```python
+print(b"123\xc2\xa0123\xe9\x9d\x99".decode())
+```
+
+执行过程：
+```
+C:\Users\JUN\Desktop>python test.py
+123 123静
+
+C:\Users\JUN\Desktop>python test.py >log
+Traceback (most recent call last):
+  File "test.py", line 1, in <module>
+    print(b"123\xc2\xa0123".decode())
+UnicodeEncodeError: 'gbk' codec can't encode character '\xa0' in position 3: illegal multibyte sequence
+```
+
+---
+情形2：
+
+如果，不用追加方式，直接将内容写入文件呢？
+
+有脚本`test.py`内容如下：
+```python
+text = b"123\xc2\xa0123\xe9\x9d\x99".decode()
+print(text)
+
+with open("log", 'w') as fo:
+    fo.write(text)
+```
+
+执行过程：
+```
+C:\Users\JUN\Desktop> python .\test.py
+123 123静
+Traceback (most recent call last):
+  File ".\test.py", line 5, in <module>
+    fo.write(text)
+UnicodeEncodeError: 'gbk' codec can't encode character '\xa0' in position 3: illegal multibyte sequence
+```
+
+解析：encode编码默认是系统编码，在win10环境下默认为GBK
+
+
+---
+测试与结论验证：（出现同样的报错结果）
+```python
+# 将字节串用UTF-8解码，再用GBK编码为二进制流
+>>> print(b"123\xc2\xa0123\xe9\x9d\x99".decode().encode("gbk"))
+UnicodeEncodeError: 'gbk' codec can't encode character '\xa0' in position 3: illegal multibyte sequence
+```
+
+## 编码问题的终极解决方案
+
+示例：解码打开
+```bash
+# 1 二进制读取
+f = open('hanzi_gbk.txt', 'rb')
+b = f.read()  # 读取字节串
+# 2 转码
+s = b.decode('gbk')  # 将gbk字节串解码为UNICODE字符串
+# s = f.read()
+print(s)
+f.close()
+```
+
+
+- 补充：Linux中以十六进制方式查看文件内容的命令:
+  ```
+  xxd 文件名
+  ```

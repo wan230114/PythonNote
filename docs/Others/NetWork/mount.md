@@ -174,9 +174,7 @@ umount: /home/mnt/logs：目标忙。
 
 备注2：
 ```bash
-# 需要先安装
-# yum install cifs-utils
-
+# yum install cifs-utils  # 需要先安装
 # 另外指定smb相同版本，此参数在连接小黑盒时异常有用
 mount -t cifs //192.168.3.12/gzsc_project/seqdate /work/download/seqdata_nas -o 'username=chenjun,password=n:L1!O,gid=1009,uid=1009,vers=2.0'
 ```

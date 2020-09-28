@@ -1,19 +1,27 @@
+# %%
 import pandas as pd
-df = pd.DataFrame([['hua', 20], ['ming', 19]],
-                  index=[1, 2], columns=['Name', 'Age'])
-print('【原始df】\n', df)
 
-# 增加列: 索引直接增加
-df['Score'] = [87, 99]
-print('【1列Score增加】\n', df)
 
-# 增加列: insert
-df.insert(1, 'Gender', ["M","F"])
-print('【1列Gender增加】\n', df)
+left = pd.DataFrame({'key1': ['K0', 'K0', 'K0', 'K0'],
+                     'key2': ['K0', 'K0', 'K1', 'K1'],
+                     'A': ['A0', 'A1', 'A2', 'A3'],
+                     'B': ['B0', 'B1', 'B2', 'B3']})
 
-# 增加列：reindex，返回df新对象，增加的列数值为空
-df1 = df.reindex(columns=['Name', 'Gender', 'City', 'Adress', 'Age', 'Score'])
-print('【n列增删】\n', df1)
+right = pd.DataFrame({'key1': ['K0', 'K0', 'K1', 'K1'],
+                      'key2': ['K1', 'K1', 'K2', 'K2'],
+                      'A': ['C0', 'C1', 'C2', 'C3'],
+                      'D': ['D0', 'D1', 'D2', 'D3']})
 
-df.reindex()
 
+# result = pd.merge(left, right, on=['key1', 'key2'])
+result = pd.merge(left, right,
+                  #   on=['key1', 'key2'],
+                  on=['key1'],
+                  indicator=True,
+                  suffixes=(False, False)
+                  #   how="inner"
+                  )
+result
+
+
+# %%
