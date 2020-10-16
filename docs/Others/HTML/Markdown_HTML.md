@@ -2,34 +2,79 @@
 
 @[toc]
 
-标签（空格分隔）： JUN-code
+---
+# 1. 常用代码
+空格：
+```html
+&nbsp;
+```
+
+色彩：
+```html
+<font color=""></font>
+```
+
+链接跳转（页内跳转，页外需`#`前加上路径）：
+```html
+跳转链接：[xxx文本显示内容](#jump)
+跳转锚点：<span id="jump"></span>
+```
+
+插入目录：
+```html
+[TOC]
+```
+
+文字超链接：
+```markdown
+[baidu](http://baidu.com)
+```
+
+网址超链接：
+```markdown
+<http://ibruce.info>
+```
+
+图片超链接(markdown中)：
+```html
+![Baidu logo](http://www.baidu.com/img/flexible/logo/pc/result.png)
+<img src="http://www.baidu.com/img/flexible/logo/pc/result.png" width="128" height="96" />
+```
+
+
+上标下标：
+```html
+H<sub>2</sub>O  CO<sub>2</sub>
+爆米<sup>TM</sup>
+```
+
+复制模板：
+
+```html
+<div align=center>
+<img src=""  width="450" align="middle" style="border:0px solid black">
+<br><br>
+<p><b></b></p>
+<p></p>
+<br><br>
+</div>
+```
+
+```html
+<b>  </b>
+```
+```html
+<p>  
+</p>
+```
+```html
+<details><summary>来源：</summary>
+</details>
+```
 
 ---
-
-
-# 1. 常用代码
-```
-空格：
-    &nbsp;
-色彩：
-    <font color=""></font>
-链接跳转：
-    页内：
-    跳转链接：[xxx文本显示内容](#jump)
-    跳转锚点：<span id="jump"></span>
-插入：
-    目录：[TOC]
-超链接：
-    文字超链接：[不如](http://bruce-sha.github.io "不如的博客")
-    图片超链接(markdown中)：![GitHub Mark](http://**** "GitHub Mark")
-    图片超链接：<img src="http://****" width="128" height="96" />
-    网址超链接：<http://ibruce.info>
-上标下标：
-    H<sub>2</sub>O  CO<sub>2</sub>
-    爆米<sup>TM</sup>
-```
-
 # 2. 文字
+---
 ## 2.1. 基本
 ```
 *我是斜体*  
@@ -63,6 +108,7 @@
 > 我是段落引用1  
 > 我是段落引用2  
 
+---
 ## 2.2. 色彩
 
 ```
@@ -77,52 +123,65 @@
 
 <font face="仿宋" color="red" size="3">测试文本（仿宋字体，红色，3号大小）</font>
 
+---
 ## 2.3. 特殊字符
 | <描述> | <语法>   |
 | ------ | -------- |
 | 空格   | `&nbsp;` |
 | 换行符 | `<br>`   |
 
+---
 ## 2.4. 常用html标签语法
 ```
 <h3>测试文本：三级标题</h3>
 ```
 <h3>测试文本：三级标题</h3>
 
-
+---
 # 3. 图片样式定义
+---
 ## 3.1. html语法
 
 数值定义大小：
 ```
-<img src="http://image.zhangxinxu.com/image/study/s/s128/mm3.jpg" width="128" height="96" />
+<img src="http://www.baidu.com/img/flexible/logo/pc/result.png" width="128" height="96" />
 ```
-<img src="http://image.zhangxinxu.com/image/study/s/s128/mm3.jpg" width="128" height="96" />
+<img src="http://www.baidu.com/img/flexible/logo/pc/result.png" width="128" height="96" />
+
+<br><br>
 
 百分比定义图片大小：
 ```
-<img src="http://image.zhangxinxu.com/image/study/s/s128/mm3.jpg" width="20%" height="60" />
+<img src="http://www.baidu.com/img/flexible/logo/pc/result.png" width="20%" height="60" />
 ```
-<img src="http://image.zhangxinxu.com/image/study/s/s128/mm3.jpg" width="20%" height="60" />
+<img src="http://www.baidu.com/img/flexible/logo/pc/result.png" width="20%" height="60" />
+
+<br><br>
 
 居中：
 ```
 <div align=center>
-<img src="http://image.zhangxinxu.com/image/study/s/s128/mm3.jpg" />
+<img src="http://www.baidu.com/img/flexible/logo/pc/result.png" />
 </div>
 ```
 <div align=center>
-<img src="http://image.zhangxinxu.com/image/study/s/s128/mm3.jpg" />
+<img src="http://www.baidu.com/img/flexible/logo/pc/result.png" />
 </div>
 
+<br><br>
+
+---
 ## 3.2. markdown语法
 ```
-![](http://image.zhangxinxu.com/image/study/s/s128/mm3.jpg)
+![注释信息](http://www.baidu.com/img/flexible/logo/pc/result.png)
 ```
-![](http://image.zhangxinxu.com/image/study/s/s128/mm3.jpg)
+![注释信息](http://www.baidu.com/img/flexible/logo/pc/result.png)
 
+<br>
 
+---
 # 4. 表格
+---
 ## 4.1. html表格
 
 ```html
@@ -145,6 +204,7 @@
 </table>
 
 
+---
 ## 4.2. markdown表格
 
 ```html
@@ -160,10 +220,13 @@
 | 11  | 22         |     33      |         44 |
 
 
+---
 # 5. 自定义渲染显示样式
 
+---
 ## 5.1. markdown中的CSS标签定义
 
+---
 ### 5.1.1. 标题栏样式定义
 
 加粗：font-weight:bold;
@@ -195,6 +258,7 @@ h4{
 }
 ```
 
+---
 ### 5.1.2. 递增序列
 
 CSS代码：
@@ -212,114 +276,112 @@ HTML代码：
 ```
 <ol>
     <li><img src="http://image.zhangxinxu.com/image/study/s/s128/mm1.jpg" width="128" height="96" /></li>
-    <li><img src="http://image.zhangxinxu.com/image/study/s/s128/mm3.jpg" width="128" height="96" /></li>
+    <li><img src="http://www.baidu.com/img/flexible/logo/pc/result.png" width="128" height="96" /></li>
 </ol>
 ```
 <ol>
     <li><img src="http://image.zhangxinxu.com/image/study/s/s128/mm1.jpg" width="128" height="96" /></li>
-    <li><img src="http://image.zhangxinxu.com/image/study/s/s128/mm3.jpg" width="128" height="96" /></li>
+    <li><img src="http://www.baidu.com/img/flexible/logo/pc/result.png" width="128" height="96" /></li>
 </ol>
 
-## 5.2. 多级标题
+---
+## 5.2. 自动多级标题
 
-```
-HTML代码如下：
+```html
+<head>
+    <style type="text/css">
+        ol {
+            padding: 0 0 0 20px;
+            margin: 0;
+            list-style: none;
+            counter-reset: content_a;
+        }
+        li:before {
+            counter-increment: content_a;
+            content: counters(content_a, ".")". ";
+        }
+    </style>
+</head>
 
-<ol>  
-  <li>列表项  
-    <ol>  
-      <li>列表项  
+<ol>
+    <li>列表项</li>
+    <li>列表项</li>
+    <ol>
+        <li>列表项</li>
+        <li>列表项</li>
         <ol>  
-          <li>列表项</li>  
-          <li>列表项</li>  
-          <li>列表项</li>  
-        </ol>  
-      </li>  
-    </ol>  
-  </li>  
+          <li>列表项</li>
+          <li>列表项</li>
+          <li>列表项</li>
+        </ol>
+    </ol>
 </ol>
 ```
 
-```
-ol {padding:0 0 0 20px; margin:0; list-style:none; counter-reset:a;}  
-li:before {counter-increment:a; content:counters(a,".")". ";}
-```
-    <head> 
-    <style type="text/css"> 
-    h1{color:red} 
-    p{color:blue} 
-    </style> 
-    <head> 
-    <style type="text/css">P{ color:red }</style>
-    ol {list-style-type:none;        
-       counter-reset:sectioncounter;}                      
-    ol li:before {content:"美女" counter(sectioncounter) "： "; 
-       counter-increment:sectioncounter;
-    }
-    <h1><ol><li>这是一个标题。</li></ol></h1>
-    <h2>这是一个标题。</h2>
-    <h3>这是一个标题。</h3>
+[文件预览：./HTML_ol_order.html](docs/Others/HTML/HTML_ol_order.html)
 
-### 5.2.1. CSS标题标签自定义
+---
+## 5.3. CSS标题标签自定义
 
-```
-ol {
-    /* 开始计数 */
-  counter-reset: section;                
-  list-style-type: none;
-}
 
-li::before {
-  counter-increment: section;           
-  content: counters(section,".") " ";  
-}
+```html
+<div class="test">
+    <style scoped>
+        /* 设置起始，一般使用body。可以自定义开始的标签：
+        如 .test，调用时使用<div class="test"></div> */
+        .test {
+            counter-reset: or1;
+        }
+        h1{ color:#272727;    background:#FF9224;    font-family:黑体;    font-size: 30px; counter-reset: or2; }
+        h2{ color:#272727;    background:#00BB00;    font-family:黑体;    font-size: 25px; counter-reset: or3; }
+        h3{ color:#272727;    background:#C2FF68;    font-family:黑体;    font-size: 20px; counter-reset: or4; }
+        h4{ color:#272727;    font-weight:bold;    font-family:黑体;    font-size: 18px; counter-reset: or5; }
+        h1:before{ counter-increment: or1;   content: counter(or1)" "; }
+        h2:before{ counter-increment: or2;   content: counter(or1)"."counter(or2)" "; }
+        h3:before{ counter-increment: or3;   content: counter(or1)"."counter(or2)"."counter(or3)"."; }
+        h4:before{ counter-increment: or4;   content: counter(or1)"."counter(or2)"."counter(or3)"."counter(or4)"."; }
+    </style>
+    <body>
+        <h1>标题1</h1>
+        <h2>标题2</h2>
+        <h2>标题2</h2>
+        <h3>标题3</h3>
+        <h3>标题3</h3>
+        <h4>标题4</h4>
+        <h4>标题4</h4>
+        <h1>标题1</h1>
+        <h2>标题2</h2>
+        <h2>标题2</h2>
+        <h3>标题3</h3>
+        <h3>标题3</h3>
+        <h4>标题4</h4>
+        <h4>标题4</h4>
+    </body>
+</div>
+```
 
-ol{
-    list-style: none;
-    counter-reset: ordered;
-}
-li:before{
-    counter-increment: ordered;
-    content: counters(ordered,".")" ";
-}
-```
-```
-h1{
-    color:#272727;    background:#FF9224;    font-family:黑体;    font-size: 30px;
-    counter-reset: ordered;
-}
-h2{
-    color:#272727;    background:#00BB00;    font-family:黑体;    font-size: 25px;
-}
-h3{
-    color:#272727;    background:#C2FF68;    font-family:黑体;    font-size: 20px;
-}
-h4{
-    color:#272727;    font-weight:bold;    font-family:黑体;    font-size: 18px;
-}
-h1:before{ 
-    counter-increment: ordered;   content: counter(chapter)" ";
-}
-h2:before{
-    counter-increment: section;    content: counter(chapter)"."counter(section)" ";
-}
-h3:before{
-    counter-increment: subsec;    content: counter(chapter)"."counter(section)"."counter(subsec)".";
-}
-```
-## 5.3. 其他
+[文件预览：./HTML_header_order.html](docs/Others/HTML/HTML_header_order.html)
 
-### 5.3.1. 框架模板
+---
+## 5.4. 其他
+
+框架模板
 - bootstrap ace admin HTML5 全新高大尚后台框架_HTML/CSS_第七城市
 <http://www.th7.cn/web/html-css/201501/75159.shtml>
 
 
 # 6. 附：常用色彩代码
- - HTML 颜色 | 菜鸟教程
+
+- HTML 颜色 | 菜鸟教程
 http://www.runoob.com/html/html-colors.html
-```Python
-代码格式：d
-<td><font color="#000000">文本内容</font></td>
+代码格式：
+```html
+<table>
+    <tr>
+        <td><font color="#000000">███#000000</font></td>
+        <td><font color="#2F0000">███#2F0000</font></td>
+    </tr>
+</table>
 ```
 <table>
 <tr>

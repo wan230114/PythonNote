@@ -1,0 +1,28 @@
+<head>
+    <style type="text/css">
+        ol {
+            padding: 0 0 0 20px;
+            margin: 0;
+            list-style: none;
+            counter-reset: content_a;
+        }
+        li:before {
+            counter-increment: content_a;
+            content: counters(content_a, ".")". ";
+        }
+    </style>
+</head>
+
+<ol>
+    <li>列表项</li>
+    <li>列表项</li>
+    <ol>
+        <li>列表项</li>
+        <li>列表项</li>
+        <ol>  
+          <li>列表项</li>
+          <li>列表项</li>
+          <li>列表项</li>
+        </ol>
+    </ol>
+</ol>

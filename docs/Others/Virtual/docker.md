@@ -58,7 +58,7 @@ docker pull centos:7
 # 查看当前主机存在的所有镜像
 docker images
 # 启动镜像centos7，如果不指定 /bin/bash，容器运行后会自动停止
-docker run -d -i -t <IMAGE_ID> /bin/bash
+docker run -dit <IMAGE_ID> /bin/bash
 # 进入容器，使用exec或attach
 # docker ps|head -2|sed 1d|awk '{print $1}'|xargs -i echo docker exec -it {} bash
 docker exec -it <CONTAINER_ID> bash
@@ -88,6 +88,11 @@ docker run -dit -v /root/workdir/:/root/workdir/ centos_conda /usr/sbin/sshd -D
 
 参考：详解Docker挂载本地目录及实现文件共享_mager的专栏-CSDN博客_docker共享目录  
 https://blog.csdn.net/magerguo/article/details/72514813/
+
+```bash
+# 使用docker内部程序完成从外部输入到输出外部
+time docker run --rm --user `id -u`:`id -g`   -v $PWD/input:/input:ro  -v $PWD/output:/output   bioliquidator/bamliquidator   /input/04032013_D1L57ACXX_4.TTAGGC.hg18.bwt.sorted.bam -o /output
+```
 
 
 ## 镜像的管理和删除
