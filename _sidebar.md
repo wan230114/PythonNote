@@ -38,7 +38,7 @@
     * [Introduction 简介](/docs/01.Datascience/Introduction.md)
     <!-- * ***补充ing*** -->
 * **其他笔记**
-    * [Markdown 语法](/docs/Others/HTML高级语法/Markdown及HTML常用命令.md)
+    * [Markdown 语法](/docs/Others/HTML/Markdown_HTML.md)
     * [HTML 语法](/docs/Others/HTML高级语法/HTML高级语法.md)
     * [Git笔记](/docs/Others/Git/Git_Note.md)
     * [LeetCode](/docs/Others/Python_leetcode/Summary.md)
