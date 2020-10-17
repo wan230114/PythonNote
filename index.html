@@ -94,7 +94,7 @@
                 .replace('raw.githubusercontent.com', 'github.com')
                 .replace(/\/master/, '/blob/master')
             } else {
-              url = 'https://github.com/wan230114/PythonNote/blob/master/docs' + vm.route.file
+              url = 'https://github.com/wan230114/PythonNote/blob/master/' + vm.route.file
             };
             var editHtml = '<img class="emoji" src="./.js/memo.png" alt="memo" />[ Edit Document](' + url + ')\n'  // var editHtml = '<img class="emoji" src="https://github.githubassets.com/images/icons/emoji/memo.png" alt="memo" />[:memo: Edit Document](' + url + ')\n'
             if (location.hash == "#/") {
