@@ -229,7 +229,7 @@ Test().prt()  # start  over
 2. 实例方法属于该类的实例
 3. 请问: 类内能不能有函数, 这个函数不属于类, 也不属于实例
 
-概念：
+概念：  
 类方法是描述类的行为的方法, 类方法属于类, 不属于该类创建的实例
 说明:
 1. 类方法需要用@classmethod装饰器定义
@@ -548,7 +548,6 @@ isinstance(class, class_or_tuple)
 返回这个对象class 是否是某个类的对象，或者某些类中的一个类的对象，如果是则返回True, 否则返回False
 
 示例1:
-
 ```python
 # 例子，如果继承关系是：object -> Animal -> Dog -> Husky
 class Animal(object): pass
@@ -1106,10 +1105,11 @@ dog1.color="白色"
 print(dog1.__dict__)  # {'color': '白色'}
 ```
 
-	应用：
-	示例1：字典对象传参妙用
-	# 传入字典参数，减少代码
-	# 原代码：
+- 应用：
+- 示例1：字典对象传参妙用
+```python
+# 传入字典参数，减少代码
+# 原代码：
 class Person:
     def __init__(self, _obj):
         self.name = _obj['name']
@@ -1118,7 +1118,10 @@ class Person:
         self.gender = _obj['gender']
         self.email = _obj['email']
 
-	#修改代码：
+```
+
+```python
+#修改代码：
 class Person:
     def __init__(self, _obj):
         self.__dict__.update(_obj)
@@ -1129,19 +1132,25 @@ print(s1.__dict__)  # 实例对象的字典
 print('s1.name', s1.name)
 print('------------------------------')
 print(Person.__dict__)  # 类对象的字典
+```
 
+运行结果：
+```
 {'name': 1, 'age': 2, 'energy': 3, 'gender': 4, 'email': 5}
 s1.name 1
 ------------------------------
 {'__module__': '__main__', '__init__': <function Person.__init__ at 0x0000000001DD4840>, '__dict__': <attribute '__dict__' of 'Person' objects>, '__weakref__': <attribute '__weakref__' of 'Person' objects>, '__doc__': None}
+```
 
 
 #### 9.6.2.2.  类的__class__属性
 __class__属性绑定创建此实例(类实例)的类
-	作用:
+- 作用:
 可以借助于此属性来访问创建此实例的类
 
-	示例:
+- 示例:
+
+```python
 class Dog:
     pass
 
@@ -1156,23 +1165,29 @@ print(dog1)  # 命名为dog1的实例对象，结果<__main__.Dog object at 0x02
 print(dog1)  # 命名为dog1的实例对象，结果<__main__.Dog object at 0x02FF0590>
 print(Dog())  # 未绑定变量的实例对象，结果<__main__.Dog object at 0x02FF0650>
 print(Dog)   # 类对象，结果<class '__main__.Dog'>
+```
 
 #### 9.6.2.3.  类的__base__属性
   __base__属性用来记录此类的基类
 
-	示例:
-  class Human:
-      pass
-  class Student(Human):
-      pass
-  class Teacher(Human):
-      pass
-  Student.__base__ is Human  # True
+示例:
+```python
+class Human:
+    pass
+class Student(Human):
+    pass
+class Teacher(Human):
+    pass
+Student.__base__ is Human  # True
+```
 
 内建类的继承关系见:
-  >>> help(__builtins__)
+```python
+>>> help(__builtins__)
+```
 
 注意，返回的是其所有继承对象的元组
+```python
 class ParentClass1: 
     pass
 
@@ -1188,30 +1203,36 @@ class SubClass2(ParentClass1,ParentClass2):
 print(type(SubClass1.__bases__))
 print(SubClass1.__bases__)
 print(SubClass2.__mro__)
+```
 
 ### 9.6.3.  类的__slots__属性
-	问题描述：
+
+- 问题描述：
 在创建类实例对象时，一般会初始化生成字典，记录类属性。
 所有类属性都是用字典记录的，通过 实例名.__dict__ 可查看访问。
-	__slots__作用:
+- __slots__作用:
 限定一个类创建的实例只能有固定的属性(实例变量)，不允许对象添加列表以外的属性
-访止用户因错写属性的名称而发生程序错误
+访止用户因错写属性的名称而发生程序错误  
+
 说明:
 含有__slots__属性的类所创建的实例没有__dict__属性,即此实例不用字典来存储对象的属性
+
 __slots__列表作用：
 1.	定义一个特殊的__slots__变量，来限制该class实例能添加的属性
 2.	阻止实例化类时为实例分配字典dict。
 3.	减少内存
 	网络原话：
+
 在python新式类中，可以定义一个变量__slots__，它的作用是阻止在实例化类时为实例分配字典dict
 使用slots可以让内存使用减少3.5倍！！# 通过 (200 - 4) / ((60 - 4) * 1.0) 计算得来【来源：
 https://www.jb51.net/article/118024.htm
 】
 
-说明:
+- 说明:
 含有__slots__列表的类创建的实例对象没有__dict__属性, 即此实例不用字典来保存对象的属性(实例变量)
-	示例:
+- 示例:
 示例1：限制添加实例属性
+```python
 class Person(object):
     __slots__ = ("name", "age")	 # 即便是[]，也不能再添加属性
 
@@ -1223,15 +1244,23 @@ P.age = 20
 # Traceback (most recent call last):
 #   File "<pyshell#3>", line 1, in <module>
 # AttributeError: Person instance has no attribute 'score'
-	注意：可以正常添加类属性，__slots__只是限制添加实例属性
+```
+
+注意：可以正常添加类属性，__slots__只是限制添加实例属性
+
+```python
 ...
 P.__class__.score = 100
 print(Person.score)
 Person.score=10
 print(Person.score)
-	注意：添加的类属性，名字不能与实例属性相同，否则会发生冲突
+```
+
+注意：添加的类属性，名字不能与实例属性相同，否则会发生冲突
 
 示例2：此示例示意 类的变量 __slots__列表的作用
+
+```python
 class Student:
     __slots__ = ['name', 'score']
     def __init__(self, name, score):
@@ -1244,12 +1273,14 @@ print(s1.score)
 # print(s1.__dict__)  # 报错
 s1.score = 100
 print(s1.score)  # 请问打印的值是多少?
+```
 
 ### 9.6.4.  self代表类的实例，而非类
 self代表类的实例，而非类本身
 类的方法与普通的函数只有一个特别的区别——它们必须有一个额外的第一个参数名称, 按照惯例它的名称是 self。
 	self不是python关键字，若将self替换为其他单词一样正常运行。
 实例：
+```python
 class A:
      def prt1(self):
          print(self)
@@ -1269,42 +1300,55 @@ print(A)    # 类外调用类对象
 A().prt2()  # 类中调用类对象
 
 print(a.__class__ is A)  # True
+```
 
 
 ### 9.6.5.  类变量（类属性）
 类变量class variable(也叫类属性)
 #### 9.6.5.1.  问题引入：
-	全局的变量有哪些？
+- 全局的变量有哪些？
+```python
 >>> class Human:
 		def __init__(self,n):
  			self.name = n
 >>> h1 = Human('小张')
 >>> h2 = Human('小李')
 >>> dir()	#可以看到有3个变量，h1,h2,Human，分别绑定实例1，实例2，类对象
+```
 结论：dir()查看有3个变量，类名变量绑定类
 实例变量 不同于 类变量
 问题:
-1. 对象内可以有:
-   实例变量
-   实例方法
-2. 类内可以有:
-   类变量
+1. 对象内可以有:  
+   实例变量  
+   实例方法  
+2. 类内可以有:  
+   类变量  
    类方法  # 这个可以有
+
 #### 9.6.5.2.  基本概念
+
 类变量：
 类变量是的类的属性，此属性属于类，不属于类的实例
+
 作用：
 通常用来存储该类对象共有的数据
+
 说明：
 类变量可以通过类直接访问
 类变量可以通过类的实例直接访问
 类变量可以通过此类的实例的__class__属性间接访问
+
 语法：
+```python
 class 类名(继承列表):
     类变量名 = 表达式
     ...
+```
+
 
 #### 9.6.5.3.  应用
+
+```python
 # <类的实例对象> 不同于 <类的对象> ，但前者可以访问和修改后者变量
 # 类变量的定义和使用
 class Human:
@@ -1313,7 +1357,9 @@ count = 0  # 创建类变量
 print("Human的类变量count=", Human.count)  # 0
 Human.count = 100
 print(Human.count)  # 100
+```
 
+```python
 # Human类的实例可以访问和修改count类变量
 class Human:
 count = 0  # 创建类变量
@@ -1326,7 +1372,9 @@ print(Human.count) # 0
 h1.__class__.count = 200  # 此做法修改类变量
 print("h1.count=", h1.count)  # 100
 print('Human.count=', Human.count)  # 200
+```
 
+```python
 # 此示例示意用类变量来记录对象的个数
 class Car:
     count = 0  # 创建类变量, 用来记录汽车对象的总数
@@ -1349,6 +1397,8 @@ print('当前汽车总数是:', Car.count)
 del b1
 del b2
 print("当前汽车数是:", Car.count)
+```
+
 
 ### 9.6.6.  类的文档字符串:
 类内第一个没有赋值给任何变量的字符串是类的文档字符串
@@ -1357,16 +1407,22 @@ print("当前汽车数是:", Car.count)
 说明:
 类的文档字符串用类的__doc__属性可以访问
 类的文档字符串可以用help()函数查看
-  示例:
-    class Dog:
-        '''这是类的文档字符串'''
-        pass
-    >>> help(Dog)
-    >>> dog1 = Dog()
-    >>> help(dog1)
+
+示例:
+
+```python
+class Dog:
+    '''这是类的文档字符串'''
+    pass
+>>> help(Dog)
+>>> dog1 = Dog()
+>>> help(dog1)
+```
 
 ## 9.7.  研究实例
 ### 9.7.1.  实例属性和类属性区别
+
+```python
 class Student(object):
     name = 'Student'
 
@@ -1394,3 +1450,5 @@ s.name: Michael
 Student.name: Student
  --> 删除del s.name 
 s.name: Student
+```
+
