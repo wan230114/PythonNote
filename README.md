@@ -68,7 +68,7 @@
     * [Git笔记](/docs/Others/Git/Git_Note.md)
     * [LeetCode](/docs/Others/Python_leetcode/Summary.md)
 * **附**  
-    * [Personal resume](/docs/Interview/me.md)
+    * [Personal resume](/docs/Interview/me_bio.md)
 <!-- menu -->
 
 ---
