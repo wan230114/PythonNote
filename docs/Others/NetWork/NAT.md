@@ -1,5 +1,8 @@
 
-# 1. frp的基本配置
+# 1. frp
+
+nat的连接方式。访问端无需安装任何软件
+
 ## 1.1. 服务端一键配置
 
 ```bash
@@ -150,3 +153,25 @@ local_ip = 127.0.0.1
 local_port = 22
 remote_port = 6002
 ```
+
+
+# zerotier
+
+实现内网穿透，p2p的连接方式。访问端必须安装需要通信的软件。
+
+```bash
+# 安装
+curl -s https://install.zerotier.com | bash
+
+# 启动
+zerotier-one -d
+
+# 获取地址和服务状态
+zerotier-cli status
+
+# 加入、离开、列出网络
+zerotier-cli join b6079f73c63927ea  # Network ID
+zerotier-cli leave b6079f73c63927ea  # Network ID
+zerotier-cli listnetworks
+```
+

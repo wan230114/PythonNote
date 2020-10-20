@@ -39,9 +39,10 @@
     <!-- * ***补充ing*** -->
 * **其他笔记**
     * [Markdown 语法](/docs/Others/HTML/Markdown_HTML.md)
-    * [HTML 语法](/docs/Others/HTML高级语法/HTML高级语法.md)
+    * [HTML 语法](/docs/Others/HTML/HTML高级语法.md)
     * [Git笔记](/docs/Others/Git/Git_Note.md)
-    * [LeetCode](/docs/Others/Python_leetcode/Summary.md)
+    * [docker笔记](/docs/Others/Virtual/docker.md)
+    <!-- * [LeetCode](/docs/Others/Python_leetcode/Summary.md) -->
 * **附**  
     * [Personal resume](/docs/Interview/me_bio.md)
 <!-- menu -->
