@@ -81,6 +81,7 @@ docker ps -a
 ## 2.1. 拉取及基本启动
 
 1. 基本操作命令: 拉取、查看、启动、进入
+
 ```bash
 # 1. 拉取centos7镜像
 docker pull centos:7
@@ -203,4 +204,104 @@ docker save -o centos_test.tar centos_test:latest
 ```bash
 docker load -i  centos_test.tar
 docker load -i  nginx.tar
+```
+
+# 一些实战操作
+
+## centos建立常用基础运行包，并打包镜像
+
+### 2.1.1. 容器 —— 基础运行环境的制作
+
+---
+#### 2.1.1.1. 容器制作
+```bash
+cd $workdir
+# 拉取镜像
+docker pull ubuntu:16.04
+# 进入容器
+docker run --name ubuntu_base -dit ubuntu:16.04  /bin/bash
+docker ps
+docker exec -it ubuntu_base bash # 登录
+```
+
+---
+#### 2.1.1.2. 换源
+```bash
+cp /etc/apt/sources.list /etc/apt/sources.list--bak
+# cp /etc/apt/sources.list--bak /etc/apt/sources.list
+{
+echo "# deb cdrom:[Ubuntu 16.04 LTS _Xenial Xerus_ - Release amd64 (20160420.1)]/ xenial main restricted
+deb-src http://archive.ubuntu.com/ubuntu xenial main restricted #Added by software-properties
+deb http://mirrors.aliyun.com/ubuntu/ xenial main restricted
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial main restricted multiverse universe #Added by software-properties
+deb http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted multiverse universe #Added by software-properties
+deb http://mirrors.aliyun.com/ubuntu/ xenial universe
+deb http://mirrors.aliyun.com/ubuntu/ xenial-updates universe
+deb http://mirrors.aliyun.com/ubuntu/ xenial multiverse
+deb http://mirrors.aliyun.com/ubuntu/ xenial-updates multiverse
+deb http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse #Added by software-properties
+deb http://archive.canonical.com/ubuntu xenial partner
+deb-src http://archive.canonical.com/ubuntu xenial partner
+deb http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted multiverse universe #Added by software-properties
+deb http://mirrors.aliyun.com/ubuntu/ xenial-security universe
+deb http://mirrors.aliyun.com/ubuntu/ xenial-security multiverse
+" >/etc/apt/sources.list
+apt-get update
+apt-get upgrade
+}
+
+apt-get install -y vim less curl wget git
+# proxychains4
+apt-get install -y proxychains
+
+# vim /etc/proxychains.conf
+```
+
+#### 2.1.1.3. 基础镜像打包
+```bash
+# 安装完 proxychains4 ， conda
+# 打包为基础镜像
+docker commit -a "last"  -m "ubuntu_base" ubuntu_base ubuntu_base
+# docker commit -a "bq"  -m "ubuntu_base" ubuntu_base ubuntu_base
+```
+
+---
+### 2.1.2. 配置容器并进入容器
+
+```bash
+cd $workdir
+# 进入容器
+docker run \
+    --name ubuntu_CRC \
+    -v $PWD/share:/share \
+    -dit ubuntu_base  /bin/bash
+docker ps
+docker exec -it ubuntu_CRC bash # 登录
+```
+
+## 镜像移植
+```bash
+# 机器1：
+# 保存镜像：
+docker save -o centos7_base.tar centos7_base:latest
+
+# 机器2：
+# 导入镜像：
+docker load -i  centos7_base.tar 
+
+# 运行：
+docker run \
+    --name centos7_test \
+    -p 8080:80 \
+    -v $PWD/share_dir:/share_dir \
+    -dit centos7_base  /bin/bash
+
+# docker stop centos7_test
+# docker start centos7_test
+
+# 登录
+docker exec -it centos7_test bash
 ```

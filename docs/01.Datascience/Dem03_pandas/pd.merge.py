@@ -9,7 +9,7 @@ left = pd.DataFrame({'key1': ['K0', 'K0', 'K0', 'K0'],
 
 right = pd.DataFrame({'key1': ['K0', 'K0', 'K1', 'K1'],
                       'key2': ['K1', 'K1', 'K2', 'K2'],
-                      'A': ['C0', 'C1', 'C2', 'C3'],
+                      'A': ['AA0', 'AA1', 'AA2', 'AA3'],
                       'D': ['D0', 'D1', 'D2', 'D3']})
 
 
@@ -17,9 +17,9 @@ right = pd.DataFrame({'key1': ['K0', 'K0', 'K1', 'K1'],
 result = pd.merge(left, right,
                   #   on=['key1', 'key2'],
                   on=['key1'],
-                  indicator=True,
-                  suffixes=(False, False)
-                  #   how="inner"
+                  #   indicator=True,
+                  #   suffixes=(False, False)
+                  how="inner"
                   )
 result
 
