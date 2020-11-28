@@ -1,3 +1,4 @@
+
 ## 1. 开始
 
 项目下载clone：  
@@ -5,6 +6,7 @@
 git clone https://github.com/wan230114/PythonNote.git
 ```
 
+---
 ## 2. 高效食用软件 vscode 基本配置
 
 ### 2.1. vscode 软件安装及配置
@@ -18,28 +20,29 @@ git clone https://github.com/wan230114/PythonNote.git
    - 插件 `Settings Sync` 的使用：
      - 打开vscode命令面板  
        （点击 >设置 >命令面板。或使用快捷键 win: `ctrl+shift+p` / mac: `command+shift+p`）
-     - 输入命令：`>sync advanced`，选中第一条命令，再选中`Sync 从公共 Gist 下载配置`
-     - 输入以下 `Gist ID` 完成下载：
+     - 输入命令：`>sync advanced`，选中第一条命令，再选中`Sync 打开设置`
+     - 输入以下 `Gist ID` 完成
       ```text
       9119aa6c385cce49769343cd90e5dc7d
       ```
+     - 输入命令：`>sync Download Settings`，选中第一条命令完成下载。
 
-      （该DIY设置的相关介绍见下一小节）
+      （该 `Gist ID` 的 DIY设置的相关介绍见下一小节）
 
 ---
 ### 2.2. vscode - Sync.gist ID 的内容简介
 
 #### 2.2.1. 本套同步设置特点
 - 丰富的实用插件
-  - Markdown、Python及其相关插件
+  - Markdown、Python及其相关插件，可以完成语法检测，格式化文本等操作
   - IPython for VSCode(发送当前选择行到ipython终端运行)
-  - ...
-- 丰富的软件设置
+  - 其他暂不描述...
+- 丰富的 VsCode 软件设置
   - 自定义的终端设置：
     - 鼠标融合，双击复制，右击粘贴。（复制的分隔符设置位于 `设置 --> 功能 --> 终端 --> 最后一项terminal.integrated.wordSeparators` ）
     - 在终端中打开目录或文件到编辑器。
   - ...
-- 方便的快键键设置（基于Sublime text3习惯，此处着重介绍）
+- 方便的 VsCode 快键键设置（基于Sublime text3习惯，此处着重介绍）
 
 #### 2.2.2. 常用自定义快捷键
 

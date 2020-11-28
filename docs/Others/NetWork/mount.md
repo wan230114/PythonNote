@@ -1,10 +1,10 @@
 
-## smb
+# 1. smb
 
-### 服务端
+## 1.1. 服务端
 
 ---
-#### 服务端安装
+### 1.1.1. 服务端安装
 ```bash
 yum install samba samba-client.x86_64 samba-common -y
 systemctl start smb
@@ -25,7 +25,8 @@ yum install smaba-client -y
 ```
 
 ---
-#### 自定义共享目录:
+### 1.1.2. 自定义共享目录:
+
 ```bash
 ########## 服务端 ##########
 mkdir /westos
@@ -55,10 +56,10 @@ vim /etc/fstab
 ```
 
 ---
-### 客户端
+## 1.2. 客户端
 
 
-#### 匿名用户登录
+### 1.2.1. 匿名用户登录
 
 ```bash
 # 服务端
@@ -78,7 +79,7 @@ df
 ```
 
 
-### test
+### 1.3. test
 
 ```bash
 yum  -y  install  samba-client
@@ -87,10 +88,12 @@ mount //104.168.172.250/mount ./mount_22 -o username=chenjun,password=cj123
 
 ```
 
+
+
 ---
 
-### 实战
-#### 服务端
+## 1.4. 实战
+### 1.4.1. 服务端
 
 **(1) 安装smaba服务**
 ```bash
@@ -132,7 +135,7 @@ systemctl enable smb.service
 systemctl enable nmb.service
 ```
 
-#### 客户端
+### 1.4.2. 客户端
 
 **(1) 创建挂载目录**
 ```bash
@@ -172,23 +175,49 @@ umount: /home/mnt/logs：目标忙。
 退出挂载的目录即可。
 ```
 
+
+---
 备注2：
 ```bash
 # yum install cifs-utils  # 需要先安装
 # 另外指定smb相同版本，此参数在连接小黑盒时异常有用
 mount -t cifs //192.168.3.12/gzsc_project/seqdate /work/download/seqdata_nas -o 'username=chenjun,password=n:L1!O,gid=1009,uid=1009,vers=2.0'
+mount -t cifs //192.168.3.104/seqdata  ./mount -o username=admin_chen,password=chen1234,gid=1000,uid=1000,dir_mode=0755,file_mode=0755
+# mount -t cifs //192.168.3.104:share/seqdata  ./mount -o username=admin_chen,password=chen1234,gid=1000,uid=1000,dir_mode=0755,file_mode=0755
+# mount -t cifs //192.168.3.104/share/seqdata  ./mount -o username=admin_chen,password=chen1234,gid=1000,uid=1000,dir_mode=0755,file_mode=0755
 ```
 
-
-### test2
+---
+报错问题解决：
 
 ```bash
-mount -t cifs //192.168.3.12/share /mount/share -o 'username=testuser,password=test123,gid=1000,uid=1000,dir_mode=0755,file_mode=0755'
+yum install cifs* -y
+yum remove cifs* -y
+```
 
+```bash
+我找到原因了
+
+安装前（正常）：
+$ mount -t cifs //192.168.3.104:share/seqdata  mount/ -o username=admin_chen,password=chen1234,gid=1009,uid=1009
+$ umount mount/
+
+安装后（不正常）：
+$ yum install cifs*
+$ mount -t cifs //192.168.3.104:share/seqdata  mount/ -o username=admin_chen,password=chen1234,gid=1009,uid=1009
+mount error: could not resolve address for 192.168.3.104:share: Unknown error
+```
+
+最后的解决方法：
+
+```bash
+# 通过它查看直接挂载目录, 发现可以直接挂载的目录，没有路径前缀，直接进行挂载就行
+smbclient -L  //192.168.3.104/ -U admin_chen
+mount -t cifs //192.168.3.104/seqdata  ./mount -o username=admin_chen,password=chen1234,gid=1000,uid=1000
 ```
 
 
-## sshfs
+# 2. sshfs
 
 
 ```bash
@@ -215,4 +244,14 @@ umount mount_22
 ```bash
 fusermount  -u  /test/zjy/
 umount -f /test/zjy/
+```
+
+
+# 3. nfs
+
+```bash
+## 当前未能找到指定登录用户的方法
+# mount -t nfs 192.168.3.104:/share/seqdata ./mount/ -U admin_chen -P chen1234
+mount -t nfs 192.168.3.104:/share/Public  ./mount/
+mount -t nfs 192.168.3.104:/share/seqdata ./mount/
 ```

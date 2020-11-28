@@ -934,6 +934,7 @@ import os
 
 ```python
 os.sep	   # 返回当前使用系统的分隔符 (windows '\';linux '/')
+os.linesep # 返回当前使用系统的换行符 (windows '\r\n';linux '\n')
 os.path    # 返回模块搜索的路径
 os.pardir  # 返回当前目录的父目录代表字符串('..')
 os.curdir  # 返回当前目录代表的字符串(为'.') 
@@ -1697,6 +1698,15 @@ logging.error('error')
 2019-11-07 09:26:04,438 - WARNING: warning
 2019-11-07 09:26:04,438 - ERROR: error
 
+### pickle环境保存
+
+```python
+import pickle
+a, b = 1, 3
+pickle.dump((a, b), open("test.pydb", "wb"))
+aa, bb = pickle.load(open("test.pydb", "rb"))
+print(a, b, aa, bb)
+```
 
 ## 10.8. 第三方包
 

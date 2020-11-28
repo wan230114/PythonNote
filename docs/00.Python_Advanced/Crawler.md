@@ -157,6 +157,7 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36'}
 res = requests.get(url, headers=headers)
 ```
+
 参数：
 - url ：请求地址
 - headers ：访问请求头。默认为Python套接字请求头，通常自定义用于模拟浏览器真实访问。
