@@ -14,20 +14,44 @@ git clone https://github.com/wan230114/PythonNote.git
 1. 下载及安装软件。
    - 打开vscode官网下载界面：https://code.visualstudio.com/Download
    - 下载并根据向导安装
-2. 一键下载设置及安装插件。 准备从公网下载一套相对成型完善的设置。
-   - 打开左边侧边栏的扩展商店（快捷键方法， win: `ctrl+shift+x` / mac: `command+shift+x`）
-   - 搜索并安装插件： `Settings Sync`。亦可点击[插件地址](https://marketplace.visualstudio.com/items?itemName=Shan.code-settings-sync)完成安装。
-   - 插件 `Settings Sync` 的使用：
-     - 打开vscode命令面板  
-       （点击 >设置 >命令面板。或使用快捷键 win: `ctrl+shift+p` / mac: `command+shift+p`）
-     - 输入命令：`>sync advanced`，选中第一条命令，再选中`Sync 打开设置`
-     - 输入以下 `Gist ID` 完成
-      ```text
-      9119aa6c385cce49769343cd90e5dc7d
-      ```
-     - 输入命令：`>sync Download Settings`，选中第一条命令完成下载。
+2. 一键下载设置及安装插件（准备从公网下载这套相对成型完善的设置）。
+   - 1）打开左边侧边栏的扩展商店（快捷键方法， win: `ctrl+shift+x` / mac: `command+shift+x`）  
+   - 2）搜索插件：`Settings Sync`
+   - 3）点击安装
 
-      （该 `Gist ID` 的 DIY设置的相关介绍见下一小节）
+      ![图 3](images/Usage_2020-12-22_20-23-06.png)  
+  
+
+   - 4）插件 `Settings Sync` 的配置使用
+     - **step1.** 打开vscode命令面板  
+       （点击 >设置 >命令面板。或使用快捷键 win: `ctrl+shift+p` / mac: `command+shift+p`）
+     - **step2.** 输入命令：`sync advanced`，按两次Enter（选择第一条命令`>Sync: Advanced Options`，再选中`Sync 打开设置`
+     - **step3.** 在`Gist ID`输入框内输入以下内容：
+
+        稳定版：
+        ```text
+        9119aa6c385cce49769343cd90e5dc7d
+        ```
+        最新版：
+        ```text
+        d8c7817337bac81c92dc7b9f047c7e1f
+        ```
+
+     - **step4.** 输入命令：`sync Download Settings`，选中第一条命令按Enter完成下载。
+
+      ![图 3](images/Usage_2020-12-22_22-28-57.png)  
+
+
+> ***补充：***
+> 
+> 1. 若遇到无法下载的BUG时，可以尝试点击如下图，粘贴`Gist ID`，并按确认  
+> ![图 1](images/Usage_2020-12-22_22-05-20.png)  
+> 
+> 2. 开始正常下载的标志：
+> ![图 2](images/Usage_2020-12-22_22-13-41.png)  
+>
+> （PS：该 `Gist ID` DIY设置的相关介绍见下一小节）
+
 
 ---
 ### 2.2. vscode - Sync.gist ID 的内容简介
@@ -123,6 +147,11 @@ npm i docsify-cli -g
 cd PythonNote
 docsify serve ./
 ```
+
+# 附
+
+插件介绍
+- [Terminal Capture](https://marketplace.visualstudio.com/items?itemName=devwright.vscode-terminal-capture)： 将终端内容复制写到编辑器
 
 
 # 专题

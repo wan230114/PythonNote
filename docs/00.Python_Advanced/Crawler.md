@@ -172,11 +172,13 @@ res = requests.get(url, headers=headers)
 
 ```python
 import requests 
-#引入requests库
+# 引入requests库
 res = requests.get('https://localprod.pandateacher.com/python-manuscript/crawler-html/sanguo.md') 
-#发送请求，并把响应结果赋值在变量res上
-
+# 发送请求，并把响应结果赋值在变量res上
 ```
+
+
+---
 ## 3.2. Response对象的常用属性
 
 | 属性                   | 作用                 |
@@ -351,6 +353,10 @@ ingredients = tag_p.text[1:-1]  # 食材，使用[1:-1]切掉了多余的信息
 print(ingredients)  # 打印食材  
 ```
 
+
+
+
+---
 # xpath的基本使用
 
 ```python
@@ -401,5 +407,4 @@ exp(html.xpath('//li/a[@href="link2.html"]'))  # [Element,]
 exp(html.xpath('//li[last()]/a/text()'))
 # 查找倒数第二个li标签里的a标签的href属性
 exp(html.xpath('//li[last()-1]/a/text()'))
-
 ```

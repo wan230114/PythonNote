@@ -921,7 +921,7 @@ pd.set_option('display.max_columns', 1000)
 pd.set_option('display.width', 1000)
 ```
 
-## 表操作
+## 表内操作
 
 列调换
 ```python
@@ -930,9 +930,59 @@ df.insert(1,'调换',df.pop('A'))  #改变某一列的位置。如：先删除A�
 
 表纵向连接：
 ```python
-t1 = pd.DataFrame([["a1", "a2", "a3"]])
-t2 = pd.DataFrame([["b1", "b2", "b3"]])
-pd.concat([t1, t2], axis=0, ignore_index=True)
+df1 = pd.DataFrame([["a1", "a2", "a3"]])
+df2 = pd.DataFrame([["b1", "b2", "b3"]])
+pd.concat([df1, df2], axis=0, ignore_index=True)
+```
+
+表去重：
+```python
+df = pd.DataFrame(
+  [["a1", 1],
+   ["a1", 1],
+   ["a1", 2],
+   ["a1", 2],
+   ["a2", 1],
+   ]
+)
+df.drop_duplicates()  # inplace=True
+```
+
+表格多行压缩单行（按某列唯一压缩）
+```python
+import pandas as pd
+
+df = pd.DataFrame(
+    [["a1", "A", 1],
+     ["a2", "B1", 1],
+     ["a2", "B2", 2],
+     ["a3", "C1", 1],
+     ["a3", "C2", 2],
+     ["a3", "C2", 3],
+     ], columns=["name", "type", "value"]
+)
+
+L = []
+for k, x in df.groupby(["name"]):
+    L.append([",".join(x[xx].drop_duplicates().map(str))
+              for xx in x.columns])
+pd.DataFrame(L, columns=df.columns)
+```
+
+## 表间操作
+
+
+## 表补齐
+
+```python
+df = pd.DataFrame(
+  [["a1", 1],
+   ["a1", None],
+   ["a2", 1],
+   ]
+)
+df
+df.where(df.notnull(), "NA")  # 将Nan补为字符串"NA"，方便后续表格写入文件
 ```
 
 ## 表过滤查询

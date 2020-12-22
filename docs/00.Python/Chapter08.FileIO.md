@@ -866,6 +866,9 @@ file_read_binary.py
     - 对于文本模式('t')打开的文件，返回字符串(str)  
     - 对于二进制模式('b')打开的文件，返回字节串(bytes)  
 
+- `file.read().splitlines()` 可以获得按行分割的列表
+
+---
 文件的迭代读取:
 > `for line in file: print(line)`
 
