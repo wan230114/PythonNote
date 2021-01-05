@@ -51,7 +51,7 @@
     * [Introduction 简介](/docs/01.Datascience/Introduction.md)
     * [Chapter01 Numpy的多维矩阵批量操作方法](/docs/01.Datascience/Datascience_1numpy.md)
     * [Chapter02 Matplotlib绘图工具](/docs/01.Datascience/Datascience_2matplotlib.md)
-    * [Chapter03 Pandas与数据分析](/docs/01.Datascience/Datascience_3pandas/Pandas_Note.md)
+    * [Chapter03 Pandas与数据分析](/docs/01.Datascience/Datascience_3pandas.md)
 * **AI机器学习——入门**
     * [Introduction 简介](/docs/02.AI_ML/Introduction.md)
     * [所有笔记汇总 --> Note 教程](/docs/02.AI_ML/ML.md)

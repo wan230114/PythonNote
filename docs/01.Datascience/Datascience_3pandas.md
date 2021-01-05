@@ -923,6 +923,14 @@ pd.set_option('display.width', 1000)
 
 ## 表内操作
 
+列增加
+
+```python
+df = pd.DataFrame([["a1", 1], ["a2", 2]])
+df["new_colums"] = [1, 2]
+df.loc[:,"new_colums"] = [1, 2]
+```
+
 列调换
 ```python
 df.insert(1,'调换',df.pop('A'))  #改变某一列的位置。如：先删除A列，然后在原表data中第1列插入被删掉的列。

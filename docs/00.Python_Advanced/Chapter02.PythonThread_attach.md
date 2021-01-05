@@ -170,6 +170,8 @@ def fun(shm):
     # 修改共享内存
     print(list(shm))
     shm[3] = 1000
+    time.sleep(2)
+    print(list(shm))
 
 
 if __name__ == '__main__':
@@ -178,7 +180,10 @@ if __name__ == '__main__':
     shm = Array('i', range(5))
     # shm = Array('i', 5)  # 表示开辟５个空间
     p = Process(target=fun, args=(shm,))
+    print('s1')
     p.start()
+    time.sleep(1)
+    print('s2')
     p.join()
 
     print("=================")

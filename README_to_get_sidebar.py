@@ -6,16 +6,16 @@ def info(name):
     print(datetime.datetime.now(), name, '写入完毕')
 
 
-def macth(rule, doc):
+def re_findall(rule, doc):
     return re.compile(rule, re.DOTALL).findall(doc)
 
 
 # 1) 目录的预处理
 with open('./README.md', 'rb') as fi:
     doc = fi.read()
-    L_job1 = macth(
+    L_job1 = re_findall(
         rb'<!-- menu_base -->(.*?)<!-- menu_base -->', doc)
-    L_job2 = macth(
+    L_job2 = re_findall(
         rb'<!-- menu_write -->.*?<!-- menu_write -->', doc)
 
 if L_job1 and L_job2:
@@ -27,9 +27,9 @@ if L_job1 and L_job2:
 # 2) sidebar和intro匹配
 with open('./README.md', 'rb') as fi:
     doc = fi.read()  # .replace(b'/docs/', b'')
-    L_job1 = macth(
+    L_job1 = re_findall(
         rb'<!-- menu -->.*?<!-- menu -->', doc)
-    L_job2 = macth(
+    L_job2 = re_findall(
         rb'<!-- introduction -->.*?<!-- introduction -->', doc)
 # with open('./docs/README.md', 'wb') as fo:
 #     info('./docs/README.md')
