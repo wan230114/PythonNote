@@ -5,7 +5,7 @@
 > 从Python入门到人工智能的专属知识图谱。包含了从Python基础到高阶使用，以及一些日常探索，只为让零碎知识逐渐整体化。  
 > 一个开源的知识图谱，进步与分享必将让世界变得更为美好。让我们在踏实打下基础的同时，逐渐迈向创造通用型人工智能(AGI)。  
 > A general knowledge map.  
-> —— 陈军（1170101471@qq.com）、邢鹏伟（179464967@qq.com）
+> —— [陈军](https://github.com/wan230114)（1170101471@qq.com）、[邢鹏伟](https://github.com/pengweixing)（179464967@qq.com）
 > 
 
 </font>  
