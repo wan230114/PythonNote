@@ -12,13 +12,20 @@
 
 ---
 Ps:  <font face="仿宋">第一章拥有仅教程不到20%的内容，但却拥有着80%的重要程度。  
-可以说，第一章理解了，此后内容都是对此的延展。</font>
+可以说，第一章理解了，此后内容都是对此的延展。
+
+思维导图：
+</font>
+
+<iframe frameborder= "no" border= "0" marginwidth= "0" marginheight= "0" width=800 height=800 src= "https://edrawcloudpubliccn.oss-cn-shenzhen.aliyuncs.com/viewer/self/21594733/share/2021-1-12/1610454561/main.svg"></iframe>
 
 ---
 ## 1.1. Python背景
 
-Python是什么？
+Python是什么？  
+Python is a programming language that lets you work quickly and integrate systems more effectively.
 - 一门高级编程语言
+- 
 - 面向对象
 - 动态语言
 - 支持多种编程范式
@@ -34,20 +41,23 @@ Python是什么？
   - Python v3.8（最新版本）
 - **目的**
   - 功能强大，与其他主要编程语言一样（当时C语言独霸天下，使用占比超50%，后来最高70%+）
-  - 清晰而优雅，尽量使用纯英文单词以便于理解
+  - 清晰而优雅，尽量直接使用直译的英文单词以便于理解
   - 简洁高效开发，并为大量非专业程序员提供日常轻量级使用
   - 开源
 
 > 小知识：  
-> 编程语言及Python的发展及历史由来。
+> Python出现的历史大背景：（编程语言的发展及Python历史由来）
 > 按照编程语言发展类型排序：
 > * 机器语言（0/1组成）
 > * 汇编语言（英文单词代替一些0/1组成）
 > * 高级语言（面向流程 --> 面向对象）
 > 
-> 语言特点：
-> * 语法优雅简洁，清晰易懂  --> 人机交互更为简洁，开发效率提升。
-> * 动态语言
+> 计算机语言发展趋势及特点：
+> - 人机交互越来越简单
+>   - 语法愈发简洁
+>   - 交互模式愈发人性化
+> 
+
 
 ### 1.1.2. 应用
 - 应用领域:   

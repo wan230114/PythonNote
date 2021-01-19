@@ -1,4 +1,3 @@
-
 ## 1. 开始
 
 项目下载clone：  
@@ -14,147 +13,142 @@ git clone https://github.com/wan230114/PythonNote.git
 1. 下载及安装软件。
    - 打开vscode官网下载界面：https://code.visualstudio.com/Download
    - 下载并根据向导安装
-2. 一键下载设置及安装插件（准备从公网下载这套相对成型完善的设置）。
+
+2. 安装拓展插件`Settings Sync`
    - 1）打开左边侧边栏的扩展商店（快捷键方法， win: `ctrl+shift+x` / mac: `command+shift+x`）  
    - 2）搜索插件：`Settings Sync`
-   - 3）点击安装
-
+   - 3）点击安装（插件装好之后的弹出主页不要关闭，后续有用）  
       ![图 3](images/Usage_2020-12-22_20-23-06.png)  
-  
 
-   - 4）插件 `Settings Sync` 的配置使用
-     - **step1.** 打开vscode命令面板  
-       （点击 >设置 >命令面板。或使用快捷键 win: `ctrl+shift+p` / mac: `command+shift+p`）
-     - **step2.** 输入命令：`sync advanced`，按两次Enter（选择第一条命令`>Sync: Advanced Options`，再选中`Sync 打开设置`
-     - **step3.** 在`Gist ID`输入框内输入以下内容：
-
-        稳定版：
+3. 使用`Settings Sync`插件下载一套相对成型的完善设置。
+   - 1）打开刚刚弹出的主页点击 `Download Public Gist`。
+   - 2）在弹出的界面中，粘贴`Gist ID`，并按Enter确认。
+      ![图 1](images/Usage_2020-12-22_22-05-20.png)  
+     - Gist ID：
+      - 稳定版：
         ```text
         9119aa6c385cce49769343cd90e5dc7d
         ```
-        最新版：
+      - 最新版：
         ```text
         d8c7817337bac81c92dc7b9f047c7e1f
         ```
-
-     - **step4.** 输入命令：`sync Download Settings`，选中第一条命令按Enter完成下载。
-
-      ![图 3](images/Usage_2020-12-22_22-28-57.png)  
-
+   - 3）开始正常下载的标志：  
+     如下图所示，在 标注① OUTPUT输出栏中出现下载日志，或者在图中最下面的紫色状态栏中出现如 类似 `34 OF 118 INSTALLED` 的状态信息  
+     ![图 2](images/Usage_2021-01-09_22-11-45.png)  
 
 > ***补充：***
 > 
-> 1. 若遇到无法下载的BUG时，可以尝试点击如下图，粘贴`Gist ID`，并按确认  
-> ![图 1](images/Usage_2020-12-22_22-05-20.png)  
+> 若遇到无法下载的BUG时，可尝试如下步骤。
+> - **step1.** 打开vscode命令面板 （点击 >设置 >命令面板。或使用快捷键 win: `ctrl+shift+p` / mac: `command+shift+p`）
+> - **step2.** 输入命令：`sync advanced`，按两次Enter。（第一次选择第一条命令`>Sync: Advanced Options`，第二次再选中`Sync 打开设置`
+> - **step3.** 在`Gist ID`输入框内输入上面的 Gist ID
+> - **step4.** 再次打开vscode命令面板，输入命令：`sync Download Settings`，选中第一条命令按Enter，此时亦可完成下载。
+> ![图 3](images/Usage_2020-12-22_22-28-57.png)  
 > 
-> 2. 开始正常下载的标志：
-> ![图 2](images/Usage_2020-12-22_22-13-41.png)  
->
-> （PS：该 `Gist ID` DIY设置的相关介绍见下一小节）
+> PS：该 `Gist ID` DIY设置的相关介绍见下一小节
 
 
 ---
 ### 2.2. vscode - Sync.gist ID 的内容简介
 
 #### 2.2.1. 本套同步设置特点
-- 丰富的实用插件
-  - Markdown、Python及其相关插件，可以完成语法检测，格式化文本等操作
-  - IPython for VSCode(发送当前选择行到ipython终端运行)
-  - 其他暂不描述...
-- 丰富的 VsCode 软件设置
-  - 自定义的终端设置：
-    - 鼠标融合，双击复制，右击粘贴。（复制的分隔符设置位于 `设置 --> 功能 --> 终端 --> 最后一项terminal.integrated.wordSeparators` ）
-    - 在终端中打开目录或文件到编辑器。
-  - ...
-- 方便的 VsCode 快键键设置（基于Sublime text3习惯，此处着重介绍）
+- 丰富的实用插件：Markdown、Python及其相关插件，可以完成语法检测，格式化文本等操作，便捷的文本与终端交互。
+- 丰富的 VsCode 软件设置：如自定义的终端设置，鼠标融合，双击复制，右击粘贴。（复制的分隔符设置位于 `设置 --> 功能 --> 终端 --> 最后一项terminal.integrated.wordSeparators` ）；可在终端中打开目录或文件。
+- 方便的 VsCode 快键键设置（基于Sublime text3习惯，以下将着重介绍）
 
-#### 2.2.2. 常用自定义快捷键
+#### 2.2.2. 便捷的快捷键定义
 
-（以下快捷键以 mac 系统为准，windows 的部分快捷键设置可能未及时更新）
+（以下快捷键以 mac 系统为准，windows 的部分快捷键设置未及时测试更新，一般而言windows的快捷键直接将cmd换成ctrl即可）
+
+**文本编辑器中：**
+
+|    win    |        mac        |  生效条件   |          说明           |
+|:---------:|:-----------------:|:-----------:|:---------------------:|
+| <b>  </b> | `command+shift+d` | *unlimited* |     向下复制当前行      |
+| <b>  </b> |     `alt+↑/↓`     | *unlimited* |    快速向上/下移动行    |
+| <b>  </b> |     `cmd+↑/↓`     | *unlimited* | 光标移动至文件首位/末尾 |
+| <b>  </b> |     `cmd+←/→`     | *unlimited* |    光标移动至行左/右    |
+| <b>  </b> |     `ctrl+-`      | *unlimited* | 跳转至上次光标所在位置  |
+| <b>  </b> |  `ctrl+shift+-`   | *unlimited* | 跳转至下次光标所在位置  |
+| <b>  </b> |      `cmd+c`      | *unlimited* |        复制(行)         |
+| <b>  </b> |      `cmd+x`      | *unlimited* |        剪切(行)         |
+| <b>  </b> |      `cmd+v`      | *unlimited* |          粘贴           |
+| <b>  </b> |      `cmd+/`      | *unlimited* |          注释           |
+| <b>  </b> |   `cmd+shift+c`   | *unlimited* |          注释           |
 
 
 **Markdown：**
 
-|     win      |        mac        | 生效条件  |                            说明                             |
-|:------------:|:-----------------:|:---------:|:-----------------------------------------------------------:|
-|   `ctrl+g`   |    `command+g`    | <b>  </b> |                 快速选择markdown中的代码块                  |
-| `ctrl+enter` |   `ctrl+enter`    | <b>  </b> |           快速于IPython终端运行选中命令行或当前行           |
-|  <b>  </b>   |     `ctrl+L`      | <b>  </b> |                   创建/取消 无序列表 `- `                   |
-|  <b>  </b>   |     `ctrl+L`      | <b>  </b> |                   创建/取消 段落格式 `> `                   |
-|  <b>  </b>   |  `ctrl+shift+c`   | <b>  </b> |         创建/取消 checkbox<br>(可单行多行) `- [ ] `         |
-|  <b>  </b>   | `command+shift+c` | <b>  </b> | 创建/取消 checkbox<br>（仅单行，细节与上一条互补） `- [ ] ` |
+|     win      |      mac       |  生效条件   |                    说明                     |
+|:------------:|:--------------:|:-----------:|:-----------------------------------------:|
+|   `ctrl+g`   |    `cmd+g`     | *unlimited* |         快速选择markdown中的代码块          |
+| `ctrl+enter` |  `ctrl+enter`  | *unlimited* |   快速于IPython终端运行选中命令行或当前行   |
+|  <b>  </b>   |    `ctrl+l`    | *unlimited* |           创建/取消 无序列表 `- `           |
+|  <b>  </b>   |   `ctrl+m+k`   | *unlimited* |           创建/取消 段落格式 `> `           |
+|  <b>  </b>   | `ctrl+shift+c` | *unlimited* | 创建/取消 checkbox<br>(可单行多行) `- [ ] ` |
 
 
-**文本编辑器中：**
-
-|    win    |         mac         | 生效条件  |         说明         |
-|:---------:|:-------------------:|:---------:|:--------------------:|
-| <b>  </b> |  `command+shift+d`  | <b>  </b> |    向下复制当前行    |
-| <b>  </b> | `command+shift+↑/↓` | <b>  </b> |  快速向上/下移动行   |
-| <b>  </b> |     `command+c`     | <b>  </b> |       复制(行)       |
-| <b>  </b> |     `command+x`     | <b>  </b> |       剪切(行)       |
-| <b>  </b> |     `command+v`     | <b>  </b> |         粘贴         |
-| <b>  </b> |      <b>  </b>      | <b>  </b> | 返回上次光标所在位置 |
-| <b>  </b> |      <b>  </b>      | <b>  </b> | 返回下次光标所在位置 |
-
-
-**窗口管理：**
+**窗口管理及切换交互：**
 
 |      win       |        mac        |          生效条件          |           说明           |
 |:--------------:|:-----------------:|:--------------------------:|:------------------------:|
-|    `ctrl+w`    |    `command+w`    | 当光标聚焦于文本编辑窗口时 |         关闭窗口         |
-|    `ctrl+w`    |    `command+w`    |     当光标聚焦于终端时     | 将光标聚焦于文本编辑窗口 |
 |    `ctrl+e`    |    `command+e`    |     当光标聚焦于终端时     | 将光标聚焦于文本编辑窗口 |
 |    `ctrl+e`    |    `command+e`    | 当光标聚焦于文本编辑窗口时 |   将光标聚焦于终端窗口   |
-| `ctrl+shift+w` | `command+shift+w` |         <b>  </b>          |  关闭当前编辑组整个窗口  |
+|    `alt+w`     |      `alt+w`      |        *unlimited*         | 切换下一个程序窗口 |
+| `alt+shift+w`  |   `alt+shift+w`   |        *unlimited*         | 切换下一个程序窗口 |
+|    `ctrl+w`    |    `command+w`    |        *unlimited*         |         关闭当前编辑器页         |
+| `ctrl+shift+w` | `command+shift+w` |        *unlimited*         |  关闭当前程序程序窗口  |
+| `ctrl+shift+w` | `command+shift+w` |        *unlimited*         |  关闭当前程序程序窗口  |
+|  <b>  </b> | `command+ctrl+t` |        *unlimited*         |  在终端进入当前文件路径  |
 |      ...       |     <b>  </b>     |         <b>  </b>          |        <b>  </b>         |
 
 
-**终端：**
+**终端 及 编辑器内容与终端的交互：**
 
 |    win    |      mac       |      生效条件      |   说明   |
-|:---------:|:--------------:|:------------------:|:--------:|
-| <b>  </b> | `ctrl+shift+~` |     <b>  </b>      | 新建终端 |
+|:---------:|:--------------:|:------------------:|:------:|
+| <b>  </b> | `ctrl+shift+~` |     *unlimited*      | 新建终端 |
 | <b>  </b> |  `ctrl+table`  | 当光标聚焦于终端时 | 切换终端 |
+| <b>  </b> |  `cmd+enter`  | 当光标聚焦于文本编辑窗口时 | 发送选中文本或当前所在行到终端 |
+| <b>  </b> |  `cmd+enter`  | 当光标位于PythonCell<br>（`#%%`包裹的python文档中） | 启动并执行当前Cell代码，Jupyter增强窗口 |
+| <b>  </b> |  `ctrl+enter`  | *unlimited* | 发送命令到ipython终端交互执行 |
 
 
 **脚本执行：**
 
 |    win    |   mac    | 生效条件  |   说明   |
-|:---------:|:--------:|:---------:|:--------:|
-| <b>  </b> | `ctrl+b` | <b>  </b> | 运行程序 |
+|:---------:|:--------:|:---------:|:------:|
+| `ctrl+b` | `cmd+b` | *unlimited* | 运行脚本 |
 
 
 ## 3. npm服务器环境安装
 
-将本项目的文件夹自动渲染为本地网页，便于开发，或本地查看渲染访问文档网页。
+将本项目的文件夹自动渲染为本地网页，便于实时开发，在本地实时渲染访问文档网页。
 
-安装docsify-cli工具:
+使用工具：`docsify-cli`
+
+工具的安装:
 ```shell
-# npm安装网上教程一大把，不再赘述
+# 使用npm进行安装。npm的安装网上教程很多，此处不再赘述，以下为安装命令
 npm i docsify-cli -g
 ```
 
 ## 4. vscode 食用方法
 
-打开PythonNote目录作为项目目录  
-- 文件 --> 打开文件夹  --> PythonNote
-- File --> Open Folder --> PythonNote
+待项目clone完毕后，打开PythonNote目录作为项目目录，打开方式如下（依次点击）：  
+- 文件 --> 打开文件夹  --> 选择PythonNote
+- File --> Open Folder --> Chose PythonNote
 
-然后运行一个本地服务器，这样就可以在 http://localhost:3000 实时访问文档网页渲染效果。(实时将项目中的文件更改同步更新到网页端)
+然后运行一个本地服务器，这样就可以在 http://localhost:3000 实时访问文档网页渲染效果。(当项目文件夹中的文件改动，网页端将会自动同步渲染更新)
 
 ```shell
 cd PythonNote
 docsify serve ./
 ```
 
-# 附
-
-插件介绍
-- [Terminal Capture](https://marketplace.visualstudio.com/items?itemName=devwright.vscode-terminal-capture)： 将终端内容复制写到编辑器
-
-
-# 专题
+---
+## 思考
 
 文件与终端的交互
 - 怎么快速从终端中打开一个文件？

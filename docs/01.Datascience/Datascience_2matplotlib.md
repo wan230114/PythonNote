@@ -154,8 +154,8 @@ mp.show()
 import matplotlib.pyplot as mp
 # x_val_list:  x轴刻度值序列, x_text_list: x轴刻度标签文本序列 [可选]
 # y_val_list:  y轴刻度值序列, y_text_list: y轴刻度标签文本序列 [可选]
-mp.xticks([1, 2, 3, 4, 5], [0, 2, 4] )
-mp.yticks([1, 2, 3, 4, 5], [0, 2, 5] )
+mp.xticks([1, 2, 3, 4, 5], list("ABCDE") )
+mp.yticks([1, 2, 3, 4, 5], list("ABCDE") )
 mp.show()
 ```
 
@@ -847,7 +847,6 @@ demo10_scatter.py 散点图
 """
 import numpy as np
 import matplotlib.pyplot as mp
-
 n = 300
 x = np.random.normal(175, 5, n)
 y = np.random.normal(65, 10, n)
@@ -863,6 +862,7 @@ mp.scatter(x, y, s=60, label='Persons',
 mp.legend()
 mp.show()
 ```
+
 *cmap颜色映射表参照附件：cmap颜色映射表: <a href="../img/Datascience/matplotlib_cmap.png">matplotlib_cmap.png</a>*
 
 **一颗AI心**
@@ -1189,6 +1189,7 @@ mp.show()
 ax3d.plot_wireframe(x,y,z,rstride=30,cstride=30, 
     linewidth=1, color='dodgerblue')
 ```
+
 案例：3d线框图的绘制
 ```python
 """
@@ -1371,6 +1372,31 @@ mp.tight_layout()
 mp.show()
 ```
 
+## 图形绘制
+
+### 圆
+
+```python
+import matplotlib.pyplot as plt
+
+circles = [
+    plt.Circle((0, 0), 1, color='#000000', fill=False),
+    plt.Circle((0, 0), 0.5, color='#000000', fill=True)
+    ]
+
+fig, ax = plt.subplots()
+
+plt.xlim(-1.25, 1.25)
+plt.ylim(-1.25, 1.25)
+
+# plt.grid(linestyle='--')
+ax.set_aspect(1)
+
+for circle in circles:
+    ax.add_artist(circle)
+```
+
+
 # 图像的输出
 
 【待补充】
@@ -1391,3 +1417,4 @@ mp.figure()
 mp.plot([1,2,3], [1,3,2])
 mp.show() # 前台画图窗口
 ```
+
