@@ -1,7 +1,14 @@
-## Linux 系统中 PS1 显示全路径\w模式时替换 ~ 为 /home/user 的解决方案
+# Linux 系统中 PS1 显示全路径\w模式时替换 ~ 为 /home/user 的解决方案
 Linux 系统中 PS1 显示全路径`\w`模式时替换`~`为`/home/user`的解决方案
 
-## 说明
+## 简单方法
+
+
+
+
+## 探索过的麻烦方法
+
+### 说明
 
 （ps: 此环境已封装至项目  
 <https://github.com/wan230114/mytools>: master/bashrc_my.sh ）
@@ -24,10 +31,10 @@ alias cd=fcd
 cd .
 ```
 
-## 原理解析
+### 原理解析
 ![PS1_processing](https://img-blog.csdnimg.cn/20200726132843922.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTE0Njc1NTM=,size_16,color_FFFFFF,t_70)
 
-## 效果展示
+### 效果展示
 ```shell
 [chenjun@linux: 12:49:08 /home/chenjun]
 $ cat /home/chenjun/.conda_bashrc
@@ -58,3 +65,4 @@ $ cd software
 (bio) [chenjun@linux: 12:54:07 /home/chenjun/software]
 $ 
 ```
+

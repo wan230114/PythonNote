@@ -756,6 +756,10 @@ dtype: object
 文本文件读取
 - 使用read_table来读取文本文件。
 
+注：
+> 一些重要参数：  
+> float_precision="round_trip"：保持读取后的数值不变化。
+
 ```python
 pandas.read_table(filepath_or_buffer, sep='\t', 
                   header='infer', names=None, index_col=None,
@@ -938,9 +942,15 @@ df.insert(1,'调换',df.pop('A'))  #改变某一列的位置。如：先删除A�
 
 表纵向连接：
 ```python
-df1 = pd.DataFrame([["a1", "a2", "a3"]])
-df2 = pd.DataFrame([["b1", "b2", "b3"]])
+import pandas as pd
+L1 = ["a1", "a2", "a3"]
+L2 = ["b1", "b2", "b3"]
+df1 = pd.DataFrame([L1, L1, L1])
+df2 = pd.DataFrame([L2, L2, L2])
+pd.concat([df1, df2], axis=0)
 pd.concat([df1, df2], axis=0, ignore_index=True)
+pd.concat([df1, df2], axis=1)
+pd.concat([df1, df2], axis=1, ignore_index=True)
 ```
 
 表去重：
@@ -959,7 +969,6 @@ df.drop_duplicates()  # inplace=True
 表格多行压缩单行（按某列唯一压缩）
 ```python
 import pandas as pd
-
 df = pd.DataFrame(
     [["a1", "A", 1],
      ["a2", "B1", 1],
@@ -969,7 +978,6 @@ df = pd.DataFrame(
      ["a3", "C2", 3],
      ], columns=["name", "type", "value"]
 )
-
 L = []
 for k, x in df.groupby(["name"]):
     L.append([",".join(x[xx].drop_duplicates().map(str))
@@ -983,6 +991,7 @@ pd.DataFrame(L, columns=df.columns)
 ## 表补齐
 
 ```python
+import pandas as pd
 df = pd.DataFrame(
   [["a1", 1],
    ["a1", None],
@@ -1027,4 +1036,46 @@ import pandas as pd
 df = pd.DataFrame({"a": [1, 20, 1, 1, 1, 20]})
 df
 pd.value_counts(df.a)
+```
+
+## read_csv / read_table 的一些细节补充
+
+```python
+"""
+存在NA的一列，都会被转换为浮点数
+* python – Pandas：为什么数值浮点数的默认列类型？ - 程序园 : http://www.voidcn.com/article/p-hxculmiy-bvn.html
+* Pandas 缺失值的认定 | Pandas 教程 - 盖若 : https://www.gairuo.com/p/pandas-missing-data
+* 整型中的缺失值。由于 NaN 是浮点型，因此一列甚至缺少一个整数的整数列都将转换为浮点。
+"""
+# %%
+print("""c1	c2	c3	c4
+5	6	7	8
+9	NA	11	NA
+13	14	15	16
+17	18	19	20
+""", file=open("./mat.tsv", "w"))
+# %%
+# ! 结论：NA列会将数据类型自动转为float
+import pandas as pd
+df = pd.read_table("./mat.tsv")
+print(df.dtypes)
+df
+# %%
+# ! 解决方案探索
+import numpy as np
+se = pd.Series([1, 2, np.nan, 4], dtype="str")
+print(se.dtypes)
+print(se)
+# %%
+# ! 二次读取的解决方案：
+# ! 先读第一行，将所有列指定为str，根据需求手动改类型，二次读取。
+colnames = pd.read_table("./mat.tsv", nrows=1).columns
+dtype = {x: "str" for x in colnames}
+dtype.update({"c1": "int"})
+df=pd.read_table("./mat.tsv", dtype=dtype)
+print(df.dtypes)
+print(df.isna())
+df
+## ! 注，该方案不会改变原始数据是NA的为字符串。
+## 如需将NA也识别为字符串，需指定参数，keep_default_na=False
 ```

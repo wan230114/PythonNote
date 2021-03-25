@@ -28,6 +28,7 @@ yum makecache
 
 ```bash
 yum install -y yum-utils device-mapper-persistent-data lvm2 bind-utils
+# yum-config-manager --add-repo  https://download.docker.com/linux/centos/docker-ce.repo
 yum-config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo 
 ## 报错时使用，安装最新版containerd.io。 Error:Problem: package docker-ce-3:19.03.8-3.el7.x86_64 requires containerd.io >= 1.2.2-3
 # dnf install https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm

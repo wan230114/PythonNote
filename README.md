@@ -13,7 +13,7 @@
 > <font font="等线" size="2">**网站主页：**   
 > https://wan230114.github.io/PythonNote  
 > https://wan230114.gitee.io/pythonnote   (备用)  
-> http://118.89.194.65:8888   (备用网站实时镜像)  
+> https://wan230114.ml   (备用网站实时镜像)  
 >
 > **项目主页：**   
 > https://github.com/wan230114/PythonNote  

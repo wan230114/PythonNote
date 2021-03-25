@@ -41,6 +41,8 @@
     * [2.2.14. 极坐标系 mp.gca(projection='polar')](#_2214-极坐标系-mpgcaprojectionpolar)
     * [2.2.15. 简单动画 ma.FuncAnimation(mp.gcf(), func, interval=10)](#_2215-简单动画-mafuncanimationmpgcf-func-interval10)
 
+
+---
 # 1. matplotlib概述
 
 `matplotlib`是python的一个绘图库。使用它可以很方便的绘制出版质量级别的图形。
@@ -51,7 +53,6 @@
 - `Altair`。一款基于Vega 和Vega-Lite开发的统计可视化库。Altair构建在强大的Vega-Lite JSON规范之上，并且具有API简单、友好、一致等诸多优点。
 
 ## matplotlib起源和发展
-
 
 - 一些优秀的拓展包：
   - `Seaborn`：是matplotlib的强大的一个扩展，可以让代码更加简洁，绘图更加丰富。
@@ -81,11 +82,7 @@
        12. 三维曲面
        13. 简单动画
 
-## 1.2. 包的导入
-```python
-# 包的导入
-import matplotlib.pyplot as mp
-```
+包的导入: `import matplotlib.pyplot as mp`
 
 # 2. matplotlib基本功能详解
 
@@ -93,9 +90,10 @@ import matplotlib.pyplot as mp
 
 ### 2.1.1. 绘图核心API mp.plot
 
-绘制一条正弦曲线
+绘制一条折线
 
 ```python
+# 绘制一条折线
 import matplotlib.pyplot as mp
 xarray = [0, 2, 3]  # xarray: <序列> 水平坐标序列
 yarray = [0, 2, 4]  # yarray: <序列> 垂直坐标序列
@@ -454,6 +452,7 @@ mp.show()
 ```
 mp.figure方法不仅可以构建一个新窗口，如果已经构建过title='A'的窗口，又使用figure方法构建了title='A' 的窗口的话，mp将不会创建新的窗口，而是把title='A'的窗口置为当前操作窗口。
 
+
 ### 2.2.2. 设置当前窗口的参数 mp.title/mp.xlabel/mp.tick_params/mp.grid
 
 案例：测试窗口相关参数
@@ -476,6 +475,7 @@ mp.tick_params(labelsize=8)
 mp.grid(linestyle=':')
 # 6) 设置紧凑布局
 mp.tight_layout() 
+mp.show()
 ```
 
 示例：
@@ -712,7 +712,7 @@ mp.show()
 ### 2.2.5. 刻度网格线 mp.gca().grid()
 
 绘制刻度网格线的相关API：
-```python
+```
 ax = mp.gca()
 #绘制刻度网格线
 ax.grid(
@@ -815,7 +815,7 @@ mp.show()
 | 160  | 50   | 女   | 青少   | 美洲 |
 
 绘制散点图的相关API：
-```python
+```
 mp.scatter(
     x,                     # x轴坐标数组
     y,                    # y轴坐标数组
@@ -871,7 +871,7 @@ mp.show()
 
 以某种颜色自动填充两条曲线的闭合区域。
 
-```python
+```
 mp.fill_between(
     x,              # x轴的水平坐标
     sin_x,          # 下边界曲线上点的垂直坐标
@@ -914,7 +914,7 @@ mp.show()
 
 绘制柱状图的相关API：
 
-```python
+```
 mp.figure('Bar', facecolor='lightgray')
 mp.bar(
     x,                # 水平坐标数组
@@ -954,7 +954,7 @@ mp.show()
 
 绘制饼状图的基本API：
 
-```python
+```
 mp.axis('equal')
 mp.pie(
     values,         # 值列表        
@@ -998,7 +998,7 @@ mp.show()
 组成等高线需要网格点坐标矩阵，也需要每个点的高度。所以等高线属于3D数学模型范畴。
 
 绘制等高线的相关API：
-```python
+```
 cntr = mp.contour(
     x,                     # 网格坐标矩阵的x坐标 （2维数组）
     y,                     # 网格坐标矩阵的y坐标 （2维数组）
@@ -1051,7 +1051,7 @@ mp.show()
 
 绘制热成像图的相关API：
 
-```python
+```
 # 把矩阵z图形化，使用cmap表示矩阵中每个元素值的大小
 # origin: 坐标轴方向
 #    upper: 缺省值，原点在左上角
@@ -1141,7 +1141,7 @@ mp.show()
 
 3d曲面图的绘制相关API：
 
-```python
+```
 ax3d.plot_surface(
     x,                     # 网格坐标矩阵的x坐标 （2维数组）
     y,                     # 网格坐标矩阵的y坐标 （2维数组）
@@ -1182,7 +1182,7 @@ mp.show()
 
 #### 2.2.13.3. 3D线框图 ax.plot_wireframe
 
-```python
+```
 # 绘制3D平面图 
 # rstride: 行跨距
 # cstride: 列跨距 
@@ -1316,7 +1316,7 @@ mp.show()  # 触发动画
 
 在很多情况下，绘制动画的参数是动态获取的，matplotlib支持定义generator生成器函数，用于生成数据，把生成的数据交给update函数更新图像：
 
-```python
+```
 import matplotlib.animation as ma
 #定义更新函数行为
 def update(data):
@@ -1417,4 +1417,3 @@ mp.figure()
 mp.plot([1,2,3], [1,3,2])
 mp.show() # 前台画图窗口
 ```
-

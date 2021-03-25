@@ -156,3 +156,15 @@ docsify serve ./
 
 文件内容与终端的交互
 - 怎样快速将文件内容复制到终端运行？
+
+
+
+## 附
+
+vscode-server的安装
+
+```bash
+conda create -n nodejs -c conda-forge nodejs -y
+conda activate nodejs
+npm install -g code-server
+```

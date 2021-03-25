@@ -46,3 +46,11 @@ brew cask install dozer
 ---
 
 - [ ] [MacBook上好用到吹爆的软件 - 知乎](https://zhuanlan.zhihu.com/p/159639725)
+
+
+# brew
+
+[Mac下安装brew及国内源配置_麦克软件园](https://www.mac-soft.cn/t/946)
+
+[Homebrew国内如何自动安装（国内地址） - 知乎](https://zhuanlan.zhihu.com/p/111014448)
+
