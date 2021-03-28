@@ -118,7 +118,7 @@ function exec1(command)
     <input type="button" value="运行 python" οnclick="exec1('python')" />  
     调用python在这里 
     <br/> 
-    <iframe src="/Others/HTML高级语法/now_time.txt" name=iframe1 width='100%' height='100' frameborder='1' ></iframe>
+    <iframe src="/docs/Others/HTML/now_time.txt" name=iframe1 width='100%' height='100' frameborder='1' ></iframe>
 </div>
 
 

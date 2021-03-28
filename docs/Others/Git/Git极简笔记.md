@@ -141,7 +141,8 @@ git  push  origin  master
 
 ### 4.4. 恢复到远程目录
 ```bash
-git fetch --all
+# git fetch --all
+git fetch
 git reset --hard origin/master
 git pull  # 可以省略
 ```

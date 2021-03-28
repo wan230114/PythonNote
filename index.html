@@ -53,10 +53,12 @@
       loadSidebar: true,  //侧边
       maxLevel: 6,
       subMaxLevel: 6,
-      auto2top: true,
-      alias: {
-        '/.*/_sidebar.md': '/_sidebar.md',
-      },
+      auto2top: true,  // 路由改变时自动滚动到屏幕顶部
+      relativePath: true,  //如果为true，则链接是相对于当前上下文的。
+      // mergeNavbar: true,  //小屏设备下合并导航栏到侧边栏。
+      // alias: {
+      //   '/.*/_sidebar.md': '/_sidebar.md',
+      // },
       markdown: {
         latexRender: katex.renderToString.bind(katex),
         renderer: {
@@ -81,7 +83,7 @@
       noCompileLinks: ['/foo', '/bar/.*'],  //不处理的链接地址
       // basePath: 'docs/',
       externalLinkTarget: '_target',  //当前默认为 _blank, 配置一下就可以
-      name: '《Python学习之极简笔记》',
+      name: '<bold>《Python学习之极简笔记》</bold>',
       // name: '<font color="#42a5f5" face="楷体">《Python学习之极简笔记》</font>',
       // name: '《Python学习之极简笔记——从人工智能到机器智能》',
       // nameLink: '/',
