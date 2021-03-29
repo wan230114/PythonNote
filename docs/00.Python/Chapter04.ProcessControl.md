@@ -1,14 +1,14 @@
 # 4. 流程控制
 ## 4.1. 逻辑语句
 - 学习先导
-  - 何为语句与表达式？见第一章[语句和表达式](/00.Python/Chapter01.PythonReview#_1411-语句和表达式)
+  - 何为语句与表达式？见第一章[语句和表达式](/docs/00.Python/Chapter01.PythonReview#_1411-语句和表达式)
   - 什么是一个完整的语句/语句块？
   - 本章学习的语句：
     - if-elif-else语句：用于判断语句块的执行与否
     - pass语句
     - 循环控制语句
       - while语句：用于无限循环的逻辑执行
-      - for语句：用于<[可迭代对象](/00.Python/Chapter05.DataTraversal#_53-可迭代对象)>的循环（字符串，range()返回对象）
+      - for语句：用于<[可迭代对象](/docs/00.Python/Chapter05.DataTraversal#_53-可迭代对象)>的循环（字符串，range()返回对象）
       - break语句：用于终止当前语句块的循环
       - continue语句：用于开始一次当前语句块的新循环
     - 语句嵌套
@@ -64,7 +64,7 @@ i = 4
 a = L[0] if True else L[i]
 ```
 
-注意：表达式不是语句，表达式能赋值给变量，语句则不能。此在第一章[语句和表达式](/00.Python/Chapter01.PythonReview#_1411-语句和表达式)已有详细描述。
+注意：表达式不是语句，表达式能赋值给变量，语句则不能。此在第一章[语句和表达式](/docs/00.Python/Chapter01.PythonReview#_1411-语句和表达式)已有详细描述。
 
 ---
 示例1：
@@ -321,7 +321,7 @@ else:
 
 3. `for语句`的实现原理：
    - `for语句`的本质：使用迭代器方法取出数据。
-   - 使用while、迭代器、next()以及try捕获异常实现，该详细介绍见下一章[迭代器之for语句的本质](/00.Python/Chapter05.DataTraversal#jump_for)
+   - 使用while、迭代器、next()以及try捕获异常实现，该详细介绍见下一章[迭代器之for语句的本质](/docs/00.Python/Chapter05.DataTraversal#jump_for)
 
 ---
 

@@ -4,11 +4,11 @@
 
 <font face="楷体">
 
+
 <h3> 从Python入门到人工智能的专属知识图谱。</h3>
 
 <h3> 包含了从Python基础到高阶使用，以及一些日常探索，只为让零碎知识逐渐整体化。  </h3>
-<h3> 一个开源的知识图谱，进步与分享必将让世界变得更为美好。</h3>
-<h3> 让我们在踏实打下基础的同时，逐渐迈向创造通用型人工智能(AGI)。  </h3>
+<h3> 一个开源的知识图谱，进步与分享必将让我们阔步前行。</h3>
 <h3> A general knowledge map.  </h3>
 <h3> —— 陈军(2020.3.9) </font>  </h3>
 
@@ -27,8 +27,8 @@
  -->
 
 
-<!-- [Github](https://github.com/wan230114/PythonNote.git) -->
-[Start](/README)
+[Github](https://github.com/wan230114/PythonNote.git)
+[Start](#quick-start)
 
 <!-- [Get Started](#quick-start) -->
 

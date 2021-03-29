@@ -1,5 +1,6 @@
 <font face="楷体">
 
+<span id="quick-start"></span>
 <h2>《Python学习之极简笔记——从零到催生AGI》</h2>
 
 > 从Python入门到人工智能的专属知识图谱。包含了从Python基础到高阶使用，以及一些日常探索，只为让零碎知识逐渐整体化。  
@@ -19,15 +20,19 @@
 > https://github.com/wan230114/PythonNote  
 > https://gitee.com/wan230114/PythonNote  (备用)
 >
-> **食用方法：**  
-> [>> PythonNote使用方法](/docs/Usage.md)</font>
+
+<h4> 食用方法： </h4>  
+
+[>> PythonNote食(使)用方法](/docs/Usage.md)  
+
+</font>
 
 <h3> 笔记总目录 </h3>
 
 <!-- menu -->
 <!-- menu -->
 
-[_sidebar.md](./_sidebar.md ':include')
+[](./_sidebar.md ':include')
 
 ---
 
@@ -38,7 +43,6 @@
 
 [](/docs/00.Python/Chapter00.Preface.md ':include')
 
-[](/docs/00.Python/_sidebar.md ':include')
 
 
 
