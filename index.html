@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
 
 <head>
   <meta charset="UTF-8">
@@ -12,11 +12,8 @@
   <link rel="stylesheet" href="./.js/vue.css">
 
   <!-- 数学公式 -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.js"></script>
-  <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" /> -->
-  <!-- <script src="//cdn.jsdelivr.net/npm/docsify-katex@latest/dist/docsify-katex.js"></script> -->
-
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.js"></script> -->
 
   <!-- 谷歌统计 -->
   <!-- <script src="//unpkg.com/docsify" data-ga="UA-161196727-1"></script> -->
@@ -25,8 +22,8 @@
   <!-- 流程图 -->
   <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css">
   <script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script> -->
-  <link rel="stylesheet" href="./.js/mermaid.min.css">
-  <script src="./.js/mermaid.min.js"></script>
+  <!-- <link rel="stylesheet" href="./.js/mermaid.min.css">
+  <script src="./.js/mermaid.min.js"></script> -->
 
   <style>
     .sidebar>h1 a {
@@ -52,26 +49,26 @@
       coverpage: false,    //主页
       loadSidebar: true,  //侧边
       maxLevel: 6,
-      subMaxLevel: 6,
+      subMaxLevel: 3,
       auto2top: true,  // 路由改变时自动滚动到屏幕顶部
-      // relativePath: true,  //如果为true，则链接是相对于当前上下文的。
+      relativePath: true,  //如果为true，则链接是相对于当前上下文的。
       // mergeNavbar: true,  //小屏设备下合并导航栏到侧边栏。
       // alias: {
       //   '/.*/_sidebar.md': '/_sidebar.md',
       // },
-      markdown: {
-        latexRender: katex.renderToString.bind(katex),
-        renderer: {
-          code: function (code, lang) {
-            if (lang === "mermaid") {
-              return (
-                '<div class="mermaid">' + mermaid.render('mermaid-svg-' + num++, code) + "</div>"
-              );
-            }
-            return this.origin.code.apply(this, arguments);
-          }
-        }
-      },
+      // markdown: {
+      //   latexRender: katex.renderToString.bind(katex),
+      //   renderer: {
+      //     code: function (code, lang) {
+      //       if (lang === "mermaid") {
+      //         return (
+      //           '<div class="mermaid">' + mermaid.render('mermaid-svg-' + num++, code) + "</div>"
+      //         );
+      //       }
+      //       return this.origin.code.apply(this, arguments);
+      //     }
+      //   }
+      // },
       search: {
         placeholder: '搜索',
         noData: '搜索无结果!',
@@ -83,7 +80,7 @@
       noCompileLinks: ['/foo', '/bar/.*'],  //不处理的链接地址
       // basePath: 'docs/',
       externalLinkTarget: '_target',  //当前默认为 _blank, 配置一下就可以
-      name: '<bold>《Python学习之极简笔记》</bold>',
+      name: '《Python学习之极简笔记》',
       // name: '<font color="#42a5f5" face="楷体">《Python学习之极简笔记》</font>',
       // name: '《Python学习之极简笔记——从人工智能到机器智能》',
       // nameLink: '/',
@@ -126,29 +123,26 @@
   <script src="//unpkg.com/prismjs/components/prism-python.js"></script>
   <script src="//unpkg.com/docsify/lib/plugins/search.js"></script> -->
 
-  <script src="./.backfile/docsify.js"></script>
+  <!-- <script src="./.backfile/docsify.js"></script> -->
   <!-- <script src="./.js/docsify.js"></script> -->
+  <script src="./.js/docsify.min.js"></script>
   <script src="./.js/zoom-image.js"></script>
   <script src="./.js/docsify-copy-code.min.js"></script>
   <script src="./.js/prism-bash.js"></script>
   <script src="./.js/prism-python.js"></script>
   <script src="./.js/search.js"></script>
 
-  <!-- Math -->
-  <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        extensions: ["tex2jax.js"],
-        jax: ["input/TeX", "output/HTML-CSS"],
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-          displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-          processEscapes: true,
-          skipTags: ["script", "noscript", "style", "textarea", "pre", "code", "a"]
-        },
-        "HTML-CSS": { fonts: ["TeX"] }
-      });
-    </script>
+  <!-- Math （该模块暂无法本地化，本地化会丢失样式）-->
+  <script src="//cdn.jsdelivr.net/npm/docsify-katex@latest/dist/docsify-katex.js"></script>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
   <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+  <!-- 流程图 -->
+  <!-- <script src="//unpkg.com/mermaid/dist/mermaid.js"></script>
+  <script src="//unpkg.com/docsify-mermaid@latest/dist/docsify-mermaid.js"></script> -->
+  <script src="./.js/mermaid.js"></script>
+  <script src="./.js/docsify-mermaid.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true });</script>
 
   <!-- 谷歌统计 - Google Analytics -->
   <!-- <script src="//unpkg.com/docsify" data-ga="UA-161196727-1"></script> -->
