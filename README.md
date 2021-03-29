@@ -37,11 +37,8 @@
 ---
 
 <h3> Python基础主页：</h3>
-<br>
-<br>
 
-
-[](/docs/00.Python/Chapter00.Preface.md ':include')
+[/docs/00.Python/Chapter00.Preface.md](/docs/00.Python/Chapter00.Preface.md ':include')
 
 
 
