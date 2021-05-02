@@ -40,11 +40,13 @@ git clone https://github.com/wan230114/PythonNote.git
 > ***补充：***
 > 
 > 若遇到无法下载的BUG时，可尝试如下步骤。
-> - **step1.** 打开vscode命令面板 （点击 >设置 >命令面板。或使用快捷键 win: `ctrl+shift+p` / mac: `command+shift+p`）
-> - **step2.** 输入命令：`sync advanced`，按两次Enter。（第一次选择第一条命令`>Sync: Advanced Options`，第二次再选中`Sync 打开设置`
-> - **step3.** 在`Gist ID`输入框内输入上面的 Gist ID
-> - **step4.** 再次打开vscode命令面板，输入命令：`sync Download Settings`，选中第一条命令按Enter，此时亦可完成下载。
-> ![图 3](images/Usage_2020-12-22_22-28-57.png)  
+> - **准备工作：`Settings Sync`插件设置面板的打开。** 打开vscode命令面板 （点击 >设置 >命令面板。或使用快捷键 win: `ctrl+shift+p` / mac: `command+shift+p`）。 输入关键词`sync advanced`定位并选择第一条命令`>Sync: Advanced Options`，按Enter。接着再第二次按Enter选中`Sync 打开设置`。 打开后的设置面板如下图所示。
+> - **step1.** 在`Gist ID`输入框内输入上面的 Gist ID。
+> - **step2.** 开启`Gist ID`输入框下方的 “强制下载” 和 “同步拓展” 的按钮。<font color="red"> （若按钮没有展示完全，可尝试 `ctrl/cmd + -` 缩小窗口即可。） </font>
+> - **step3.** 再次打开vscode命令面板，输入命令：`sync Download Settings`，选中第一条命令按Enter，此即开始下载。
+> - **step4.** 若正常将出现如下图正常下载标志，等待完成即可。
+> ![图 3](images/Usage_2021-05-02_23-43-36.png)  
+
 > 
 > PS：该 `Gist ID` DIY设置的相关介绍见下一小节
 
@@ -161,7 +163,7 @@ docsify serve ./
 
 ## 附
 
-vscode-server的安装
+其他： vscode-server的安装
 
 ```bash
 conda create -n nodejs -c conda-forge nodejs -y

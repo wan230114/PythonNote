@@ -141,7 +141,7 @@ docker rmi <IMAGE_ID/Name>
 参考：[Docker中如何删除image（镜像）_dabenxiong的专栏-CSDN博客](https://blog.csdn.net/flydreamzhll/article/details/80900509)
 
 
-## 2.3. 镜像内的一些常用环境更改
+## 2.3. 实例内的sshd服务开启（可选）
 
 安装ssh
 1. 通过ssh方式简易登录运行，可以共享登录。
@@ -183,16 +183,13 @@ docker commit -a "chenjun"  -m "bwa/bowtie2/hisat2" 966527ad7f5b centos_test
 文件夹准备
 ```bash
 mkdir demo && cd demo
-vim Dockerfile
-docker build -t centos_test ./
-```
-Dockerfile内容示例：
-```yml
+echo "
 FROM centos:7
 WORKDIR /root/
 EXPOSE 22
+" >Dockerfile
+docker build -t centos_test ./
 ```
-
 
 ## 4.3. **step3: 镜像打包到本地文件**
 
@@ -223,6 +220,16 @@ docker pull ubuntu:16.04
 docker run --name ubuntu_base -dit ubuntu:16.04  /bin/bash
 docker ps
 docker exec -it ubuntu_base bash # 登录
+```
+
+```bash
+docker pull centos:7
+docker run --name centos7_base -dit centos:7  /bin/bash
+docker ps
+docker exec -it centos7_base bash # 登录
+
+yum -y install git wget vim
+
 ```
 
 ---
@@ -283,7 +290,9 @@ docker ps
 docker exec -it ubuntu_CRC bash # 登录
 ```
 
+---
 ## 镜像移植
+
 ```bash
 # 机器1：
 # 保存镜像：
@@ -306,3 +315,58 @@ docker run \
 # 登录
 docker exec -it centos7_test bash
 ```
+
+
+
+---
+# 一些高级玩法
+
+## 赋予达到root权限的能力：
+
+```bash
+{
+# --rm
+# -dit
+echo $(id -u ${USER}):$(id -g ${USER})
+path="/work/users/chenjun/Works/DYQ/20210213.DYQ_rip/Transcript_analysis/rmats/DYQ-Treeat-input--vs--DYQ-CON-input__rmatsv4.1/docer_run/"
+docker run --rm --name rmats_run  --user $(id -u ${USER}):$(id -g ${USER})  -v $path:/docer_run/   rmats  \
+      --b1 /docer_run/b1.txt \
+      --b2 /docer_run/b2.txt \
+      --gtf /docer_run/indatas/Homo_sapiens.GRCh38.90_protein_coding.gtf \
+      -t paired \
+      --readLength 150 \
+      --nthread 8 \
+      --od /docer_run/out_rmats/ \
+      --tmp /docer_run/tmp/
+}
+
+{
+docker run --rm --name centos_run2   -v $path:/docer_run/    centos7_base  rm -rvf /docer_run/out_rmats/ /docer_run/tmp/
+docker run --rm --name centos_run2   -v $PWD:$PWD    centos:7  sh -c "cd $PWD; ls -l; echo $HOSTNAME"
+}
+
+```
+
+
+---
+## Docker配置samba共享
+
+```bash
+# [Docker配置samba共享 - Azure沫 - 博客园](https://www.cnblogs.com/tangxuliang/p/9390845.html)
+# [dperson/samba](https://hub.docker.com/r/dperson/samba)
+docker pull dperson/samba
+{
+docker run -it -p 139:139 -p 445:445 --name samba -d --rm  \
+    -v /work/download/:/work/download/ \
+    dperson/samba \
+    -u "chenjun;chen12345" \
+    -s "chenjun;/work/download/;yes;yes;no;all"
+    # -w "WORKGROUP" \
+    # -g "force user= chenjun" \
+    # -g "guest account= chenjun" \
+}
+# mount -t smb //192.168.3.108/ /mnt/share -o username=chenjun,uid=test,nounix,noserverino
+# mount -t cifs -o username=wx,passwd=wx,nounix,noserverino //192.168.3.108/ /mnt/share
+# mount  -o "rw,dir_mode=0777,file_mode=0777,username=chenjun,password=chen12345"  //192.168.3.108 /share/CACHEDEV1_DATA/gzsc_project/exchange/chenjun/mnt
+```
+

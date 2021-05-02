@@ -1047,6 +1047,7 @@ pd.value_counts(df.a)
 * Pandas 缺失值的认定 | Pandas 教程 - 盖若 : https://www.gairuo.com/p/pandas-missing-data
 * 整型中的缺失值。由于 NaN 是浮点型，因此一列甚至缺少一个整数的整数列都将转换为浮点。
 """
+
 # %%
 print("""c1	c2	c3	c4
 5	6	7	8
@@ -1054,18 +1055,21 @@ print("""c1	c2	c3	c4
 13	14	15	16
 17	18	19	20
 """, file=open("./mat.tsv", "w"))
+
 # %%
 # ! 结论：NA列会将数据类型自动转为float
 import pandas as pd
 df = pd.read_table("./mat.tsv")
 print(df.dtypes)
 df
+
 # %%
 # ! 解决方案探索
 import numpy as np
 se = pd.Series([1, 2, np.nan, 4], dtype="str")
 print(se.dtypes)
 print(se)
+
 # %%
 # ! 二次读取的解决方案：
 # ! 先读第一行，将所有列指定为str，根据需求手动改类型，二次读取。
@@ -1078,4 +1082,37 @@ print(df.isna())
 df
 ## ! 注，该方案不会改变原始数据是NA的为字符串。
 ## 如需将NA也识别为字符串，需指定参数，keep_default_na=False
+```
+
+
+```python
+# %%
+
+# 数据生成
+print("""c1	c2	c3	c4
+5	6	7	8
+9	NA	11	NA
+13	14	15	16
+17	18	19	20
+""", file=open("./mat.tsv", "w"))
+
+# %%
+import pandas as pd
+
+
+
+def pd_read_table_str(infile, dtype_update={}):
+    # ! 二次读取的解决方案：先读第一行，将所有列指定为str，根据需求手动改类型，二次读取。
+    colnames = pd.read_table(infile, nrows=1).columns
+    dtype = {x: "str" for x in colnames}
+    dtype.update(dtype_update)
+    # dtype.update({"c1": "int"})  # 根据需要更改
+    df = pd.read_table(infile, dtype=dtype, keep_default_na=False)
+    # 如需将NA也识别为字符串，需指定参数，keep_default_na=False
+    return df
+
+
+
+pd_read_table_str("./mat.tsv")
+#%%
 ```

@@ -396,6 +396,9 @@ find /etc -name "passwd" >log.o 2>log.e 	  # 输出的信息分流到文件
 find /etc -name "passwd" >log.o 2>/dev/null	 # 报错信息重新向于无任何打印
 find /etc -name "passwd" 1>/dev/null	 # 只看错误信息
 find /etc -name "passwd" 2>/dev/null	 # 只看正常信息
+
+find /etc -name "passwd" 1>log.o 2>&1  # 标准和错误的所有输出都重定向到文件log.o
+find /etc -name "passwd" &>log.o       # 同上，需注意的是，该种写法在某些系统中不适用，如ubuntu
 ```
 
 

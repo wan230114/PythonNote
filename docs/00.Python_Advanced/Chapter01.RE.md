@@ -53,6 +53,42 @@
 | `[0-9]{15,16}` | 匹配15或者16个数字（例如信用卡号码） |
 | `</?[^>]+>` | 匹配全部有效的（和无效的）HTML 标签 |
 
+## 讲解
+
+```python
+import re
+# - `(?iLmsux)`： 在正则表达式中嵌入一个或者多个特殊“标记”参数(或者通过函数/方法)。  示例: `(?x)，(？ im)`
+# - `(?:…)`： 表示一个匹配不用保存的分组。  示例: `(?:\w+\.)*`
+re.findall(r"aaa123(?:bbb|ccc)*", "aaa123aaa\naaa123bbb\naaa123ccc")  # ['aaa123', 'aaa123bbb', 'aaa123ccc']
+# - `(?P<name>…)`： 像一个仅由 name 标识而不是数字 ID 标识的正则分组匹配。  示例: `(?P<data>)`
+# - `(?P=name)`： 在同一字符串中匹配由`(?P<name>)`分组的之前文本。  示例: `(?P=data)`
+# - `(?#…)`： 表示注释，所有内容都被忽略。  示例: `(?#comment)`
+# - `(?=…)`： ***正向前视断言***：此位置`…`后面匹配。  示例: `(?=.com)`
+# - `(?!…)`： ***负向前视断言***：此位置`…`后面不匹配。  示例: `(?!.net)`
+# - `(?<=…)`： ***正向后视断言***：此位置`…`前面匹配。  示例: `(?<=800-)`
+# - `(?<!…)`： ***负向后视断言***：此位置`…`前面不匹配。  示例: `(?<!192\.168\.)`
+# - `(?(…)Y|N )`： 如果分组所提供`…`存在，就与Y匹配；否则与N匹配。注：`|N` 是可选项。  示例: `(?(1)y|x)`
+
+```
+
+(?:...) 解决子组问题：
+
+```python
+import re
+text = r"""
+![图 1](a.png)
+![图 1](b.png ':size=450')
+![图 1](b.png ':size=450x50%' )
+![图 1](c.png ':size=45%x50%')'"""
+pattern = r'''!\[.*?\]\((.*?)(?: +["']:size=([\d%]*)x*([\d%]*)["'])* *\)'''
+#                            (?:                                  )* 
+# 表示一个大分组的查找次数可为0-n次，避免无法查找到时无法匹配
+tihuan = r'''<img src="\1" width="\2" height="\3" />'''
+print(*re.findall(pattern, text), sep='\n')
+print(re.sub(pattern, tihuan, text))
+```
+
+---
 示例：扩展表示法
 
 待补充：
@@ -114,12 +150,22 @@ print(REGEX2.findall('1221\n312213\n512215'))
 re.findall(
     "(?:胚胎|肿瘤)(?:干细胞)*|干细胞|器官",
     "胚胎干细胞1, 肿瘤干细胞2, 这是胚胎或肿瘤方面的干细胞研究, 用于器官移植方面")
-# ['胚胎干细胞', '肿瘤干细胞', '胚胎', '干细胞', '器官']
+# OUT: ['胚胎干细胞', '肿瘤干细胞', '胚胎', '干细胞', '器官']
 
 re.sub("(这是)(关键词)(,)", r"\1**\2**\3",
        "\n这是关键词, 我需要两侧增加特殊字符")
-# '\n这是**关键词**, 我需要两侧增加特殊字符'
+# OUT: '\n这是**关键词**, 我需要两侧增加特殊字符'
+
+Pattern, tihuan = r'(<img.* )title=":size=([\d%]*)x*([\d%]*)">', r'\1 width="\2" height="\3"'
+re.sub(Pattern, tihuan, r'<img alt="" src="./images/RNA_process.png" title=":size=550">')
+re.sub(Pattern, tihuan, r'<img alt="" src="./images/RNA_process.png" title=":size=500x100">')
+re.sub(Pattern, tihuan, r'<img alt="" src="./images/RNA_process.png" title=":size=50%x10%">')
+
+import re
+pattern, tihuan = r'(<img.*?) title=":size=([\d%]*)x*([\d%]*)">', r'\1 width="\2" height="\3"'
+re.sub(pattern, tihuan,  r'aaa\n<p><img alt="" src="./images/RNA_process.png" title=":size=50%x10%"></p>')
 ```
+
 
 ```python
 import re
