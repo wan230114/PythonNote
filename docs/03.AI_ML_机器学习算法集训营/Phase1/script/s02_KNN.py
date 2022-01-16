@@ -1,3 +1,5 @@
+#%%
+
 # 1) 导入模块
 from sklearn import datasets
 from collections import Counter  # 为了做投票

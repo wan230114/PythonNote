@@ -11,13 +11,15 @@
 ## 客户端
 cat ~/.ssh/id_rsa.pub  # 若没有则执行 `ssh-keygen -t rsa` 生成
 
-## 服务端
-# ssh xxx@xxx.xxxx  # 进入服务器
+# 登录进入服务器
+# ssh xxx@xxx.xxxx
+
+## 服务端操作
 mkdir -p ~/.ssh
 chmod 700 ~/.ssh
 touch ~/.ssh/authorized_keys
 chmod 600 ~/.ssh/authorized_keys
-vim ~/.ssh/authorized_keys  # 将客户端的key粘贴进来
+vi ~/.ssh/authorized_keys  # 将客户端的key粘贴进来
 ```
 
 

@@ -17,10 +17,11 @@ ssh-keygen -t rsa -C "1170101471@qq.com"  # 按三下enter
 2. 初次使用仓库 （初始化一个 git 仓库）
 ```bash
 # git clone下载（全部克隆针对新的）
-# git clone git@gitee.com:wan230114/mytools.git
+# git clone git@github.com:wan230114/mytools.git
 
 cd 切换到工程目录
 git init
+# git remote rm origin
 # (你的远程仓库地址，即是码云的项目路径) //和远程仓库进行关联
 git remote add origin git@github.com:wan230114/mytools.git
 git remote add origin git@github.com:wan230114/Web_Data_Realese.git
@@ -67,12 +68,35 @@ git log  # 获取commit信息
 git rebase -i (commit-id)  # commit-id 为要删除的commit的下一个commit号
 ```
 
+### 实操作业
+
+克隆一个别人的仓库，修改之后提交保存在Git（PS：可以fork操作为自己仓库哦）
+
+```bash
+git remote rm origin
+# git remote add origin git@github.com:wan230114/pipeline.git
+git remote add origin git@github.com:wan230114/MAPS.git
+```
+
+
 ### 4.2. 技巧：版本回退
 
 ```bash
 # 1) reset是指将HEAD指针指到指定提交，历史记录中不会出现放弃的提交记录。
+# 【使用场景：如commit写错了，上一次的修改还想加点内容，都可以用这个】
+
+# 回退commit,保留源码，默认方式。
+git reset --mixed HEAD^
+
+# 回退至某个版本，只回退commit信息
+git reset --soft HEAD^
+
+# 彻底回退到某个版本 【慎用！！！！ 此操作将导致你现在新修改的代码消失】
 git reset --hard HEAD^
+
+git reset HEAD^
 git push origin master -f
+
 
 # 2) revert是放弃指定提交的修改，但是会生成一次新的提交，需要填写提交注释，以前的历史记录都在；
 git revert HEAD
@@ -140,9 +164,27 @@ git  push  origin  master
 
 
 ### 4.4. 恢复到远程目录
+
 ```bash
 # git fetch --all
 git fetch
 git reset --hard origin/master
 git pull  # 可以省略
+```
+
+实战：
+
+```bash
+git clone https://github.com/wan230114/PythonNote
+# git clone https://gitee.com/wan230114/PythonNote
+cd PythonNote
+echo "#! /usr/bin/bash
+git fetch 
+git reset --hard origin/master 
+git pull " >get_remote.sh
+chmod +x get_remote.sh
+./get_remote.sh
+echo "* * * * * cd $PWD  && ./get_rermote.sh > ./get_rermote.sh.o"
+# crontab -e
+
 ```

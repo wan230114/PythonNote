@@ -4,6 +4,9 @@
 
 ```bash
 docker run --name centos7_sge --hostname control  --privileged=true  --cap-add SYS_ADMIN -it centos7_sge bash
+docker run --name centos7_sge --hostname control  --privileged=true  --cap-add SYS_ADMIN -v $PWD:/sge_share -it centos7_sge bash
+
+
 
 /opt/sysoft/sge/default/common/sgemaster    # 控制节点启动
 /opt/sysoft/sge/default/common/sgeexecd     # 计算节点启动

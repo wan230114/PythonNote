@@ -553,8 +553,8 @@ print("【df】\n", df)
 import numpy as np
 import pandas as pd
 
-name = ["Tony", "Patty", "Alon", "Hellen", "Bella"]
-score = np.random.randint(60, 100, 5)
+name = ["Tony", "Tony", "Tony", "Hellen", "Hellen"]
+score = np.random.randint(60, 200, 5)
 
 df = pd.DataFrame(data=np.dstack((name, score)).reshape(-1, 2),
                   index=[3, 2, 1, 0, 4],
@@ -563,6 +563,30 @@ df1 = df.sort_index()
 print(df1)
 df2 = df.sort_values(by='score', ascending=False)
 print(df2)
+
+myself = dict(zip([71,84,74,99], range(4)))
+df3 = df.sort_values(by='score', key=lambda col: col.str.lower())
+print(df3)
+
+#%%
+# df = df.sort_values(by=['name'])
+L_index = []
+for i, tmp in df.groupby("name"):
+    print(i)
+    Indexs = tmp["score"].astype("float").sort_values().index.values
+    print(Indexs)
+    L_index.extend(Indexs)
+df.loc[L_index]
+
+#%%
+def myf(x):
+    print("x:", x)
+    return x
+
+# 原理渗透, x 为 services, xx 才为每一列的每一个元素
+d = dict(((x[1],x[0]) for x in enumerate(df["name"].drop_duplicates().values)))
+df.sort_values(["name"], key=(lambda x: x.map(lambda xx:d[xx])))
+
 ```
 
 ```
@@ -953,8 +977,11 @@ pd.concat([df1, df2], axis=1)
 pd.concat([df1, df2], axis=1, ignore_index=True)
 ```
 
+## 数据cleane
+
 表去重：
 ```python
+import pandas as pd
 df = pd.DataFrame(
   [["a1", 1],
    ["a1", 1],
@@ -966,25 +993,86 @@ df = pd.DataFrame(
 df.drop_duplicates()  # inplace=True
 ```
 
-表格多行压缩单行（按某列唯一压缩）
+表去NA：
 ```python
 import pandas as pd
+import numpy as np
 df = pd.DataFrame(
-    [["a1", "A", 1],
-     ["a2", "B1", 1],
-     ["a2", "B2", 2],
-     ["a3", "C1", 1],
-     ["a3", "C2", 2],
-     ["a3", "C2", 3],
-     ], columns=["name", "type", "value"]
+  [["a1", np.nan],
+   ["a1", 1],
+   ["a1", 1],
+   [np.nan, np.nan],
+   ["a2", 1],
+   ]
 )
-L = []
-for k, x in df.groupby(["name"]):
-    L.append([",".join(x[xx].drop_duplicates().map(str))
-              for xx in x.columns])
-pd.DataFrame(L, columns=df.columns)
+df.dropna()  # 删除行中出现na的数据, how{‘any’, ‘all’}, default ‘any’
+df.dropna(how="any")
+df.dropna(how="all")
+
 ```
 
+表格多行压缩单行（按某列唯一压缩）
+```python
+
+def collapse(df, name):
+    L = []
+    for k, x in df.groupby(name):
+        name = set(name)
+        L_tmp = []
+        for col in x:
+            if col not in name:
+                # L_tmp.append(','.join([str(xx) for xx in x[col].values]))
+                L_tmp.append(x[col].values)
+            else:
+                L_tmp.append(x[col].iloc[0])
+        L.append(L_tmp)
+    return pd.DataFrame(L, columns=df.columns)
+
+
+df_test = pd.DataFrame(
+    [["a1", "aa1",  "A", 1],
+        ["a2", "aa2",  "B1", 1],
+        ["a2", "aa2",  "B2", 2],
+        ["a3", "aa3",  "C1", 1],
+        ["a3", "aa3",  "C2", 2],
+        ["a3", "aa3",  "C2", 3],
+     ], columns=["name1", "name2", "type", "value"]
+)
+collapse(df_test, ["name1", "name2"])
+
+```
+
+```python
+def de_collapse(pd2, names):
+    # 注意Pandas版本必须 > 1.3.0, 才能使用explode多行一起解压
+    for x1, x2 in zip(pd.__version__.split("."), [1, 3, 0]):
+        if int(x1) < x2:
+            print("pandas version:", pd.__version__, "< 1.3.0, check error.")
+            break
+    else:
+        print("pandas version:", pd.__version__, "> 1.3.0, check ok.")
+    for name in names:
+        df2[name] = df2[name].map(lambda x: x.split(","))
+    return df2.explode(names)
+
+
+# 解压：
+df2 = collapse(df, "name")
+de_collapse(df2, ["type", "value"])
+```
+
+```python
+# 官方测试代码
+## New in version 1.3.0: Multi-column explode
+import numpy as np
+df = pd.DataFrame({'A': [[0, 1, 2], 'foo', [], [3, 4]],
+                   'B': 1,
+                   'C': [['a', 'b', 'c'], np.nan, [], ['d', 'e']]})
+df
+df.explode(list('AC'))
+#%%
+help(pd)
+```
 ## 表间操作
 
 
@@ -1100,19 +1188,113 @@ print("""c1	c2	c3	c4
 import pandas as pd
 
 
-
-def pd_read_table_str(infile, dtype_update={}):
+def pd_read_table_str(infile, dtype={}, **kwargs):
     # ! 二次读取的解决方案：先读第一行，将所有列指定为str，根据需求手动改类型，二次读取。
-    colnames = pd.read_table(infile, nrows=1).columns
-    dtype = {x: "str" for x in colnames}
-    dtype.update(dtype_update)
+    colnames = pd.read_table(
+        infile, nrows=1, keep_default_na=False, **kwargs).columns
+    dtypes = {x: "str" for x in colnames}
+    dtypes.update(dtype)
     # dtype.update({"c1": "int"})  # 根据需要更改
-    df = pd.read_table(infile, dtype=dtype, keep_default_na=False)
+    df = pd.read_table(infile, dtype=dtypes, keep_default_na=False, **kwargs)
     # 如需将NA也识别为字符串，需指定参数，keep_default_na=False
     return df
 
 
-
-pd_read_table_str("./mat.tsv")
+df = pd_read_table_str("./mat.tsv", dtype={"c3":"int"})
+df = pd_read_table_str("./mat.tsv", dtype={"c3":"int"}, header=None)
+df
+# df.dtypes
 #%%
+```
+
+## read_fwf
+
+```python
+#%%
+import pandas as pd
+import io
+
+TESTDATA = """\
+    A       B   C
+name1      12   1
+name2  123124   0
+"""
+
+df = pd.read_table(io.StringIO(TESTDATA))  # 无法识别
+df
+
+df = pd.read_fwf(io.StringIO(TESTDATA))  # 正常识别
+df
+
+```
+
+
+## 利用 groupby 
+
+```python
+import pandas as pd
+import numpy as np
+df_all = pd.DataFrame([0,0,0,0,1,1,1,1,1,1], columns=["filter"])
+Lnum = np.array([[x[0], len(x[1])]
+                  for x in df_all[["filter"]].groupby("filter")])
+
+list(zip(Lnum[:, 0], Lnum[:, 1], Lnum[:, 1]/Lnum[:, 1].sum()))
+
+```
+
+
+## apply的使用
+
+apply 用于 DataFrame
+map 用于 Series
+
+```python
+import pandas as pd
+import numpy as np
+df_all = pd.DataFrame(
+  np.arange(15).reshape(-1, 3),
+  columns=["x1", "x2", "x3"]
+).astype("str")
+print(df_all.dtypes)
+df_all["newcol"] = df_all[["x1", "x3"]].apply(lambda x: ';'.join(x), axis=1)
+df_all
+```
+
+
+## 去重示例，保留相同列1和最大的一行
+
+```python
+import pandas as pd
+
+def drop_dup_col1(a_new):
+    L_del_index = []
+    for x in a_new.iloc[:,0][a_new.iloc[:,0].duplicated()].drop_duplicates():
+        df_filter = a_new[a_new.iloc[:,0] == x]
+        L_del_index.extend(df_filter.iloc[:, 1:].sum(axis=1).sort_values(
+            ascending=False).iloc[1:].index)
+    return a_new.drop(index=L_del_index)
+
+a_new = pd.DataFrame([
+    ["a", 1, 2, 3, 4],
+    ["a", 1, 2, 3, 5],
+    ["a", 1, 2, 3, 3],
+    ["b", 1, 2, 3, 3],
+])
+drop_dup_col1(a_new)
+```
+
+```python
+import pandas as pd
+
+df_test = pd.DataFrame(
+    [["a1", "aa1",  "A", 1],
+        ["a2", "aa2",  "B1", 1],
+        ["a2", "aa2",  "B2", 2],
+        ["a3", "aa3",  "C1", 1],
+        ["a3", "aa3",  "C2", 2],
+        ["a3", "aa3",  "C2", 3],
+     ], columns=["name1", "name2", "type", "value"]
+)
+
+
 ```

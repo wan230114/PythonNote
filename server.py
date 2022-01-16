@@ -22,3 +22,6 @@ if __name__ == '__main__':
     print('__main__ pid:', os.getpid())
     p.start()
     os.system('powershell -ExecutionPolicy ByPass -Command "docsify serve"')
+
+#%%
+print(1)

@@ -4,6 +4,41 @@ docker基本概念简介：
 - images：基础镜像
 - container：以基础镜像为模板进行运行的实例，该实例经修改可以再导出到基础镜像。
 
+
+docker 命令常用参数总结
+
+```bash
+# 启动一个新容器实例
+docker run [OPTIONS] IMAGE [COMMOND] [ARGS...]
+# OPTIONS 说明
+#   --name="容器新名字": 为容器指定一个名称；
+#   -d: 后台运行容器，并返回容器ID，也即启动守护式容器；
+#   -i：以交互模式运行容器，通常与 -t 同时使用；
+#   -t：为容器重新分配一个伪输入终端，通常与 -i 同时使用；
+#   -P: 随机端口映射；
+#   -p: 指定端口映射，有以下四种格式
+#       ip:hostPort:containerPort
+#       ip::containerPort
+#       hostPort:containerPort
+#       containerPort
+#   常用OPTIONS：
+#   --name：容器名字
+#   --network：指定网络
+#   --rm：容器停止自动删除容器
+
+
+# 在已运行的容器中运行命令:
+docker exec [OPTIONS] CONTAINER COMMAND [ARG…]
+# 常用选项：
+#   -d：--detach ，后台运行命令
+#   -e, --env list             设置env
+#   -i, --interactive         启用交互式
+#   -t, --tty                     启用终端
+#   -u, --user string        指定用户 (格式: <name|uid>[:<group|gid>])
+#   -w, --workdir string       指定工作目录
+```
+
+
 # 1. docker的安装
 
 
@@ -34,9 +69,9 @@ yum-config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/
 # dnf install https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm
 yum -y install docker-ce
 ## 开机自启
-sudo systemctl enable docker 
+systemctl enable docker
 ## 启动docker服务  
-sudo systemctl start docker
+systemctl start docker
 ```
 
 参考：
@@ -194,15 +229,16 @@ docker build -t centos_test ./
 ## 4.3. **step3: 镜像打包到本地文件**
 
 ```bash
-docker save -o centos_test.tar centos_test:latest
+docker save -o centos_test.tgz centos_test:latest
 ```
-把打包的centos_test镜像存储为本地目录中 `centos_test.tar` 文件，发布到网上供客户安装使用
+把打包的centos_test镜像存储为本地目录中 `centos_test.tgz` 文件，发布到网上供客户安装使用
 
 加载docker镜像文件的方法
 ```bash
-docker load -i  centos_test.tar
+docker load -i  centos_test.tgz
 docker load -i  nginx.tar
 ```
+
 
 # 一些实战操作
 
@@ -229,7 +265,6 @@ docker ps
 docker exec -it centos7_base bash # 登录
 
 yum -y install git wget vim
-
 ```
 
 ---

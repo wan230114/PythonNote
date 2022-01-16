@@ -52,6 +52,7 @@
       subMaxLevel: 3,
       auto2top: true,  // 路由改变时自动滚动到屏幕顶部
       relativePath: true,  //如果为true，则链接是相对于当前上下文的。
+      executeScript: true,  //是否执行js脚本
       // mergeNavbar: true,  //小屏设备下合并导航栏到侧边栏。
       // alias: {
       //   '/.*/_sidebar.md': '/_sidebar.md',
@@ -115,34 +116,41 @@
   </script>
 
   <!-- <script src="docsify.js"></script> -->
-  <!-- <script src="//unpkg.com/docsify/lib/docsify.min.js"></script> -->
-  <!-- <script src="//unpkg.com/docsify/lib/docsify.js"></script>
-  <script src="//unpkg.com/docsify/lib/plugins/zoom-image.js"></script>
-  <script src="//unpkg.com/docsify-copy-code"></script>
-  <script src="//unpkg.com/prismjs/components/prism-bash.js"></script>
-  <script src="//unpkg.com/prismjs/components/prism-python.js"></script>
-  <script src="//unpkg.com/docsify/lib/plugins/search.js"></script> -->
-
+  <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+  <!-- <script src="//unpkg.com/docsify/lib/docsify.js"></script> -->
   <!-- <script src="./.backfile/docsify.js"></script> -->
   <!-- <script src="./.js/docsify.js"></script> -->
-  <script src="./.js/docsify.min.js"></script>
+  <!-- <script src="./.js/docsify.min.js"></script> -->
+
+  <!-- <script src="//unpkg.com/docsify/lib/plugins/zoom-image.js"></script> -->
+  <!-- <script src="//unpkg.com/docsify-copy-code"></script> -->
+  <!-- <script src="//unpkg.com/prismjs/components/prism-bash.js"></script> -->
+  <!-- <script src="//unpkg.com/prismjs/components/prism-python.js"></script> -->
+  <!-- <script src="//unpkg.com/docsify/lib/plugins/search.js"></script> -->
   <script src="./.js/zoom-image.js"></script>
   <script src="./.js/docsify-copy-code.min.js"></script>
-  <script src="./.js/prism-bash.js"></script>
-  <script src="./.js/prism-python.js"></script>
   <script src="./.js/search.js"></script>
+
+  <!-- 代码块 -->
+  <script src="./.js/prism-bash.min.js"></script>
+  <script src="./.js/prism-python.js"></script>
+  <script src="//unpkg.com/prismjs/components/prism-bash.min.js"></script>
+  <script src="//unpkg.com/prismjs/components/prism-markdown.min.js"></script>
+
+  <!-- 本地渲染 （大大减少网络带宽资源） -->
+  <script src="//unpkg.com/prismjs/components/prism-nginx.min.js"></script>
 
   <!-- Math （该模块暂无法本地化，本地化会丢失样式）-->
   <script src="//cdn.jsdelivr.net/npm/docsify-katex@latest/dist/docsify-katex.js"></script>
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
   <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
-  <!-- 流程图 -->
-  <!-- <script src="//unpkg.com/mermaid/dist/mermaid.js"></script>
-  <script src="//unpkg.com/docsify-mermaid@latest/dist/docsify-mermaid.js"></script> -->
-  <script src="./.js/mermaid.js"></script>
-  <script src="./.js/docsify-mermaid.js"></script>
-  <script>mermaid.initialize({ startOnLoad: true });</script>
+  <!-- 流程图 （暂不考虑本地化，太耗网络资源）-->
+  <!-- <script src="//unpkg.com/mermaid/dist/mermaid.js"></script> -->
+  <script src="//unpkg.com/mermaid@8.13.3/dist/mermaid.min.js"></script>
+  <script src="//unpkg.com/docsify-mermaid@latest/dist/docsify-mermaid.js"></script>
+  <!-- <script>mermaid.initialize({ startOnLoad: true });</script> -->
+  <script>var num = 0; mermaid.initialize({ startOnLoad: false }); </script>
 
   <!-- 谷歌统计 - Google Analytics -->
   <!-- <script src="//unpkg.com/docsify" data-ga="UA-161196727-1"></script> -->
@@ -162,8 +170,8 @@
       room: 'PythonNoteTalk/PythonNote'
     };
   </script>
-  <!-- <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer><\/script> -->
-  <script src="./.js/sidecar.v1.js" async defer></script>
+  <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+  <!-- <script src="./.js/sidecar.v1.js" async defer></script> -->
   <script>  // gitter实时聊天的功能补充，按键盘esc退出gitter 或者 点击区域外任意处退出
     function closechart(params){
       const buts = document.getElementsByClassName("gitter-chat-embed-action-bar-item");
@@ -174,19 +182,11 @@
   </script>
 
   <!-- 评论插件 -->
-  <!-- <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
+  <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
   <script src="//unpkg.com/gitalk/dist/gitalk.min.js"></script>
-  <script src="//unpkg.com/docsify/lib/plugins/gitalk.min.js"></script> -->
-  <link rel="stylesheet" href="./.js/gitalk.css">
-  <script src="./.js/gitalk.min.js"></script>
+  <!-- <script src="//unpkg.com/docsify/lib/plugins/gitalk.min.js"></script> -->
   <script src="./.js/own/plugins.gitalk.min.js"></script>
 
-  <!-- 流程图 -->
-  <script>
-    var num = 0;
-    mermaid.initialize({ startOnLoad: false });
-  </script>
-  
   <!-- 广告插件定义 -->
   <!-- <script src="./.js/own/ad.js"></script> -->
 

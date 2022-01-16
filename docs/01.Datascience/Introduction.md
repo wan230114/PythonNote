@@ -17,3 +17,9 @@
 另外，对于零散知识也做了Excel表格总结
 * [传送门](https://github.com/wan230114/PythonNote/raw/master/01.Datascience/Summary.xlsx)  
 
+
+## 后起新秀
+
+可视化
+- pyg2plot
+

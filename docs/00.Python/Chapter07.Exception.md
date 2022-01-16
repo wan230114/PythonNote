@@ -258,7 +258,7 @@ def make_exception():
 
 try:
     make_exception()
-    print('该条语句会被跳过吗？')  
+    print('该条语句会被跳过吗？')
 except ValueError as e:
     print("try里出现了值错误通知，已捕获!!!")
     print("接收的异常通知是: ", e)

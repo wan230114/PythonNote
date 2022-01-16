@@ -1437,7 +1437,7 @@ action      action = 'action'：参数触发的动作，6种动作：
 
 count       参数出现的次数
 
-choice      list：限定允许输入的参数值，如[0,1,2,3]
+choices      list：限定允许输入的参数值，如[0,1,2,3]
 
 version     打印程序版本信息
 ```

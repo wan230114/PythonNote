@@ -14,14 +14,14 @@
 - 早期的时候Django主做新闻和内容管理的
 - 一个重量级的 Python Web框架，Django 配备了常用的大部分组件
     1. 基本配置  
-    1. 路由系统   
-    1. 原生HTML模板系统
-    1. 视图 view
-    1. Model模型,数据库连接和ORM数据库管理
-    1. 中间件
-    1. Cookie & Seesion
-    1. 分页
-    1. 数据库后台管理系统admin
+    2. 路由系统   
+    3. 原生HTML模板系统
+    4. 视图 view
+    5. Model模型,数据库连接和ORM数据库管理
+    6. 中间件
+    7. Cookie & Seesion
+    8. 分页
+    9. 数据库后台管理系统admin
 
 - Django的用途
     - 网站后端开发
@@ -113,6 +113,7 @@
     
     1 directory, 5 files
     ```
+
 - 项目目录结构解析:
     - manage.py
         - 此文件是项目管理的主程序,在开发阶段用于管理整个项目的开发运行的调式

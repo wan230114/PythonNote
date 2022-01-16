@@ -1,3 +1,6 @@
+
+#%%
+
 # 1) 导入模块
 from sklearn import datasets
 from sklearn.model_selection import train_test_split

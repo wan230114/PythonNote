@@ -1,3 +1,4 @@
+#%%
 # 1.在sklearn里线性回归模型在linear_model模块里。可以参考https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html
 from sklearn import datasets, linear_model  # 引用 sklearn库，主要为了使用其中的线性回归模块
 

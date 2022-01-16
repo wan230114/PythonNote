@@ -136,6 +136,7 @@
       ```python
       print(ord('0'))  # 48
       print(ord('A'))  # 65
+      print(ord('牛'))  # 29275
       ```
 
   - 查看ASCII编码值对应的字符：
@@ -144,6 +145,7 @@
       ```python
       print(chr(48))  # 0
       print(chr(65))  # A
+      print(chr(29275))  # 牛
       ```
 
 #### 3.1.1.3. 字符串格式化表达式

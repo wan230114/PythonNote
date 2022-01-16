@@ -66,32 +66,31 @@ show_channel_urls: true
 ```bash
 conda info --envs # 查看环境
 conda list  # 查看当前环境conda install安装的软件
-conda create -n myenv  # 创建一个环境
-source activate myenv  # 激活进入myenv环境
+
+### 1. 环境创建与软件安装
+# -n/--name 参数后面跟一个名字
+# conda create -n myenv
+conda create --name test_py3   # 创建一个环境, 名为test_py3
+conda activate test_py3  # 激活使用test_py3环境
+conda install python=3.6  # 安装python并指定版本
 conda deactivate # 退出当前环境
-conda env remove --name myenv # 移除环境
-```
 
-```bash
-# 基于 python3.6 创建一个名为test_py3 的环境
-conda create --name test_py3 python=3.6 
-
+# 等同于
 # 基于 python2.7 创建一个名为test_py2 的环境
 conda create --name test_py2 python=2.7
+# 基于 python3.6 创建一个名为test_py3 的环境，并安装python3.6
+conda create --name test_py3 python=3.6
 
-# 激活 test 环境
-activate test_py2  # windows
-source activate test_py2 # linux/mac
+### 2. 环境的使用
+# 激活 test 环境， 即可使用不同版本的python
+conda activate test_py2  # python2环境
+conda activate test_py3  # python3环境
 
-# 切换到python3
-activate test_py3
+### 3. 删除环境（不要乱删啊）
+conda remove -n test_py3  # 移除环境
+conda remove -n test_py3 --all  # 移除环境，包括环境下的所有其他文件
 ```
 
-删除环境（不要乱删啊啊啊）
-
-```bash
-conda remove -n py36 --all
-```
 
 ## 1.3. 安装软件
 从conda网页内查找：http://bioconda.github.io/conda-recipe_index.html

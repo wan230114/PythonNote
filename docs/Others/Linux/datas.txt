@@ -1,0 +1,4 @@
+chr1	1	2	AAA
+chr1	3	4	AAAA
+chr1	5	6	BB
+chr1	7	8	CC

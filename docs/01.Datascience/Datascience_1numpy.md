@@ -374,16 +374,19 @@ print(np.arange(6).reshape(2, 3, 1))
 **复制变维（数据独立）：** flatten()
 
 ```python
-e = c.flatten()
-print(e)
-a += 10
-print(a, e, sep='\n')
+import numpy as np
+a = np.arange(1, 9).reshape(-1,4)
+print(a)
+b = a.flatten()
+print(b)
+a -= 1
+print(a, b, sep='\n')
 ```
 
 **就地变维：直接改变原数组对象的维度，不返回新数组**
 
 ```python
-a.shape = (2, 4)
+# a.shape = (2, 4)
 print(a)
 a.resize(2, 2, 2)
 print(a)
@@ -507,18 +510,32 @@ print(a[a % 3 == 0])  # [3 6 9]
 import numpy as np
 a = np.arange(0, 6).reshape(2, 3)
 b = np.arange(6, 12).reshape(2, 3)
-
+a
+b
 # 垂直方向完成组合、拆分操作
 c1 = np.vstack((a, b))
+c1
 a1, b1 = np.vsplit(c1, 2)
+a1
+b1
 
 # 水平方向完成组合、拆分操作
 c2 = np.hstack((a, b))
+c2
 a2, b2 = np.hsplit(c2, 2)
+a2
+b2
 
 # 深度方向（3维）完成组合、拆分操作
-c3 = np.dstack((a, b))
+a
+b
+c3 = np.dstack((a, a, b, b))
+c3
 a3, b3 = np.dsplit(c3, 2)
+
+a = np.array([["a",2,3,4], ["b",4,5,6], ["c",6,7,8]])
+a
+np.dstack(a)
 ```
 
 示例2：长度不等的数组组合
