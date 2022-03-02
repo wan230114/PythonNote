@@ -71,9 +71,9 @@ Python，语言简洁，活跃社区，丰富的共享资料及库等优势，�
 
 <div align=right>
 
-<!-- <img width="35%" src="docs/00.Python/img/sin.png" alt="封面"/> -->
+<img width="270" src="docs/00.Python/img/sin.png" alt="封面"/>
 
-![](./img/sin.png ':size=270')
+<!-- ![](./img/sin.png ':size=270') -->
 
 </div>
 

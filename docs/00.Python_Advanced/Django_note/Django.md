@@ -83,18 +83,19 @@
 
 ## 1.2. Django框架开发
 ### 1.2.1. 创建项目的指令
-  - $ django-admin startproject 项目名称
-  - 如:
-    
-    - $ django-admin startproject mysite1
-  - 运行
 
-    ```shell
-    $ cd mysite1
-    $ python3 manage.py runserver
-    # 或
-    $ python3 manage.py runserver 5000  # 指定只能本机使用127.0.0.1的5000端口访问本机
-    ```
+- $ django-admin startproject 项目名称
+- 如:
+
+- $ django-admin startproject mysite1
+- 运行
+
+```shell
+$ cd mysite1
+$ python3 manage.py runserver
+# 或
+$ python3 manage.py runserver 5000  # 指定只能本机使用127.0.0.1的5000端口访问本机
+```
 
 ### 1.2.2. Django项目的目录结构
 

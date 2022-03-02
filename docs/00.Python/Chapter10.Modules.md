@@ -1505,7 +1505,8 @@ import argparse
 
 def fargv():
     parser = argparse.ArgumentParser(
-        formatter_class=argparse.RawDescriptionHelpFormatter,
+        # formatter_class=argparse.RawDescriptionHelpFormatter,
+        formatter_class=argparse.RawTextHelpFormatter,
         description=('用自定义的替换列表, '
                      '替换原文件中某一列的旧名字为新名字（并输出未替换成功的行信息）'),
         epilog=('注意事项：\n'
@@ -1691,12 +1692,12 @@ logging.debug('debug')
 logging.info('info')
 logging.warning('warning')
 logging.error('error')
+# 输出
+# 2019-11-07 09:26:04,438 - DEBUG: debug
+# 2019-11-07 09:26:04,438 - INFO: info
+# 2019-11-07 09:26:04,438 - WARNING: warning
+# 2019-11-07 09:26:04,438 - ERROR: error
 ```
-输出
-2019-11-07 09:26:04,438 - DEBUG: debug
-2019-11-07 09:26:04,438 - INFO: info
-2019-11-07 09:26:04,438 - WARNING: warning
-2019-11-07 09:26:04,438 - ERROR: error
 
 ### pickle环境保存
 

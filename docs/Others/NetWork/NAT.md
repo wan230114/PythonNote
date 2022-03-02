@@ -175,3 +175,91 @@ zerotier-cli leave b6079f73c63927ea  # Network ID
 zerotier-cli listnetworks
 ```
 
+
+# tailscale
+
+```bash
+
+# docker
+# https://hub.docker.com/r/tailscale/tailscale
+docker run -d --name=tailscaled -v /var/lib:/var/lib -v /dev/net/tun:/dev/net/tun --network=host --privileged tailscale/tailscale tailscaled
+# docker run -d --name=tailscaled -v /var/lib:/var/lib -v /dev/net/tun:/dev/net/tun --network=host --privileged tailscale/tailscale tailscaled
+docker run -d --name=tailscaled -v /dev/net/tun:/dev/net/tun --network=host --privileged tailscale/tailscale tailscaled
+docker exec tailscaled tailscale up
+docker exec tailscaled tailscale status
+
+# ps: nas 中使用， 安装 Container Station 应用，随后 docker 打开 centos7， 设置网络模式为Host， 打开shell进行常规安装：
+# !!!!  注意： /dev/net/tun 必须是套接字文件，如果系统中不存在，需要手动安装
+#
+docker stop centos7_nat
+docker rm centos7_nat
+#
+docker run --name centos7_nat -v /dev/net/:/dev/net/ --network=host --privileged=true -dit centos:centos7 /usr/sbin/init
+docker exec -it centos7_nat bash
+# rm /dev/net/tun
+
+# Linux 常规安装
+# 安装
+curl -fsSL https://tailscale.com/install.sh | sh
+# 登录
+tailscale up
+
+systemctl enable --now tailscaled
+systemctl start tailscaled
+
+# 装好后启动：
+docker start centos7_nat  # 容器启动
+docker exec centos7_nat tailscale up  # 登录
+docker exec centos7_nat tailscale status  # 查看内网设备
+
+# 登录管理账户, 关系秘钥自动90天失效
+```
+
+
+```bash
+# https://github.com/tailscale/tailscale-synology
+
+cd
+# qnaq
+# 去官网下载 https://github.com/ivokub/tailscale-qpkg.git
+# 手动安装 如： Tailscale_v1.20.4_x86.qpkg
+# 然后
+cd `getcfg SHARE_DEF defVolMP -f /etc/config/def_share.info`/.qpkg/Tailscale
+./Tailscale.sh start  # 通过逐步运行命令找到报错 /dev/net/tun 不是套接字文件
+./tailscale up
+./tailscale -socket var/run/tailscale/tailscaled.sock up
+
+# 群辉
+wget https://github.com/tailscale/tailscale-synology/archive/refs/tags/v1.20.1.zip
+unzip v1.20.1.zip
+cd tailscale-synology-1.20.1/
+make
+```
+
+局域网组网及连接目的主机方法
+
+tailscale 软件进行局域网组网， smb协议直连目的主机。
+
+1. 安装软件 tailscale
+    - 官网地址：https://tailscale.com/download
+    - 左击屏幕左下角开始菜单，在其中找到程序tailscale启动，一般在右下角程序栏中会出现图标，如果找不到可点击箭头符号查看折叠隐藏程序。
+2. 登录账户
+    - 右击tailscale软件, 选择 `Log in...`, 在弹出的网页界面选择 `Sign in with Microsoft` 进行登录 , 登录以下账号即可。
+    - 账户： `xxx@outlook.com`
+    - 密码： `xxxx`
+3. 找到目的主机的名字及IP待用。 方法1: 
+    - 当前目的主机名为 `xxx-qnap` , IP为 `100.144.21.70` , （*PS:* 目的主机默认开启445端口的smb协议访问）。
+4. Windows 访问及映射
+    - 在 文件资源管理器（我的电脑） 中直接进行磁盘映射(推荐), 或添加网络位置：
+    - 格式为：`\\IP\访问目录` ， 如 `\\100.144.21.70\xxx_xxx`
+
+
+> ***PS：***  
+> 当新增设备时，需手动管理设备，在末尾点击三个点选择`Enable key expiry`以防止登录失效。 管理网址为: https://login.tailscale.com/admin/machines , 登录账户同上。
+
+
+
+---
+# 一些待测试博客
+
+- [ ] [[高级项目] 树莓派内网穿透方法大全 - 知乎](https://zhuanlan.zhihu.com/p/108624497)

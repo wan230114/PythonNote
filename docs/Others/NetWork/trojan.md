@@ -82,10 +82,23 @@ curl https://get.acme.sh | sh
 "/root/.acme.sh"/acme.sh --revoke 
 ```
 
+### 更改端口
+
+修改 /usr/local/etc/trojan/config.json 配置文件里面的443来改trojan端口
+
+
+
 ## 1.2. 客户端配置
 
 ```bash
+export PATH=/usr/src/trojan/:$PATH
 
+# 改完执行 ，然后用域名+新端口进去就行了
+trojan restart
+systemctl restart trojan-web
+
+trojan updateWeb
+trojan update
 ```
 
 
