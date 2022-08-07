@@ -198,8 +198,8 @@ cd ~ && nohup /usr/sbin/sshd -D &>sshd.log &
 
 ## 4.1. **step1: 镜像准备**
 
-先清理缓存等文件，使得打包体积更小
 ```bash
+# 先清理缓存等文件，使得打包体积更小
 # 容器实例内
 yum clean all
 conda clean -a

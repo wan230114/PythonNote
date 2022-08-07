@@ -71,6 +71,17 @@ awk 'NR==FNR{a[$4]=$0;next}NR!=FNR{if($0 in a)print $0"\t"a[$0]}' datas.txt keys
 ```
 
 
+案例：
+
+```bash
+# AHJ2GCAFX3-2203290743-234.pe.Mutation_new.txt 过滤 列 Entrez Gene ID 中的存在值
+colnum=`cat AHJ2GCAFX3-2203290743-234.pe.Mutation_new.txt | head -1 | sed 's#\t#\n#g' | cat -n | grep "Entrez Gene ID" | awk '{print $1}'`
+cat AmCare-334-carrier-20220517.txt | sed -e 's/[[:space:]][[:space:]]*/ /g'  | grep -oP '(?<="id":").*?(?=")' >tmp_keys.txt
+awk -F "\t" -v colnum=$colnum 'NR==FNR{a[$1]=$1;next}NR!=FNR{if(NR==1){print}else if($colnum in a){print}}'  tmp_keys.txt  AHJ2GCAFX3-2203290743-234.pe.Mutation_new.txt >AHJ2GCAFX3-2203290743-234.pe.Mutation_new-filter.txt
+\rm tmp_keys.txt
+```
+
+
 ### awk 的数值计算范围
 
 结论： [-99999999999999999999999, 99999999999999999999999]
@@ -322,8 +333,8 @@ echo cmd4.1
 
 i=0
 for pid in $(jobs -p); do
-    wait $pid
     ((i++))
+    wait $pid
     stat[$i]=$?
 done
 
@@ -350,4 +361,28 @@ T() {
     for i in `seq $(head -n 1 $1 | awk -F '\t' '{print NF}')`; do awk -v a=$i '{print $a}' $1 | awk  -F '\t' BEGIN{RS=EOF}'{gsub("\n","\t");print}' ; done
 }
 
+```
+
+# 出错情景
+
+末尾加入 || cat 即可解决
+
+```bash
+seq 1 100 | gzip > a.gz
+bash -c $'
+set -o pipefail
+zcat a.gz  | awk \'{if(NR<=3){print}else{ exit 0 }}\' | wc -l
+echo $?
+'
+# 3
+# 0
+
+seq 1 10000000 | gzip > a.gz
+bash -c $'
+set -o pipefail
+zcat a.gz  | awk \'{if(NR<=3){print}else{ exit 0 }}\' | wc -l
+echo $?
+'
+# 3
+# 141
 ```

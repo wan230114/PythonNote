@@ -1,0 +1,47 @@
+# argo test
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: annotation
+spec:
+  entrypoint: script
+  templates:
+    - name: script
+      retryStrategy:
+        backoff:
+          duration: "5"
+          factor: 3
+        limit: 3
+        retryPolicy: "Always"
+        affinity:
+          nodeAntiAffinity: {}
+      metadata:
+        labels:
+          appType: job
+          dataId: "12345"
+      script:
+        image: "docker.reg.me:6698/v3/debian:9.4"
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/bash"]
+        source: |
+          echo hello
+        resources:
+          limits:
+            cpu: 500m
+            memory: 100Mi
+          requests:
+            cpu: 500m
+            memory: 100Mi
+      # container:
+      #   image: "{{workflow.parameters.registry}}/v3/debian:9.4"
+      #   imagePullPolicy: IfNotPresent
+      #   command: ["/bin/bash"]
+      #   args: |
+      #     echo hello
+      #   resources:
+      #     limits:
+      #       cpu: 500m
+      #       memory: 100Mi
+      #     requests:
+      #       cpu: 500m
+      #       memory: 100Mi

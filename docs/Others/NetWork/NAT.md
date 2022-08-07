@@ -178,18 +178,24 @@ zerotier-cli listnetworks
 
 # tailscale
 
+万能安装：
 ```bash
-
 # docker
 # https://hub.docker.com/r/tailscale/tailscale
-docker run -d --name=tailscaled -v /var/lib:/var/lib -v /dev/net/tun:/dev/net/tun --network=host --privileged tailscale/tailscale tailscaled
 # docker run -d --name=tailscaled -v /var/lib:/var/lib -v /dev/net/tun:/dev/net/tun --network=host --privileged tailscale/tailscale tailscaled
+# docker run -d --name=tailscaled -v /var/lib:/var/lib -v /dev/net/tun:/dev/net/tun --network=host --privileged tailscale/tailscale tailscaled
+# 启动
 docker run -d --name=tailscaled -v /dev/net/tun:/dev/net/tun --network=host --privileged tailscale/tailscale tailscaled
+# 登录
 docker exec tailscaled tailscale up
+# 查看状态
 docker exec tailscaled tailscale status
+```
 
+nas中安装
+```bash
 # ps: nas 中使用， 安装 Container Station 应用，随后 docker 打开 centos7， 设置网络模式为Host， 打开shell进行常规安装：
-# !!!!  注意： /dev/net/tun 必须是套接字文件，如果系统中不存在，需要手动安装
+# !!!!  注意： /dev/net/tun 必须是套接字文件，如果系统中不存在，需要手动安装 参考mkinfo命令 或者从一台centos打包/dev/net/tun过来。
 #
 docker stop centos7_nat
 docker rm centos7_nat
@@ -197,8 +203,10 @@ docker rm centos7_nat
 docker run --name centos7_nat -v /dev/net/:/dev/net/ --network=host --privileged=true -dit centos:centos7 /usr/sbin/init
 docker exec -it centos7_nat bash
 # rm /dev/net/tun
+```
 
-# Linux 常规安装
+Linux 常规安装
+```bash
 # 安装
 curl -fsSL https://tailscale.com/install.sh | sh
 # 登录
@@ -236,7 +244,7 @@ cd tailscale-synology-1.20.1/
 make
 ```
 
-局域网组网及连接目的主机方法
+## 局域网组网及连接目的主机方法
 
 tailscale 软件进行局域网组网， smb协议直连目的主机。
 

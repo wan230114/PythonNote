@@ -1,30 +1,35 @@
 ## 4. 极简笔记
 
-
 ### 4.1. 初始化
 
+1. 初次使用git， 配置用户基本信息，名字和邮箱
 
-1. 初次使用git  
 ```bash
 # Git全局设置：
 git config --global user.name "wan230114"
 git config --global user.email "1170101471@qq.com"
+
 # 远程身份验证密匙配置：
-ssh-keygen -t rsa -C "1170101471@qq.com"  # 按三下enter
-# cat ~/.ssh/id_rsa.pub, 将内容复制到 https://github.com/settings/ssh/new 内
+ssh-keygen -t rsa -C "1170101471@qq.com"   # 按三下enter
+cat ~/.ssh/id_rsa.pub   # 将内容复制到 https://github.com/settings/ssh/new 内
 ```
 
 2. 初次使用仓库 （初始化一个 git 仓库）
+
 ```bash
 # git clone下载（全部克隆针对新的）
 # git clone git@github.com:wan230114/mytools.git
 
-cd 切换到工程目录
+# cd 切换到工程目录
 git init
 # git remote rm origin
 # (你的远程仓库地址，即是码云的项目路径) //和远程仓库进行关联
 git remote add origin git@github.com:wan230114/mytools.git
 git remote add origin git@github.com:wan230114/Web_Data_Realese.git
+# 克隆一个别人的仓库，修改之后提交保存在Git（PS：可以fork操作为自己仓库哦）
+git remote rm origin
+git remote add origin git@github.com:wan230114/MAPS.git
+
 
 # 3. 上传文件
 # 添加所有文件
@@ -59,6 +64,9 @@ git branch -a   # 查看当前所有分支
 git branch rev-master # 创建分支
 git checkout master   # 切换分支
 git branch -d <分支名>  # 删除分支
+
+# 切换分支文件冲突怎么办
+git stash list  # 可以查看隐藏起来的工作现场
 ```
 
 2. 版本管理
@@ -66,16 +74,6 @@ git branch -d <分支名>  # 删除分支
 ```bash
 git log  # 获取commit信息
 git rebase -i (commit-id)  # commit-id 为要删除的commit的下一个commit号
-```
-
-### 实操作业
-
-克隆一个别人的仓库，修改之后提交保存在Git（PS：可以fork操作为自己仓库哦）
-
-```bash
-git remote rm origin
-# git remote add origin git@github.com:wan230114/pipeline.git
-git remote add origin git@github.com:wan230114/MAPS.git
 ```
 
 
@@ -188,3 +186,13 @@ echo "* * * * * cd $PWD  && ./get_rermote.sh > ./get_rermote.sh.o"
 # crontab -e
 
 ```
+
+
+## gitlab 的使用
+
+关键博客:
+- [docker下gitlab安装配置使用(完整版) - 简书](https://www.jianshu.com/p/080a962c35b6)
+- [GitLab → 搭建中常遇的问题与日常维护_A___LEi的博客-CSDN博客](https://blog.csdn.net/A___LEi/article/details/110476531)
+- [GitLab管理员通过账号审核申请的步骤 - web_cnblogs - 博客园](https://www.cnblogs.com/xingfeng-cool/articles/15597366.html)
+
+
