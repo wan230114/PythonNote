@@ -1503,7 +1503,26 @@ https://blog.csdn.net/u010003835/article/details/79936072
 set -u  # 使脚本遇到不存在变量则退出
 set -e  # 使脚本出错就退出
 set -ue   # 若遇变量不存在或运行报错，则直接退出不再执行后面                                   
+set -o pipefail  # 使得管道中的异常状态保持到后面
 
+```bash
+ls  1 2 
+# ls: 无法访问1: 没有那个文件或目录
+# 2
+echo $?
+# 2
+ls  1 2 | xargs echo files:
+# ls: 无法访问1: 没有那个文件或目录
+# files: 2
+echo $?
+# 0
+set -o pipefail
+ls  1 2 | xargs echo files:
+# ls: 无法访问1: 没有那个文件或目录
+# files: 2
+echo $?
+# 2
+```
 
 # 11.  待整理
 

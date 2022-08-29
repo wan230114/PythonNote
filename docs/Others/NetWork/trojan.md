@@ -4,8 +4,16 @@
 ## 1.1. 服务端配置
 
 ```bash
+# yum -y install docker
+# systemctl start docker
+# docker run  -d -it --privileged --name centos7-trojan -p 80:80 -p 443:443 centos:centos7 bash
+# docker exec -it centos7-trojan bash
+mkdir -p /Public/nettools  &&  cd /Public/nettools
 wget --no-check-certificate https://raw.githubusercontent.com/tcp-nanqinlang/general/master/General/CentOS/bash/tcp_nanqinlang-1.3.2.sh && chmod a+x tcp_nanqinlang-1.3.2.sh
 ./tcp_nanqinlang-1.3.2.sh
+# # 单网卡
+# wget https://github.com/tcp-nanqinlang/lkl-rinetd/releases/download/1.1.0-nocheckvirt/tcp_nanqinlang-rinetd-centos-nocheckvirt.sh
+# bash tcp_nanqinlang-rinetd-centos-nocheckvirt.sh
 
 wget --no-check-certificate -O tcp.sh https://github.com/cx9208/Linux-NetSpeed/raw/master/tcp.sh && chmod +x tcp.sh
 ./tcp.sh
@@ -23,6 +31,56 @@ sed -i 's#~/.acme.sh/acme.sh#~/.acme.sh/acme.sh --register-account -m 1170101471
 # [Tue Oct 12 22:33:04 CST 2021] ACCOUNT_THUMBPRINT='YFQJJx7tZt91whTCI-xiSxSPoUcJPEJ1eNDpblNKn9U'
 ```
 
+```bash
+# 证书升级
+~/.acme.sh/acme.sh --update-account
+# 5.后期维护命令
+acme.sh --list  # 列出所有证书
+# acme.sh --renew -d soulchild.site -d *.soulchild.site --force  # 手动强制更新证书
+# acme.sh --renew-all  # 手动更新所有证书
+# acme.sh --revoke  # 撤销证书
+# acme.sh --remove -d soulchild.site  # 删除证书
+# acme.sh --cron  # 通过cronjob更新所有证书。
+# acme.sh --upgrade  # 升级acme.sh
+# acme.sh --uninstall  # 卸载acme.sh
+```
+
+```bash
+systemctl restart nginx.service
+# 申请https证书
+mkdir /usr/src/trojan-cert
+curl https://get.acme.sh | sh
+
+your_domain=gzscbio.ga
+~/.acme.sh/acme.sh --register-account -m 1170101471@qq.com   --issue  -d $your_domain  --webroot /usr/share/nginx/html/
+~/.acme.sh/acme.sh --register-account -m 1170101471@qq.com   --installcert  -d  $your_domain   \
+    --key-file   /usr/src/trojan-cert/private.key \
+    --fullchain-file /usr/src/trojan-cert/fullchain.cer \
+    --reloadcmd  "systemctl force-reload  nginx.service"
+
+# if test -s /usr/src/trojan-cert/fullchain.cer; then
+# cd /usr/src
+# wget https://github.com/trojan-gfw/trojan/releases/download/v1.13.0/trojan-1.13.0-linux-amd64.tar.xz
+# wget https://github.com/trojan-gfw/trojan/releases/download/v1.14.0/trojan-1.14.0-linux-amd64.tar.xz
+# tar xf trojan-1.*
+# 下载trojan客户端
+# wget https://github.com/atrandys/trojan/raw/master/trojan-cli.zip
+# unzip trojan-cli.zip
+\cp /usr/src/trojan-cert/fullchain.cer /usr/src/trojan-cli/fullchain.cer
+systemctl force-reload trojan
+```
+
+```bash
+your_domain=gzscbio.ga
+~/.acme.sh/acme.sh --renew -d $your_domain
+~/.acme.sh/acme.sh --renew -d $your_domain  --force
+
+# crontab -e
+# "/root/.acme.sh"/acme.sh --cron --home "/root/.acme.sh"
+```
+
+
+---
 ### 1.1.1. 手动配置
 
 ```bash

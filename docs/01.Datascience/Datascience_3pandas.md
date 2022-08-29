@@ -1144,7 +1144,8 @@ df
 pd.value_counts(df.a)
 ```
 
-## read_csv / read_table 的一些细节补充
+## read 问题集合
+### read_csv / read_table 的一些细节补充
 
 ```python
 """
@@ -1225,7 +1226,7 @@ df
 #%%
 ```
 
-## read_fwf
+### read_fwf
 
 ```python
 #%%
@@ -1246,6 +1247,56 @@ df
 
 ```
 
+### 列挑选读取方案
+
+```python
+# 针对部分列解码报错问题， 可以先挑选出具有关键信息的列再操作，可绕过 pandas 无法解析的报错。
+# UnicodeDecodeError: 'utf-8' codec can't decode byte 0xc9 in position 946: invalid continuation byte
+
+def data_clean(file_path, Header, decode=True):
+    Header_index = {}
+    isheader = 1
+    df_lines = []
+    with open(file_path, "rb") as fi:
+        while True:
+            line = fi.readline()
+            if not line:
+                break
+            if line.startswith(b"#"):
+                continue
+            if isheader:
+                Lline = line.split(b"\t")
+                for Headerx in Header:
+                    for i, x in enumerate(Lline):
+                        if x == Headerx.encode():
+                            Header_index[i] = Headerx
+                isheader = 0
+                # print(*zip(Header_index, Header))
+                continue
+            L_res = []
+            Lline = line.split(b"\t")
+            for i in Header_index:
+                if decode:
+                    res = Lline[i].decode()
+                else:
+                    res = Lline[i]
+                L_res.append(res)
+                # print(i, Header_index[i], res)
+            df_lines.append(L_res)
+    return df_lines
+
+
+Header = ["Chr",
+          "Chromosome Position",
+          "Coverage",
+          "Mutant Allele Frequency",
+          ]
+df_snv_all_lines = data_clean(snv_all, Header)
+df_snv_all = pd.DataFrame(df_snv_all_lines, columns=Header)
+df_snv_all["Mutant Allele Frequency"] = \
+    df_snv_all["Mutant Allele Frequency"].astype("float")
+
+```
 
 ## 利用 groupby 
 

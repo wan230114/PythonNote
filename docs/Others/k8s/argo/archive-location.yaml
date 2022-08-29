@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow                  # new type of k8s spec
+metadata:
+  generateName: test    # name of the workflow spec
+spec:
+  entrypoint: whalesay          # invoke the whalesay template
+  templates:
+    - name: whalesay              # name of the template
+      container:
+        image: docker.reg.me:6698/v3/debian:9.4
+        command: [ echo ]
+        args: [ "echo hello world" ]
+        resources: # limit the resources
+          limits:
+            memory: 32Mi
+            cpu: 100m
