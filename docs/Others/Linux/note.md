@@ -351,3 +351,97 @@ T() {
 }
 
 ```
+
+# EOF 的使用
+
+EOF是END Of File的缩写，表示自定义终止符。
+既然自定义,那么EOF就不是固定的,可以随意设置别名。
+在linux按ctrl-d就代表EOF。
+
+```bash
+a=1
+echo a:$a
+
+cat << "EOF"
+echo a:$a
+EOF
+# echo a:$a
+bash << "EOF"
+echo a:$a
+EOF
+
+cat << EOF
+echo a:$a
+EOF
+# echo a:1
+
+```
+
+## EOF + tee 巧妙执行程序
+
+
+```bash
+{
+a=hello
+bash -ev <(cat << "EOF"
+echo a:$a
+EOF
+) 2>&1 | tee log
+echo ----- print file log -----
+cat log
+}
+# echo a:$a
+# a:
+
+{
+a=hello
+bash -ev <( cat <<EOF
+echo a:$a
+EOF
+) 2>&1 | tee log
+echo ----- print file log -----
+cat log
+}
+# ----- print file log -----
+# echo a:hello
+# a:hello
+```
+
+
+# 多进程的一些使用‘
+
+
+test.sh:
+```bash
+#!/bin/bash
+ 
+task1() {
+	# do something...
+}
+ 
+task2() {
+	# do something...
+}
+ 
+task3() {
+	# do something...
+}
+ 
+# define some other tasks...
+ 
+# use & if we want to implement multiprocess
+# (task1 &)
+(task1 &)
+(task2 &)
+(task3 &)
+# run some other tasks...
+ 
+# run commands from command line arguments
+for cmd in "$@"; do
+  ($cmd)
+done
+```
+
+bash test.sh task1 task3
+
+参考： [简单理解Bash中子进程 (child process)和子shell (subshell)的区别以及SHLVL和BASH_SUBSHELL_ariseus的博客-CSDN博客_子shell和子进程的区别](https://blog.csdn.net/garywei944/article/details/114367381)

@@ -9,6 +9,9 @@
 # Git全局设置：
 git config --global user.name "wan230114"
 git config --global user.email "1170101471@qq.com"
+# Git单个项目设置：
+git config --local user.name "wan230114"
+git config --local user.email "1170101471@qq.com"
 # 远程身份验证密匙配置：
 ssh-keygen -t rsa -C "1170101471@qq.com"  # 按三下enter
 # cat ~/.ssh/id_rsa.pub, 将内容复制到 https://github.com/settings/ssh/new 内
