@@ -1,0 +1,32 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: workflow-controller-configmap
+  namespace: argo
+  selfLink: /api/v1/namespaces/argo/configmaps/workflow-controller-configmap
+  uid: 3bf47731-1381-46b0-8569-5a525b5f401a
+  resourceVersion: '34567407'
+  creationTimestamp: '2021-07-21T09:47:23Z'
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: >
+      {"apiVersion":"v1","kind":"ConfigMap","metadata":{"annotations":{},"name":"workflow-controller-configmap","namespace":"argo"}}
+data:
+  workflowDefaults: |
+    spec:
+      # must complete in 48h (172,800 seconds)
+      activeDeadlineSeconds: 172800
+      # keep workflows for 2d (172,800 seconds)
+      ttlStrategy:
+        secondsAfterCompletion: 172800
+        # keep workflows for 5d (432000 seconds)
+        secondsAfterFailure: 432000
+      templateDefaults:
+        retryStrategy:
+          backoff:
+            duration: "5"
+            factor: 3
+          limit: 3
+          retryPolicy: "Always"
+          affinity:
+            nodeAntiAffinity: {}
+

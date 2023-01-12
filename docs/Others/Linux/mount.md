@@ -1,4 +1,16 @@
+# 汇总
 
+```bash
+
+{
+docker run --rm --name samba-server -it -d -p 139:139 -p 445:445 \
+    -v /mfs1/tmpworkdir/:/shareDir\
+    dperson/samba \
+    -p -u "test;test123456" \
+    -s "shareDir;/shareDir;yes;yes;no;test"
+}
+
+```
 # 磁盘挂载管理命令
 
 

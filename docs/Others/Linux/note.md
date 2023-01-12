@@ -111,6 +111,58 @@ cat <(echo -e "1\n2\n3") | awk '{print NR,FNR,$0}'
 cat <(echo -e "1\n2\n3") | awk 'ARGIND==1{print NR,FNR,ARGIND,$0}ARGIND==2{print NR,FNR,ARGIND,$0}' - <(echo -e "10\n20\n30") 
 ```
 
+### awk 按列名过滤文件
+
+```bash
+echo -e 'a\tb\tc\n1\t100\t1000\n2\t150\t2000\n5\t200\t3000' > a.txt
+cat a.txt | awk -F '\t' '{
+      if(NR==1){
+          split($0, header, "\t")
+          for (i in header){ colnums[header[i]]=i }
+          print
+      } else {
+          if ($colnums["a"]>=2 &&
+              $colnums["b"]>120){ print }
+      }
+  }' > a2.txt
+cat a.txt
+cat a2.txt
+```
+
+### awk去重以某列重复的行
+
+
+```bash
+echo "\
+adc 3 5
+a d a
+a 3 adf
+a d b
+a 3 adf" > 2.txt
+
+# 去重第一列重复的行：
+# 重复的行取最上面一行记录
+cat 2.txt |awk '!a[$1]++{print}'
+# adc 3 5
+# a d a
+
+# 去重以第一列和第二列重复的行：
+cat 2.txt |awk '!a[$1" "$2]++{print}'
+# adc 3 5
+# a d a
+# a 3 adf
+
+# 去除重复的行：
+cat 2.txt |awk '!a[$0]++{print}'
+# adc 3 5
+# a d a
+# a 3 adf
+# a d b
+
+# 只显示重复行：
+cat 2.txt |awk 'a[$0]++{print}'
+# a 3 adf
+```
 
 ---
 ## 其他

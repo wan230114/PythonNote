@@ -1,0 +1,51 @@
+# To enforce a timeout to a template, specify a value for activeDeadlineSeconds.
+# This value represents the duration in seconds relative to the pod StartTime
+# that the pod may be active on a node before the system actively tries to
+# terminate it. This field is only applicable to container and script templates.
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: timeouts-step-2h-2-
+spec:
+  activeDeadlineSeconds: 864000  # timeouts-workflow.yaml, 注此处可以刷新覆盖argo初始化部署的configmap
+  entrypoint: start
+  templates:
+  - name: start
+    dag:
+      tasks:
+      - name: sleep
+        template: sleep
+      - name: sleep1
+        depends: "sleep"
+        template: sleep1
+      - name: sleep2
+        depends: "sleep"
+        template: sleep2
+      - name: sleep3
+        depends: "sleep"
+        template: sleep3
+  - name: sleep
+    container:
+      image: docker.reg.me:6698/v3/debian:9.4
+      command: [bash, -c]
+      args: ["echo 123; sleep 2s"]
+  - name: sleep1
+    depends: "sleep"
+    container:
+      image: docker.reg.me:6698/v3/debian:9.4
+      command: [bash, -c]
+      args: ["echo 123; sleep 2h"]
+  - name: sleep2
+    depends: "sleep"
+    container:
+      image: docker.reg.me:6698/v3/debian:9.4
+      command: [bash, -c]
+      args: ["echo 123; sleep 2h"]
+    activeDeadlineSeconds: 10
+  - name: sleep3
+    depends: "sleep"
+    container:
+      image: docker.reg.me:6698/v3/debian:9.4
+      command: [bash, -c]
+      args: ["echo 123; sleep 2h"]
+    activeDeadlineSeconds: 864000  # timeouts-step.yaml, 更新总超时时间为10天，10*24*60*60=864000秒
