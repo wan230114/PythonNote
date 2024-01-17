@@ -5,7 +5,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
-  generateName: timeouts-step-2h-2-
+  generateName: timeouts-step-10s-
 spec:
   activeDeadlineSeconds: 864000  # timeouts-workflow.yaml, 注此处可以刷新覆盖argo初始化部署的configmap
   entrypoint: start
@@ -28,24 +28,25 @@ spec:
     container:
       image: docker.reg.me:6698/v3/debian:9.4
       command: [bash, -c]
-      args: ["echo 123; sleep 2s"]
+      args: ["echo 123; sleep 5s"]
+    # activeDeadlineSeconds: 20   # 默认时读取系统的argo初始化部署的configmap
   - name: sleep1
     depends: "sleep"
     container:
       image: docker.reg.me:6698/v3/debian:9.4
       command: [bash, -c]
-      args: ["echo 123; sleep 2h"]
+      args: ["echo 123; sleep 10s"]
   - name: sleep2
     depends: "sleep"
     container:
       image: docker.reg.me:6698/v3/debian:9.4
       command: [bash, -c]
-      args: ["echo 123; sleep 2h"]
+      args: ["echo 123; sleep 10s"]
     activeDeadlineSeconds: 10
   - name: sleep3
     depends: "sleep"
     container:
       image: docker.reg.me:6698/v3/debian:9.4
       command: [bash, -c]
-      args: ["echo 123; sleep 2h"]
-    activeDeadlineSeconds: 864000  # timeouts-step.yaml, 更新总超时时间为10天，10*24*60*60=864000秒
+      args: ["echo 123; sleep 10s"]
+    activeDeadlineSeconds: 20  # timeouts-step.yaml, 更新总超时时间为10天，10*24*60*60=864000秒

@@ -40,6 +40,7 @@ head keys.txt
 # 使用时，将 $4 改为自己需要查找的列号
 
 awk -F '\t' 'NR==FNR{a[$1]=$1;next}NR!=FNR{if($4 in a)print $0}' keys.txt datas.txt
+cat keys.txt | awk -F '\t' 'NR==FNR{a[$1]=$1;next}NR!=FNR{if($4 in a)print $0}' /dev/stdin datas.txt
 
 # 2） 不完全匹配
 # 失效笔记： awk 中 "/"x"/" 不生效。 因此这个不生效 awk '{print}' keys.txt | while read patten; do
@@ -79,6 +80,19 @@ colnum=`cat AHJ2GCAFX3-2203290743-234.pe.Mutation_new.txt | head -1 | sed 's#\t#
 cat AmCare-334-carrier-20220517.txt | sed -e 's/[[:space:]][[:space:]]*/ /g'  | grep -oP '(?<="id":").*?(?=")' >tmp_keys.txt
 awk -F "\t" -v colnum=$colnum 'NR==FNR{a[$1]=$1;next}NR!=FNR{if(NR==1){print}else if($colnum in a){print}}'  tmp_keys.txt  AHJ2GCAFX3-2203290743-234.pe.Mutation_new.txt >AHJ2GCAFX3-2203290743-234.pe.Mutation_new-filter.txt
 \rm tmp_keys.txt
+
+cat AmCare-334-carrier-20220517.txt | sed -e 's/[[:space:]][[:space:]]*/ /g'  | grep -oP '(?<="id":").*?(?=")' >tmp_keys.txt
+awk -F "\t"  '
+    NR==FNR{a[$1]=$1;next}
+    NR!=FNR{
+        if(FNR==1){
+            split($0, header, "\t")
+            for (i in header){ colnums[header[i]]=i }
+            print
+        } else {
+            if ($colnums["geneId"]  in a ){print}
+        }
+    }'  tmp_keys.txt  /other/dbs/RefSeqCurated_addEntrezID_rmScaffoldChrom_OMIMcompletion_20220628.amcare.gpe
 ```
 
 
@@ -319,6 +333,22 @@ echo -e "$a" | column -ts $'\t'
 
 ## 执行状态判断调试
 
+任一子进程退出时，主进程亦能判断：
+```bash
+(
+    # set -eo pipefail
+    echo 123 &
+    rm 123 &
+    sleep 1 && rm 123 &
+    # sleep 0.5
+    echo 456
+    unset stat; for pid in $(jobs -p); do echo wait pid: $pid; wait $pid; stat[$pid]=$?; done
+    if [ ! "`echo ${stat[*]}|sed -e 's#[0 ]##g'`" ]; then echo "All jobs done."; else echo "Some jobs not ok."; echo exit stats: ${stat[*]}; bash -c "exit 1"; fi
+    # sum_stats=$(echo ${stat[*]} | sed 's# #\n#g' | awk '{s += $0} END {print s}')
+    # if [ "$sum_stats" == "0" ]; then echo "All jobs done."; else echo "Some jobs not ok."; bash -c "exit 1"; fi
+)
+```
+
 ```bash
 VQSR(){
 
@@ -415,6 +445,31 @@ T() {
 
 ```
 
+
+# 校验多个变量是否定义方法
+
+```bash
+#!/bin/bash
+
+# 定义多个变量
+VAR1="hello"
+VAR2="world"
+VAR3=
+VAR4=
+
+# 定义变量列表
+var_list=(VAR1 VAR2 VAR3 VAR4)
+
+# 遍历变量列表，并判断每个变量是否被定义
+for var in "${var_list[@]}"; do
+  if [ -z "${!var}" ]; then
+    echo "$var 未定义"
+  else
+    echo "$var 已定义为 ${!var}"
+  fi
+done
+```
+
 # 出错情景
 
 末尾加入 || cat 即可解决
@@ -437,4 +492,22 @@ echo $?
 '
 # 3
 # 141
+```
+
+
+# while专题
+## 对tsv文件分列，赋值到不同变量
+
+```bash
+echo -e "测试 1\taa1\taa1
+测试 2\taa2\taa2
+测试 3\taa3\taa3" > file.txt
+
+cat file.txt
+
+# 读取文件，每行以制表符分隔为三列
+while IFS=$'\t' read -r a b c; do
+    # 输出每列的值
+    echo "a: $a, b: $b, c: $c"
+done < file.txt
 ```

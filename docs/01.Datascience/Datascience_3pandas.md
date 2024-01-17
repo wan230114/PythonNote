@@ -1190,19 +1190,18 @@ import pandas as pd
 
 
 def pd_read_table_str(infile, dtype={}, **kwargs):
-    # ! 二次读取的解决方案：先读第一行，将所有列指定为str，根据需求手动改类型，二次读取。
-    colnames = pd.read_table(
-        infile, nrows=1, keep_default_na=False, **kwargs).columns
-    dtypes = {x: "str" for x in colnames}
-    dtypes.update(dtype)
-    # dtype.update({"c1": "int"})  # 根据需要更改
-    df = pd.read_table(infile, dtype=dtypes, keep_default_na=False, **kwargs)
-    # 如需将NA也识别为字符串，需指定参数，keep_default_na=False
+    """二次读取的解决方案：先读第一行，将所有列指定为str，根据需求手动改类型，二次读取。(Updated: 2021-05-03T00:42:00Z)"""
+    kwargs.setdefault("keep_default_na", False)  # 将NA也识别为字符串
+    dtypes = {x: "str" for x in pd.read_table(infile, nrows=1, **kwargs).columns}
+    dtypes.update(dtype)  # dtype.update({"c1": "int"})  # 根据需要更改列类型
+    df = pd.read_table(infile, dtype=dtypes, **kwargs)
     return df
 
 
 df = pd_read_table_str("./mat.tsv", dtype={"c3":"int"})
 df = pd_read_table_str("./mat.tsv", dtype={"c3":"int"}, header=None)
+# 等效于: dtype=str
+df = pd_read_table_str("./mat.tsv", dtype=str)
 df
 # df.dtypes
 #%%
