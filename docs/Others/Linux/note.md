@@ -22,14 +22,11 @@ chr1 5 6 BB
 chr1 7 8 CC
 chr1 7 9 CCC
 "|awk NF|sed 's# #\t#g' >datas.txt
-
 echo "
 AA
 BB
 "|awk NF >keys.txt
-
-head datas.txt
-head keys.txt
+head datas.txt keys.txt
 }
 # 以下展示两种用法
 # 注，awk是将第一个文件读入内存，去第二个文件里面遍历查询。
@@ -71,6 +68,24 @@ awk 'NR==FNR{a[$4]=$0;next}NR!=FNR{if($0 in a)print $0"\t"a[$0]}' datas.txt keys
 
 ```
 
+```bash
+head datas.txt  keys.txt
+{
+echo -e "
+chr1 1 2 A
+chr1 1 3 AAA
+chr1 3 4 AAAA
+chr1 5 6 BB
+chr1 7 8 CC
+chr1 7 9 CCC
+"|awk NF|sed 's# #\t#g' >datas.txt
+>keys.txt
+head datas.txt keys.txt
+}
+awk -F '\t' 'NR==FNR{a[$1]=$1;next}NR!=FNR{if(!($4 in a))print $0}' keys.txt datas.txt      # 取反时会存在BUG
+# ! 写法2 !! 正宗写法
+awk -F '\t' 'ARGIND==1{a[$1]=$1;next}ARGIND==2{if(!($4 in a))print $0}' keys.txt datas.txt  # 取反时
+```
 
 案例：
 
@@ -122,7 +137,7 @@ awk 'ARGIND==1{a=$1; b=$2; c=$3;}ARGIND==2{print $1*a,$2*b,$3*c}' <(echo -e "2 3
 
 cat <(echo -e "1\n2\n3") | awk '{print NR,FNR,$0}'
 # 使用 - 占位，表示文件是从管道接入
-cat <(echo -e "1\n2\n3") | awk 'ARGIND==1{print NR,FNR,ARGIND,$0}ARGIND==2{print NR,FNR,ARGIND,$0}' - <(echo -e "10\n20\n30") 
+cat <(echo -e "1\n2\n3") | awk 'ARGIND==1{print NR,FNR,ARGIND,$0}ARGIND==2{print NR,FNR,ARGIND,$0}' - <(echo -e "10\n20\n30")
 ```
 
 ### awk 按列名过滤文件
@@ -511,3 +526,12 @@ while IFS=$'\t' read -r a b c; do
     echo "a: $a, b: $b, c: $c"
 done < file.txt
 ```
+
+# json专题
+
+jq命令
+
+```bash
+echo '[{"ac": null, "gene": "XPA", "id": "7507"}, {"ac": null, "gene": "XPC", "id": "7508"}]' | jq -r '.[] | [.gene, .id] | @tsv'
+```
+
