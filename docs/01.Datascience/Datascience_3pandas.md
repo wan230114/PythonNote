@@ -1013,6 +1013,7 @@ df.dropna(how="all")
 
 表格多行压缩单行（按某列唯一压缩）
 ```python
+import pandas as pd
 
 def collapse(df, name):
     L = []
@@ -1028,7 +1029,6 @@ def collapse(df, name):
         L.append(L_tmp)
     return pd.DataFrame(L, columns=df.columns)
 
-
 df_test = pd.DataFrame(
     [["a1", "aa1",  "A", 1],
         ["a2", "aa2",  "B1", 1],
@@ -1038,12 +1038,27 @@ df_test = pd.DataFrame(
         ["a3", "aa3",  "C2", 3],
      ], columns=["name1", "name2", "type", "value"]
 )
-collapse(df_test, ["name1", "name2"])
-
+#%%
+df_collapse = collapse(df_test, ["name1", "name2"])
+df_collapse
+#%%  join
+df_collapse1 = df_test.groupby(["name1", "name2"]).agg(lambda x: ','.join(map(str, x))).reset_index()
+df_collapse1
+#%%  list
+df_collapse2 = df_test.groupby(["name1", "name2"]).agg(list).reset_index()
+df_collapse2
 ```
 
 ```python
-def de_collapse(pd2, names):
+
+df_collapse = pd.DataFrame(
+    [["a1", "aa1",  "A", "1"],
+     ["a2", "aa2",  "B1,B2", "1,2"],
+     ["a3", "aa3",  "C1,C2,C2", "1,2,3"],
+     ], columns=["name1", "name2", "type", "value"]
+)
+
+def de_collapse(df_collapse, names):
     # 注意Pandas版本必须 > 1.3.0, 才能使用explode多行一起解压
     for x1, x2 in zip(pd.__version__.split("."), [1, 3, 0]):
         if int(x1) < x2:
@@ -1051,14 +1066,17 @@ def de_collapse(pd2, names):
             break
     else:
         print("pandas version:", pd.__version__, "> 1.3.0, check ok.")
+    # for name in (set(df_collapse.columns) - set(names)):
     for name in names:
-        df2[name] = df2[name].map(lambda x: x.split(","))
-    return df2.explode(names)
+        df_collapse[name] = df_collapse[name].map(lambda x: x.split(","))
+    return df_collapse.explode(names)
 
 
 # 解压：
-df2 = collapse(df, "name")
-de_collapse(df2, ["type", "value"])
+de_collapse(df_collapse, names=["type", "value"])
+#%%
+df_collapse.apply(lambda x: [xx.split(",") for xx in x], args=)
+df_collapse
 ```
 
 ```python
@@ -1069,7 +1087,7 @@ df = pd.DataFrame({'A': [[0, 1, 2], 'foo', [], [3, 4]],
                    'B': 1,
                    'C': [['a', 'b', 'c'], np.nan, [], ['d', 'e']]})
 df
-df.explode(list('AC'))
+df.explode(["A", "C"])
 #%%
 help(pd)
 ```

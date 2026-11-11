@@ -185,8 +185,11 @@ zerotier-cli listnetworks
 # docker run -d --name=tailscaled -v /var/lib:/var/lib -v /dev/net/tun:/dev/net/tun --network=host --privileged tailscale/tailscale tailscaled
 # docker run -d --name=tailscaled -v /var/lib:/var/lib -v /dev/net/tun:/dev/net/tun --network=host --privileged tailscale/tailscale tailscaled
 # 启动
+# docker run -d --name=tailscaled -v /dev/net/tun:/dev/net/tun -v /etc/sysctl.d/99-tailscale.conf:/etc/sysctl.d/99-tailscale.conf:ro --network=host --privileged tailscale/tailscale tailscaled
 docker run -d --name=tailscaled -v /dev/net/tun:/dev/net/tun --network=host --privileged tailscale/tailscale tailscaled
 # 登录
+# docker exec tailscaled tailscale up --advertise-exit-node --advertise-tags tag:server
+docker update --restart=always tailscaled
 docker exec tailscaled tailscale up
 # 查看状态
 docker exec tailscaled tailscale status
